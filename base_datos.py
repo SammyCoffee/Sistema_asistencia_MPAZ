@@ -8,7 +8,29 @@ def obtener_conexion():
     conexion.execute("PRAGMA foreign_keys = ON")
     
     return conexion
-
+def guardar_alumno(rut, nombre_completo, curso, uid):
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+    
+    
+    try:
+        cursor.execute(
+                """
+                INSERT INTO alumnos(rut, nombre_completo, curso, uid)
+                VALUES (?, ?, ?, ?)
+                """,
+                (rut, nombre_completo, curso, uid)
+        )
+        
+        conexion.commit()
+        
+        return True
+    except sqlite3.IntegrityError:
+        return False
+    
+    finally:
+        conexion.close()
+    
 def buscar_alumno_por_uid(uid):
     conexion = obtener_conexion()
     cursor = conexion.cursor()
@@ -22,10 +44,48 @@ def buscar_alumno_por_uid(uid):
             """,
             (uid,)
         )
+        
+        
         alumno = cursor.fetchone()
         return alumno
+    
     finally:
         conexion.close()
+
+def guardar_asistencia(alumno_id, fecha, hora): 
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+    
+    try:        
+        cursor.execute(
+            """ 
+            SELECT id
+            FROM asistencias
+            WHERE alumno_id = ? AND fecha= ?
+            """,
+            (alumno_id, fecha)
+        )
+        asistencias_existente = cursor.fetchone()
+        
+        if asistencias_existente:
+            return False
+        
+        
+        cursor.execute(
+                """INSERT INTO asistencias (alumno_id, fecha,hora)
+                    VALUES (?, ?, ?)
+                    """,
+                    (alumno_id, fecha, hora )
+                    
+        )
+        
+        conexion.commit()
+        
+        return True
+    
+    finally:
+        conexion.close()
+        
 
 def crear_tablas():
     conexion = obtener_conexion()

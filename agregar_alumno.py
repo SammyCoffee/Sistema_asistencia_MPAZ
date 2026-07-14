@@ -1,4 +1,4 @@
-import sqlite3
+from base_datos import guardar_alumno
 
 rut = input("Ingrese el rut del alumno: ")
 nombre_completo = input("Ingrese el nombre completo del alumno: ")
@@ -10,34 +10,23 @@ nombre_completo = nombre_completo.strip()
 curso = curso.strip().upper()
 uid = uid.strip().replace(" ", "").upper()
 
+if not rut or not nombre_completo or not curso or not uid:
+    print("no se pudo agregar: todos los campos son obligatorios")
 
-conexion = sqlite3.connect("data/asistencia.db")
-cursor = conexion.cursor()
-
-try:
-    if not rut or not nombre_completo or not curso or not uid:
-        print("No se pudo agregar: todos los campos son obligatorios")
+else:
+    alumno_guardado = guardar_alumno(
+        rut,
+        nombre_completo,
+        curso,
+        uid
+    )    
     
-    else:
-        cursor.execute(
-            """
-            INSERT INTO alumnos (rut, nombre_completo, curso, uid)
-            VALUES (?,?,?,?)
-            """,
-            (rut, nombre_completo, curso, uid)
-
-        )
-
-        conexion.commit()
-        
-        print("Alumno agregado correctamente")
-        print("Rut:", rut)
+    if alumno_guardado:
+        print("alumno agregado correctamente")
+        print("RUT:", rut)
         print("Nombre:", nombre_completo)
         print("Curso:", curso)
         print("UID:", uid)
-          
-except sqlite3.IntegrityError:
-    print("No se pudo agregar: el rut o el uid ya estan registrados" )
-
-finally:
-    conexion.close()
+    else:
+        print("No se pudo agregar: el RUT o el UID ya estan registrados")    
+        
