@@ -1,8 +1,8 @@
 import sqlite3
 from datetime import datetime
+from lector_nfc import obtener_uid
 
-uid_ingresado = input("Ingrese el UID del alumno: ")
-uid_ingresado = uid_ingresado.strip().upper()
+uid_ingresado = obtener_uid()
 
 conexion = sqlite3.connect("data/asistencia.db")
 conexion.execute("PRAGMA foreign_keys = ON")
