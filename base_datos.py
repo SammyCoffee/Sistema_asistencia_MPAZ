@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 
 RUTA_BASE_DATOS = "data/asistencia.db"
 
@@ -30,6 +31,36 @@ def guardar_alumno(rut, nombre_completo, curso, uid):
     
     finally:
         conexion.close()
+
+def bloquear_tarjeta(uid):
+    uid = uid.strip().replace(" ", "").upper()
+    
+    fecha_bloqueo = datetime.now().strftime("%Y-%m-%d")
+    
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+    
+    try:
+        cursor.execute(
+            """
+            UPDATE tarjetas
+            SET estado = 'bloqueada',
+                fecha_bloqueo = ?
+            WHERE uid = ?
+                AND estado = 'activa'
+            """,
+            (fecha_bloqueo, uid)
+        )
+        if cursor.rowcount == 0:
+            return False
+        
+        conexion.commit()
+        
+        return True
+    
+    finally:
+        conexion.close()
+        
     
 def buscar_alumno_por_uid(uid):
     conexion = obtener_conexion()
@@ -38,15 +69,23 @@ def buscar_alumno_por_uid(uid):
     try: 
         cursor.execute(
             """ 
-            SELECT id,nombre_completo,curso
-            FROM alumnos
-            WHERE uid = ?
+            SELECT 
+                alumnos.id,
+                alumnos.nombre_completo,
+                alumnos.curso,
+                tarjetas.estado
+            FROM tarjetas
+            INNER JOIN alumnos
+                ON tarjetas.alumno_id = alumnos.id
+            WHERE tarjetas.uid = ?
+            LIMIT 1
             """,
             (uid,)
         )
         
-        
         alumno = cursor.fetchone()
+        
+        
         return alumno
     
     finally:
@@ -100,6 +139,25 @@ def crear_tablas():
                 nombre_completo TEXT NOT NULL,
                 curso TEXT NOT NULL,
                 uid TEXT NOT NULL UNIQUE
+            )
+            """
+        )
+        
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS 
+        tarjetas (
+                id INTEGER PRIMARY KEY 
+        AUTOINCREMENT,
+            alumno_id INTEGER NOT NULL,
+            uid TEXT NOT NULL UNIQUE,
+            estado TEXT NOT NULL DEFAULT 
+        'activa',
+            fecha_asignacion TEXT NOT 
+        NULL,
+            fecha_bloqueo TEXT,
+            FOREIGN KEY (alumno_id) 
+        REFERENCES alumnos(id)    
             )
             """
         )
