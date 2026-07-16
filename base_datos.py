@@ -291,8 +291,67 @@ def guardar_totem(codigo, nombre, ubicacion):
         }
     finally:
         conexion.close
+        
+def validar_totem(codigo):
+    codigo = codigo.strip().upper()
+
+    momento_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
 
 
+    try:
+        cursor.execute(
+            """
+            SELECT
+                id,
+                codigo,
+                nombre,
+                ubicacion,
+                estado
+            FROM totems
+            WHERE codigo = ?
+            LIMIT 1    
+            """,
+            (codigo,)
+        )        
+
+        totem = cursor.fetchone()
+
+        if not totem:
+            return {
+                "resultado": "no_existe",
+                "codigo": totem[1],
+                "nombre": totem[2]
+            }
+        cursor.execute(
+            """
+            UPDATE totems
+            SET ultima_conexion = ?
+            WHERE id = ?
+            """,
+            (
+                momento_actual,
+                totem[0]
+            )
+        )
+
+        conexion.commit()
+
+        return {
+            "resultado": "activo",
+            "id": totem[0],
+            "codigo": totem[1],
+            "nombre": totem[2],
+            "ubicacion": totem[3],
+            "ultima_conexion": momento_actual
+        }
+    
+    finally:
+        conexion.close()
+
+        
 def crear_tablas():
     conexion = obtener_conexion()
     cursor = conexion.cursor()
