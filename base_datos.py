@@ -10,6 +10,8 @@ def obtener_conexion():
     
     return conexion
 def guardar_alumno(rut, nombre_completo, curso, uid):
+    fecha_asignacion = datetime.now().strftime("%Y-%m-%d")
+
     conexion = obtener_conexion()
     cursor = conexion.cursor()
     
@@ -17,16 +19,47 @@ def guardar_alumno(rut, nombre_completo, curso, uid):
     try:
         cursor.execute(
                 """
-                INSERT INTO alumnos(rut, nombre_completo, curso, uid)
-                VALUES (?, ?, ?, ?)
+                INSERT INTO alumnos(
+                    rut, 
+                    nombre_completo, 
+                    curso
+                )
+                VALUES (?, ?, ?)
                 """,
-                (rut, nombre_completo, curso, uid)
+                (
+                    rut, 
+                    nombre_completo, 
+                    curso
+                )
+        )
+
+        alumno_id = cursor.lastrowid
+
+        cursor.execute(
+            """
+            INSERT INTO tarjetas (
+                alumno_id,
+                uid,
+                estado,
+                fecha_asignacion
+            )
+            VALUES (?, ?, ?, ?)
+            """,
+            (
+                alumno_id,
+                uid,
+                "activa",
+                fecha_asignacion
+            )
         )
         
         conexion.commit()
         
         return True
+    
     except sqlite3.IntegrityError:
+        conexion.rollback()
+
         return False
     
     finally:
@@ -240,6 +273,20 @@ def crear_tablas():
             fecha_bloqueo TEXT,
             FOREIGN KEY (alumno_id) 
         REFERENCES alumnos(id)    
+            )
+            """
+        )
+
+        cursor.execute(
+            """
+                CREATE TABLE IF NOT EXISTS totems (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                codigo TEXT NOT NULL UNIQUE,
+                nombre TEXT NOT NULL,
+                ubicacion TEXT NOT NULL,
+                estado TEXT NOT NULL DEFAULT 'activo',
+                fecha_registro TEXT NOT NULL,
+                ultima_conexion TEXT
             )
             """
         )

@@ -22,7 +22,7 @@ def procesar_asistencia(uid):
     momento_actual = datetime.now()
     
     fecha = momento_actual.strftime("%Y-%m-%d")
-    hora = momento_actual.strftime("%Y-%m-%d")
+    hora = momento_actual.strftime("%H-%M-%S")
     
     asistencia_guardada = guardar_asistencia(
         alumno[0],
