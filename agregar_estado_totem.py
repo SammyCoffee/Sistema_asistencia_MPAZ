@@ -22,12 +22,14 @@ try:
         cursor.execute(
             """
             ALTER TABLE totems
-            ADD COLUMN estado TEXT NOT NULL DFAULT 'activo'    
+            ADD COLUMN estado TEXT NOT NULL DEFAULT 'activo'    
             """
         )    
 
         conexion.commit()
 
         print("Columna estado agregado correctamente")
+
+
 finally:
     conexion.close()   
