@@ -60,6 +60,89 @@ def bloquear_tarjeta(uid):
     
     finally:
         conexion.close()
+
+def asignar_tarjeta_por_rut(rut,uid):
+    rut = rut.strip()
+    uid = uid.strip().replace(" ","").upper()
+
+
+    fecha_asignacion = datetime.now().strftime("%Y-%m-%d")
+
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+
+        cursor.execute(
+            """
+            SELECT id, nombre_completo, curso
+            FROM alumnos
+            WHERE rut = ?
+            """,
+            (rut,)
+        )
+
+        alumno = cursor.fetchone()
+
+        if not alumno:
+            return  {
+                "resultado": "alumno_no_existe"
+            }
+        cursor.execute(
+            """
+            SELECT uid
+            FROM tarjetas
+            WHERE alumno_id = ?
+                AND estado = 'activa'
+            LIMIT 1
+            """,
+            (alumno[0],)    
+        )        
+
+        tarjeta_activa = cursor.fetchone()
+
+        if tarjeta_activa:
+            return{
+                "resultado": "ya_tiene_tarjeta",
+                "alumno": alumno[1],
+                "uid": tarjeta_activa[0]
+            }
+        
+        try:
+            cursor.execute(
+                """
+               INSERT INTO tarjetas (
+                alumno_id,
+                uid,
+                estado,
+                fecha_asignacion
+            )
+                VALUES (?, ?, ?, ?)
+                """,
+            (
+                    alumno[0],
+                    uid,
+                    "activa",
+                    fecha_asignacion
+                )
+            )
+        except sqlite3.IntegrityError:
+            return {
+                "resultado": "uid_repetido"
+            }
+        
+        conexion.commit()
+
+        return {
+            "resultado": "asignada",
+            "alumno": alumno[1],
+            "curso": alumno[2],
+            "uid": uid,
+            "fecha": fecha_asignacion
+        }
+    finally:
+        conexion.close()  
         
     
 def buscar_alumno_por_uid(uid):
@@ -137,8 +220,7 @@ def crear_tablas():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 rut TEXT NOT NULL UNIQUE,
                 nombre_completo TEXT NOT NULL,
-                curso TEXT NOT NULL,
-                uid TEXT NOT NULL UNIQUE
+                curso TEXT NOT NULL
             )
             """
         )
