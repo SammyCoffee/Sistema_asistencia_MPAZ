@@ -70,7 +70,7 @@ except Exception as error:
     conexion.rollback()
 
     print("No se pudo completar la migracion")
-    print("Error:" error)
+    print("Error:", error)
 
 finally:
     conexion.close()    
