@@ -240,7 +240,58 @@ def guardar_asistencia(alumno_id, fecha, hora):
     
     finally:
         conexion.close()
-        
+
+def guardar_totem(codigo, nombre, ubicacion):
+    codigo = codigo.strip().upper()
+    nombre = nombre.strip()
+    ubicacion = ubicacion.strip()
+
+    fecha_registro = datetime.now().strftime("%Y-%m-%d")
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            INSERT INTO totems (
+                codigo,
+                nombre,
+                ubicacion,
+                estado,
+                fecha_registro
+            )
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (
+                codigo,
+                nombre,
+                ubicacion,
+                "activo",
+                fecha_registro
+            )
+        )
+
+        conexion.commit()
+
+        return {
+            "resultado": "registrado",
+            "codigo": codigo,
+            "nombre": nombre,
+            "ubicacion": ubicacion,
+            "estado": "activo",
+            "fecha_registro": fecha_registro
+        }
+    
+    except sqlite3.IntegrityError:
+        conexion.rollback()
+
+        return {
+            "resultado": "codigo_repetido"
+        }
+    finally:
+        conexion.close
+
 
 def crear_tablas():
     conexion = obtener_conexion()
