@@ -322,9 +322,16 @@ def validar_totem(codigo):
         if not totem:
             return {
                 "resultado": "no_existe",
+                "codigo": codigo
+            }    
+            
+        if totem[4] != "activo":
+            return {
+                "resultado": "inactivo",
                 "codigo": totem[1],
                 "nombre": totem[2]
             }
+
         cursor.execute(
             """
             UPDATE totems
@@ -351,7 +358,7 @@ def validar_totem(codigo):
     finally:
         conexion.close()
 
-        
+
 def crear_tablas():
     conexion = obtener_conexion()
     cursor = conexion.cursor()

@@ -3,7 +3,7 @@ from datetime import datetime
 from lector_nfc import obtener_uid
 
 def procesar_asistencia(uid):
-    uid = uid.strip().replace("","").upper()
+    uid = uid.strip().replace(" ","").upper()
     
     alumno = buscar_alumno_por_uid(uid)
     
@@ -22,7 +22,7 @@ def procesar_asistencia(uid):
     momento_actual = datetime.now()
     
     fecha = momento_actual.strftime("%Y-%m-%d")
-    hora = momento_actual.strftime("%H-%M-%S")
+    hora = momento_actual.strftime("%H:%M:%S")
     
     asistencia_guardada = guardar_asistencia(
         alumno[0],
@@ -32,10 +32,10 @@ def procesar_asistencia(uid):
     
     if asistencia_guardada:
         resultado = "registrada"
-        mensaje = "Asisencia registrada correctamente"
+        mensaje = "Asistencia registrada correctamente"
     
     else:
-        resultado = "duplicado"
+        resultado = "duplicada"
         mensaje = "La asistencia de este alumno ya fue registrada hoy"
     
     return {

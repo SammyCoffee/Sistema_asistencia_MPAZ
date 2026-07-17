@@ -10,12 +10,12 @@ if respuesta["resultado"] == "activo":
     print("Codigo:", respuesta["codigo"])
     print("Nombre:", respuesta["nombre"])
     print("Ubicacion:", respuesta["ubicacion"])
-    print("Ultima conexion:", respuesta["ultima_conexion"]
+    print("Ultima conexion:", respuesta["ultima_conexion"])
           
 elif respuesta["resultado"] == "inactivo":
     print("El Tótem existe, pero no esta activo")
-    print("Codigo:", respuesta["codigo"]
-    print("Nombre:", respuesta["nombre])
+    print("Codigo:", respuesta["codigo"])
+    print("Nombre:", respuesta["nombre"])
 
-elif respuesta["resultado"] == "no_existe"
-print("No existe un Tótem registrado con ese codigo") 
+elif respuesta["resultado"] == "no_existe":
+    print("No existe un Tótem registrado con ese codigo") 
