@@ -1,7 +1,11 @@
 import sqlite3
 from datetime import datetime
+import os
 
-RUTA_BASE_DATOS = "data/asistencia.db"
+RUTA_BASE_DATOS = os.getenv(
+    "MPAZ_DB_PATH",
+    "data/asistencia.db"
+)
 
 
 def obtener_conexion():
@@ -325,7 +329,7 @@ def guardar_totem(codigo, nombre, ubicacion):
             "resultado": "codigo_repetido"
         }
     finally:
-        conexion.close
+        conexion.close()
         
 def validar_totem(codigo):
     codigo = codigo.strip().upper()
