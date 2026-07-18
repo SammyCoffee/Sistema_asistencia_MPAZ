@@ -2,7 +2,7 @@ from base_datos import validar_totem
 from registrar_asistencia import procesar_asistencia
 
 
-def procesar_lectura_totem(codigo_totem, uid):
+def procesar_lectura_totem(codigo_totem, uid, evento_id=None):
     respuesta_totem = validar_totem(codigo_totem)
 
     if respuesta_totem["resultado"] == "no existe":
@@ -19,7 +19,11 @@ def procesar_lectura_totem(codigo_totem, uid):
             "led": "rojo",
             "buzzer": "un_pitido_largo"
         }
-    respuesta_asistencia = procesar_asistencia(uid)
+    respuesta_asistencia = procesar_asistencia(
+        uid, 
+        respuesta_totem["id"],
+        evento_id
+        )
 
     if respuesta_asistencia["resultado"] == "registrada":
         return {
@@ -36,6 +40,18 @@ def procesar_lectura_totem(codigo_totem, uid):
     if respuesta_asistencia["resultado"] == "duplicada":
         return{
             "resultado": "duplicada",
+            "mensaje": respuesta_asistencia["mensaje"],
+            "totem": respuesta_totem["codigo"],
+            "alumno": respuesta_asistencia["alumno"],
+            "curso": respuesta_asistencia["curso"],
+            "fecha": respuesta_asistencia["fecha"],
+            "led": "amarillo",
+            "buzzer": "dos_pitidos_cortos"
+        }
+    
+    if respuesta_asistencia["resultado"] == "evento_repetido":
+        return{
+            "resultado": "evento_repetido",
             "mensaje": respuesta_asistencia["mensaje"],
             "totem": respuesta_totem["codigo"],
             "alumno": respuesta_asistencia["alumno"],

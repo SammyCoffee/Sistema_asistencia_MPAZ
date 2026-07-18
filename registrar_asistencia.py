@@ -2,7 +2,7 @@ from base_datos import buscar_alumno_por_uid, guardar_asistencia
 from datetime import datetime
 from lector_nfc import obtener_uid
 
-def procesar_asistencia(uid):
+def procesar_asistencia(uid, totem_id=None, evento_id=None):
     uid = uid.strip().replace(" ","").upper()
     
     alumno = buscar_alumno_por_uid(uid)
@@ -24,19 +24,25 @@ def procesar_asistencia(uid):
     fecha = momento_actual.strftime("%Y-%m-%d")
     hora = momento_actual.strftime("%H:%M:%S")
     
-    asistencia_guardada = guardar_asistencia(
+    resultado_guardado = guardar_asistencia(
         alumno[0],
         fecha,
-        hora
+        hora,
+        totem_id,
+        evento_id
+
     )
     
-    if asistencia_guardada:
+    if resultado_guardado == "registrada":
         resultado = "registrada"
         mensaje = "Asistencia registrada correctamente"
     
-    else:
+    elif resultado_guardado == "duplicada":
         resultado = "duplicada"
         mensaje = "La asistencia de este alumno ya fue registrada hoy"
+    else:
+        resultado = "evento_repetido"
+        mensaje = "Este evento ya fue procesado anteriormente"
     
     return {
         "resultado": resultado,

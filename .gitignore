@@ -222,3 +222,4 @@ __marimo__/
 __pycache__/
 *.pyc
 data/*.db
+.mpaz_api_key

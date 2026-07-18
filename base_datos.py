@@ -207,37 +207,72 @@ def buscar_alumno_por_uid(uid):
     finally:
         conexion.close()
 
-def guardar_asistencia(alumno_id, fecha, hora): 
+def guardar_asistencia(
+    alumno_id, 
+    fecha, 
+    hora, 
+    totem_id=None,
+    evento_id=None
+): 
     conexion = obtener_conexion()
     cursor = conexion.cursor()
     
-    try:        
+    try:
+        if evento_id:    
+            cursor.execute(
+                """
+                SELECT id
+                FROM asistencias
+                WHERE evento_id =?
+                """,
+                (evento_id,)
+            )
+
+            evento_existente = cursor.fetchone()
+
+            if evento_existente:
+                return "evento_repetido"
+
         cursor.execute(
             """ 
             SELECT id
             FROM asistencias
-            WHERE alumno_id = ? AND fecha= ?
+            WHERE alumno_id = ?
+              AND fecha= ?
             """,
             (alumno_id, fecha)
         )
         asistencias_existente = cursor.fetchone()
         
         if asistencias_existente:
-            return False
+            return "duplicada"
         
         
         cursor.execute(
-                """INSERT INTO asistencias (alumno_id, fecha,hora)
-                    VALUES (?, ?, ?)
-                    """,
-                    (alumno_id, fecha, hora )
-                    
+            
+            """
+            INSERT INTO asistencias (
+                alumno_id,
+                fecha,
+                hora,
+                totem_id,
+                evento_id
+            )
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (
+                alumno_id,
+                fecha,
+                hora,
+                totem_id,
+                evento_id 
+            )    
         )
         
         conexion.commit()
-        
-        return True
-    
+                
+        return "registrada"
+            
     finally:
         conexion.close()
 
