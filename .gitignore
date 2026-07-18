@@ -223,3 +223,7 @@ __pycache__/
 *.pyc
 data/*.db
 .mpaz_api_key
+lecturas_pendientes.json
+datos_privados/
+reportes/
+lecturas_pendientes.json
