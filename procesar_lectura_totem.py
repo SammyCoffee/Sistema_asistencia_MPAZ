@@ -2,30 +2,71 @@ from base_datos import validar_totem
 from registrar_asistencia import procesar_asistencia
 
 
-def procesar_lectura_totem(codigo_totem, uid, evento_id=None):
-    respuesta_totem = validar_totem(codigo_totem)
+def procesar_lectura_totem(
+    codigo_totem,
+    uid,
+    evento_id=None
+):
+    respuesta_totem = validar_totem(
+        codigo_totem
+    )
 
-    if respuesta_totem["resultado"] == "no existe":
+    resultado_totem = respuesta_totem.get(
+        "resultado"
+    )
+
+    if resultado_totem == "no_existe":
         return {
             "resultado": "totem_no_autorizado",
-            "mensaje": "El Tótem no esta registrado",
+            "mensaje": "El tótem no está registrado",
+            "totem": codigo_totem,
             "led": "rojo",
             "buzzer": "un_pitido_largo"
         }
-    if respuesta_totem["resultado"] == "inactivo":
+
+    if resultado_totem == "inactivo":
         return {
             "resultado": "totem_inactivo",
-            "mensaje": "El Tómen no esta activo",
+            "mensaje": "El tótem está inactivo",
+            "totem": respuesta_totem.get(
+                "codigo",
+                codigo_totem
+            ),
             "led": "rojo",
             "buzzer": "un_pitido_largo"
         }
-    respuesta_asistencia = procesar_asistencia(
-        uid, 
-        respuesta_totem["id"],
-        evento_id
-        )
 
-    if respuesta_asistencia["resultado"] == "registrada":
+ 
+    totem_id = respuesta_totem.get("id")
+
+    if (
+        resultado_totem != "activo"
+        or totem_id is None
+    ):
+        return {
+            "resultado": "totem_no_autorizado",
+            "mensaje": (
+                "No fue posible validar el tótem"
+            ),
+            "totem": respuesta_totem.get(
+                "codigo",
+                codigo_totem
+            ),
+            "led": "rojo",
+            "buzzer": "un_pitido_largo"
+        }
+
+    respuesta_asistencia = procesar_asistencia(
+        uid,
+        totem_id,
+        evento_id
+    )
+
+    resultado_asistencia = (
+        respuesta_asistencia.get("resultado")
+    )
+
+    if resultado_asistencia == "registrada":
         return {
             "resultado": "registrada",
             "mensaje": respuesta_asistencia["mensaje"],
@@ -37,8 +78,9 @@ def procesar_lectura_totem(codigo_totem, uid, evento_id=None):
             "led": "verde",
             "buzzer": "un_pitido_corto"
         }
-    if respuesta_asistencia["resultado"] == "duplicada":
-        return{
+
+    if resultado_asistencia == "duplicada":
+        return {
             "resultado": "duplicada",
             "mensaje": respuesta_asistencia["mensaje"],
             "totem": respuesta_totem["codigo"],
@@ -48,9 +90,9 @@ def procesar_lectura_totem(codigo_totem, uid, evento_id=None):
             "led": "amarillo",
             "buzzer": "dos_pitidos_cortos"
         }
-    
-    if respuesta_asistencia["resultado"] == "evento_repetido":
-        return{
+
+    if resultado_asistencia == "evento_repetido":
+        return {
             "resultado": "evento_repetido",
             "mensaje": respuesta_asistencia["mensaje"],
             "totem": respuesta_totem["codigo"],
@@ -60,21 +102,20 @@ def procesar_lectura_totem(codigo_totem, uid, evento_id=None):
             "led": "amarillo",
             "buzzer": "dos_pitidos_cortos"
         }
-    
-    if respuesta_asistencia["resultado"] == "bloqueda":
-        return{
+
+    if resultado_asistencia == "bloqueada":
+        return {
             "resultado": "tarjeta_bloqueada",
             "mensaje": respuesta_asistencia["mensaje"],
             "totem": respuesta_totem["codigo"],
             "led": "rojo",
             "buzzer": "un_pitido_largo"
         }
-    
+
     return {
         "resultado": "tarjeta_desconocida",
         "mensaje": respuesta_asistencia["mensaje"],
         "totem": respuesta_totem["codigo"],
         "led": "rojo",
-        "buzzer": "pitido_largo"
-
-     }
+        "buzzer": "un_pitido_largo"
+    }

@@ -15,7 +15,7 @@ API_URL = os.getenv(
 )
 
 CODIGO_TOTEM = os.getenv(
-    "MPAZ_TOTEM_CODIGO",
+    "CODIGO_TOTEM",
     "MPAZ-ENTRADA-01"
 )
 
