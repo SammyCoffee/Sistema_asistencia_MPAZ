@@ -1,0 +1,113 @@
+body {
+    background-color: #f1f5f9;
+    font-family: Arial, sans-serif;
+    color: #243b53;
+}
+
+h1{
+    color: #102a43;
+}
+
+.pagina{
+    padding: 30px;
+}
+
+.encabezado {
+    background-color: white;
+    padding:24px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-radius: 15px;
+}
+
+.subtitulo {
+    margin: 0;
+    color: #1677b8;
+}
+
+.encabezado h1 {
+    margin-bottom: 0;
+}
+
+.estado-demo {
+    background-color: #fff4cc;
+    color: #8a6500;
+
+    padding: 10px 14px;
+    border-radius: 20px;
+
+    font-weight: bold;
+}
+
+.contenido {
+    margin-top: 20px;
+
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.tarjeta-resumen {
+    background-color: white;
+    padding: 22px;
+    border-radius: 15px;
+
+    width: 280px;
+}
+
+.nombre-indicador {
+    margin: 0;
+    color: #627d98;
+}
+
+.numero-indicador {
+    display: block;
+
+    margin-top: 12px;
+
+    color: #102a43;
+    font-size: 34px;
+}
+
+.detalle-indicador {
+    display: block;
+
+    margin-top: 6px;
+
+    color: #627d98;
+    font-size: 14px;
+}
+
+.panel-lecturas {
+    width: 100%;
+
+    background-color: white;
+    padding: 24px;
+
+    border-radius: 15px;
+}
+
+.tabla-lecturas {
+    width: 100%;
+    margin-top: 20px;
+
+    border-collapse: collapse;
+
+    table-layout: fixed;
+}
+
+.tabla-lecturas th,
+.tabla-lecturas td {
+    padding: 12px;
+
+    text-align: left;
+    border-bottom: 1px solid #d9e2ec;
+}
+
+.tabla-lectura th {
+    background-color: #f1f5f9;
+    color: #102a43;
+}
