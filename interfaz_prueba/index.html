@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="es">
+
 <head>
 
     <meta charset="UTF-8">
@@ -8,18 +9,27 @@
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
-        >
+    >
 
-        <title>Panel MPAZ RFID</title>
-        
-        <link rel="stylesheet" href="styles.css">
+    <title>Panel MPAZ RFID</title>
+
+    <link rel="stylesheet" href="styles.css?v=2">
+
 </head>
 
+
 <body>
+
     <div class="pagina">
+
+        <!-- ===================================== -->
+        <!-- ENCABEZADO -->
+        <!-- ===================================== -->
+
         <header class="encabezado">
 
             <div>
+
                 <p class="subtitulo">
                     Escuela Escritora Marcela Paz
                 </p>
@@ -27,6 +37,7 @@
                 <h1>
                     Panel de monitoreo RFID
                 </h1>
+
             </div>
 
             <span class="estado-demo">
@@ -35,26 +46,39 @@
 
         </header>
 
+
+        <!-- ===================================== -->
+        <!-- CONTENIDO PRINCIPAL -->
+        <!-- ===================================== -->
+
         <main class="contenido">
 
+
+            <!-- TARJETA 1 -->
+
             <section class="tarjeta-resumen">
+
                 <p class="nombre-indicador">
                     Estudiantes registrados
                 </p>
 
-                <srtong class="numero-indicador">
+                <strong class="numero-indicador">
                     242
-                </srtong>
+                </strong>
+
                 <span class="detalle-indicador">
-                    Matricula importada el sistema
+                    Matrícula importada al sistema
                 </span>
 
             </section>
 
+
+            <!-- TARJETA 2 -->
+
             <section class="tarjeta-resumen">
 
                 <p class="nombre-indicador">
-                        Tarjetas RFID asignadas
+                    Tarjetas RFID asignadas
                 </p>
 
                 <strong class="numero-indicador">
@@ -67,21 +91,27 @@
 
             </section>
 
+
+            <!-- TARJETA 3 -->
+
             <section class="tarjeta-resumen">
 
                 <p class="nombre-indicador">
                     Asistencias registradas hoy
                 </p>
-                
+
                 <strong class="numero-indicador">
                     0
                 </strong>
 
                 <span class="detalle-indicador">
-                    Registros recibidos por los totems
+                    Registros recibidos por los tótems
                 </span>
 
             </section>
+
+
+            <!-- TARJETA 4 -->
 
             <section class="tarjeta-resumen">
 
@@ -99,44 +129,155 @@
 
             </section>
 
+
+            <!-- ================================= -->
+            <!-- PANEL DE ÚLTIMAS LECTURAS -->
+            <!-- ================================= -->
+
             <section class="panel-lecturas">
 
                 <h2>
-                    Ultimas lecturas RFID
+                    Últimas lecturas RFID
                 </h2>
 
                 <p>
-                    Aqui apareceran los registros recibidos
-                    desde los totems de asistencia.
+                    Aquí aparecerán los registros recibidos
+                    desde los tótems de asistencia.
                 </p>
+
 
                 <table class="tabla-lecturas">
 
+                    <!-- TÍTULOS DE LA TABLA -->
+
                     <thead>
-                      <tr>
-                        <th>Hora</th>
-                        <th>Estudiante</th>
-                        <th>Curso</th>
-                        <th>UID</th>
-                        <th>Resultados</th>
-                      </tr>
+
+                        <tr>
+
+                            <th>Hora</th>
+
+                            <th>Estudiante</th>
+
+                            <th>Curso</th>
+
+                            <th>UID</th>
+
+                            <th>Resultados</th>
+
+                        </tr>
+
                     </thead>
-                    
+
+
+                    <!-- DATOS DE PRUEBA -->
+
                     <tbody>
-                    <tr>
-                        <td>08:05</td>
-                        <td>Estudiante Demo</td>
-                        <td>2A</td>
-                        <td>B1C2D3E4</td>
-                        <td>Registrada</td>
-                    </tr>
-                </tbody>
+
+
+                        <!-- FILA 1 - REGISTRADA -->
+
+                        <tr>
+
+                            <td>
+                                08:05
+                            </td>
+
+                            <td>
+                                Estudiante Demo
+                            </td>
+
+                            <td>
+                                2A
+                            </td>
+
+                            <td>
+                                B1C2D3E4
+                            </td>
+
+                            <td>
+
+                                <span class="estado-lectura estado-registrada">
+                                    Registrada
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- FILA 2 - DUPLICADA -->
+
+                        <tr>
+
+                            <td>
+                                08:07
+                            </td>
+
+                            <td>
+                                Estudiante Demo Dos
+                            </td>
+
+                            <td>
+                                3A
+                            </td>
+
+                            <td>
+                                A1B2C3D4
+                            </td>
+
+                            <td>
+
+                                <span class="estado-lectura estado-advertencia">
+                                    Duplicada
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- FILA 3 - DESCONOCIDA -->
+
+                        <tr>
+
+                            <td>
+                                08:10
+                            </td>
+
+                            <td>
+                                Tarjeta sin asignar
+                            </td>
+
+                            <td>
+                                -
+                            </td>
+
+                            <td>
+                                FFFFFFFF
+                            </td>
+
+                            <td>
+
+                                <span class="estado-lectura estado-error">
+                                    Desconocida
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
 
                 </table>
 
             </section>
+
+
         </main>
 
     </div>
+
 </body>
+
 </html>

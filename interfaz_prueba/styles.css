@@ -111,3 +111,28 @@ h1{
     background-color: #f1f5f9;
     color: #102a43;
 }
+
+.estado-lectura {
+    display: inline-block;
+
+    padding: 6px 10px;
+    border-radius: 20px;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.estado-registrada {
+    background-color: #e8f5e9;
+    color: #198754;
+}
+
+.estado-advertencia {
+    background-color: #fff4cc;
+    color: #8a6500;
+}
+
+.estado-error {
+    background-color: #fde8e8;
+    color: #c62828;
+}
