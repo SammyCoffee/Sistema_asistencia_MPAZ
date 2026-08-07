@@ -136,3 +136,32 @@ h1{
     background-color: #fde8e8;
     color: #c62828;
 }
+
+.menu-principal {
+    background-color: White;
+
+    margin-top: 20px;
+    padding: 12px;
+
+    border-radius: 15px;
+
+    display: flex;
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+.menu-principal a {
+    text-decoration: none;
+
+    padding: 10px 14px;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+}
+
+.menu-principal .menu-activo {
+    background-color: #1677b8;
+    color: white;
+}
