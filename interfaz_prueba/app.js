@@ -1,3 +1,11 @@
+const estudianteDemo = {
+    nombre: "Estudiante Demo",
+
+    curso: "2A",
+
+    uid: "B1C2D3E4"
+};
+
 const campoBuscar = document.getElementById("buscar-estudiante");
 
 const botonBuscar = document.getElementById("boton-buscar");
@@ -12,6 +20,16 @@ botonBuscar.addEventListener("click", function() {
         return;
     }
 
-    alert(textoBuscado);
+    if (textoBuscado.toLowerCase() === estudianteDemo.nombre.toLowerCase()) {
+
+        alert("Estudiante encontrado");
+
+    }
+    
+    
+    {else {
+        alert("Estudiante no encontrado");
+    } 
+    
 });
 
