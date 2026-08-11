@@ -2,6 +2,8 @@ const estudianteDemo = {
 
     nombre: "Estudiante Demo",
 
+    rut: "RUT-DEMO-01",
+
     curso: "2A",
 
     uid: "B1C2D3E4"
@@ -31,6 +33,10 @@ botonBuscar.addEventListener("click", function () {
     if (textoBuscado.toLowerCase() === estudianteDemo.nombre.toLowerCase()) {
 
         alert("Estudiante encontrado: " + estudianteDemo.nombre);
+    
+    } else if (textoBuscado.toLowerCase() === estudianteDemo.rut.toLowerCase()) {
+        alert("Estudiante encontrado: " + estudianteDemo.nombre);
+       
 
     } else if (textoBuscado.toLowerCase() === estudianteDemo.curso.toLowerCase()) {
 
