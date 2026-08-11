@@ -20,6 +20,8 @@ const botonBuscar = document.getElementById("boton-buscar");
 const resultadoEstudiante = document.getElementById("resultado-estudiante");
 
 
+
+
 botonBuscar.addEventListener("click", function () {
 
     const textoBuscado = campoBuscar.value.trim();
