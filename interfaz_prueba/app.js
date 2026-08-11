@@ -6,7 +6,9 @@ const estudianteDemo = {
 
     curso: "2A",
 
-    uid: "B1C2D3E4"
+    uid: "B1C2D3E4",
+
+    estadoTarjeta: "Activa"
 
 };
 
@@ -45,6 +47,8 @@ botonBuscar.addEventListener("click", function () {
 
             <p><strong>UID:</strong> ${estudianteDemo.uid}</p>
 
+            <p><strong>Estado tarjeta:</strong> ${estudianteDemo.estadoTarjeta}</p>
+
         `;
     
     } else if (textoBuscado.toLowerCase() === estudianteDemo.rut.toLowerCase()) {
@@ -60,6 +64,8 @@ botonBuscar.addEventListener("click", function () {
 
             <p><strong>UID:</strong> ${estudianteDemo.uid}</p>
 
+            <p><strong>Estado tarjeta:</strong> ${estudianteDemo.estadoTarjeta}</p>
+
         `;
 
     } else if (textoBuscado.toLowerCase() === estudianteDemo.curso.toLowerCase()) {
@@ -74,6 +80,8 @@ botonBuscar.addEventListener("click", function () {
             <p><strong>Curso:</strong> ${estudianteDemo.curso}</p>
 
             <p><strong>UID:</strong> ${estudianteDemo.uid}</p>
+
+            <p><strong>Estado tarjeta:</strong> ${estudianteDemo.estadoTarjeta}</p>
 
         `;
 
