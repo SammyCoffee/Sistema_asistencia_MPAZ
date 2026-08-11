@@ -15,6 +15,8 @@ const campoBuscar = document.getElementById("buscar-estudiante");
 
 const botonBuscar = document.getElementById("boton-buscar");
 
+const resultadoEstudiante = document.getElementById("resultado-estudiante");
+
 
 botonBuscar.addEventListener("click", function () {
 
@@ -23,7 +25,7 @@ botonBuscar.addEventListener("click", function () {
 
     if (textoBuscado === "") {
 
-        alert("Escribe un nombre, RUT o curso antes de buscar");
+        resultadoEstudiante.innerHTML = "Escribe un nombre, RUT o curso antes de buscar";
 
         return;
 
@@ -32,19 +34,19 @@ botonBuscar.addEventListener("click", function () {
 
     if (textoBuscado.toLowerCase() === estudianteDemo.nombre.toLowerCase()) {
 
-        alert("Estudiante encontrado: " + estudianteDemo.nombre);
+        resultadoEstudiante.innerHTML = "Estudiante encontrado: " + estudianteDemo.nombre;
     
     } else if (textoBuscado.toLowerCase() === estudianteDemo.rut.toLowerCase()) {
-        alert("Estudiante encontrado: " + estudianteDemo.nombre);
-       
+        
+        resultadoEstudiante.innerHTML = "Estudiante encontrado: " + estudianteDemo.nombre;
 
     } else if (textoBuscado.toLowerCase() === estudianteDemo.curso.toLowerCase()) {
 
-        alert("Estudiante encontrado: " + estudianteDemo.nombre);
+        resultadoEstudiante.innerHTML = "Estudiante encontrado: " + estudianteDemo.nombre;
 
     } else {
 
-        alert("Estudiante no encontrado");
+        resultadoEstudiante.innerHTML = "Estudiante no encotrado";
 
     }
 
