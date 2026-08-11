@@ -34,15 +34,48 @@ botonBuscar.addEventListener("click", function () {
 
     if (textoBuscado.toLowerCase() === estudianteDemo.nombre.toLowerCase()) {
 
-        resultadoEstudiante.innerHTML = "Estudiante encontrado: " + estudianteDemo.nombre;
+        resultadoEstudiante.innerHTML = `
+            <h3>Estudiante encontrado</h3>
+
+            <p><strong>Nombre:</strong> ${estudianteDemo.nombre}</p>
+
+            <p><strong>RUT:</strong> ${estudianteDemo.rut}</p>
+
+            <p><strong>Curso:</strong> ${estudianteDemo.curso}</p>
+
+            <p><strong>UID:</strong> ${estudianteDemo.uid}</p>
+
+        `;
     
     } else if (textoBuscado.toLowerCase() === estudianteDemo.rut.toLowerCase()) {
         
-        resultadoEstudiante.innerHTML = "Estudiante encontrado: " + estudianteDemo.nombre;
+        resultadoEstudiante.innerHTML = `
+            <h3>Estudiante encontrado</h3>
+
+            <p><strong>Nombre:</strong> ${estudianteDemo.nombre}</p>
+
+            <p><strong>RUT:</strong> ${estudianteDemo.rut}</p>
+
+            <p><strong>Curso:</strong> ${estudianteDemo.curso}</p>
+
+            <p><strong>UID:</strong> ${estudianteDemo.uid}</p>
+
+        `;
 
     } else if (textoBuscado.toLowerCase() === estudianteDemo.curso.toLowerCase()) {
 
-        resultadoEstudiante.innerHTML = "Estudiante encontrado: " + estudianteDemo.nombre;
+        resultadoEstudiante.innerHTML = `
+            <h3>Estudiante encontrado</h3>
+
+            <p><strong>Nombre:</strong> ${estudianteDemo.nombre}</p>
+
+            <p><strong>RUT:</strong> ${estudianteDemo.rut}</p>
+
+            <p><strong>Curso:</strong> ${estudianteDemo.curso}</p>
+
+            <p><strong>UID:</strong> ${estudianteDemo.uid}</p>
+
+        `;
 
     } else {
 
