@@ -47,7 +47,11 @@ botonBuscar.addEventListener("click", function () {
 
             <p><strong>UID:</strong> ${estudianteDemo.uid}</p>
 
-            <p><strong>Estado tarjeta:</strong> ${estudianteDemo.estadoTarjeta}</p>
+            <p><strong>Estado tarjeta:</strong>
+            <span class="estado-tarjeta">
+                ${estudianteDemo.estadoTarjeta}
+            </span>    
+            </p>
 
         `;
     
@@ -64,7 +68,12 @@ botonBuscar.addEventListener("click", function () {
 
             <p><strong>UID:</strong> ${estudianteDemo.uid}</p>
 
-            <p><strong>Estado tarjeta:</strong> ${estudianteDemo.estadoTarjeta}</p>
+            <p><strong>Estado tarjeta:</strong>
+            <span class="estado-tarjeta">
+                ${estudianteDemo.estadoTarjeta}
+            </span>    
+            </p>
+
 
         `;
 
@@ -81,7 +90,12 @@ botonBuscar.addEventListener("click", function () {
 
             <p><strong>UID:</strong> ${estudianteDemo.uid}</p>
 
-            <p><strong>Estado tarjeta:</strong> ${estudianteDemo.estadoTarjeta}</p>
+            <p><strong>Estado tarjeta:</strong>
+            <span class="estado-tarjeta">
+                ${estudianteDemo.estadoTarjeta}
+            </span>    
+            </p>
+
 
         `;
 
