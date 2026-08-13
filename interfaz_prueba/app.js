@@ -93,7 +93,8 @@ botonBuscar.addEventListener("click", function () {
         return (
             textoBuscado.toLowerCase() === estudiante.nombre.toLowerCase() ||
             textoBuscado.toLowerCase() === estudiante.rut.toLowerCase() ||
-            textoBuscado.toLowerCase() === estudiante.curso.toLowerCase() 
+            textoBuscado.toLowerCase() === estudiante.curso.toLowerCase() ||
+            textoBuscado.toLowerCase() === estudiante.uid.toLowerCase()
         );
 
     });   
