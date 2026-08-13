@@ -25,9 +25,24 @@ const estudianteDemoDos = {
     estadoTarjeta: "Activa"
 };
 
+const estudianteDemoTres = {
+
+    nombre: "Estudiante Demo Tres",
+
+    rut: "RUT-DEMO-03",
+
+    curso: "3A",
+
+    uid: "C1D2E3F4",
+
+    estadoTarjeta: "Activa"
+
+};
+
 const estudiantesDemo = [
     estudianteDemo,
-    estudianteDemoDos
+    estudianteDemoDos,
+    estudianteDemoTres
 ];
 
 
@@ -88,6 +103,24 @@ botonBuscar.addEventListener("click", function () {
         return;
 
     }
+
+    const estudiantesDelCurso = estudiantesDemo.filter(function(estudiante) {
+
+        return (
+            textoBuscado.toLowerCase() === estudiante.curso.toLowerCase()
+
+        
+        );
+    });
+
+    if (estudiantesDelCurso.length > 0) {
+
+        console.log(
+            "Estudiantes encontrados en el curso:",
+            estudiantesDelCurso.length
+        );
+    }
+
     const estudianteEncontrado = estudiantesDemo.find(function (estudiante) {
 
         return (
@@ -99,13 +132,26 @@ botonBuscar.addEventListener("click", function () {
 
     });   
     
-    if (estudianteEncontrado) {
+    if (estudiantesDelCurso.length > 1) {
+
+        resultadoEstudiante.innerHTML = 
+        "<h3>Estudiantes encontrados</h3>";
+
+        estudiantesDelCurso.forEach(function(estudiante) {
+
+            resultadoEstudiante.innerHTML +=
+            "<P>" + estudiante.nombre + "</p>";
+
+        });
+
+       
+    } else if (estudianteEncontrado) {
 
         mostrarFichaEstudiante(estudianteEncontrado);
-
     } else {
 
-        resultadoEstudiante.innerHTML = "Estudiante no encontrado";
+        resultadoEstudiante.innerHTML = 
+        "Estudiante no encontrado";
     }
 
 
