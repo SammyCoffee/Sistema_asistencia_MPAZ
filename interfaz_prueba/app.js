@@ -20,6 +20,41 @@ const botonBuscar = document.getElementById("boton-buscar");
 const resultadoEstudiante = document.getElementById("resultado-estudiante");
 
 
+function mostrarFichaEstudiante(estudiante) {
+
+    resultadoEstudiante.innerHTML = `
+        <h3>Estudiante encontrado</h3>
+
+        <p>
+            <strong>Nombre:</strong>
+            ${estudiante.nombre}
+        </p>
+
+        <p>
+            <strong>RUT:</strong>
+            ${estudiante.rut}
+        </p>
+
+        <p>
+            <strong>Curso:</strong>
+            ${estudiante.curso}
+        </p>
+
+        <p>
+            <strong>UID:</strong>
+            ${estudiante.uid}
+        </p>
+
+        <p>
+            <strong>Estado tarjeta:</strong>
+
+            <span class="estado-tarjeta">
+                ${estudiante.estadoTarjeta}
+            </span>
+        </p>
+    `;
+
+}
 
 
 botonBuscar.addEventListener("click", function () {
@@ -29,81 +64,36 @@ botonBuscar.addEventListener("click", function () {
 
     if (textoBuscado === "") {
 
-        resultadoEstudiante.innerHTML = "Escribe un nombre, RUT o curso antes de buscar";
+        resultadoEstudiante.innerHTML =
+            "Escribe un nombre, RUT o curso antes de buscar";
 
         return;
 
     }
 
 
-    if (textoBuscado.toLowerCase() === estudianteDemo.nombre.toLowerCase()) {
+    if (
+        textoBuscado.toLowerCase() === estudianteDemo.nombre.toLowerCase()
+    ) {
 
-        resultadoEstudiante.innerHTML = `
-            <h3>Estudiante encontrado</h3>
+        mostrarFichaEstudiante(estudianteDemo);
 
-            <p><strong>Nombre:</strong> ${estudianteDemo.nombre}</p>
+    } else if (
+        textoBuscado.toLowerCase() === estudianteDemo.rut.toLowerCase()
+    ) {
 
-            <p><strong>RUT:</strong> ${estudianteDemo.rut}</p>
+        mostrarFichaEstudiante(estudianteDemo);
 
-            <p><strong>Curso:</strong> ${estudianteDemo.curso}</p>
+    } else if (
+        textoBuscado.toLowerCase() === estudianteDemo.curso.toLowerCase()
+    ) {
 
-            <p><strong>UID:</strong> ${estudianteDemo.uid}</p>
-
-            <p><strong>Estado tarjeta:</strong>
-            <span class="estado-tarjeta">
-                ${estudianteDemo.estadoTarjeta}
-            </span>    
-            </p>
-
-        `;
-    
-    } else if (textoBuscado.toLowerCase() === estudianteDemo.rut.toLowerCase()) {
-        
-        resultadoEstudiante.innerHTML = `
-            <h3>Estudiante encontrado</h3>
-
-            <p><strong>Nombre:</strong> ${estudianteDemo.nombre}</p>
-
-            <p><strong>RUT:</strong> ${estudianteDemo.rut}</p>
-
-            <p><strong>Curso:</strong> ${estudianteDemo.curso}</p>
-
-            <p><strong>UID:</strong> ${estudianteDemo.uid}</p>
-
-            <p><strong>Estado tarjeta:</strong>
-            <span class="estado-tarjeta">
-                ${estudianteDemo.estadoTarjeta}
-            </span>    
-            </p>
-
-
-        `;
-
-    } else if (textoBuscado.toLowerCase() === estudianteDemo.curso.toLowerCase()) {
-
-        resultadoEstudiante.innerHTML = `
-            <h3>Estudiante encontrado</h3>
-
-            <p><strong>Nombre:</strong> ${estudianteDemo.nombre}</p>
-
-            <p><strong>RUT:</strong> ${estudianteDemo.rut}</p>
-
-            <p><strong>Curso:</strong> ${estudianteDemo.curso}</p>
-
-            <p><strong>UID:</strong> ${estudianteDemo.uid}</p>
-
-            <p><strong>Estado tarjeta:</strong>
-            <span class="estado-tarjeta">
-                ${estudianteDemo.estadoTarjeta}
-            </span>    
-            </p>
-
-
-        `;
+        mostrarFichaEstudiante(estudianteDemo);
 
     } else {
 
-        resultadoEstudiante.innerHTML = "Estudiante no encotrado";
+        resultadoEstudiante.innerHTML =
+            "Estudiante no encontrado";
 
     }
 
