@@ -140,7 +140,10 @@ botonBuscar.addEventListener("click", function () {
         estudiantesDelCurso.forEach(function(estudiante) {
 
             resultadoEstudiante.innerHTML +=
-            "<P>" + estudiante.nombre + "</p>";
+            "<P>" + 
+                "<strong>" + estudiante.nombre + "</strong><br>" +
+                "RUT: " + estudiante.rut +
+            "</p>";    
 
         });
 
