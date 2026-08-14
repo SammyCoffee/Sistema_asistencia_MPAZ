@@ -146,7 +146,7 @@ botonBuscar.addEventListener("click", function () {
                 "Curso: " + estudiante.curso + "<br>" +
                 "UID: " + estudiante.uid + "<br>" +
                 "Estado tarjeta: " + estudiante.estadoTarjeta + "<br>" +
-                "<button class='boton-ver-ficha'> Ver ficha</button>" +
+                "<button class='boton-ver-ficha' data-rut= '" + estudiante.rut + "'>Ver ficha</button>" +
             "</p>";    
 
         });
@@ -164,4 +164,14 @@ botonBuscar.addEventListener("click", function () {
 
     
 
+});
+
+resultadoEstudiante.addEventListener("click", function (evento) {
+
+    if (evento.target.classList.contains("boton-ver-ficha"))  {
+
+        const rutSeleccionado = evento.target.dataset.rut;
+
+        alert("RUT seleccionado: " + rutSeleccionado);
+    }
 });
