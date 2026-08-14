@@ -238,3 +238,17 @@ h1{
 
     font-weight: bold;
 }
+
+.boton-ver-ficha {
+    margin-top: 6px;
+    padding: 7px 12px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: #1677b8;
+    color: white;
+
+    font-weight: bold;
+    cursor: pointer;
+}

@@ -145,7 +145,8 @@ botonBuscar.addEventListener("click", function () {
                 "RUT: " + estudiante.rut + "<br>" +
                 "Curso: " + estudiante.curso + "<br>" +
                 "UID: " + estudiante.uid + "<br>" +
-                "Estado tarjeta: " + estudiante.estadoTarjeta +
+                "Estado tarjeta: " + estudiante.estadoTarjeta + "<br>" +
+                "<button class='boton-ver-ficha'> Ver ficha</button>" +
             "</p>";    
 
         });
