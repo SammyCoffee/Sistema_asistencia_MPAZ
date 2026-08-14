@@ -85,6 +85,10 @@ function mostrarFichaEstudiante(estudiante) {
                 ${estudiante.estadoTarjeta}
             </span>
         </p>
+
+        <button class="boton-bloquear-tarjeta" data-rut="${estudiante.rut}">
+            Bloquear tarjeta
+        </button>    
     `;
 
 }
