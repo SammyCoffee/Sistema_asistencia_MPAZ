@@ -142,7 +142,8 @@ botonBuscar.addEventListener("click", function () {
             resultadoEstudiante.innerHTML +=
             "<P>" + 
                 "<strong>" + estudiante.nombre + "</strong><br>" +
-                "RUT: " + estudiante.rut +
+                "RUT: " + estudiante.rut + "<br>" +
+                "Curso: " + estudiante.curso +
             "</p>";    
 
         });
