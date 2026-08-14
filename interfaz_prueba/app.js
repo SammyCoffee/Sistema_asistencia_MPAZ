@@ -172,6 +172,10 @@ resultadoEstudiante.addEventListener("click", function (evento) {
 
         const rutSeleccionado = evento.target.dataset.rut;
 
-        alert("RUT seleccionado: " + rutSeleccionado);
+        const estudianteSeleccionado = estudiantesDemo.find(function (estudiante) {
+            return estudiante.rut === rutSeleccionado;
+        });
+
+        mostrarFichaEstudiante(estudianteSeleccionado);
     }
 });
