@@ -182,4 +182,16 @@ resultadoEstudiante.addEventListener("click", function (evento) {
 
         mostrarFichaEstudiante(estudianteSeleccionado);
     }
+    else if (evento.target.classList.contains("boton-bloquear-tarjeta")) {
+        
+        const rutSeleccionado = evento.target.dataset.rut;
+
+        const estudianteSeleccionado = estudiantesDemo.find(function(estudiante) {
+            return estudiante.rut === rutSeleccionado;
+        });
+
+        estudianteSeleccionado.estadoTarjeta = "Bloqueada";
+        
+        mostrarFichaEstudiante(estudianteSeleccionado);
+    }
 });
