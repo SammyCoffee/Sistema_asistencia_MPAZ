@@ -55,6 +55,7 @@ const resultadoEstudiante = document.getElementById("resultado-estudiante");
 
 function mostrarFichaEstudiante(estudiante) {
 
+
     resultadoEstudiante.innerHTML = `
         <h3>Estudiante encontrado</h3>
 
@@ -86,7 +87,7 @@ function mostrarFichaEstudiante(estudiante) {
             </span>
         </p>
 
-        <button class="boton-bloquear-tarjeta" data-rut="${estudiante.rut}">
+        <button  type= "button" class="boton-bloquear-tarjeta" data-rut="${estudiante.rut}">
             ${estudiante.estadoTarjeta === "Bloqueada" ? "Activar tarjeta" : "Bloquear tarjeta"}
         </button>    
     `;
@@ -190,8 +191,12 @@ resultadoEstudiante.addEventListener("click", function (evento) {
             return estudiante.rut === rutSeleccionado;
         });
 
-        estudianteSeleccionado.estadoTarjeta = "Bloqueada";
+
+        estudianteSeleccionado.estadoTarjeta = 
+        estudianteSeleccionado.estadoTarjeta === "Bloqueada"
+            ? "Activa"
+            : "Bloqueada";
         
-        mostrarFichaEstudiante(estudianteSeleccionado);
+        mostrarFichaEstudiante(estudianteSeleccionado);    
     }
 });
