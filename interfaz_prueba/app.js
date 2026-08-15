@@ -93,6 +93,15 @@ function mostrarFichaEstudiante(estudiante) {
             data-rut="${estudiante.rut}"
         >
             ${estudiante.estadoTarjeta === "Bloqueada" ? "Activar tarjeta" : "Bloquear tarjeta"}    
+        </button>
+        
+        <button
+            type="button"
+            class="boton-cambiar-tarjeta"
+            data-rut="${estudiante.rut}"
+        >
+        
+            Cambiar tarjeta RFID
         </button>    
     `;
 
