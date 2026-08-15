@@ -8,7 +8,9 @@ const estudianteDemo = {
 
     uid: "B1C2D3E4",
 
-    estadoTarjeta: "Activa"
+    estadoTarjeta: "Activa",
+
+    inasistenciasSemestre: 2
 
 };
 
@@ -22,7 +24,9 @@ const estudianteDemoDos = {
 
     uid: "A1B2C3D4",
 
-    estadoTarjeta: "Activa"
+    estadoTarjeta: "Activa",
+
+    inasistenciasSemestre: 7
 };
 
 const estudianteDemoTres = {
@@ -35,7 +39,9 @@ const estudianteDemoTres = {
 
     uid: "C1D2E3F4",
 
-    estadoTarjeta: "Activa"
+    estadoTarjeta: "Activa",
+
+    inasistenciasSemestre: 13
 
 };
 
@@ -52,6 +58,18 @@ const botonBuscar = document.getElementById("boton-buscar");
 
 const resultadoEstudiante = document.getElementById("resultado-estudiante");
 
+function obtenerClaseInasistencias(cantidad) {
+
+    if (cantidad > 12) {
+        return "inasistencias-rojo";
+    }
+
+    if (cantidad > 5) {
+        return "inasistencias-amarillo";
+    }
+
+    return "inasistencias-verde";
+}
 
 function mostrarFichaEstudiante(estudiante) {
 
@@ -73,6 +91,14 @@ function mostrarFichaEstudiante(estudiante) {
             <strong>Curso:</strong>
             ${estudiante.curso}
         </p>
+
+        <p>
+            <strong> Inasistencias semestre:</strong>
+            
+            <span class="${obtenerClaseInasistencias(estudiante.inasistenciasSemestre)}">
+                ${estudiante.inasistenciasSemestre}
+            </span>    
+        </p>    
 
         <p>
             <strong>UID:</strong>

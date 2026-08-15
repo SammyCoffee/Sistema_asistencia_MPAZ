@@ -289,3 +289,31 @@ h1{
     font-weight: bold;
     cursor: pointer;
 }
+
+.inasistencias-verde{
+    background-color: #e8f5e9;
+    color: #198754;
+
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.inasistencias-amarillo {
+    background-color: #fff4cc;
+    color: #8a6500;
+
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-weight: bold;
+
+}
+
+.inasistencias-rojo {
+    background-color: #fde8e8;
+    color: #dc3545;
+
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-weight: bold;
+}
