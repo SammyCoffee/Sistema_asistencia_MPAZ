@@ -82,6 +82,44 @@ function obtenerClaseInasistencias(cantidad) {
     return "inasistencias-verde";
 }
 
+const tablaInasistencias = 
+    document.getElementById("tabla-inasistencias");
+
+function mostrarTablaInasistencias() {
+
+    tablaInasistencias.innerHTML = "";
+
+    estudiantesDemo.forEach(function(estudiante) {
+
+        tablaInasistencias.innerHTML += `
+        <tr>
+            <td>${estudiante.nombre}</td>
+
+            <td>${estudiante.curso}</td>
+            
+            <td>
+                <span class="${obtenerClaseInasistencias(estudiante.inasistenciasSemestre)}">
+                    ${estudiante.inasistenciasSemestre}
+                </span>
+            </td>
+
+            <td>
+                    ${
+                        estudiante.inasistenciasSemestre > 12
+                        ? "Critica"
+                        :estudiante.inasistenciasSemestre > 5
+                            ? "Alerta"
+                            : "Buena"
+                    }
+            </td>
+        </tr>                
+    `;
+    });
+}  
+
+mostrarTablaInasistencias();
+
+
 function mostrarFichaEstudiante(estudiante) {
 
 
