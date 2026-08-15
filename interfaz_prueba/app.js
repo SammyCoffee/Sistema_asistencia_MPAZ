@@ -81,7 +81,7 @@ function mostrarFichaEstudiante(estudiante) {
         <p>
             <strong>Estado tarjeta:</strong>
 
-            <span class="estado-tarjeta">
+            <span class="estado-tarjeta ${estudiante.estadoTarjeta === "Bloqueada" ? "estado-tarjeta-bloqueada" : ""}">
                 ${estudiante.estadoTarjeta}
             </span>
         </p>

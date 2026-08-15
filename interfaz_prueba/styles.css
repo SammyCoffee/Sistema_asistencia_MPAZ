@@ -266,3 +266,8 @@ h1{
     font-weight: bold;
     cursor: pointer;
 }
+
+.estado-tarjeta-bloqueada {
+    background-color: #fde8e8;
+    color: #dc3545;
+}
