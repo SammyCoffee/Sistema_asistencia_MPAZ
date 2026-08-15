@@ -58,6 +58,17 @@ const botonBuscar = document.getElementById("boton-buscar");
 
 const resultadoEstudiante = document.getElementById("resultado-estudiante");
 
+const totalAlertasInasistencia = 
+    document.getElementById("total-alertas-inasistencia");
+
+const cantidadAlertas = estudiantesDemo.filter(function(estudiante) {
+    return estudiante.inasistenciasSemestre > 5;
+
+}).length;
+
+totalAlertasInasistencia.textContent = cantidadAlertas;
+
+
 function obtenerClaseInasistencias(cantidad) {
 
     if (cantidad > 12) {
