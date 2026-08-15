@@ -197,11 +197,11 @@ resultadoEstudiante.addEventListener("click", function (evento) {
         mostrarFichaEstudiante(estudianteSeleccionado);
     }
     else if (evento.target.classList.contains("boton-bloquear-tarjeta")) {
-        
+      
         const rutSeleccionado = evento.target.dataset.rut;
 
         const estudianteSeleccionado = estudiantesDemo.find(function(estudiante) {
-            return estudiante.rut === rutSeleccionado;
+            return estudiante.rut === rutSeleccionado;    
         });
 
 
@@ -212,4 +212,36 @@ resultadoEstudiante.addEventListener("click", function (evento) {
         
         mostrarFichaEstudiante(estudianteSeleccionado);    
     }
-});
+
+    else if (evento.target.classList.contains("boton-cambiar-tarjeta")) {
+
+        const rutSeleccionado = evento.target.dataset.rut;
+
+        const estudianteSeleccionado = estudiantesDemo.find(function(estudiante) {
+            return estudiante.rut === rutSeleccionado;
+        });
+
+        const nuevaUid = prompt("Ingresa la UID de la nueva tarjeta RFID:");
+        
+            if (nuevaUid === null || nuevaUid.trim() === "") {
+                return;
+            }
+
+            const uidLimpia = nuevaUid.trim().toUpperCase();
+
+            const uidYaAsignada = estudiantesDemo.some(function(estudiante) {
+                return estudiante.uid === uidLimpia &&
+                        estudiante.rut !== rutSeleccionado;
+            });
+
+            if (uidYaAsignada) {
+                alert("Esa UID ya está asignada a otro estudiante.");
+                return;
+            }
+
+            estudianteSeleccionado.uid = uidLimpia;
+
+            mostrarFichaEstudiante(estudianteSeleccionado);            
+        }    
+            
+        });
