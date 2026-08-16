@@ -66,7 +66,13 @@ const botonReporteSemanal =
     document.getElementById("reporte-semanal");
 
 const botonReporteMensual =
-    document.getElementById("reporte-mensual");    
+    document.getElementById("reporte-mensual");
+    
+botonReporteMensual.addEventListener
+("click", function() {
+
+    console.log("Botón reporte mensual detectado");
+});
 
 botonReporteSemanal.addEventListener("click", function() {
 
