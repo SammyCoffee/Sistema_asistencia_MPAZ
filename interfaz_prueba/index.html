@@ -64,15 +64,15 @@
                 Estudiantes y tarjetas
             </a>
 
-            <a href="#">
+            <a href="#asistencias">
                 Asistencias
             </a>
 
-            <a href="#">
+            <a href="#inasistencias">
                 Inasistencias
             </a>
 
-            <a href="#">
+            <a href="#reportes">
                 Reportes
             </a>
 
@@ -174,7 +174,7 @@
             <!-- PANEL DE ÚLTIMAS LECTURAS -->
             <!-- ================================= -->
 
-            <section class="panel-lecturas">
+            <section id= "asistencias" class="panel-lecturas">
 
                 <h2>
                     Últimas lecturas RFID
@@ -186,7 +186,7 @@
                 </p>
 
 
-                <table class="tabla-lecturas">
+                <table id="tabla-asistencias" class="tabla-lecturas">
 
 
                     <!-- TÍTULOS DE LA TABLA -->
@@ -380,6 +380,31 @@
                     </tbody>
                 </table>
 
+            </section>
+            <section id="reportes" class="panel-lecturas">
+
+                <h2>
+                    Reportes de asistencias
+                </h2>
+
+                <p>
+                    Desde aqui se podrán generar y descargar reportes de asistencias.
+                </p>
+
+                <div class="opciones-reportes">
+
+                    <button type="button" id="reporte-diario">
+                        Reporte diario
+                    </button>
+
+                    <button type="button" id="reporte-semanal">
+                        Reporte semanal
+                    </button>
+
+                    <button type="button" id="reporte-mensual">
+                        Reporte mensual
+                    </button>
+                </div>
             </section>
 
         </main>

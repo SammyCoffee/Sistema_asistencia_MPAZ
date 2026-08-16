@@ -56,7 +56,158 @@ const campoBuscar = document.getElementById("buscar-estudiante");
 
 const botonBuscar = document.getElementById("boton-buscar");
 
-const resultadoEstudiante = document.getElementById("resultado-estudiante");
+const resultadoEstudiante = 
+    document.getElementById("resultado-estudiante");
+
+const botonReporteDiario = 
+    document.getElementById("reporte-diario");
+
+const botonReporteSemanal =
+    document.getElementById("reporte-semanal");
+
+const botonReporteMensual =
+    document.getElementById("reporte-mensual");    
+
+botonReporteSemanal.addEventListener("click", function() {
+
+    console.log("Boton reporte semanal detectado");
+
+    const filasSemanales =
+    tablaAsistencias.querySelectorAll("tbody tr");
+
+    console.log(
+        "Filas para reporte semanal:",
+        filasSemanales.length
+    );
+
+    let contenidoCsvSemanal = "Hora,Estudiante,Curso,UID,Resultad\n";
+
+    filasSemanales.forEach(function(fila) {
+
+        const celdas = fila.querySelectorAll("td");
+
+        console.log("Celdas encontradas:", celdas.length);
+
+        const horaSemanal =
+            celdas[0].textContent.trim();
+        
+        const estudianteSemanal =
+            celdas[1].textContent.trim();
+
+        const cursoSemanal =
+            celdas[2].textContent.trim();
+            
+        const uidSemanal =
+            celdas[3].textContent.trim();
+        
+        const resultadoSemanal =
+            celdas[4].textContent.trim();        
+        
+            console.log("Hora semanal:", horaSemanal);
+            console.log("Estudiante semanal:", estudianteSemanal);
+            console.log("Curso semanal:", cursoSemanal);
+            console.log("UID semanal:", uidSemanal);
+            console.log("Resultado semanal:", resultadoSemanal);
+
+            contenidoCsvSemanal +=
+                `${horaSemanal},${estudianteSemanal},${cursoSemanal},${uidSemanal},${resultadoSemanal}̣\n`;
+    });
+
+    console.log("Contenido CSV semanal:");
+    console.log(contenidoCsvSemanal);
+
+    const archivoCsvSemanal = new Blob(
+        [contenidoCsvSemanal],
+        { type: "text/csv;charset=utf-8;" }
+    );
+
+    const urlArchivoSemanal =
+        URL.createObjectURL(archivoCsvSemanal);
+    
+    const enlaceDescargaSemanal = 
+        document.createElement("a");
+        
+            enlaceDescargaSemanal.href = urlArchivoSemanal;
+
+            enlaceDescargaSemanal.download = 
+                "reporte_semanal_asistencia.csv";
+            
+                enlaceDescargaSemanal.click();
+
+                setTimeout(function() {
+                    URL.revokeObjectURL(urlArchivoSemanal);
+                }, 1000);
+        
+});
+    
+
+const tablaAsistencias = 
+    document.getElementById("tabla-asistencias");
+
+botonReporteDiario.addEventListener("click", function() {
+
+    console.log("Botón reporte diario detectado");
+
+const filasAsistencias = 
+    tablaAsistencias.querySelectorAll("tbody tr");
+    
+console.log("Filas de asistencia encontradas:", filasAsistencias.length);
+
+let contenidoCsv = "Hora,Estudiante,Curso,UID,Resultado\n";
+
+filasAsistencias.forEach(function(fila) {
+
+    const celdas = fila.querySelectorAll("td");
+
+    console.log(
+        celdas[0].textContent,
+        celdas[1].textContent,
+        celdas[2].textContent,
+        celdas[3].textContent,
+        celdas[4].textContent
+    );
+
+    const hora = celdas[0].textContent.trim();
+    const estudiante = celdas[1].textContent.trim();
+    const curso = celdas[2].textContent.trim();
+    const uid = celdas[3].textContent.trim();
+    const resultado = celdas[4].textContent.trim();
+
+    contenidoCsv += `${hora},${estudiante},${curso},${uid},${resultado}\n`;
+});
+
+console.log(contenidoCsv);
+
+const archivoCsv = new Blob(
+    [contenidoCsv],
+    { type: "text/csv;charset=utf-8;"}
+);
+
+console.log("Archivo CSV preparado:", archivoCsv);
+
+const urlArchivo = 
+    URL.createObjectURL(archivoCsv);
+
+console.log("URL del archivo:", urlArchivo);
+
+const enlaceDescarga = 
+    document.createElement("a");
+
+enlaceDescarga.href = urlArchivo;
+
+enlaceDescarga.download = 
+"reporte_diario_asistencia.csv";
+
+console.log("Enlace de descarga preparado:", enlaceDescarga);
+
+enlaceDescarga.click();
+
+setTimeout(function(){
+    URL.revokeObjectURL(urlArchivo);
+}, 1000);
+
+
+});    
 
 const totalAlertasInasistencia = 
     document.getElementById("total-alertas-inasistencia");

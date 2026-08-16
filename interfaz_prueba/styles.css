@@ -317,3 +317,29 @@ h1{
     border-radius: 20px;
     font-weight: bold;
 }
+
+.opciones-reportes {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.opciones-reportes button {
+    background-color: #1677b8;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    padding: 10px 16px;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.opciones-reportes button:hover {
+    background-color: #102a43;
+}
