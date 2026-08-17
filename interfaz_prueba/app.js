@@ -72,6 +72,40 @@ botonReporteMensual.addEventListener
 ("click", function() {
 
     console.log("Botón reporte mensual detectado");
+
+    const filasMensuales = 
+    tablaAsistencias.querySelectorAll("tbody tr");
+
+    console.log(
+        "Filas para reporte mensual:",
+        filasMensuales.length
+    );
+
+    let contenidoCsvMensual = 
+        "Hora,Estudiante,Curso,UID,Resultado\n";
+   
+        filasMensuales.forEach(function(fila) {
+
+            const celdas = fila.querySelectorAll("td");
+
+            console.log(
+                "Celdas mensuales encontradas:",
+                celdas.length
+            );
+            const horaMensual =
+                celdas[0].textContent.trim();
+            
+            const estudianteMensual =
+                celdas[1].textContent.trim();
+            
+            const cursoMensual =
+                celdas[2].textContent.trim();    
+
+                
+            console.log("Hora mensual:", horaMensual);
+            console.log("Estudiante mensual:", estudianteMensual);
+            console.log("Curso mensual:", cursoMensual);    
+        });
 });
 
 botonReporteSemanal.addEventListener("click", function() {
