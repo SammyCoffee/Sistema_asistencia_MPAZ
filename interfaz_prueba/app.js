@@ -99,15 +99,49 @@ botonReporteMensual.addEventListener
                 celdas[1].textContent.trim();
             
             const cursoMensual =
-                celdas[2].textContent.trim();    
+                celdas[2].textContent.trim(); 
+            
+            const uidMensual = 
+                celdas[3].textContent.trim();
+            
+            const resultadoMensual = 
+                celdas[4].textContent.trim();
+            
+            contenidoCsvMensual +=
+                `${horaMensual},${estudianteMensual},${cursoMensual},${uidMensual},${resultadoMensual}\n`;
 
                 
             console.log("Hora mensual:", horaMensual);
             console.log("Estudiante mensual:", estudianteMensual);
-            console.log("Curso mensual:", cursoMensual);    
+            console.log("Curso mensual:", cursoMensual);
+            console.log("UID mensual:", uidMensual);
+            console.log("Resultado mensual:", resultadoMensual);    
         });
-});
 
+            console.log("Contenido CSV mensual:");
+            console.log(contenidoCsvMensual);
+
+            const archivoCsvMensual = new Blob(
+                [contenidoCsvMensual],
+                { type: "text/csv;charset=utf-8;" }
+            );
+
+            const urlArchivoMensual =
+                URL.createObjectURL(archivoCsvMensual);
+
+            const enlaceDescargaMensual = 
+                document.createElement("a");
+            
+        
+            enlaceDescargaMensual.href   = urlArchivoMensual;
+            
+            enlaceDescargaMensual.download =
+                "reporte_mensual_asistencia.csv";
+
+           enlaceDescargaMensual.click();
+           
+           URL.revokeObjectURL(urlArchivoMensual);
+ });
 botonReporteSemanal.addEventListener("click", function() {
 
     console.log("Boton reporte semanal detectado");
