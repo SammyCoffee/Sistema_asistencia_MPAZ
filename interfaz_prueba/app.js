@@ -154,7 +154,7 @@ botonReporteSemanal.addEventListener("click", function() {
         filasSemanales.length
     );
 
-    let contenidoCsvSemanal = "Hora,Estudiante,Curso,UID,Resultad\n";
+    let contenidoCsvSemanal = "Hora,Estudiante,Curso,UID,Resultado\n";
 
     filasSemanales.forEach(function(fila) {
 
@@ -184,7 +184,7 @@ botonReporteSemanal.addEventListener("click", function() {
             console.log("Resultado semanal:", resultadoSemanal);
 
             contenidoCsvSemanal +=
-                `${horaSemanal},${estudianteSemanal},${cursoSemanal},${uidSemanal},${resultadoSemanal}̣\n`;
+    `${horaSemanal},${estudianteSemanal},${cursoSemanal},${uidSemanal},${resultadoSemanal}\n`;;
     });
 
     console.log("Contenido CSV semanal:");

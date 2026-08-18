@@ -4,7 +4,16 @@ conexion = sqlite3.connect("data/asistencia.db")
 cursor = conexion.cursor()
 
 cursor.execute(
-    "SELECT id, rut, nombre_completo, curso, uid FROM alumnos"
+    """
+    SELECT 
+    alumnos.id,
+    alumnos.rut, 
+    alumnos.nombre_completo,
+    alumnos.curso,
+    tarjetas.uid
+    FROM alumnos LEFT JOIN tarjetas
+        ON tarjetas.alumno_id = alumnos.id
+        """
     )
 
 alumnos = cursor.fetchall()
