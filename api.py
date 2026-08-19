@@ -2,7 +2,7 @@ import os
 import secrets
 
 from flask import Flask, jsonify, request
-from consultar_alumnos import obtener_alumnos
+from consultar_alumnos import obtener_alumnos, buscar_alumnos
 from procesar_lectura_totem import procesar_lectura_totem
 
 
@@ -39,7 +39,12 @@ def consultar_alumnos_api():
             }
         ), 401
 
-    alumnos = obtener_alumnos()
+    termino = request.args.get("buscar", "").strip()
+
+    if termino:
+        alumnos = buscar_alumnos(termino)
+    else:
+        alumnos = []
 
     return jsonify(
         {

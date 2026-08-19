@@ -1,28 +1,30 @@
 from base_datos import obtener_conexion
 
+
 def obtener_alumnos():
     conexion = obtener_conexion()
     cursor = conexion.cursor()
 
     cursor.execute(
         """
-
-        SELECT 
-        alumnos.id,
-        alumnos.rut, 
-        alumnos.nombre_completo,
-        alumnos.curso,
-        tarjetas.uid
-        FROM alumnos LEFT JOIN tarjetas
+        SELECT
+            alumnos.id,
+            alumnos.rut,
+            alumnos.nombre_completo,
+            alumnos.curso,
+            tarjetas.uid
+        FROM alumnos
+        LEFT JOIN tarjetas
             ON tarjetas.alumno_id = alumnos.id
-            """
-        )
+        """
+    )
 
     alumnos = cursor.fetchall()
 
-    conexion.close()  
+    conexion.close()
 
     return alumnos
+
 
 def buscar_alumnos(termino):
     termino = termino.strip()
@@ -31,14 +33,44 @@ def buscar_alumnos(termino):
         return []
 
     conexion = obtener_conexion()
-    cursor = conexion.cursor()  
+    cursor = conexion.cursor()
 
-    patron_busqueda = f"%{termino}%"  
+    patron_busqueda = f"%{termino}%"
+
+    cursor.execute(
+        """
+        SELECT
+            alumnos.id,
+            alumnos.rut,
+            alumnos.nombre_completo,
+            alumnos.curso,
+            tarjetas.uid
+        FROM alumnos
+        LEFT JOIN tarjetas
+            ON tarjetas.alumno_id = alumnos.id
+        WHERE alumnos.nombre_completo LIKE ?
+            OR alumnos.rut LIKE ?
+            OR alumnos.curso LIKE ?
+        LIMIT 20
+        """,
+        (
+            patron_busqueda,
+            patron_busqueda,
+            patron_busqueda
+        )
+    )
+
+    alumnos = cursor.fetchall()
+
+    conexion.close()
+
+    return alumnos
+
 
 if __name__ == "__main__":
     alumnos = obtener_alumnos()
 
-    for alumno in alumnos:
-        print("ID: ", alumno[0],",rut:", alumno[1], ",nombre: ", alumno[2], ",curso:", alumno[3], ",uid  :", alumno[4])
-
-  
+    print(
+        "Cantidad de alumnos:",
+        len(alumnos)
+    )
