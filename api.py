@@ -46,10 +46,24 @@ def consultar_alumnos_api():
     else:
         alumnos = []
 
+    alumnos_json = []
+
+    for alumno in alumnos:
+        alumnos_json.append(
+            {
+                "id": alumno[0],
+                "rut": alumno[1],
+                "nombre": alumno[2],
+                "curso": alumno[3],
+                "uid": alumno[4]
+            }
+        )
+
     return jsonify(
         {
             "resultado": "ok",
-            "total": len(alumnos)
+            "total": len(alumnos),
+            "alumnos": alumnos_json
         }
     ), 200    
 
