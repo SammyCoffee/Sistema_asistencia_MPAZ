@@ -2,7 +2,7 @@ import os
 import secrets
 
 from flask import Flask, jsonify, request
-
+from consultar_alumnos import obtener_alumnos
 from procesar_lectura_totem import procesar_lectura_totem
 
 
@@ -26,6 +26,27 @@ def consultar_estado():
         }
 
     )
+
+@app.get("/alumnos")
+def consultar_alumnos_api():
+    clave_recibida = request.headers.get("X-API-KEY", "")
+
+    if not secrets.compare_digest(clave_recibida, API_KEY):
+        return jsonify(
+            {
+            "resultado": "no_autorizado",
+            "mensaje": "La clave de acceso no es valida"
+            }
+        ), 401
+
+    alumnos = obtener_alumnos()
+
+    return jsonify(
+        {
+            "resultado": "ok",
+            "total": len(alumnos)
+        }
+    ), 200    
 
 @app.post("/lectura")
 def recibir_lectura():
