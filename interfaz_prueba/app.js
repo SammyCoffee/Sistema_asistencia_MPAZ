@@ -67,6 +67,22 @@ const botonReporteSemanal =
 
 const botonReporteMensual =
     document.getElementById("reporte-mensual");
+
+const botonCerrarSesion = 
+    document.getElementById("boton-cerrar-sesion");
+
+    botonCerrarSesion.addEventListener("click", async function() {
+
+        console.log("Boton cerrar sesión detectado");
+
+        const respuesta = await fetch("/panel/logout", {
+            method: "POST"
+        });
+
+        if (respuesta.ok) {
+            window.location.href = "/login.html";
+        }
+    });
     
 botonReporteMensual.addEventListener
 ("click", function() {
@@ -408,10 +424,9 @@ function mostrarFichaEstudiante(estudiante) {
 }
 
 
-botonBuscar.addEventListener("click", function () {
+botonBuscar.addEventListener("click", async function () {
 
     const textoBuscado = campoBuscar.value.trim();
-
 
     if (textoBuscado === "") {
 
@@ -419,68 +434,29 @@ botonBuscar.addEventListener("click", function () {
             "Escribe un nombre, RUT o curso antes de buscar";
 
         return;
-
     }
 
-    const estudiantesDelCurso = estudiantesDemo.filter(function(estudiante) {
+    const respuestaBusqueda = await fetch(
+        `/alumnos?buscar=${encodeURIComponent(textoBuscado)}`
+    );
 
-        return (
-            textoBuscado.toLowerCase() === estudiante.curso.toLowerCase()
+    const datosBusqueda = await respuestaBusqueda.json();
 
-        
-        );
-    });
+    console.log(
+        "Busqueda real:",
+        datosBusqueda.resultado,
+        datosBusqueda.total
+    );
 
-    if (estudiantesDelCurso.length > 0) {
+    const alumnosReales = datosBusqueda.alumnos;
 
-        console.log(
-            "Estudiantes encontrados en el curso:",
-            estudiantesDelCurso.length
-        );
-    }
+    console.log(
+        "Alumnos reales recibidos:",
+        alumnosReales.length
+    );
 
-    const estudianteEncontrado = estudiantesDemo.find(function (estudiante) {
-
-        return (
-            textoBuscado.toLowerCase() === estudiante.nombre.toLowerCase() ||
-            textoBuscado.toLowerCase() === estudiante.rut.toLowerCase() ||
-            textoBuscado.toLowerCase() === estudiante.curso.toLowerCase() ||
-            textoBuscado.toLowerCase() === estudiante.uid.toLowerCase()
-        );
-
-    });   
-    
-    if (estudiantesDelCurso.length > 1) {
-
-        resultadoEstudiante.innerHTML = 
-        "<h3>Estudiantes encontrados</h3>";
-
-        estudiantesDelCurso.forEach(function(estudiante) {
-
-            resultadoEstudiante.innerHTML +=
-            "<P>" + 
-                "<strong>" + estudiante.nombre + "</strong><br>" +
-                "RUT: " + estudiante.rut + "<br>" +
-                "Curso: " + estudiante.curso + "<br>" +
-                "UID: " + estudiante.uid + "<br>" +
-                "Estado tarjeta: " + estudiante.estadoTarjeta + "<br>" +
-                "<button class='boton-ver-ficha' data-rut= '" + estudiante.rut + "'>Ver ficha</button>" +
-            "</p>";    
-
-        });
-
-       
-    } else if (estudianteEncontrado) {
-
-        mostrarFichaEstudiante(estudianteEncontrado);
-    } else {
-
-        resultadoEstudiante.innerHTML = 
-        "Estudiante no encontrado";
-    }
-
-
-    
+    resultadoEstudiante.innerHTML =
+        `Resultados reales encontrados: ${alumnosReales.length}`;
 
 });
 

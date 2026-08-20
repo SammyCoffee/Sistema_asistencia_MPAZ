@@ -1,20 +1,107 @@
 import os
 import secrets
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session, redirect
 from consultar_alumnos import obtener_alumnos, buscar_alumnos
 from procesar_lectura_totem import procesar_lectura_totem
 
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_folder="interfaz_prueba",
+    static_url_path=""
+    )
+
+@app.get("/")
+@app.get("/index.html")
+def mostrar_panel():
+
+    if not session.get("panel_autorizado", False):
+        return redirect("/login.html")
+
+    return app.send_static_file("index.html")
+
+
+app.secret_key = os.getenv("MPAZ_SESSION_SECRET")
+
+if not app.secret_key:
+    raise RuntimeError(
+        "No se encontro la variable de entorno MPAZ_SESSION_SECRET"
+    )
 
 API_KEY = os.getenv("MPAZ_API_KEY")
+PANEL_PASSWORD = os.getenv("MPAZ_PANEL_PASSWORD")
 
 if not API_KEY:
     raise RuntimeError(
         "No se encontro la variable de entorno MPAZ_API_KEY" 
     )
 
+if not PANEL_PASSWORD:
+    raise RuntimeError(
+        "No se encontro la variable de entorno MPAZ_PANEL_PASSWORD"
+    )
+
+@app.post("/panel/login")
+def iniciar_sesion_panel():
+    datos = request.get_json(silent=True) or {}
+
+    password = datos.get("password", "")
+
+    if not isinstance(password, str):
+        return jsonify(
+            {
+            "resultado": "datos_invalidos",
+            "mensaje": "La contraseña no es valida"
+            }        
+        ), 400
+    
+    if not secrets.compare_digest(password, PANEL_PASSWORD):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "Contraseña incorrecta"
+            }
+        ), 401
+
+    session["panel_autorizado"] = True
+
+    return jsonify(
+        {
+            "resultado": "ok",
+            "mensaje": "Sesion iniciada correctamente"
+        }
+    ), 200    
+
+@app.get("/panel/sesion")
+def consultar_sesion_panel():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "No hay una sesion activa"
+            }
+        ), 401
+
+    return jsonify(
+        {
+            "resultado": "ok",
+            "autorizado": True
+        }
+    ), 200
+
+@app.post("/panel/logout")
+def cerrar_sesion_panel():
+
+    session.pop("panel_autorizado", None)
+
+    return jsonify(
+        {
+            "resultado": "ok",
+            "mensaje": "Sesion cerrada correctamente"
+        }
+    ),200
 
 @app.get("/estado")
 def consultar_estado():
@@ -29,13 +116,12 @@ def consultar_estado():
 
 @app.get("/alumnos")
 def consultar_alumnos_api():
-    clave_recibida = request.headers.get("X-API-KEY", "")
-
-    if not secrets.compare_digest(clave_recibida, API_KEY):
+    
+    if not session.get("panel_autorizado", False):
         return jsonify(
             {
-            "resultado": "no_autorizado",
-            "mensaje": "La clave de acceso no es valida"
+                "resultado": "no_autorizado",
+                "mensaje": "Debes iniciar sesion en el panel"
             }
         ), 401
 
