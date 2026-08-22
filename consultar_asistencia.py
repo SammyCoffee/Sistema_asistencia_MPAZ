@@ -7,24 +7,23 @@ try:
     cursor.execute(
         """
         SELECT
-            asistencia.id,
+            asistencias.id,
             alumnos.nombre_completo,
             alumnos.rut,
             alumnos.curso,
-            asistencia.fecha,
-            asistencia.hora
-        FROM asistencia
+            asistencias.fecha,
+            asistencias.hora
+        FROM asistencias
         INNER JOIN alumnos
-            ON asistencia.alumno_id = alumnos.id
-         ORDER BY asistencia.fecha DESC, asistencia.hora DESC
-        """ 
-
+            ON asistencias.alumno_id = alumnos.id
+        ORDER BY asistencias.fecha DESC, asistencias.hora DESC
+        """
     )
 
     registros = cursor.fetchall()
 
     if registros:
-        print("RESGISTROS DE ASISTENCIA")
+        print("REGISTROS DE ASISTENCIA")
         print("-------------------------")
 
         for registro in registros:
@@ -37,7 +36,6 @@ try:
             print("-------------------------")
     else:
         print("No hay registros de asistencia disponibles.")
-finally:
 
+finally:
     conexion.close()
-        
