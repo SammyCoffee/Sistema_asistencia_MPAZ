@@ -6,16 +6,25 @@ def obtener_alumnos():
     cursor = conexion.cursor()
 
     cursor.execute(
-        """
+            """
         SELECT
             alumnos.id,
             alumnos.rut,
             alumnos.nombre_completo,
             alumnos.curso,
-            tarjetas.uid
+            tarjetas.uid,
+            tarjetas.estado
         FROM alumnos
         LEFT JOIN tarjetas
-            ON tarjetas.alumno_id = alumnos.id
+            ON tarjetas.id = (
+                SELECT t2.id
+                FROM tarjetas AS t2
+                WHERE t2.alumno_id = alumnos.id
+                ORDER BY
+                    CASE WHEN t2.estado = 'activa' THEN 0 ELSE 1 END,
+                    t2.id DESC
+                LIMIT 1
+            )
         """
     )
 
@@ -39,15 +48,24 @@ def buscar_alumnos(termino):
 
     cursor.execute(
         """
-        SELECT
+         SELECT
             alumnos.id,
             alumnos.rut,
             alumnos.nombre_completo,
             alumnos.curso,
-            tarjetas.uid
+            tarjetas.uid,
+            tarjetas.estado
         FROM alumnos
         LEFT JOIN tarjetas
-            ON tarjetas.alumno_id = alumnos.id
+            ON tarjetas.id = (
+                SELECT t2.id
+                FROM tarjetas AS t2
+                WHERE t2.alumno_id = alumnos.id
+                ORDER BY
+                    CASE WHEN t2.estado = 'activa' THEN 0 ELSE 1 END,
+                    t2.id DESC
+                LIMIT 1
+            )
         WHERE alumnos.nombre_completo LIKE ?
             OR alumnos.rut LIKE ?
             OR alumnos.curso LIKE ?

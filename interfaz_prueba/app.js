@@ -1,55 +1,4 @@
-const estudianteDemo = {
 
-    nombre: "Estudiante Demo",
-
-    rut: "RUT-DEMO-01",
-
-    curso: "2A",
-
-    uid: "B1C2D3E4",
-
-    estadoTarjeta: "Activa",
-
-    inasistenciasSemestre: 2
-
-};
-
-const estudianteDemoDos = {
-
-    nombre: "Estudiante Demo Dos",
-
-    rut: "RUT-DEMO-02",
-
-    curso: "3A",
-
-    uid: "A1B2C3D4",
-
-    estadoTarjeta: "Activa",
-
-    inasistenciasSemestre: 7
-};
-
-const estudianteDemoTres = {
-
-    nombre: "Estudiante Demo Tres",
-
-    rut: "RUT-DEMO-03",
-
-    curso: "3A",
-
-    uid: "C1D2E3F4",
-
-    estadoTarjeta: "Activa",
-
-    inasistenciasSemestre: 13
-
-};
-
-const estudiantesDemo = [
-    estudianteDemo,
-    estudianteDemoDos,
-    estudianteDemoTres
-];
 
 
 const campoBuscar = document.getElementById("buscar-estudiante");
@@ -58,6 +7,8 @@ const botonBuscar = document.getElementById("boton-buscar");
 
 const resultadoEstudiante = 
     document.getElementById("resultado-estudiante");
+
+let alumnosEncontrados = [];    
 
 const botonReporteDiario = 
     document.getElementById("reporte-diario");
@@ -299,15 +250,7 @@ setTimeout(function(){
 
 });    
 
-const totalAlertasInasistencia = 
-    document.getElementById("total-alertas-inasistencia");
 
-const cantidadAlertas = estudiantesDemo.filter(function(estudiante) {
-    return estudiante.inasistenciasSemestre > 5;
-
-}).length;
-
-totalAlertasInasistencia.textContent = cantidadAlertas;
 
 
 function obtenerClaseInasistencias(cantidad) {
@@ -326,102 +269,9 @@ function obtenerClaseInasistencias(cantidad) {
 const tablaInasistencias = 
     document.getElementById("tabla-inasistencias");
 
-function mostrarTablaInasistencias() {
-
-    tablaInasistencias.innerHTML = "";
-
-    estudiantesDemo.forEach(function(estudiante) {
-
-        tablaInasistencias.innerHTML += `
-        <tr>
-            <td>${estudiante.nombre}</td>
-
-            <td>${estudiante.curso}</td>
-            
-            <td>
-                <span class="${obtenerClaseInasistencias(estudiante.inasistenciasSemestre)}">
-                    ${estudiante.inasistenciasSemestre}
-                </span>
-            </td>
-
-            <td>
-                    ${
-                        estudiante.inasistenciasSemestre > 12
-                        ? "Critica"
-                        :estudiante.inasistenciasSemestre > 5
-                            ? "Alerta"
-                            : "Buena"
-                    }
-            </td>
-        </tr>                
-    `;
-    });
-}  
-
-mostrarTablaInasistencias();
 
 
-function mostrarFichaEstudiante(estudiante) {
 
-
-    resultadoEstudiante.innerHTML = `
-        <h3>Estudiante encontrado</h3>
-
-        <p>
-            <strong>Nombre:</strong>
-            ${estudiante.nombre}
-        </p>
-
-        <p>
-            <strong>RUT:</strong>
-            ${estudiante.rut}
-        </p>
-
-        <p>
-            <strong>Curso:</strong>
-            ${estudiante.curso}
-        </p>
-
-        <p>
-            <strong> Inasistencias semestre:</strong>
-            
-            <span class="${obtenerClaseInasistencias(estudiante.inasistenciasSemestre)}">
-                ${estudiante.inasistenciasSemestre}
-            </span>    
-        </p>    
-
-        <p>
-            <strong>UID:</strong>
-            ${estudiante.uid}
-        </p>
-
-        <p>
-            <strong>Estado tarjeta:</strong>
-
-            <span class="estado-tarjeta ${estudiante.estadoTarjeta === "Bloqueada" ? "estado-tarjeta-bloqueada" : ""}">
-                ${estudiante.estadoTarjeta}
-            </span>
-        </p>
-
-        <button  
-            type= "button" 
-            class="boton-bloquear-tarjeta ${estudiante.estadoTarjeta === "Bloqueada" ? "boton-activar-tarjeta" : ""}"
-            data-rut="${estudiante.rut}"
-        >
-            ${estudiante.estadoTarjeta === "Bloqueada" ? "Activar tarjeta" : "Bloquear tarjeta"}    
-        </button>
-        
-        <button
-            type="button"
-            class="boton-cambiar-tarjeta"
-            data-rut="${estudiante.rut}"
-        >
-        
-            Cambiar tarjeta RFID
-        </button>    
-    `;
-
-}
 
 
 botonBuscar.addEventListener("click", async function () {
@@ -450,74 +300,530 @@ botonBuscar.addEventListener("click", async function () {
 
     const alumnosReales = datosBusqueda.alumnos;
 
+    alumnosEncontrados = alumnosReales;
+
     console.log(
         "Alumnos reales recibidos:",
         alumnosReales.length
     );
 
-    resultadoEstudiante.innerHTML =
-        `Resultados reales encontrados: ${alumnosReales.length}`;
+    if (alumnosReales.length === 0) {
+
+        resultadoEstudiante.innerHTML =
+            "No se encontraron estudiantes";
+
+        return;
+    }
+
+const listaResultados = alumnosReales.map(function (alumno) {
+
+    return `
+        <div>
+            <p>
+                <strong>${alumno.nombre}</strong>
+                - ${alumno.curso}
+            </p>
+
+            <button
+                type="button"
+                class="boton-ver-alumno"
+                data-id="${alumno.id}"
+            >
+                Ver ficha
+            </button>
+        </div>
+    `;
+
+}).join("");
+
+resultadoEstudiante.innerHTML = listaResultados;
 
 });
 
-resultadoEstudiante.addEventListener("click", function (evento) {
+resultadoEstudiante.addEventListener("click", async function (evento) {
 
-    if (evento.target.classList.contains("boton-ver-ficha"))  {
 
-        const rutSeleccionado = evento.target.dataset.rut;
+    if (evento.target.classList.contains("boton-ver-alumno")) {
 
-        const estudianteSeleccionado = estudiantesDemo.find(function (estudiante) {
-            return estudiante.rut === rutSeleccionado;
+        const idAlumno = Number(evento.target.dataset.id);
+
+        console.log("ID del alumno seleccionado:", idAlumno);
+
+        const alumnoSeleccionado = alumnosEncontrados.find(function (alumno){
+
+            return alumno.id === idAlumno;
         });
 
-        mostrarFichaEstudiante(estudianteSeleccionado);
-    }
-    else if (evento.target.classList.contains("boton-bloquear-tarjeta")) {
-      
-        const rutSeleccionado = evento.target.dataset.rut;
+        console.log(
+            "Alumno encontrado:",
+            Boolean(alumnoSeleccionado)
+        );
 
-        const estudianteSeleccionado = estudiantesDemo.find(function(estudiante) {
-            return estudiante.rut === rutSeleccionado;    
-        });
-
-
-        estudianteSeleccionado.estadoTarjeta = 
-        estudianteSeleccionado.estadoTarjeta === "Bloqueada"
-            ? "Activa"
-            : "Bloqueada";
+        console.log("Datos completos del alumno:", alumnoSeleccionado);
         
-        mostrarFichaEstudiante(estudianteSeleccionado);    
+        if (alumnoSeleccionado) {
+
+            resultadoEstudiante.innerHTML = `
+            <div class="ficha-estudiante">
+            
+            <h3>${alumnoSeleccionado.nombre}</h3>
+            
+            <p>
+            
+            <strong>Curso:</strong>
+            ${alumnoSeleccionado.curso}
+            
+            </p>
+
+            <p>
+
+            <strong>RUT:</strong>
+            ${alumnoSeleccionado.rut}
+
+            </p>
+
+            <p>
+
+            <strong>Tarjeta RFID:</strong>
+            ${alumnoSeleccionado.uid ?? "Sin tarjeta asignada"}
+
+            </p>
+
+            <p>
+            <strong>Estado:</strong>
+                ${alumnoSeleccionado.estado_tarjeta ?? "Sin tarjeta"}
+            </p>
+
+
+            ${alumnoSeleccionado.uid === null ? `
+                <button
+                    type="button"
+                    class="boton-asignar-tarjeta"
+                    data-id="${alumnoSeleccionado.id}"
+                >
+                    Asignar tarjeta RFID
+                </button>
+            ` : ""}
+
+             ${alumnoSeleccionado.estado_tarjeta === "activa" ? `
+                 <button
+                        type="button"
+                        class="boton-bloquear-tarjeta-real"
+                        data-id="${alumnoSeleccionado.id}"
+                >
+                        Bloquear tarjeta
+                </button>
+            ` : ""}
+
+            ${alumnoSeleccionado.estado_tarjeta === "bloqueada" ? `
+                <button
+                    type="button"
+                    class="boton-reemplazar-tarjeta-real"
+                    data-id="${alumnoSeleccionado.id}"
+                >
+                    Reemplazar tarjeta RFID
+                </button>
+            ` : ""}
+
+              
+
+            <button
+                type="button"
+                class="boton-volver-resultados"
+            >
+                Volver a resultados
+            </button>        
+            
+         </div>
+            
+            `;
+        }
+
+        return;
     }
 
-    else if (evento.target.classList.contains("boton-cambiar-tarjeta")) {
+    if (evento.target.classList.contains("boton-volver-resultados")) {
 
-        const rutSeleccionado = evento.target.dataset.rut;
+        const listaResultados = alumnosEncontrados.map(function (alumno) {
 
-        const estudianteSeleccionado = estudiantesDemo.find(function(estudiante) {
-            return estudiante.rut === rutSeleccionado;
-        });
+            return `
+                <div>
+                    <p>
+                        <strong>${alumno.nombre}</strong>
+                        - ${alumno.curso}
+                    </p>
 
-        const nuevaUid = prompt("Ingresa la UID de la nueva tarjeta RFID:");
+                    <button
+                        type="button"
+                        class="boton-ver-alumno"
+                        data-id="${alumno.id}"
+                    >
+                        Ver ficha
+                    </button>
+                </div>
+            `;
+
+        }).join("");
+
+        resultadoEstudiante.innerHTML = listaResultados;
+
+        return;
+    }
+
+    if (evento.target.classList.contains("boton-asignar-tarjeta")) {
+
+    const idAlumno = Number(evento.target.dataset.id);
+
+    const alumnoSeleccionado = alumnosEncontrados.find(function (alumno) {
+        return alumno.id === idAlumno;
+    });
+
+    if (!alumnoSeleccionado) {
+        alert("No se pudo encontrar al estudiante.");
+        return;
+    }
+
+    const nuevaUid = prompt(
+        "Ingresa la UID de la tarjeta RFID:"
+    );
+
+    if (nuevaUid === null) {
+        return;
+    }
+
+    const uidLimpia = nuevaUid
+        .trim()
+        .replace(/\s/g, "")
+        .toUpperCase();
+
+    if (uidLimpia === "") {
+        alert("Debes ingresar una UID.");
+        return;
+    }
+
+    const respuesta = await fetch(
+        "/panel/tarjetas/asignar",
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+                body: JSON.stringify({
+                    rut: alumnoSeleccionado.rut,
+                    uid: uidLimpia
+                })
+            }
+        );
+
+  const datos = await respuesta.json();
+
+    console.log(
+        "Respuesta asignación de tarjeta:",
+        datos
+    );
+
+    if (datos.resultado === "asignada") {
+
+            alert("Tarjeta RFID asignada correctamente.");
+
+            alumnoSeleccionado.uid = datos.uid;
+            alumnoSeleccionado.estado_tarjeta = "activa";
+
+            resultadoEstudiante.innerHTML = `
+                <div class="ficha-estudiante">
+
+                    <h3>${alumnoSeleccionado.nombre}</h3>
+
+                    <p>
+                        <strong>Curso:</strong>
+                        ${alumnoSeleccionado.curso}
+                    </p>
+
+                    <p>
+                        <strong>RUT:</strong>
+                        ${alumnoSeleccionado.rut}
+                    </p>
+
+                    <p>
+                        <strong>Tarjeta RFID:</strong>
+                        ${alumnoSeleccionado.uid}
+                    </p>
+
+                    <p>
+                        <strong>Estado:</strong>
+                        ${alumnoSeleccionado.estado_tarjeta}
+                    </p>
+
+                    <button
+                        type="button"
+                        class="boton-bloquear-tarjeta-real"
+                        data-id="${alumnoSeleccionado.id}"
+                    >
+                        Bloquear tarjeta
+                    </button>
+
+                    <button
+                        type="button"
+                        class="boton-volver-resultados"
+                    >
+                        Volver a resultados
+                    </button>
+
+                </div>
+            `;
+
+            return;
+    }
+
+    if (datos.resultado === "uid_repetido") {
+
+        alert("Esa tarjeta RFID ya está asignada a otro estudiante.");
+
+        return;
+    }
+
+    if (datos.resultado === "ya_tiene_tarjeta") {
+
+        alert("Este estudiante ya tiene una tarjeta RFID activa.");
+
+        return;
+    }
+
+    alert(
+        datos.mensaje ?? "No se pudo asignar la tarjeta RFID."
+    );
+
+    return;
+        }
+
+        if (evento.target.classList.contains("boton-bloquear-tarjeta-real")) {
+
+    const idAlumno = Number(evento.target.dataset.id);
+
+    const alumnoSeleccionado = alumnosEncontrados.find(function (alumno) {
+        return alumno.id === idAlumno;
+    });
+
+    if (!alumnoSeleccionado) {
+        alert("No se pudo encontrar al estudiante.");
+        return;
+    }
+
+    if (!alumnoSeleccionado.uid) {
+        alert("El estudiante no tiene una tarjeta RFID.");
+        return;
+    }
+
+    const confirmarBloqueo = confirm(
+        `¿Seguro que deseas bloquear la tarjeta ${alumnoSeleccionado.uid}?`
+    );
+
+    if (!confirmarBloqueo) {
+        return;
+    }
+
+    const respuesta = await fetch(
+        "/panel/tarjetas/bloquear",
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                uid: alumnoSeleccionado.uid
+            })
+        }
+    );
+
+    const datos = await respuesta.json();
+
+    console.log(
+        "Respuesta bloqueo de tarjeta:",
+        datos
+    );
+
+    if (datos.resultado === "bloqueada") {
+
+        alert("Tarjeta RFID bloqueada correctamente.");
+
+        alumnoSeleccionado.estado_tarjeta = "bloqueada";
+
+        resultadoEstudiante.innerHTML = `
+            <div class="ficha-estudiante">
+
+                <h3>${alumnoSeleccionado.nombre}</h3>
+
+                <p>
+                    <strong>Curso:</strong>
+                    ${alumnoSeleccionado.curso}
+                </p>
+
+                <p>
+                    <strong>RUT:</strong>
+                    ${alumnoSeleccionado.rut}
+                </p>
+
+                <p>
+                    <strong>Tarjeta RFID:</strong>
+                    ${alumnoSeleccionado.uid}
+                </p>
+
+                <p>
+                    <strong>Estado:</strong>
+                    ${alumnoSeleccionado.estado_tarjeta}
+                </p>
+
+                <button
+                    type="button"
+                    class="boton-volver-resultados"
+                >
+                    Volver a resultados
+                </button>
+
+            </div>
+        `;
+
+        return;
+    }
+
+    alert(
+        datos.mensaje ?? "No se pudo bloquear la tarjeta RFID."
+    );
+
+    return;
+    }
+
+    if (evento.target.classList.contains("boton-reemplazar-tarjeta-real")) {
+
+    const idAlumno = Number(evento.target.dataset.id);
+
+    const alumnoSeleccionado = alumnosEncontrados.find(function (alumno) {
+        return alumno.id === idAlumno;
+    });
+
+    if (!alumnoSeleccionado) {
+        alert("No se pudo encontrar al estudiante.");
+        return;
+    }
+
+    const nuevaUid = prompt(
+        "Ingresa la UID de la nueva tarjeta RFID:"
+    );
+
+    if (nuevaUid === null) {
+        return;
+    }
+
+    const uidLimpia = nuevaUid
+        .trim()
+        .replace(/\s/g, "")
+        .toUpperCase();
+
+    if (uidLimpia === "") {
+        alert("Debes ingresar una UID.");
+        return;
+    }
+
+    const respuesta = await fetch(
+        "/panel/tarjetas/asignar",
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                rut: alumnoSeleccionado.rut,
+                uid: uidLimpia
+            })
+        }
+    );
+
+    const datos = await respuesta.json();
+
+    console.log(
+        "Respuesta reemplazo de tarjeta:",
+        datos
+    );
+
+    if (datos.resultado === "asignada") {
+
+        alert("Nueva tarjeta RFID asignada correctamente.");
+
+        alumnoSeleccionado.uid = datos.uid;
+        alumnoSeleccionado.estado_tarjeta = "activa";
+
+        resultadoEstudiante.innerHTML = `
+            <div class="ficha-estudiante">
+
+                <h3>${alumnoSeleccionado.nombre}</h3>
+
+                <p>
+                    <strong>Curso:</strong>
+                    ${alumnoSeleccionado.curso}
+                </p>
+
+                <p>
+                    <strong>RUT:</strong>
+                    ${alumnoSeleccionado.rut}
+                </p>
+
+                <p>
+                    <strong>Tarjeta RFID:</strong>
+                    ${alumnoSeleccionado.uid}
+                </p>
+
+                <p>
+                    <strong>Estado:</strong>
+                    ${alumnoSeleccionado.estado_tarjeta}
+                </p>
+
+                <button
+                    type="button"
+                    class="boton-bloquear-tarjeta-real"
+                    data-id="${alumnoSeleccionado.id}"
+                >
+                    Bloquear tarjeta
+                </button>
+
+                <button
+                    type="button"
+                    class="boton-volver-resultados"
+                >
+                    Volver a resultados
+                </button>
+
+            </div>
+        `;
+
+        return;
+    }
+
+    if (datos.resultado === "uid_repetido") {
+        alert("Esa UID ya existe en el sistema.");
+        return;
+    }
+
+    if (datos.resultado === "ya_tiene_tarjeta") {
+        alert("El estudiante ya tiene una tarjeta RFID activa.");
+        return;
+    }
+
+    alert(
+        datos.mensaje ?? "No se pudo reemplazar la tarjeta RFID."
+    );
+
+    return;
+}
+
+    
+
+            
         
-            if (nuevaUid === null || nuevaUid.trim() === "") {
-                return;
-            }
-
-            const uidLimpia = nuevaUid.trim().toUpperCase();
-
-            const uidYaAsignada = estudiantesDemo.some(function(estudiante) {
-                return estudiante.uid === uidLimpia &&
-                        estudiante.rut !== rutSeleccionado;
-            });
-
-            if (uidYaAsignada) {
-                alert("Esa UID ya está asignada a otro estudiante.");
-                return;
-            }
-
-            estudianteSeleccionado.uid = uidLimpia;
-
-            mostrarFichaEstudiante(estudianteSeleccionado);            
-        }    
             
         });

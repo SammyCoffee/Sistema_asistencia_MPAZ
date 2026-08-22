@@ -4,7 +4,7 @@ import secrets
 from flask import Flask, jsonify, request, session, redirect
 from consultar_alumnos import obtener_alumnos, buscar_alumnos
 from procesar_lectura_totem import procesar_lectura_totem
-
+from base_datos import asignar_tarjeta_por_rut, bloquear_tarjeta
 
 app = Flask(
     __name__,
@@ -141,7 +141,8 @@ def consultar_alumnos_api():
                 "rut": alumno[1],
                 "nombre": alumno[2],
                 "curso": alumno[3],
-                "uid": alumno[4]
+                "uid": alumno[4],
+                "estado_tarjeta": alumno[5]
             }
         )
 
@@ -152,6 +153,131 @@ def consultar_alumnos_api():
             "alumnos": alumnos_json
         }
     ), 200    
+
+@app.post("/panel/tarjetas/asignar")
+def asignar_tarjeta_panel():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "Debes iniciar sesion en el panel"
+            }
+        ), 401
+
+    datos = request.get_json(silent=True)
+
+    if not datos:
+        return jsonify(
+            {
+                "resultado": "solicitud_invalida",
+                "mensaje": "Debes enviar los datos en formato JSON"
+            }
+        ), 400
+
+    rut = datos.get("rut", "")
+    uid = datos.get("uid", "")
+
+    if not isinstance(rut, str) or not isinstance(uid, str):
+        return jsonify(
+            {
+                "resultado": "datos_invalidos",
+                "mensaje": "El RUT y la UID deben ser texto"
+            }
+        ), 400
+
+    rut = rut.strip()
+    uid = uid.strip()
+
+    if not rut or not uid:
+        return jsonify(
+            {
+                "resultado": "datos_incompletos",
+                "mensaje": "Falta el RUT o la UID de la tarjeta"
+            }
+        ), 400
+
+    respuesta = asignar_tarjeta_por_rut(rut, uid)
+
+    resultado = respuesta.get("resultado")
+
+    if resultado == "alumno_no_existe":
+        return jsonify(respuesta), 404
+
+    if resultado in (
+        "ya_tiene_tarjeta",
+        "uid_repetido"
+    ):
+        return jsonify(respuesta), 409
+
+    if resultado == "asignada":
+        return jsonify(respuesta), 200
+
+    return jsonify(
+        {
+            "resultado": "error_interno",
+            "mensaje": "No se pudo procesar la asignacion"
+        }
+    ), 500    
+
+@app.post("/panel/tarjetas/bloquear")
+def bloquear_tarjeta_panel():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "Debes iniciar sesion en el panel"
+            }
+        ), 401
+
+    datos = request.get_json(silent=True)
+
+    if not datos:
+        return jsonify(
+            {
+                "resultado": "solicitud_invalida",
+                "mensaje": "Debes enviar los datos en formato JSON"
+            }
+        ), 400
+
+    uid = datos.get("uid", "")
+
+    if not isinstance(uid, str):
+        return jsonify(
+            {
+                "resultado": "datos_invalidos",
+                "mensaje": "La UID debe ser texto"
+            }
+        ), 400
+
+    uid = uid.strip()
+
+    if not uid:
+        return jsonify(
+            {
+                "resultado": "datos_incompletos",
+                "mensaje": "Falta la UID de la tarjeta"
+            }
+        ), 400
+
+    bloqueada = bloquear_tarjeta(uid)
+
+    if not bloqueada:
+        return jsonify(
+            {
+                "resultado": "no_bloqueada",
+                "mensaje": "La tarjeta no existe o ya estaba bloqueada"
+            }
+        ), 404
+
+    return jsonify(
+        {
+            "resultado": "bloqueada",
+            "uid": uid.upper(),
+            "mensaje": "Tarjeta bloqueada correctamente"
+        }
+    ), 200
 
 @app.post("/lectura")
 def recibir_lectura():
