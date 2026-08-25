@@ -1,26 +1,41 @@
-import sqlite3
+from base_datos import obtener_conexion
 
-conexion = sqlite3.connect("data/asistencia.db")
-cursor = conexion.cursor()
 
-try:
-    cursor.execute(
-        """
-        SELECT
-            asistencias.id,
-            alumnos.nombre_completo,
-            alumnos.rut,
-            alumnos.curso,
-            asistencias.fecha,
-            asistencias.hora
-        FROM asistencias
-        INNER JOIN alumnos
-            ON asistencias.alumno_id = alumnos.id
-        ORDER BY asistencias.fecha DESC, asistencias.hora DESC
-        """
-    )
+def obtener_asistencias():
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
 
-    registros = cursor.fetchall()
+    try:
+        cursor.execute(
+            """
+            SELECT
+                asistencias.id,
+                alumnos.nombre_completo,
+                alumnos.rut,
+                alumnos.curso,
+                asistencias.fecha,
+                asistencias.hora,
+                totems.codigo,
+                asistencias.evento_id
+            FROM asistencias
+            INNER JOIN alumnos
+                ON asistencias.alumno_id = alumnos.id
+            LEFT JOIN totems
+                ON asistencias.totem_id = totems.id
+            ORDER BY
+                asistencias.fecha DESC,
+                asistencias.hora DESC
+            """
+        )
+
+        return cursor.fetchall()
+
+    finally:
+        conexion.close()
+
+
+if __name__ == "__main__":
+    registros = obtener_asistencias()
 
     if registros:
         print("REGISTROS DE ASISTENCIA")
@@ -33,9 +48,9 @@ try:
             print("Curso:", registro[3])
             print("Fecha:", registro[4])
             print("Hora:", registro[5])
+            print("Tótem:", registro[6])
+            print("Evento:", registro[7])
             print("-------------------------")
+
     else:
         print("No hay registros de asistencia disponibles.")
-
-finally:
-    conexion.close()

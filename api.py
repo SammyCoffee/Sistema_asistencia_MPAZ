@@ -1,10 +1,12 @@
 import os
 import secrets
 
-from flask import Flask, jsonify, request, session, redirect
+from flask import (Flask,jsonify,request,session,redirect,send_file)
 from consultar_alumnos import obtener_alumnos, buscar_alumnos
 from procesar_lectura_totem import procesar_lectura_totem
 from base_datos import asignar_tarjeta_por_rut, bloquear_tarjeta
+from consultar_asistencia import obtener_asistencias
+from exportar_asistencia_csv import exportar_asistencias
 
 app = Flask(
     __name__,
@@ -153,6 +155,63 @@ def consultar_alumnos_api():
             "alumnos": alumnos_json
         }
     ), 200    
+
+@app.get("/asistencias")
+def consultar_asistencias_api():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "Debes iniciar sesion en el panel"
+            }
+        ), 401
+
+    registros = obtener_asistencias()
+
+    asistencias_json = []
+
+    for registro in registros:
+        asistencias_json.append(
+            {
+                "id": registro[0],
+                "nombre": registro[1],
+                "rut": registro[2],
+                "curso": registro[3],
+                "fecha": registro[4],
+                "hora": registro[5],
+                "totem": registro[6],
+                "evento_id": registro[7]
+            }
+        )
+
+    return jsonify(
+        {
+            "resultado": "ok",
+            "total": len(asistencias_json),
+            "asistencias": asistencias_json
+        }
+    ), 200
+
+@app.get("/asistencias/exportar")
+def exportar_asistencias_api():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "Debes iniciar sesion en el panel"
+            }
+        ), 401
+
+    ruta_reporte, cantidad = exportar_asistencias()
+
+    return send_file(
+        ruta_reporte,
+        as_attachment=True,
+        download_name=ruta_reporte.name,
+        mimetype="text/csv"
+    )
 
 @app.post("/panel/tarjetas/asignar")
 def asignar_tarjeta_panel():
