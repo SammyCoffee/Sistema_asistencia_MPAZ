@@ -454,10 +454,24 @@ def crear_tablas():
                 alumno_id INTEGER NOT NULL,
                 fecha TEXT NOT NULL,
                 hora TEXT NOT NULL,
-                FOREIGN KEY (alumno_id) REFERENCES alumnos(id)
+                totem_id INTEGER,
+                evento_id TEXT,
+                FOREIGN KEY (alumno_id)
+                    REFERENCES alumnos(id),
+                FOREIGN KEY (totem_id)
+                    REFERENCES totems(id)
             )
             """
         )
+
+        cursor.execute(
+            """
+            CREATE UNIQUE INDEX IF NOT EXISTS
+                indice_evento_id_asistencias
+            ON asistencias(evento_id)
+            """
+        )
+        
         conexion.commit()
         
         print("Tablas creadas correctamente")
