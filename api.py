@@ -6,7 +6,7 @@ from consultar_alumnos import obtener_alumnos, buscar_alumnos
 from procesar_lectura_totem import procesar_lectura_totem
 from base_datos import asignar_tarjeta_por_rut, bloquear_tarjeta
 from consultar_asistencia import obtener_asistencias
-from exportar_asistencia_csv import exportar_asistencias
+from exportar_asistencias_csv import exportar_asistencias
 
 app = Flask(
     __name__,

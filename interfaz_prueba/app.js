@@ -182,75 +182,17 @@ botonReporteSemanal.addEventListener("click", function() {
 });
     
 
-const tablaAsistencias = 
+const tablaAsistencias =
     document.getElementById("tabla-asistencias");
+
 
 botonReporteDiario.addEventListener("click", function() {
 
-    console.log("Botón reporte diario detectado");
+    console.log("Descargando reporte desde el servidor");
 
-const filasAsistencias = 
-    tablaAsistencias.querySelectorAll("tbody tr");
-    
-console.log("Filas de asistencia encontradas:", filasAsistencias.length);
+    window.location.href = "/asistencias/exportar";
 
-let contenidoCsv = "Hora,Estudiante,Curso,UID,Resultado\n";
-
-filasAsistencias.forEach(function(fila) {
-
-    const celdas = fila.querySelectorAll("td");
-
-    console.log(
-        celdas[0].textContent,
-        celdas[1].textContent,
-        celdas[2].textContent,
-        celdas[3].textContent,
-        celdas[4].textContent
-    );
-
-    const hora = celdas[0].textContent.trim();
-    const estudiante = celdas[1].textContent.trim();
-    const curso = celdas[2].textContent.trim();
-    const uid = celdas[3].textContent.trim();
-    const resultado = celdas[4].textContent.trim();
-
-    contenidoCsv += `${hora},${estudiante},${curso},${uid},${resultado}\n`;
 });
-
-console.log(contenidoCsv);
-
-const archivoCsv = new Blob(
-    [contenidoCsv],
-    { type: "text/csv;charset=utf-8;"}
-);
-
-console.log("Archivo CSV preparado:", archivoCsv);
-
-const urlArchivo = 
-    URL.createObjectURL(archivoCsv);
-
-console.log("URL del archivo:", urlArchivo);
-
-const enlaceDescarga = 
-    document.createElement("a");
-
-enlaceDescarga.href = urlArchivo;
-
-enlaceDescarga.download = 
-"reporte_diario_asistencia.csv";
-
-console.log("Enlace de descarga preparado:", enlaceDescarga);
-
-enlaceDescarga.click();
-
-setTimeout(function(){
-    URL.revokeObjectURL(urlArchivo);
-}, 1000);
-
-
-});    
-
-
 
 
 function obtenerClaseInasistencias(cantidad) {
@@ -266,7 +208,8 @@ function obtenerClaseInasistencias(cantidad) {
     return "inasistencias-verde";
 }
 
-const tablaInasistencias = 
+
+const tablaInasistencias =
     document.getElementById("tabla-inasistencias");
 
 
