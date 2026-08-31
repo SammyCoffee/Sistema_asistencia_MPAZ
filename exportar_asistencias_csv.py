@@ -1,20 +1,47 @@
 import csv
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 from base_datos import obtener_conexion
 
 
-CARPETAS_REPORTES = Path("reportes")
+CARPETA_REPORTES = Path("reportes")
 
-def exportar_asistencias():
-    CARPETAS_REPORTES.mkdir(exist_ok=True)
+
+def obtener_rango_fechas(periodo):
+    hoy = date.today()
+
+    if periodo == "diario":
+        fecha_desde = hoy
+        fecha_hasta = hoy
+
+    elif periodo == "semanal":
+        fecha_desde = hoy - timedelta(days=6)
+        fecha_hasta = hoy
+
+    elif periodo == "mensual":
+        fecha_desde = hoy.replace(day=1)
+        fecha_hasta = hoy
+
+    else:
+        raise ValueError("Periodo de reporte no valido")
+
+    return (
+        fecha_desde.strftime("%Y-%m-%d"),
+        fecha_hasta.strftime("%Y-%m-%d")
+    )
+
+
+def exportar_asistencias(periodo="diario"):
+    CARPETA_REPORTES.mkdir(exist_ok=True)
+
+    fecha_desde, fecha_hasta = obtener_rango_fechas(periodo)
 
     marca_tiempo = datetime.now().strftime("%Y%m%d_%H%M%S")
 
     ruta_reporte = (
-        CARPETAS_REPORTES
-        / F"asistencias_{marca_tiempo}.csv"
+        CARPETA_REPORTES
+        / f"asistencias_{periodo}_{marca_tiempo}.csv"
     )
 
     conexion = obtener_conexion()
@@ -36,13 +63,20 @@ def exportar_asistencias():
 
             INNER JOIN alumnos
                 ON asistencias.alumno_id = alumnos.id
+
             LEFT JOIN totems
                 ON asistencias.totem_id = totems.id
 
+            WHERE asistencias.fecha BETWEEN ? AND ?
+
             ORDER BY
                 asistencias.fecha,
-                asistencias.hora        
-            """
+                asistencias.hora
+            """,
+            (
+                fecha_desde,
+                fecha_hasta
+            )
         )
 
         registros = cursor.fetchall()
@@ -54,7 +88,8 @@ def exportar_asistencias():
         mode="w",
         encoding="utf-8-sig",
         newline=""
-    )as archivo:
+    ) as archivo:
+
         escritor = csv.writer(
             archivo,
             delimiter=";"
@@ -64,12 +99,12 @@ def exportar_asistencias():
             [
                 "ID asistencia",
                 "RUT",
-                "Nombre_completo",
+                "Nombre completo",
                 "Curso",
                 "Fecha",
                 "Hora",
                 "Tótem",
-                "Evento_ID"
+                "Evento ID"
             ]
         )
 
@@ -86,11 +121,13 @@ def exportar_asistencias():
                     registro[7] or "Sin evento"
                 ]
             )
+
     return ruta_reporte, len(registros)
 
-if __name__ ==  "__main__":
-    ruta, cantidad = exportar_asistencias()
 
-    print("Reporte creada correctamente")
+if __name__ == "__main__":
+    ruta, cantidad = exportar_asistencias("diario")
+
+    print("Reporte creado correctamente")
     print("Archivo:", ruta)
-    print("Asistencias exportadas:", cantidad) 
+    print("Asistencias exportadas:", cantidad)

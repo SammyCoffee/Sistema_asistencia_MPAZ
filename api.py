@@ -193,8 +193,8 @@ def consultar_asistencias_api():
         }
     ), 200
 
-@app.get("/asistencias/exportar")
-def exportar_asistencias_api():
+@app.get("/asistencias/exportar/<periodo>")
+def exportar_asistencias_api(periodo):
 
     if not session.get("panel_autorizado", False):
         return jsonify(
@@ -204,7 +204,19 @@ def exportar_asistencias_api():
             }
         ), 401
 
-    ruta_reporte, cantidad = exportar_asistencias()
+    if periodo not in (
+        "diario",
+        "semanal",
+        "mensual"
+    ):
+        return jsonify(
+            {
+                "resultado": "periodo_invalido",
+                "mensaje": "El periodo solicitado no es valido"
+            }
+        ), 400
+
+    ruta_reporte, cantidad = exportar_asistencias(periodo)
 
     return send_file(
         ruta_reporte,
@@ -212,7 +224,6 @@ def exportar_asistencias_api():
         download_name=ruta_reporte.name,
         mimetype="text/csv"
     )
-
 @app.post("/panel/tarjetas/asignar")
 def asignar_tarjeta_panel():
 

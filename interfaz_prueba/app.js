@@ -35,165 +35,31 @@ const botonCerrarSesion =
         }
     });
     
-botonReporteMensual.addEventListener
-("click", function() {
-
-    console.log("Botón reporte mensual detectado");
-
-    const filasMensuales = 
-    tablaAsistencias.querySelectorAll("tbody tr");
-
-    console.log(
-        "Filas para reporte mensual:",
-        filasMensuales.length
-    );
-
-    let contenidoCsvMensual = 
-        "Hora,Estudiante,Curso,UID,Resultado\n";
-   
-        filasMensuales.forEach(function(fila) {
-
-            const celdas = fila.querySelectorAll("td");
-
-            console.log(
-                "Celdas mensuales encontradas:",
-                celdas.length
-            );
-            const horaMensual =
-                celdas[0].textContent.trim();
-            
-            const estudianteMensual =
-                celdas[1].textContent.trim();
-            
-            const cursoMensual =
-                celdas[2].textContent.trim(); 
-            
-            const uidMensual = 
-                celdas[3].textContent.trim();
-            
-            const resultadoMensual = 
-                celdas[4].textContent.trim();
-            
-            contenidoCsvMensual +=
-                `${horaMensual},${estudianteMensual},${cursoMensual},${uidMensual},${resultadoMensual}\n`;
-
-                
-            console.log("Hora mensual:", horaMensual);
-            console.log("Estudiante mensual:", estudianteMensual);
-            console.log("Curso mensual:", cursoMensual);
-            console.log("UID mensual:", uidMensual);
-            console.log("Resultado mensual:", resultadoMensual);    
-        });
-
-            console.log("Contenido CSV mensual:");
-            console.log(contenidoCsvMensual);
-
-            const archivoCsvMensual = new Blob(
-                [contenidoCsvMensual],
-                { type: "text/csv;charset=utf-8;" }
-            );
-
-            const urlArchivoMensual =
-                URL.createObjectURL(archivoCsvMensual);
-
-            const enlaceDescargaMensual = 
-                document.createElement("a");
-            
-        
-            enlaceDescargaMensual.href   = urlArchivoMensual;
-            
-            enlaceDescargaMensual.download =
-                "reporte_mensual_asistencia.csv";
-
-           enlaceDescargaMensual.click();
-           
-           URL.revokeObjectURL(urlArchivoMensual);
- });
-botonReporteSemanal.addEventListener("click", function() {
-
-    console.log("Boton reporte semanal detectado");
-
-    const filasSemanales =
-    tablaAsistencias.querySelectorAll("tbody tr");
-
-    console.log(
-        "Filas para reporte semanal:",
-        filasSemanales.length
-    );
-
-    let contenidoCsvSemanal = "Hora,Estudiante,Curso,UID,Resultado\n";
-
-    filasSemanales.forEach(function(fila) {
-
-        const celdas = fila.querySelectorAll("td");
-
-        console.log("Celdas encontradas:", celdas.length);
-
-        const horaSemanal =
-            celdas[0].textContent.trim();
-        
-        const estudianteSemanal =
-            celdas[1].textContent.trim();
-
-        const cursoSemanal =
-            celdas[2].textContent.trim();
-            
-        const uidSemanal =
-            celdas[3].textContent.trim();
-        
-        const resultadoSemanal =
-            celdas[4].textContent.trim();        
-        
-            console.log("Hora semanal:", horaSemanal);
-            console.log("Estudiante semanal:", estudianteSemanal);
-            console.log("Curso semanal:", cursoSemanal);
-            console.log("UID semanal:", uidSemanal);
-            console.log("Resultado semanal:", resultadoSemanal);
-
-            contenidoCsvSemanal +=
-    `${horaSemanal},${estudianteSemanal},${cursoSemanal},${uidSemanal},${resultadoSemanal}\n`;;
-    });
-
-    console.log("Contenido CSV semanal:");
-    console.log(contenidoCsvSemanal);
-
-    const archivoCsvSemanal = new Blob(
-        [contenidoCsvSemanal],
-        { type: "text/csv;charset=utf-8;" }
-    );
-
-    const urlArchivoSemanal =
-        URL.createObjectURL(archivoCsvSemanal);
-    
-    const enlaceDescargaSemanal = 
-        document.createElement("a");
-        
-            enlaceDescargaSemanal.href = urlArchivoSemanal;
-
-            enlaceDescargaSemanal.download = 
-                "reporte_semanal_asistencia.csv";
-            
-                enlaceDescargaSemanal.click();
-
-                setTimeout(function() {
-                    URL.revokeObjectURL(urlArchivoSemanal);
-                }, 1000);
-        
-});
-    
-
-const tablaAsistencias =
-    document.getElementById("tabla-asistencias");
-
-
 botonReporteDiario.addEventListener("click", function() {
 
-    console.log("Descargando reporte desde el servidor");
+    console.log("Descargando reporte diario");
 
-    window.location.href = "/asistencias/exportar";
+    window.location.href = "/asistencias/exportar/diario";
 
 });
 
+
+botonReporteSemanal.addEventListener("click", function() {
+
+    console.log("Descargando reporte semanal");
+
+    window.location.href = "/asistencias/exportar/semanal";
+
+});
+
+
+botonReporteMensual.addEventListener("click", function() {
+
+    console.log("Descargando reporte mensual");
+
+    window.location.href = "/asistencias/exportar/mensual";
+
+});
 
 function obtenerClaseInasistencias(cantidad) {
 
