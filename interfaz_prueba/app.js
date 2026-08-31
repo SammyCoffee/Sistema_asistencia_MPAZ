@@ -22,6 +22,9 @@ const botonReporteMensual =
 const cuerpoAsistencias =
     document.getElementById("cuerpo-asistencias");
 
+const totalAsistenciasHoy =
+    document.getElementById("total-asistencias-hoy");
+
 const botonCerrarSesion = 
     document.getElementById("boton-cerrar-sesion");
 
@@ -81,6 +84,22 @@ async function cargarAsistencias() {
         "Asistencias recibidas:",
         datos.asistencias
     );
+
+    const ahora = new Date();
+
+const fechaHoy = [
+    ahora.getFullYear(),
+    String(ahora.getMonth() + 1).padStart(2, "0"),
+    String(ahora.getDate()).padStart(2, "0")
+].join("-");
+
+const cantidadAsistenciasHoy =
+    datos.asistencias.filter(function (asistencia) {
+        return asistencia.fecha === fechaHoy;
+    }).length;
+
+totalAsistenciasHoy.textContent =
+    cantidadAsistenciasHoy;    
 
     cuerpoAsistencias.innerHTML = "";
 
