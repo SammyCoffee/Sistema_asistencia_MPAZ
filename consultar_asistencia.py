@@ -16,12 +16,20 @@ def obtener_asistencias():
                 asistencias.fecha,
                 asistencias.hora,
                 totems.codigo,
-                asistencias.evento_id
+                asistencias.evento_id,
+                tarjetas.uid
             FROM asistencias
+
             INNER JOIN alumnos
                 ON asistencias.alumno_id = alumnos.id
+
             LEFT JOIN totems
                 ON asistencias.totem_id = totems.id
+
+            LEFT JOIN tarjetas
+                ON tarjetas.alumno_id = alumnos.id
+                AND tarjetas.estado = 'activa'
+
             ORDER BY
                 asistencias.fecha DESC,
                 asistencias.hora DESC
@@ -50,6 +58,7 @@ if __name__ == "__main__":
             print("Hora:", registro[5])
             print("Tótem:", registro[6])
             print("Evento:", registro[7])
+            print("UID:", registro[8])
             print("-------------------------")
 
     else:

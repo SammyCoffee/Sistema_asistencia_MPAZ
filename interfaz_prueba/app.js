@@ -19,6 +19,9 @@ const botonReporteSemanal =
 const botonReporteMensual =
     document.getElementById("reporte-mensual");
 
+const cuerpoAsistencias =
+    document.getElementById("cuerpo-asistencias");
+
 const botonCerrarSesion = 
     document.getElementById("boton-cerrar-sesion");
 
@@ -60,6 +63,62 @@ botonReporteMensual.addEventListener("click", function() {
     window.location.href = "/asistencias/exportar/mensual";
 
 });
+
+async function cargarAsistencias() {
+
+    const respuesta = await fetch("/asistencias");
+
+    if (!respuesta.ok) {
+        console.error(
+            "No se pudieron cargar las asistencias"
+        );
+        return;
+    }
+
+    const datos = await respuesta.json();
+
+    console.log(
+        "Asistencias recibidas:",
+        datos.asistencias
+    );
+
+    cuerpoAsistencias.innerHTML = "";
+
+    if (datos.asistencias.length === 0) {
+
+        cuerpoAsistencias.innerHTML = `
+            <tr>
+                <td colspan="5">
+                    No hay asistencias registradas.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    datos.asistencias.forEach(function (asistencia) {
+
+        const fila = document.createElement("tr");
+
+        fila.innerHTML = `
+            <td>${asistencia.hora}</td>
+            <td>${asistencia.nombre}</td>
+            <td>${asistencia.curso}</td>
+            <td>${asistencia.uid ?? "Sin UID"}</td>
+            <td>
+                <span class="estado-lectura estado-registrada">
+                    Registrada
+                </span>
+            </td>
+        `;
+
+        cuerpoAsistencias.appendChild(fila);
+    });
+}
+
+
+cargarAsistencias();
 
 function obtenerClaseInasistencias(cantidad) {
 

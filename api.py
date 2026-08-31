@@ -181,7 +181,9 @@ def consultar_asistencias_api():
                 "fecha": registro[4],
                 "hora": registro[5],
                 "totem": registro[6],
-                "evento_id": registro[7]
+                "evento_id": registro[7],
+                "uid": registro[8],
+                "resultado": "registrada"
             }
         )
 
