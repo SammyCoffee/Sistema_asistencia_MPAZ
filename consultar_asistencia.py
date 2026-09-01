@@ -40,6 +40,58 @@ def obtener_asistencias():
 
     finally:
         conexion.close()
+        
+def obtener_inasistencias():
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            WITH fechas_registradas AS (
+                SELECT DISTINCT fecha
+                FROM asistencias
+            ),
+            total_jornadas AS (
+                SELECT COUNT(*) AS cantidad
+                FROM fechas_registradas
+            )
+
+            SELECT
+                alumnos.id,
+                alumnos.nombre_completo,
+                alumnos.curso,
+                (
+                    SELECT cantidad
+                    FROM total_jornadas
+                ) - COUNT(DISTINCT asistencias.fecha)
+                    AS inasistencias
+
+            FROM alumnos
+
+            LEFT JOIN asistencias
+                ON asistencias.alumno_id = alumnos.id
+                AND asistencias.fecha IN (
+                    SELECT fecha
+                    FROM fechas_registradas
+                )
+
+            GROUP BY
+                alumnos.id,
+                alumnos.nombre_completo,
+                alumnos.curso
+
+            ORDER BY
+                inasistencias DESC,
+                alumnos.curso,
+                alumnos.nombre_completo
+            """
+        )
+
+        return cursor.fetchall()
+
+    finally:
+        conexion.close()        
 
 
 if __name__ == "__main__":

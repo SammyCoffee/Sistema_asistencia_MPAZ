@@ -10,6 +10,13 @@ const resultadoEstudiante =
 
 let alumnosEncontrados = [];    
 
+const totalAlertasInasistencia =
+    document.getElementById(
+        "total-alertas-inasistencia"
+    );
+
+    
+
 const totalEstudiantes =
     document.getElementById("total-estudiantes");
 
@@ -191,7 +198,61 @@ function obtenerClaseInasistencias(cantidad) {
 const tablaInasistencias =
     document.getElementById("tabla-inasistencias");
 
+async function cargarInasistencias() {
 
+    const respuesta = await fetch("/inasistencias");
+
+    if (!respuesta.ok) {
+        console.error(
+            "No se pudieron cargar las inasistencias"
+        );
+        return;
+    }
+
+    const datos = await respuesta.json();
+
+    tablaInasistencias.innerHTML = "";
+
+    let cantidadAlertas = 0;
+
+    datos.inasistencias.forEach(function (alumno) {
+
+        const cantidad = alumno.inasistencias;
+
+        let estado = "Normal";
+
+        if (cantidad > 12) {
+            estado = "Crítico";
+        } else if (cantidad > 5) {
+            estado = "Alerta";
+        }
+
+        if (cantidad > 5) {
+            cantidadAlertas++;
+        }
+
+        const fila = document.createElement("tr");
+
+        fila.innerHTML = `
+            <td>${alumno.nombre}</td>
+            <td>${alumno.curso}</td>
+            <td>${cantidad}</td>
+            <td>
+                <span class="${obtenerClaseInasistencias(cantidad)}">
+                    ${estado}
+                </span>
+            </td>
+        `;
+
+        tablaInasistencias.appendChild(fila);
+    });
+
+    totalAlertasInasistencia.textContent =
+        cantidadAlertas;
+}
+
+
+cargarInasistencias();
 
 
 
