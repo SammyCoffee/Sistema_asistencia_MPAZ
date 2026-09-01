@@ -254,6 +254,19 @@ async function cargarInasistencias() {
 
 cargarInasistencias();
 
+async function actualizarPanel() {
+
+    await cargarResumenEstudiantes();
+    await cargarAsistencias();
+    await cargarInasistencias();
+}
+
+
+setInterval(
+    actualizarPanel,
+    10000
+);
+
 
 
 
