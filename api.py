@@ -132,7 +132,7 @@ def consultar_alumnos_api():
     if termino:
         alumnos = buscar_alumnos(termino)
     else:
-        alumnos = []
+        alumnos = obtener_alumnos()
 
     alumnos_json = []
 

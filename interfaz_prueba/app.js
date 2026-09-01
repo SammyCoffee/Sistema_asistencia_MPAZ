@@ -10,6 +10,12 @@ const resultadoEstudiante =
 
 let alumnosEncontrados = [];    
 
+const totalEstudiantes =
+    document.getElementById("total-estudiantes");
+
+const totalTarjetasActivas =
+    document.getElementById("total-tarjetas-activas");
+
 const botonReporteDiario = 
     document.getElementById("reporte-diario");
 
@@ -66,6 +72,35 @@ botonReporteMensual.addEventListener("click", function() {
     window.location.href = "/asistencias/exportar/mensual";
 
 });
+
+async function cargarResumenEstudiantes() {
+
+    const respuesta = await fetch("/alumnos");
+
+    if (!respuesta.ok) {
+        console.error("No se pudo cargar el resumen de estudiantes");
+        return;
+    }
+
+    const datos = await respuesta.json();
+
+    totalEstudiantes.textContent =
+        datos.total;
+
+    const tarjetasActivas =
+        datos.alumnos.filter(function (alumno) {
+            return (
+                alumno.uid !== null &&
+                alumno.estado_tarjeta === "activa"
+            );
+        }).length;
+
+    totalTarjetasActivas.textContent =
+        tarjetasActivas;
+}
+
+
+cargarResumenEstudiantes();
 
 async function cargarAsistencias() {
 
