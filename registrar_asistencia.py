@@ -40,9 +40,14 @@ def procesar_asistencia(uid, totem_id=None, evento_id=None):
     elif resultado_guardado == "duplicada":
         resultado = "duplicada"
         mensaje = "La asistencia de este alumno ya fue registrada hoy"
-    else:
+    elif resultado_guardado == "evento_repetido":
         resultado = "evento_repetido"
         mensaje = "Este evento ya fue procesado anteriormente"
+    
+    else:
+        resultado = "error"
+        mensaje = "No fue posible procesar la asistencia"    
+        
     
     return {
         "resultado": resultado,
