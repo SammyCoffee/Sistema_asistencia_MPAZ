@@ -2,53 +2,55 @@ from base_datos import buscar_alumno_por_uid, guardar_asistencia
 from datetime import datetime
 from lector_nfc import obtener_uid
 
+
 def procesar_asistencia(uid, totem_id=None, evento_id=None):
-    uid = uid.strip().replace(" ","").upper()
-    
+    uid = uid.strip().replace(" ", "").upper()
+
     alumno = buscar_alumno_por_uid(uid)
-    
-    if not alumno:    
-        return{
+
+    if not alumno:
+        return {
             "resultado": "no_registrada",
-            "mensaje": "No existe un alumno con el uid ingresado",
+            "mensaje": "No existe un alumno con el UID ingresado",
             "uid": uid
         }
+
     if alumno[3] != "activa":
         return {
             "resultado": "bloqueada",
-            "mensaje":"La tarjeta esta bloqueada",
+            "mensaje": "La tarjeta está bloqueada",
             "uid": uid
-        }    
+        }
+
     momento_actual = datetime.now()
-    
+
     fecha = momento_actual.strftime("%Y-%m-%d")
     hora = momento_actual.strftime("%H:%M:%S")
-    
+
     resultado_guardado = guardar_asistencia(
         alumno[0],
         fecha,
         hora,
         totem_id,
         evento_id
-
     )
-    
+
     if resultado_guardado == "registrada":
         resultado = "registrada"
         mensaje = "Asistencia registrada correctamente"
-    
+
     elif resultado_guardado == "duplicada":
         resultado = "duplicada"
         mensaje = "La asistencia de este alumno ya fue registrada hoy"
+
     elif resultado_guardado == "evento_repetido":
         resultado = "evento_repetido"
         mensaje = "Este evento ya fue procesado anteriormente"
-    
+
     else:
         resultado = "error"
-        mensaje = "No fue posible procesar la asistencia"    
-        
-    
+        mensaje = "No fue posible procesar la asistencia"
+
     return {
         "resultado": resultado,
         "mensaje": mensaje,
@@ -56,7 +58,9 @@ def procesar_asistencia(uid, totem_id=None, evento_id=None):
         "curso": alumno[2],
         "fecha": fecha,
         "hora": hora
-    }            
+    }
+
+
 if __name__ == "__main__":
     uid_ingresado = obtener_uid()
 
@@ -66,12 +70,8 @@ if __name__ == "__main__":
 
     if respuesta["resultado"] in ("registrada", "duplicada"):
         print("Alumno:", respuesta["alumno"])
-        print("Curso", respuesta["curso"])
+        print("Curso:", respuesta["curso"])
         print("Fecha:", respuesta["fecha"])
-    
+
         if respuesta["resultado"] == "registrada":
             print("Hora:", respuesta["hora"])
-        
-        
-
-    

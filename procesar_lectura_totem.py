@@ -112,6 +112,15 @@ def procesar_lectura_totem(
             "buzzer": "un_pitido_largo"
         }
 
+    if resultado_asistencia == "error":
+        return {
+        "resultado": "error_interno",
+        "mensaje": respuesta_asistencia["mensaje"],
+        "totem": respuesta_totem["codigo"],
+        "led": "rojo",
+        "buzzer": "un_pitido_largo"
+    }    
+
     return {
         "resultado": "tarjeta_desconocida",
         "mensaje": respuesta_asistencia["mensaje"],
