@@ -98,6 +98,34 @@ def bloquear_tarjeta(uid):
     finally:
         conexion.close()
 
+def activar_tarjeta(uid):
+    uid = uid.strip().replace(" ", "").upper()
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            UPDATE tarjetas
+            SET estado = 'activa',
+                fecha_bloqueo = NULL
+            WHERE uid = ?
+                AND estado = 'bloqueada'
+            """,
+            (uid,)
+        )
+
+        if cursor.rowcount == 0:
+            return False
+
+        conexion.commit()
+
+        return True
+
+    finally:
+        conexion.close()
+
 def asignar_tarjeta_por_rut(rut,uid):
     rut = rut.strip()
     uid = uid.strip().replace(" ","").upper()
@@ -330,6 +358,62 @@ def guardar_totem(codigo, nombre, ubicacion):
         }
     finally:
         conexion.close()
+
+def cambiar_estado_totem(codigo, nuevo_estado):
+    codigo = codigo.strip().upper()
+    nuevo_estado = nuevo_estado.strip().lower()
+
+    if nuevo_estado not in ("activo", "inactivo"):
+        return {
+            "resultado": "estado_invalido"
+        }
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            SELECT id
+            FROM totems
+            WHERE codigo = ?
+            LIMIT 1
+            """,
+            (codigo,)
+        )
+
+        totem = cursor.fetchone()
+
+        if not totem:
+            return {
+                "resultado": "no_existe",
+                "codigo": codigo
+            }
+
+        cursor.execute(
+            """
+            UPDATE totems
+            SET estado = ?
+            WHERE id = ?
+            """,
+            (
+                nuevo_estado,
+                totem[0]
+            )
+        )
+
+        conexion.commit()
+
+        return {
+            "resultado": "actualizado",
+            "codigo": codigo,
+            "estado": nuevo_estado
+        }
+
+    finally:
+        conexion.close()
+
+
         
 def validar_totem(codigo):
     codigo = codigo.strip().upper()
