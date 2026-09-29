@@ -8,7 +8,7 @@ RUTA_BASE_DATOS = Path(
 )
 
 CARPETA_RESPALDOS = Path(
-    "respaldos"
+    "/srv/mpaz-data/backups/rfid"
 )
 
 
