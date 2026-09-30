@@ -23,7 +23,7 @@ const totalEstudiantes =
 const totalTarjetasActivas =
     document.getElementById("total-tarjetas-activas");
 
-const botonReporteDiario = 
+const botonReporteDiario =
     document.getElementById("reporte-diario");
 
 const botonReporteSemanal =
@@ -35,79 +35,119 @@ const botonReporteMensual =
 const botonReporteAnual =
     document.getElementById("reporte-anual");
 
+const filtroCursoReporte =
+    document.getElementById("filtro-curso-reporte");
+
 const cuerpoAsistencias =
     document.getElementById("cuerpo-asistencias");
 
 const totalAsistenciasHoy =
     document.getElementById("total-asistencias-hoy");
 
-const botonCerrarSesion = 
+const botonCerrarSesion =
     document.getElementById("boton-cerrar-sesion");
 
-    botonCerrarSesion.addEventListener("click", async function() {
 
-        console.log("Boton cerrar sesión detectado");
+botonCerrarSesion.addEventListener("click", async function() {
 
-        const respuesta = await fetch("/panel/logout", {
-            method: "POST"
-        });
+    console.log("Boton cerrar sesión detectado");
 
-        if (respuesta.ok) {
-            window.location.href = "/login.html";
-        }
+    const respuesta = await fetch("/panel/logout", {
+        method: "POST"
     });
-    
+
+    if (respuesta.ok) {
+        window.location.href = "/login.html";
+    }
+});
+
+
+function descargarReporte(periodo) {
+
+    const curso = filtroCursoReporte.value;
+
+    console.log(
+        "Descargando reporte:",
+        periodo,
+        "Curso:",
+        curso || "Todos"
+    );
+
+    let url = "/asistencias/exportar/" + periodo;
+
+    if (curso) {
+        url += "?curso=" + encodeURIComponent(curso);
+    }
+
+    window.location.href = url;
+}
+
+
 botonReporteDiario.addEventListener("click", function() {
-
-    console.log("Descargando reporte diario");
-
-    window.location.href = "/asistencias/exportar/diario";
-
+    descargarReporte("diario");
 });
 
 
 botonReporteSemanal.addEventListener("click", function() {
-
-    console.log("Descargando reporte semanal");
-
-    window.location.href = "/asistencias/exportar/semanal";
-
+    descargarReporte("semanal");
 });
 
 
 botonReporteMensual.addEventListener("click", function() {
-
-    console.log("Descargando reporte mensual");
-
-    window.location.href = "/asistencias/exportar/mensual";
-
+    descargarReporte("mensual");
 });
 
 
 botonReporteAnual.addEventListener("click", function() {
-
-    console.log("Descargando reporte anual");
-
-    window.location.href = "/asistencias/exportar/anual";
-
+    descargarReporte("anual");
 });
+
 
 async function cargarResumenEstudiantes() {
 
     const respuesta = await fetch("/alumnos");
 
     if (!respuesta.ok) {
-        console.error("No se pudo cargar el resumen de estudiantes");
+        console.error(
+            "No se pudo cargar el resumen de estudiantes"
+        );
         return;
     }
 
     const datos = await respuesta.json();
 
+    const cursos = [
+        ...new Set(
+            datos.alumnos
+                .map(function(alumno) {
+                    return alumno.curso;
+                })
+                .filter(function(curso) {
+                    return curso;
+                })
+        )
+    ].sort();
+
+    filtroCursoReporte.innerHTML =
+        '<option value="">Todos los cursos</option>';
+
+    cursos.forEach(function(curso) {
+
+        const opcion =
+            document.createElement("option");
+
+        opcion.value = curso;
+        opcion.textContent = curso;
+
+        filtroCursoReporte.appendChild(opcion);
+
+    });
+
     totalEstudiantes.textContent =
         datos.total;
 
     const tarjetasActivas =
-        datos.alumnos.filter(function (alumno) {
+        datos.alumnos.filter(function(alumno) {
             return (
                 alumno.uid !== null &&
                 alumno.estado_tarjeta === "activa"
@@ -124,7 +164,7 @@ cargarResumenEstudiantes();
 async function cargarAsistencias() {
 
     const respuesta = await fetch("/asistencias");
-
+	
     if (!respuesta.ok) {
         console.error(
             "No se pudieron cargar las asistencias"

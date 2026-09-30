@@ -36,7 +36,7 @@ def obtener_rango_fechas(periodo):
     )
 
 
-def exportar_asistencias(periodo="diario"):
+def exportar_asistencias(periodo="diario", curso=None	):
     CARPETA_REPORTES.mkdir(exist_ok=True)
 
     fecha_desde, fecha_hasta = obtener_rango_fechas(periodo)
@@ -72,6 +72,7 @@ def exportar_asistencias(periodo="diario"):
                 ON asistencias.totem_id = totems.id
 
             WHERE asistencias.fecha BETWEEN ? AND ?
+		AND (? IS NULL OR alumnos.curso = ?)
 
             ORDER BY
                 asistencias.fecha,
@@ -79,7 +80,9 @@ def exportar_asistencias(periodo="diario"):
             """,
             (
                 fecha_desde,
-                fecha_hasta
+                fecha_hasta,
+		curso,
+		curso
             )
         )
 

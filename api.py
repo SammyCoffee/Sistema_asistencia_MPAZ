@@ -252,8 +252,16 @@ def exportar_asistencias_api(periodo):
                 "mensaje": "El periodo solicitado no es valido"
             }
         ), 400
+    
+    curso = request.args.get("curso", "").strip()
 
-    ruta_reporte, cantidad = exportar_asistencias(periodo)
+    if not curso:
+         curso = None
+    
+    ruta_reporte, cantidad = exportar_asistencias(
+	periodo,
+	curso=curso
+	)
 
     return send_file(
         ruta_reporte,
