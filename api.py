@@ -243,7 +243,8 @@ def exportar_asistencias_api(periodo):
     if periodo not in (
         "diario",
         "semanal",
-        "mensual"
+        "mensual",
+        "anual"
     ):
         return jsonify(
             {

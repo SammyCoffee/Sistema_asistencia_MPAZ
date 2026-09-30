@@ -23,6 +23,10 @@ def obtener_rango_fechas(periodo):
         fecha_desde = hoy.replace(day=1)
         fecha_hasta = hoy
 
+    elif periodo == "anual":
+        fecha_desde = hoy.replace(month=1, day=1)
+        fecha_hasta = hoy    
+
     else:
         raise ValueError("Periodo de reporte no valido")
 

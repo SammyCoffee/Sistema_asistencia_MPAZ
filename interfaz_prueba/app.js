@@ -32,6 +32,9 @@ const botonReporteSemanal =
 const botonReporteMensual =
     document.getElementById("reporte-mensual");
 
+const botonReporteAnual =
+    document.getElementById("reporte-anual");
+
 const cuerpoAsistencias =
     document.getElementById("cuerpo-asistencias");
 
@@ -77,6 +80,15 @@ botonReporteMensual.addEventListener("click", function() {
     console.log("Descargando reporte mensual");
 
     window.location.href = "/asistencias/exportar/mensual";
+
+});
+
+
+botonReporteAnual.addEventListener("click", function() {
+
+    console.log("Descargando reporte anual");
+
+    window.location.href = "/asistencias/exportar/anual";
 
 });
 
