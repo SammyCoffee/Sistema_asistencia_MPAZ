@@ -60,29 +60,39 @@ def exportar_asistencias(periodo="diario", curso=None	):
                 alumnos.nombre_completo,
                 alumnos.curso,
                 asistencias.fecha,
-                asistencias.hora,
-                totems.codigo,
-                asistencias.evento_id
+                asistencias.hora_entrada,
+                asistencias.hora_salida,
+                asistencias.tipo_salida,
+                totem_entrada.codigo,
+                totem_salida.codigo,
+                asistencias.evento_entrada_id,
+                asistencias.evento_salida_id
+
             FROM asistencias
 
             INNER JOIN alumnos
                 ON asistencias.alumno_id = alumnos.id
 
-            LEFT JOIN totems
-                ON asistencias.totem_id = totems.id
+            LEFT JOIN totems AS totem_entrada
+                ON asistencias.totem_entrada_id =
+                totem_entrada.id
+
+            LEFT JOIN totems AS totem_salida
+                ON asistencias.totem_salida_id =
+                totem_salida.id
 
             WHERE asistencias.fecha BETWEEN ? AND ?
-		AND (? IS NULL OR alumnos.curso = ?)
+            AND (? IS NULL OR alumnos.curso = ?)
 
             ORDER BY
                 asistencias.fecha,
-                asistencias.hora
+                asistencias.hora_entrada
             """,
             (
                 fecha_desde,
                 fecha_hasta,
-		curso,
-		curso
+                curso,
+                curso
             )
         )
 
@@ -104,30 +114,37 @@ def exportar_asistencias(periodo="diario", curso=None	):
 
         escritor.writerow(
             [
-                "ID asistencia",
-                "RUT",
-                "Nombre completo",
-                "Curso",
-                "Fecha",
-                "Hora",
-                "Tótem",
-                "Evento ID"
+                    "ID asistencia",
+                    "RUT",
+                    "Nombre completo",
+                    "Curso",
+                    "Fecha",
+                    "Hora entrada",
+                    "Hora salida",
+                    "Tipo salida",
+                    "Tótem entrada",
+                    "Tótem salida",
+                    "Evento entrada",
+                    "Evento salida"
             ]
         )
 
-        for registro in registros:
-            escritor.writerow(
-                [
-                    registro[0],
-                    registro[1],
-                    registro[2],
-                    registro[3],
-                    registro[4],
-                    registro[5],
-                    registro[6] or "Registro manual",
-                    registro[7] or "Sin evento"
-                ]
-            )
+        escritor.writerow(
+                    [
+                        registro[0],
+                        registro[1],
+                        registro[2],
+                        registro[3],
+                        registro[4],
+                        registro[5] or "Sin entrada",
+                        registro[6] or "Pendiente",
+                        registro[7] or "Pendiente",
+                        registro[8] or "Sin tótem",
+                        registro[9] or "Sin tótem",
+                        registro[10] or "Sin evento",
+                        registro[11] or "Sin evento"
+                    ]
+                )
 
     return ruta_reporte, len(registros)
 
