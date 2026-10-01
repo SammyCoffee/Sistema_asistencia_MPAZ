@@ -15,6 +15,10 @@ def procesar_lectura_totem(
         "resultado"
     )
 
+    # ==========================================
+    # TOTEM NO REGISTRADO
+    # ==========================================
+
     if resultado_totem == "no_existe":
         return {
             "resultado": "totem_no_autorizado",
@@ -23,6 +27,10 @@ def procesar_lectura_totem(
             "led": "rojo",
             "buzzer": "un_pitido_largo"
         }
+
+    # ==========================================
+    # TOTEM INACTIVO
+    # ==========================================
 
     if resultado_totem == "inactivo":
         return {
@@ -36,7 +44,6 @@ def procesar_lectura_totem(
             "buzzer": "un_pitido_largo"
         }
 
- 
     totem_id = respuesta_totem.get("id")
 
     if (
@@ -56,6 +63,10 @@ def procesar_lectura_totem(
             "buzzer": "un_pitido_largo"
         }
 
+    # ==========================================
+    # PROCESAR TARJETA
+    # ==========================================
+
     respuesta_asistencia = procesar_asistencia(
         uid,
         totem_id,
@@ -66,30 +77,83 @@ def procesar_lectura_totem(
         respuesta_asistencia.get("resultado")
     )
 
-    if resultado_asistencia == "registrada":
+    # ==========================================
+    # ENTRADA REGISTRADA
+    # ==========================================
+
+    if resultado_asistencia == "entrada_registrada":
         return {
-            "resultado": "registrada",
+            "resultado": "entrada_registrada",
             "mensaje": respuesta_asistencia["mensaje"],
             "totem": respuesta_totem["codigo"],
             "alumno": respuesta_asistencia["alumno"],
             "curso": respuesta_asistencia["curso"],
             "fecha": respuesta_asistencia["fecha"],
             "hora": respuesta_asistencia["hora"],
+            "hora_entrada": respuesta_asistencia[
+                "hora_entrada"
+            ],
             "led": "verde",
             "buzzer": "un_pitido_corto"
         }
 
-    if resultado_asistencia == "duplicada":
+    # ==========================================
+    # SALIDA REGISTRADA
+    # ==========================================
+
+    if resultado_asistencia == "salida_registrada":
         return {
-            "resultado": "duplicada",
+            "resultado": "salida_registrada",
             "mensaje": respuesta_asistencia["mensaje"],
             "totem": respuesta_totem["codigo"],
             "alumno": respuesta_asistencia["alumno"],
             "curso": respuesta_asistencia["curso"],
             "fecha": respuesta_asistencia["fecha"],
+            "hora": respuesta_asistencia["hora"],
+            "hora_salida": respuesta_asistencia[
+                "hora_salida"
+            ],
+            "led": "verde",
+            "buzzer": "un_pitido_corto"
+        }
+
+    # ==========================================
+    # RELECTURA MUY RAPIDA
+    # ==========================================
+
+    if resultado_asistencia == "lectura_repetida":
+        return {
+            "resultado": "lectura_repetida",
+            "mensaje": respuesta_asistencia["mensaje"],
+            "totem": respuesta_totem["codigo"],
+            "alumno": respuesta_asistencia["alumno"],
+            "curso": respuesta_asistencia["curso"],
+            "fecha": respuesta_asistencia["fecha"],
+            "hora": respuesta_asistencia["hora"],
             "led": "amarillo",
             "buzzer": "dos_pitidos_cortos"
         }
+
+    # ==========================================
+    # JORNADA YA COMPLETA
+    # ==========================================
+
+    if resultado_asistencia == "jornada_completa":
+        return {
+            "resultado": "jornada_completa",
+            "mensaje": respuesta_asistencia["mensaje"],
+            "totem": respuesta_totem["codigo"],
+            "alumno": respuesta_asistencia["alumno"],
+            "curso": respuesta_asistencia["curso"],
+            "fecha": respuesta_asistencia["fecha"],
+            "hora": respuesta_asistencia["hora"],
+            "led": "amarillo",
+            "buzzer": "dos_pitidos_cortos"
+        }
+
+    # ==========================================
+    # EVENTO YA PROCESADO
+    # ==========================================
 
     if resultado_asistencia == "evento_repetido":
         return {
@@ -99,9 +163,14 @@ def procesar_lectura_totem(
             "alumno": respuesta_asistencia["alumno"],
             "curso": respuesta_asistencia["curso"],
             "fecha": respuesta_asistencia["fecha"],
+            "hora": respuesta_asistencia["hora"],
             "led": "amarillo",
             "buzzer": "dos_pitidos_cortos"
         }
+
+    # ==========================================
+    # TARJETA BLOQUEADA
+    # ==========================================
 
     if resultado_asistencia == "bloqueada":
         return {
@@ -112,14 +181,22 @@ def procesar_lectura_totem(
             "buzzer": "un_pitido_largo"
         }
 
+    # ==========================================
+    # ERROR INTERNO
+    # ==========================================
+
     if resultado_asistencia == "error":
         return {
-        "resultado": "error_interno",
-        "mensaje": respuesta_asistencia["mensaje"],
-        "totem": respuesta_totem["codigo"],
-        "led": "rojo",
-        "buzzer": "un_pitido_largo"
-    }    
+            "resultado": "error_interno",
+            "mensaje": respuesta_asistencia["mensaje"],
+            "totem": respuesta_totem["codigo"],
+            "led": "rojo",
+            "buzzer": "un_pitido_largo"
+        }
+
+    # ==========================================
+    # TARJETA DESCONOCIDA
+    # ==========================================
 
     return {
         "resultado": "tarjeta_desconocida",
