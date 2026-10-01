@@ -760,12 +760,31 @@ def crear_tablas():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 alumno_id INTEGER NOT NULL,
                 fecha TEXT NOT NULL,
+
                 hora TEXT NOT NULL,
                 totem_id INTEGER,
                 evento_id TEXT,
+
+                hora_entrada TEXT,
+                hora_salida TEXT,
+                tipo_salida TEXT,
+
+                totem_entrada_id INTEGER,
+                totem_salida_id INTEGER,
+
+                evento_entrada_id TEXT,
+                evento_salida_id TEXT,
+
                 FOREIGN KEY (alumno_id)
                     REFERENCES alumnos(id),
+
                 FOREIGN KEY (totem_id)
+                    REFERENCES totems(id),
+
+                FOREIGN KEY (totem_entrada_id)
+                    REFERENCES totems(id),
+
+                FOREIGN KEY (totem_salida_id)
                     REFERENCES totems(id)
             )
             """
@@ -776,6 +795,30 @@ def crear_tablas():
             CREATE UNIQUE INDEX IF NOT EXISTS
                 indice_evento_id_asistencias
             ON asistencias(evento_id)
+            """
+        )
+
+        cursor.execute(
+            """
+            CREATE UNIQUE INDEX IF NOT EXISTS
+                indice_evento_entrada_asistencias
+            ON asistencias(evento_entrada_id)
+            """
+        )
+
+        cursor.execute(
+            """
+            CREATE UNIQUE INDEX IF NOT EXISTS
+                indice_evento_salida_asistencias
+            ON asistencias(evento_salida_id)
+            """
+        )
+
+        cursor.execute(
+            """
+            CREATE UNIQUE INDEX IF NOT EXISTS
+                indice_alumno_fecha_asistencias
+            ON asistencias(alumno_id, fecha)
             """
         )
 
