@@ -7,7 +7,9 @@ from procesar_lectura_totem import procesar_lectura_totem
 from base_datos import (
     asignar_tarjeta_por_rut,
     bloquear_tarjeta,
-    obtener_totems
+    obtener_totems,
+    guardar_totem,
+    cambiar_estado_totem
 )
 from consultar_asistencia import ( obtener_asistencias, obtener_inasistencias )
 from exportar_asistencias_csv import exportar_asistencias
@@ -140,6 +142,142 @@ def consultar_totems_panel():
             "totems": totems
         }
     ), 200
+
+@app.post("/panel/totems/registrar")
+def registrar_totem_panel():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "Debes iniciar sesion en el panel"
+            }
+        ), 401
+
+    datos = request.get_json(silent=True)
+
+    if not datos:
+        return jsonify(
+            {
+                "resultado": "solicitud_invalida",
+                "mensaje": "Debes enviar los datos en formato JSON"
+            }
+        ), 400
+
+    codigo = datos.get("codigo", "")
+    nombre = datos.get("nombre", "")
+    ubicacion = datos.get("ubicacion", "")
+
+    if (
+        not isinstance(codigo, str)
+        or not isinstance(nombre, str)
+        or not isinstance(ubicacion, str)
+    ):
+        return jsonify(
+            {
+                "resultado": "datos_invalidos",
+                "mensaje": "Los datos del totem deben ser texto"
+            }
+        ), 400
+
+    codigo = codigo.strip()
+    nombre = nombre.strip()
+    ubicacion = ubicacion.strip()
+
+    if not codigo or not nombre or not ubicacion:
+        return jsonify(
+            {
+                "resultado": "datos_incompletos",
+                "mensaje": "Codigo, nombre y ubicacion son obligatorios"
+            }
+        ), 400
+
+    respuesta = guardar_totem(
+        codigo,
+        nombre,
+        ubicacion
+    )
+
+    if respuesta["resultado"] == "codigo_repetido":
+        return jsonify(respuesta), 409
+
+    if respuesta["resultado"] == "registrado":
+        return jsonify(respuesta), 201
+
+    return jsonify(
+        {
+            "resultado": "error_interno",
+            "mensaje": "No se pudo registrar el totem"
+        }
+    ), 500
+
+
+@app.post("/panel/totems/estado")
+def cambiar_estado_totem_panel():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "Debes iniciar sesion en el panel"
+            }
+        ), 401
+
+    datos = request.get_json(silent=True)
+
+    if not datos:
+        return jsonify(
+            {
+                "resultado": "solicitud_invalida",
+                "mensaje": "Debes enviar los datos en formato JSON"
+            }
+        ), 400
+
+    codigo = datos.get("codigo", "")
+    estado = datos.get("estado", "")
+
+    if not isinstance(codigo, str) or not isinstance(estado, str):
+        return jsonify(
+            {
+                "resultado": "datos_invalidos",
+                "mensaje": "El codigo y el estado deben ser texto"
+            }
+        ), 400
+
+    codigo = codigo.strip()
+    estado = estado.strip()
+
+    if not codigo or not estado:
+        return jsonify(
+            {
+                "resultado": "datos_incompletos",
+                "mensaje": "Falta el codigo o el estado"
+            }
+        ), 400
+
+    respuesta = cambiar_estado_totem(
+        codigo,
+        estado
+    )
+
+    resultado = respuesta.get("resultado")
+
+    if resultado == "estado_invalido":
+        return jsonify(respuesta), 400
+
+    if resultado == "no_existe":
+        return jsonify(respuesta), 404
+
+    if resultado == "actualizado":
+        return jsonify(respuesta), 200
+
+    return jsonify(
+        {
+            "resultado": "error_interno",
+            "mensaje": "No se pudo cambiar el estado del totem"
+        }
+    ), 500
+
 
 @app.get("/alumnos")
 def consultar_alumnos_api():
