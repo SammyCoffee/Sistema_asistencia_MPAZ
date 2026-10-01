@@ -25,7 +25,7 @@ def obtener_rango_fechas(periodo):
 
     elif periodo == "anual":
         fecha_desde = hoy.replace(month=1, day=1)
-        fecha_hasta = hoy    
+        fecha_hasta = hoy
 
     else:
         raise ValueError("Periodo de reporte no valido")
@@ -36,7 +36,7 @@ def obtener_rango_fechas(periodo):
     )
 
 
-def exportar_asistencias(periodo="diario", curso=None	):
+def exportar_asistencias(periodo="diario", curso=None):
     CARPETA_REPORTES.mkdir(exist_ok=True)
 
     fecha_desde, fecha_hasta = obtener_rango_fechas(periodo)
@@ -129,22 +129,23 @@ def exportar_asistencias(periodo="diario", curso=None	):
             ]
         )
 
-        escritor.writerow(
-                    [
-                        registro[0],
-                        registro[1],
-                        registro[2],
-                        registro[3],
-                        registro[4],
-                        registro[5] or "Sin entrada",
-                        registro[6] or "Pendiente",
-                        registro[7] or "Pendiente",
-                        registro[8] or "Sin tótem",
-                        registro[9] or "Sin tótem",
-                        registro[10] or "Sin evento",
-                        registro[11] or "Sin evento"
-                    ]
-                )
+        for registro in registros:
+            escritor.writerow(
+                [
+                    registro[0],
+                    registro[1],
+                    registro[2],
+                    registro[3],
+                    registro[4],
+                    registro[5] or "Sin entrada",
+                    registro[6] or "Pendiente",
+                    registro[7] or "Pendiente",
+                    registro[8] or "Sin tótem",
+                    registro[9] or "Sin tótem",
+                    registro[10] or "Sin evento",
+                    registro[11] or "Sin evento"
+                ]
+            )
 
     return ruta_reporte, len(registros)
 
