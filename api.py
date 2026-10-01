@@ -342,11 +342,12 @@ def consultar_asistencias_api():
                 "rut": registro[2],
                 "curso": registro[3],
                 "fecha": registro[4],
-                "hora": registro[5],
-                "totem": registro[6],
-                "evento_id": registro[7],
-                "uid": registro[8],
-                "resultado": "registrada"
+                "hora_entrada": registro[5],
+                "hora_salida": registro[6],
+                "tipo_salida": registro[7],
+                "totem_entrada": registro[8],
+                "totem_salida": registro[9],
+                "uid": registro[10]
             }
         )
 

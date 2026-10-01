@@ -201,7 +201,7 @@ totalAsistenciasHoy.textContent =
 
         cuerpoAsistencias.innerHTML = `
             <tr>
-                <td colspan="5">
+                <td colspan="6">
                     No hay asistencias registradas.
                 </td>
             </tr>
@@ -214,16 +214,26 @@ totalAsistenciasHoy.textContent =
 
         const fila = document.createElement("tr");
 
+        let tipoSalida = "Pendiente";
+
+        if (asistencia.tipo_salida === "totem") {
+            tipoSalida = "Tótem";
+        }
+
+        if (asistencia.tipo_salida === "automatica") {
+            tipoSalida = "Automática";
+        }
+
+        const horaSalida =
+            asistencia.hora_salida ?? "Pendiente";
+
         fila.innerHTML = `
-            <td>${asistencia.hora}</td>
+            <td>${asistencia.fecha}</td>
             <td>${asistencia.nombre}</td>
             <td>${asistencia.curso}</td>
-            <td>${asistencia.uid ?? "Sin UID"}</td>
-            <td>
-                <span class="estado-lectura estado-registrada">
-                    Registrada
-                </span>
-            </td>
+            <td>${asistencia.hora_entrada ?? "--"}</td>
+            <td>${horaSalida}</td>
+            <td>${tipoSalida}</td>
         `;
 
         cuerpoAsistencias.appendChild(fila);

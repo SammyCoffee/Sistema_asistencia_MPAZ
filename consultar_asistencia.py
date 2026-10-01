@@ -14,17 +14,25 @@ def obtener_asistencias():
                 alumnos.rut,
                 alumnos.curso,
                 asistencias.fecha,
-                asistencias.hora,
-                totems.codigo,
-                asistencias.evento_id,
+                asistencias.hora_entrada,
+                asistencias.hora_salida,
+                asistencias.tipo_salida,
+                totem_entrada.codigo,
+                totem_salida.codigo,
                 tarjetas.uid
+
             FROM asistencias
 
             INNER JOIN alumnos
                 ON asistencias.alumno_id = alumnos.id
 
-            LEFT JOIN totems
-                ON asistencias.totem_id = totems.id
+            LEFT JOIN totems AS totem_entrada
+                ON asistencias.totem_entrada_id =
+                   totem_entrada.id
+
+            LEFT JOIN totems AS totem_salida
+                ON asistencias.totem_salida_id =
+                   totem_salida.id
 
             LEFT JOIN tarjetas
                 ON tarjetas.alumno_id = alumnos.id
@@ -32,7 +40,7 @@ def obtener_asistencias():
 
             ORDER BY
                 asistencias.fecha DESC,
-                asistencias.hora DESC
+                asistencias.hora_entrada DESC
             """
         )
 
