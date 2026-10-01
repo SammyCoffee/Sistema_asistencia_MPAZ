@@ -4,7 +4,11 @@ import secrets
 from flask import (Flask,jsonify,request,session,redirect,send_file)
 from consultar_alumnos import obtener_alumnos, buscar_alumnos
 from procesar_lectura_totem import procesar_lectura_totem
-from base_datos import asignar_tarjeta_por_rut, bloquear_tarjeta
+from base_datos import (
+    asignar_tarjeta_por_rut,
+    bloquear_tarjeta,
+    obtener_totems
+)
 from consultar_asistencia import ( obtener_asistencias, obtener_inasistencias )
 from exportar_asistencias_csv import exportar_asistencias
 
@@ -115,6 +119,27 @@ def consultar_estado():
         }
 
     )
+    
+@app.get("/panel/totems")
+def consultar_totems_panel():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "Debes iniciar sesion en el panel"
+            }
+        ), 401
+
+    totems = obtener_totems()
+
+    return jsonify(
+        {
+            "resultado": "ok",
+            "total": len(totems),
+            "totems": totems
+        }
+    ), 200
 
 @app.get("/alumnos")
 def consultar_alumnos_api():

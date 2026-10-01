@@ -480,6 +480,50 @@ def validar_totem(codigo):
     
     finally:
         conexion.close()
+        
+
+def obtener_totems():
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            SELECT
+                id,
+                codigo,
+                nombre,
+                ubicacion,
+                estado,
+                fecha_registro,
+                ultima_conexion
+            FROM totems
+            ORDER BY id ASC
+            """
+        )
+
+        filas = cursor.fetchall()
+
+        totems = []
+
+        for fila in filas:
+            totems.append(
+                {
+                    "id": fila[0],
+                    "codigo": fila[1],
+                    "nombre": fila[2],
+                    "ubicacion": fila[3],
+                    "estado": fila[4],
+                    "fecha_registro": fila[5],
+                    "ultima_conexion": fila[6]
+                }
+            )
+
+        return totems
+
+    finally:
+        conexion.close()
 
 
 def crear_tablas():
