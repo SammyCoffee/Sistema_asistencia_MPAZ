@@ -65,8 +65,16 @@
                 Panel
             </a>
 
-            <a href="#estudiantes">
-                Estudiantes y tarjetas
+           <a href="#estudiantes">
+                Estudiantes
+            </a>
+
+            <a href="#tarjetas">
+                Tarjetas
+            </a>
+
+            <a href="#vinculacion">
+                Vinculación
             </a>
 
             <a href="#asistencias">
@@ -238,32 +246,131 @@
             </section>
 
             <section id="estudiantes" class="panel-lecturas">
-                <h2>
-                    Estudiantes y tarjetas
-                </h2>
 
-                <p>
-                    Busca estudiantes, revisa sus tarjetas RFID y administra sus asignaciones.
-                </p>
+    <h2>
+        Administración de estudiantes
+    </h2>
 
-                <div class="buscador-estudiantes">
-                    <label for="buscar-estudiante">
-                        Buscar estudiante
-                    </label>
-                    <input
-                        type="text"
-                        id="buscar-estudiante"
-                        placeholder="Escribe nombre, RUT o curso"
-                        >
+    <p>
+        Registra nuevos estudiantes, edita sus datos
+        y administra su estado dentro del sistema.
+    </p>
 
-                        <button type="button" id="boton-buscar">
-                            Buscar
 
-                        </button>
+    <!-- ===================================== -->
+    <!-- FORMULARIO DE ESTUDIANTE -->
+    <!-- ===================================== -->
 
-                </div>
+    <div class="panel-administracion">
 
-                <div id="resultado-estudiante" class="resultado-estudiante">
+        <h3 id="titulo-formulario-estudiante">
+            Nuevo estudiante
+        </h3>
+
+        <form id="formulario-estudiante">
+
+            <input
+                type="hidden"
+                id="estudiante-id"
+            >
+
+            <label for="estudiante-rut">
+                RUT
+            </label>
+
+            <input
+                type="text"
+                id="estudiante-rut"
+                placeholder="Ej: 12.345.678-9"
+                required
+            >
+
+
+            <label for="estudiante-nombre">
+                Nombre completo
+            </label>
+
+            <input
+                type="text"
+                id="estudiante-nombre"
+                placeholder="Nombre y apellidos"
+                required
+            >
+
+
+            <label for="estudiante-curso">
+                Curso
+            </label>
+
+            <input
+                type="text"
+                id="estudiante-curso"
+                placeholder="Ej: 5A"
+                required
+            >
+
+
+            <div class="acciones-formulario">
+
+                <button
+                    type="submit"
+                    id="boton-guardar-estudiante"
+                >
+                    Guardar estudiante
+                </button>
+
+                <button
+                    type="button"
+                    id="boton-cancelar-edicion-estudiante"
+                    hidden
+                >
+                    Cancelar edición
+                </button>
+
+            </div>
+
+            <p id="mensaje-estudiante">
+            </p>
+
+        </form>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- BUSCADOR DE ESTUDIANTES -->
+    <!-- ===================================== -->
+
+    <div class="buscador-estudiantes">
+
+        <label for="buscar-estudiante">
+            Buscar estudiante
+        </label>
+
+        <input
+            type="text"
+            id="buscar-estudiante"
+            placeholder="Escribe nombre, RUT o curso"
+        >
+
+        <button
+            type="button"
+            id="boton-buscar"
+        >
+            Buscar
+        </button>
+
+        </div>
+
+
+        <!-- ===================================== -->
+        <!-- RESULTADOS -->
+        <!-- ===================================== -->
+
+        <div
+            id="resultado-estudiante"
+            class="resultado-estudiante"
+                >
 
                     <h3>
                         Resultado de búsqueda
@@ -272,7 +379,139 @@
                     <p>
                         Aquí aparecerán los datos del estudiante encontrado.
                     </p>
+
                 </div>
+
+            </section>
+            <section id="tarjetas" class="panel-lecturas">
+
+                <h2>
+                    Administración de tarjetas RFID
+                </h2>
+
+                <p>
+                    Registra tarjetas RFID y consulta su estado
+                    dentro del sistema.
+                </p>
+
+
+                <!-- ===================================== -->
+                <!-- REGISTRAR TARJETA -->
+                <!-- ===================================== -->
+
+                <div class="panel-administracion">
+
+                    <h3>
+                        Registrar nueva tarjeta
+                    </h3>
+
+                    <form id="formulario-tarjeta">
+
+                        <label for="tarjeta-uid">
+                            UID
+                        </label>
+
+                        <input
+                            type="text"
+                            id="tarjeta-uid"
+                            placeholder="Ej: A1B2C3D4"
+                            required
+                        >
+
+                        <button type="submit">
+                            Registrar tarjeta
+                        </button>
+
+                        <p id="mensaje-tarjeta">
+                        </p>
+
+                    </form>
+
+                </div>
+
+
+                <!-- ===================================== -->
+                <!-- LISTADO DE TARJETAS -->
+                <!-- ===================================== -->
+
+                <h3>
+                    Tarjetas registradas
+                </h3>
+
+                <table class="tabla-lecturas">
+
+                    <thead>
+                        <tr>
+                            <th>UID</th>
+                            <th>Estado</th>
+                            <th>Estudiante</th>
+                            <th>Curso</th>
+                            <th>Fecha registro</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabla-tarjetas">
+                    </tbody>
+
+                </table>
+
+            </section>
+
+            <section id="vinculacion" class="panel-lecturas">
+
+                <h2>
+                    Vinculación de tarjetas RFID
+                </h2>
+
+                <p>
+                    Asocia una tarjeta RFID disponible
+                    a un estudiante activo.
+                </p>
+
+                <div class="panel-administracion">
+
+                    <form id="formulario-vinculacion">
+
+                        <label for="vinculacion-estudiante">
+                            Estudiante
+                        </label>
+
+                        <select
+                            id="vinculacion-estudiante"
+                            required
+                        >
+                            <option value="">
+                                Selecciona un estudiante
+                            </option>
+                        </select>
+
+
+                        <label for="vinculacion-tarjeta">
+                            Tarjeta RFID disponible
+                        </label>
+
+                        <select
+                            id="vinculacion-tarjeta"
+                            required
+                        >
+                            <option value="">
+                                Selecciona una tarjeta
+                            </option>
+                        </select>
+
+
+                        <button type="submit">
+                            Vincular tarjeta
+                        </button>
+
+                        <p id="mensaje-vinculacion">
+                        </p>
+
+                    </form>
+
+                </div>
+
             </section>
 
             <section id="inasistencias" class="panel-lecturas">

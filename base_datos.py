@@ -13,28 +13,41 @@ def obtener_conexion():
     conexion.execute("PRAGMA foreign_keys = ON")
 
     return conexion
-def guardar_alumno(rut, nombre_completo, curso, uid):
-    fecha_asignacion = datetime.now().strftime("%Y-%m-%d")
+
+def guardar_alumno(
+    rut,
+    nombre_completo,
+    curso,
+    uid
+):
+    rut = rut.strip()
+    nombre_completo = nombre_completo.strip()
+    curso = curso.strip().upper()
+    uid = uid.strip().replace(" ", "").upper()
+
+    fecha_actual = datetime.now().strftime(
+        "%Y-%m-%d"
+    )
 
     conexion = obtener_conexion()
     cursor = conexion.cursor()
 
-
     try:
         cursor.execute(
-                """
-                INSERT INTO alumnos(
-                    rut,
-                    nombre_completo,
-                    curso
-                )
-                VALUES (?, ?, ?)
-                """,
-                (
-                    rut,
-                    nombre_completo,
-                    curso
-                )
+            """
+            INSERT INTO alumnos (
+                rut,
+                nombre_completo,
+                curso,
+                estado
+            )
+            VALUES (?, ?, ?, 'activo')
+            """,
+            (
+                rut,
+                nombre_completo,
+                curso
+            )
         )
 
         alumno_id = cursor.lastrowid
@@ -45,15 +58,16 @@ def guardar_alumno(rut, nombre_completo, curso, uid):
                 alumno_id,
                 uid,
                 estado,
+                fecha_registro,
                 fecha_asignacion
             )
-            VALUES (?, ?, ?, ?)
+            VALUES (?, ?, 'activa', ?, ?)
             """,
             (
                 alumno_id,
                 uid,
-                "activa",
-                fecha_asignacion
+                fecha_actual,
+                fecha_actual
             )
         )
 
@@ -69,6 +83,541 @@ def guardar_alumno(rut, nombre_completo, curso, uid):
     finally:
         conexion.close()
 
+
+def registrar_alumno(
+    rut,
+    nombre_completo,
+    curso
+):
+    rut = rut.strip()
+    nombre_completo = nombre_completo.strip()
+    curso = curso.strip().upper()
+
+    if not rut or not nombre_completo or not curso:
+        return {
+            "resultado": "datos_incompletos"
+        }
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            INSERT INTO alumnos (
+                rut,
+                nombre_completo,
+                curso,
+                estado
+            )
+            VALUES (?, ?, ?, 'activo')
+            """,
+            (
+                rut,
+                nombre_completo,
+                curso
+            )
+        )
+
+        alumno_id = cursor.lastrowid
+
+        conexion.commit()
+
+        return {
+            "resultado": "registrado",
+            "id": alumno_id,
+            "rut": rut,
+            "nombre": nombre_completo,
+            "curso": curso,
+            "estado": "activo"
+        }
+
+    except sqlite3.IntegrityError:
+        conexion.rollback()
+
+        return {
+            "resultado": "rut_repetido"
+        }
+
+    finally:
+        conexion.close()
+
+
+def editar_alumno(
+    alumno_id,
+    rut,
+    nombre_completo,
+    curso
+):
+    rut = rut.strip()
+    nombre_completo = nombre_completo.strip()
+    curso = curso.strip().upper()
+
+    if not rut or not nombre_completo or not curso:
+        return {
+            "resultado": "datos_incompletos"
+        }
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            SELECT id
+            FROM alumnos
+            WHERE id = ?
+            LIMIT 1
+            """,
+            (alumno_id,)
+        )
+
+        alumno = cursor.fetchone()
+
+        if not alumno:
+            return {
+                "resultado": "alumno_no_existe"
+            }
+
+        try:
+            cursor.execute(
+                """
+                UPDATE alumnos
+                SET
+                    rut = ?,
+                    nombre_completo = ?,
+                    curso = ?
+                WHERE id = ?
+                """,
+                (
+                    rut,
+                    nombre_completo,
+                    curso,
+                    alumno_id
+                )
+            )
+
+        except sqlite3.IntegrityError:
+            return {
+                "resultado": "rut_repetido"
+            }
+
+        conexion.commit()
+
+        return {
+            "resultado": "actualizado",
+            "id": alumno_id,
+            "rut": rut,
+            "nombre": nombre_completo,
+            "curso": curso
+        }
+
+    finally:
+        conexion.close()
+
+def cambiar_estado_alumno(
+    alumno_id,
+    nuevo_estado
+):
+    nuevo_estado = nuevo_estado.strip().lower()
+
+    if nuevo_estado not in (
+        "activo",
+        "inactivo"
+    ):
+        return {
+            "resultado": "estado_invalido"
+        }
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            SELECT
+                id,
+                nombre_completo
+            FROM alumnos
+            WHERE id = ?
+            LIMIT 1
+            """,
+            (alumno_id,)
+        )
+
+        alumno = cursor.fetchone()
+
+        if not alumno:
+            return {
+                "resultado": "alumno_no_existe"
+            }
+
+        if nuevo_estado == "inactivo":
+            fecha_baja = datetime.now().strftime(
+                "%Y-%m-%d"
+            )
+        else:
+            fecha_baja = None
+
+        cursor.execute(
+            """
+            UPDATE alumnos
+            SET
+                estado = ?,
+                fecha_baja = ?
+            WHERE id = ?
+            """,
+            (
+                nuevo_estado,
+                fecha_baja,
+                alumno_id
+            )
+        )
+
+        conexion.commit()
+
+        return {
+            "resultado": "actualizado",
+            "id": alumno_id,
+            "nombre": alumno[1],
+            "estado": nuevo_estado,
+            "fecha_baja": fecha_baja
+        }
+
+    finally:
+        conexion.close()
+def obtener_tarjetas():
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            SELECT
+                tarjetas.id,
+                tarjetas.uid,
+                tarjetas.estado,
+                tarjetas.fecha_registro,
+                tarjetas.fecha_asignacion,
+                tarjetas.fecha_bloqueo,
+                tarjetas.fecha_extravio,
+                alumnos.id,
+                alumnos.nombre_completo,
+                alumnos.curso
+            FROM tarjetas
+
+            LEFT JOIN alumnos
+                ON tarjetas.alumno_id = alumnos.id
+
+            ORDER BY
+                CASE tarjetas.estado
+                    WHEN 'activa' THEN 1
+                    WHEN 'disponible' THEN 2
+                    WHEN 'bloqueada' THEN 3
+                    WHEN 'extraviada' THEN 4
+                    ELSE 5
+                END,
+                tarjetas.id ASC
+            """
+        )
+
+        filas = cursor.fetchall()
+
+        tarjetas = []
+
+        for fila in filas:
+            tarjetas.append(
+                {
+                    "id": fila[0],
+                    "uid": fila[1],
+                    "estado": fila[2],
+                    "fecha_registro": fila[3],
+                    "fecha_asignacion": fila[4],
+                    "fecha_bloqueo": fila[5],
+                    "fecha_extravio": fila[6],
+                    "alumno_id": fila[7],
+                    "alumno": fila[8],
+                    "curso": fila[9]
+                }
+            )
+
+        return tarjetas
+
+    finally:
+        conexion.close()
+def registrar_tarjeta(
+    uid
+):
+    uid = uid.strip().replace(" ", "").upper()
+
+    if not uid:
+        return {
+            "resultado": "datos_incompletos"
+        }
+
+    fecha_registro = datetime.now().strftime(
+        "%Y-%m-%d"
+    )
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            INSERT INTO tarjetas (
+                alumno_id,
+                uid,
+                estado,
+                fecha_registro,
+                fecha_asignacion,
+                fecha_bloqueo,
+                fecha_extravio
+            )
+            VALUES (
+                NULL,
+                ?,
+                'disponible',
+                ?,
+                NULL,
+                NULL,
+                NULL
+            )
+            """,
+            (
+                uid,
+                fecha_registro
+            )
+        )
+
+        tarjeta_id = cursor.lastrowid
+
+        conexion.commit()
+
+        return {
+            "resultado": "registrada",
+            "id": tarjeta_id,
+            "uid": uid,
+            "estado": "disponible",
+            "fecha_registro": fecha_registro
+        }
+
+    except sqlite3.IntegrityError:
+        conexion.rollback()
+
+        return {
+            "resultado": "uid_repetido"
+        }
+
+    finally:
+        conexion.close()
+
+def vincular_tarjeta(
+    alumno_id,
+    uid
+):
+    uid = uid.strip().replace(" ", "").upper()
+
+    fecha_asignacion = datetime.now().strftime(
+        "%Y-%m-%d"
+    )
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        # ==========================================
+        # 1. COMPROBAR QUE EL ALUMNO EXISTA
+        # ==========================================
+
+        cursor.execute(
+            """
+            SELECT
+                id,
+                nombre_completo,
+                curso,
+                estado
+            FROM alumnos
+            WHERE id = ?
+            LIMIT 1
+            """,
+            (alumno_id,)
+        )
+
+        alumno = cursor.fetchone()
+
+        if not alumno:
+            return {
+                "resultado": "alumno_no_existe"
+            }
+
+        # ==========================================
+        # 2. EL ALUMNO DEBE ESTAR ACTIVO
+        # ==========================================
+
+        if alumno[3] != "activo":
+            return {
+                "resultado": "alumno_inactivo"
+            }
+
+        # ==========================================
+        # 3. VERIFICAR QUE NO TENGA TARJETA ACTIVA
+        # ==========================================
+
+        cursor.execute(
+            """
+            SELECT uid
+            FROM tarjetas
+            WHERE alumno_id = ?
+              AND estado = 'activa'
+            LIMIT 1
+            """,
+            (alumno_id,)
+        )
+
+        tarjeta_actual = cursor.fetchone()
+
+        if tarjeta_actual:
+            return {
+                "resultado": "ya_tiene_tarjeta",
+                "uid": tarjeta_actual[0]
+            }
+
+        # ==========================================
+        # 4. BUSCAR LA TARJETA
+        # ==========================================
+
+        cursor.execute(
+            """
+            SELECT
+                id,
+                estado,
+                alumno_id
+            FROM tarjetas
+            WHERE uid = ?
+            LIMIT 1
+            """,
+            (uid,)
+        )
+
+        tarjeta = cursor.fetchone()
+
+        if not tarjeta:
+            return {
+                "resultado": "tarjeta_no_existe"
+            }
+
+        # ==========================================
+        # 5. DEBE ESTAR DISPONIBLE
+        # ==========================================
+
+        if tarjeta[1] != "disponible":
+            return {
+                "resultado": "tarjeta_no_disponible",
+                "estado": tarjeta[1]
+            }
+
+        # ==========================================
+        # 6. VINCULAR
+        # ==========================================
+
+        cursor.execute(
+            """
+            UPDATE tarjetas
+            SET
+                alumno_id = ?,
+                estado = 'activa',
+                fecha_asignacion = ?,
+                fecha_bloqueo = NULL,
+                fecha_extravio = NULL
+            WHERE id = ?
+            """,
+            (
+                alumno_id,
+                fecha_asignacion,
+                tarjeta[0]
+            )
+        )
+
+        conexion.commit()
+
+        return {
+            "resultado": "vinculada",
+            "alumno_id": alumno_id,
+            "alumno": alumno[1],
+            "curso": alumno[2],
+            "uid": uid,
+            "estado": "activa",
+            "fecha_asignacion": fecha_asignacion
+        }
+
+    finally:
+        conexion.close()
+def marcar_tarjeta_extraviada(
+    uid
+):
+    uid = uid.strip().replace(" ", "").upper()
+
+    fecha_extravio = datetime.now().strftime(
+        "%Y-%m-%d"
+    )
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            SELECT
+                id,
+                alumno_id,
+                estado
+            FROM tarjetas
+            WHERE uid = ?
+            LIMIT 1
+            """,
+            (uid,)
+        )
+
+        tarjeta = cursor.fetchone()
+
+        if not tarjeta:
+            return {
+                "resultado": "tarjeta_no_existe"
+            }
+
+        if tarjeta[2] == "extraviada":
+            return {
+                "resultado": "ya_extraviada"
+            }
+
+        cursor.execute(
+            """
+            UPDATE tarjetas
+            SET
+                estado = 'extraviada',
+                fecha_extravio = ?
+            WHERE id = ?
+            """,
+            (
+                fecha_extravio,
+                tarjeta[0]
+            )
+        )
+
+        conexion.commit()
+
+        return {
+            "resultado": "extraviada",
+            "id": tarjeta[0],
+            "alumno_id": tarjeta[1],
+            "uid": uid,
+            "estado": "extraviada",
+            "fecha_extravio": fecha_extravio
+        }
+
+    finally:
+        conexion.close()
 def bloquear_tarjeta(uid):
     uid = uid.strip().replace(" ", "").upper()
 
@@ -96,7 +645,7 @@ def bloquear_tarjeta(uid):
         return True
 
     finally:
-        conexion.close()
+       conexion.close()
 
 def activar_tarjeta(uid):
     uid = uid.strip().replace(" ", "").upper()
@@ -221,7 +770,8 @@ def buscar_alumno_por_uid(uid):
                 alumnos.id,
                 alumnos.nombre_completo,
                 alumnos.curso,
-                tarjetas.estado
+                tarjetas.estado,
+                alumnos.estado
             FROM tarjetas
             INNER JOIN alumnos
                 ON tarjetas.alumno_id = alumnos.id
@@ -716,26 +1266,35 @@ def crear_tablas():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 rut TEXT NOT NULL UNIQUE,
                 nombre_completo TEXT NOT NULL,
-                curso TEXT NOT NULL
+                curso TEXT NOT NULL,
+                estado TEXT NOT NULL DEFAULT 'activo',
+                fecha_baja TEXT
             )
             """
         )
 
         cursor.execute(
             """
-            CREATE TABLE IF NOT EXISTS
-        tarjetas (
-                id INTEGER PRIMARY KEY
-        AUTOINCREMENT,
-            alumno_id INTEGER NOT NULL,
-            uid TEXT NOT NULL UNIQUE,
-            estado TEXT NOT NULL DEFAULT
-        'activa',
-            fecha_asignacion TEXT NOT
-        NULL,
-            fecha_bloqueo TEXT,
-            FOREIGN KEY (alumno_id)
-        REFERENCES alumnos(id)
+            CREATE TABLE IF NOT EXISTS tarjetas (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+                alumno_id INTEGER,
+
+                uid TEXT NOT NULL UNIQUE,
+
+                estado TEXT NOT NULL
+                DEFAULT 'disponible',
+
+                fecha_registro TEXT NOT NULL,
+
+                fecha_asignacion TEXT,
+
+                fecha_bloqueo TEXT,
+
+                fecha_extravio TEXT,
+
+                FOREIGN KEY (alumno_id)
+                    REFERENCES alumnos(id)
             )
             """
         )

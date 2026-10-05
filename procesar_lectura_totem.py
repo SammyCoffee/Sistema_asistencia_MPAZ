@@ -180,6 +180,14 @@ def procesar_lectura_totem(
             "led": "rojo",
             "buzzer": "un_pitido_largo"
         }
+    if resultado_asistencia == "alumno_inactivo":
+        return {
+        "resultado": "alumno_inactivo",
+        "mensaje": respuesta_asistencia["mensaje"],
+        "totem": respuesta_totem["codigo"],
+        "led": "rojo",
+        "buzzer": "un_pitido_largo"
+        }
 
     # ==========================================
     # ERROR INTERNO

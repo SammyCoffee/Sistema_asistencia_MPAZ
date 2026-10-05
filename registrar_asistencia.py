@@ -28,6 +28,13 @@ def procesar_asistencia(uid, totem_id=None, evento_id=None):
             "uid": uid
         }
 
+    if alumno[4] != "activo":
+        return {
+        "resultado": "alumno_inactivo",
+        "mensaje": "El alumno se encuentra inactivo",
+        "uid": uid
+        }
+
     momento_actual = datetime.now()
 
     fecha = momento_actual.strftime("%Y-%m-%d")

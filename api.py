@@ -9,7 +9,14 @@ from base_datos import (
     bloquear_tarjeta,
     obtener_totems,
     guardar_totem,
-    cambiar_estado_totem
+    cambiar_estado_totem,
+    registrar_alumno,
+    editar_alumno,
+    cambiar_estado_alumno,
+    obtener_tarjetas,
+    registrar_tarjeta,
+    vincular_tarjeta,
+    marcar_tarjeta_extraviada
 )
 from consultar_asistencia import (
     obtener_asistencias,
@@ -282,7 +289,235 @@ def cambiar_estado_totem_panel():
         }
     ), 500
 
+@app.post("/panel/alumnos/registrar")
+def registrar_alumno_panel():
 
+    if not session.get("panel_autorizado", False):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "Debes iniciar sesion en el panel"
+            }
+        ), 401
+
+    datos = request.get_json(silent=True)
+
+    if not datos:
+        return jsonify(
+            {
+                "resultado": "solicitud_invalida",
+                "mensaje": "Debes enviar los datos en formato JSON"
+            }
+        ), 400
+
+    rut = datos.get("rut", "")
+    nombre = datos.get("nombre", "")
+    curso = datos.get("curso", "")
+
+    if (
+        not isinstance(rut, str)
+        or not isinstance(nombre, str)
+        or not isinstance(curso, str)
+    ):
+        return jsonify(
+            {
+                "resultado": "datos_invalidos",
+                "mensaje": "RUT, nombre y curso deben ser texto"
+            }
+        ), 400
+
+    rut = rut.strip()
+    nombre = nombre.strip()
+    curso = curso.strip()
+
+    if not rut or not nombre or not curso:
+        return jsonify(
+            {
+                "resultado": "datos_incompletos",
+                "mensaje": "RUT, nombre y curso son obligatorios"
+            }
+        ), 400
+
+    respuesta = registrar_alumno(
+        rut,
+        nombre,
+        curso
+    )
+
+    resultado = respuesta.get("resultado")
+
+    if resultado == "rut_repetido":
+        return jsonify(respuesta), 409
+
+    if resultado == "datos_incompletos":
+        return jsonify(respuesta), 400
+
+    if resultado == "registrado":
+        return jsonify(respuesta), 201
+
+    return jsonify(
+        {
+            "resultado": "error_interno",
+            "mensaje": "No se pudo registrar el alumno"
+        }
+    ), 500
+@app.post("/panel/alumnos/editar")
+def editar_alumno_panel():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "Debes iniciar sesion en el panel"
+            }
+        ), 401
+
+    datos = request.get_json(silent=True)
+
+    if not datos:
+        return jsonify(
+            {
+                "resultado": "solicitud_invalida",
+                "mensaje": "Debes enviar los datos en formato JSON"
+            }
+        ), 400
+
+    alumno_id = datos.get("id")
+    rut = datos.get("rut", "")
+    nombre = datos.get("nombre", "")
+    curso = datos.get("curso", "")
+
+    if not isinstance(alumno_id, int):
+        return jsonify(
+            {
+                "resultado": "datos_invalidos",
+                "mensaje": "El ID del alumno debe ser numerico"
+            }
+        ), 400
+
+    if (
+        not isinstance(rut, str)
+        or not isinstance(nombre, str)
+        or not isinstance(curso, str)
+    ):
+        return jsonify(
+            {
+                "resultado": "datos_invalidos",
+                "mensaje": "RUT, nombre y curso deben ser texto"
+            }
+        ), 400
+
+    rut = rut.strip()
+    nombre = nombre.strip()
+    curso = curso.strip()
+
+    if not rut or not nombre or not curso:
+        return jsonify(
+            {
+                "resultado": "datos_incompletos",
+                "mensaje": "RUT, nombre y curso son obligatorios"
+            }
+        ), 400
+
+    respuesta = editar_alumno(
+        alumno_id,
+        rut,
+        nombre,
+        curso
+    )
+
+    resultado = respuesta.get("resultado")
+
+    if resultado == "alumno_no_existe":
+        return jsonify(respuesta), 404
+
+    if resultado == "rut_repetido":
+        return jsonify(respuesta), 409
+
+    if resultado == "datos_incompletos":
+        return jsonify(respuesta), 400
+
+    if resultado == "actualizado":
+        return jsonify(respuesta), 200
+
+    return jsonify(
+        {
+            "resultado": "error_interno",
+            "mensaje": "No se pudo editar el alumno"
+        }
+    ), 500
+@app.post("/panel/alumnos/estado")
+def cambiar_estado_alumno_panel():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "Debes iniciar sesion en el panel"
+            }
+        ), 401
+
+    datos = request.get_json(silent=True)
+
+    if not datos:
+        return jsonify(
+            {
+                "resultado": "solicitud_invalida",
+                "mensaje": "Debes enviar los datos en formato JSON"
+            }
+        ), 400
+
+    alumno_id = datos.get("id")
+    estado = datos.get("estado", "")
+
+    if not isinstance(alumno_id, int):
+        return jsonify(
+            {
+                "resultado": "datos_invalidos",
+                "mensaje": "El ID del alumno debe ser numerico"
+            }
+        ), 400
+
+    if not isinstance(estado, str):
+        return jsonify(
+            {
+                "resultado": "datos_invalidos",
+                "mensaje": "El estado debe ser texto"
+            }
+        ), 400
+
+    estado = estado.strip().lower()
+
+    if not estado:
+        return jsonify(
+            {
+                "resultado": "datos_incompletos",
+                "mensaje": "Falta el estado del alumno"
+            }
+        ), 400
+
+    respuesta = cambiar_estado_alumno(
+        alumno_id,
+        estado
+    )
+
+    resultado = respuesta.get("resultado")
+
+    if resultado == "alumno_no_existe":
+        return jsonify(respuesta), 404
+
+    if resultado == "estado_invalido":
+        return jsonify(respuesta), 400
+
+    if resultado == "actualizado":
+        return jsonify(respuesta), 200
+
+    return jsonify(
+        {
+            "resultado": "error_interno",
+            "mensaje": "No se pudo cambiar el estado del alumno"
+        }
+    ), 500
 @app.get("/alumnos")
 def consultar_alumnos_api():
     
@@ -305,16 +540,17 @@ def consultar_alumnos_api():
 
     for alumno in alumnos:
         alumnos_json.append(
-            {
-                "id": alumno[0],
-                "rut": alumno[1],
-                "nombre": alumno[2],
-                "curso": alumno[3],
-                "uid": alumno[4],
-                "estado_tarjeta": alumno[5]
-            }
-        )
-
+        {
+            "id": alumno[0],
+            "rut": alumno[1],
+            "nombre": alumno[2],
+            "curso": alumno[3],
+            "estado_alumno": alumno[4],
+            "fecha_baja": alumno[5],
+            "uid": alumno[6],
+            "estado_tarjeta": alumno[7]
+        }
+    )
     return jsonify(
         {
             "resultado": "ok",
@@ -551,6 +787,231 @@ def exportar_asistencias_api(periodo):
         download_name=ruta_reporte.name,
         mimetype="text/csv"
     )
+@app.get("/panel/tarjetas")
+def consultar_tarjetas_panel():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "Debes iniciar sesion en el panel"
+            }
+        ), 401
+
+    tarjetas = obtener_tarjetas()
+
+    return jsonify(
+        {
+            "resultado": "ok",
+            "total": len(tarjetas),
+            "tarjetas": tarjetas
+        }
+    ), 200
+@app.post("/panel/tarjetas/registrar")
+def registrar_tarjeta_panel():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "Debes iniciar sesion en el panel"
+            }
+        ), 401
+
+    datos = request.get_json(silent=True)
+
+    if not datos:
+        return jsonify(
+            {
+                "resultado": "solicitud_invalida",
+                "mensaje": "Debes enviar los datos en formato JSON"
+            }
+        ), 400
+
+    uid = datos.get("uid", "")
+
+    if not isinstance(uid, str):
+        return jsonify(
+            {
+                "resultado": "datos_invalidos",
+                "mensaje": "La UID debe ser texto"
+            }
+        ), 400
+
+    uid = uid.strip()
+
+    if not uid:
+        return jsonify(
+            {
+                "resultado": "datos_incompletos",
+                "mensaje": "Falta la UID de la tarjeta"
+            }
+        ), 400
+
+    respuesta = registrar_tarjeta(
+        uid
+    )
+
+    resultado = respuesta.get("resultado")
+
+    if resultado == "uid_repetido":
+        return jsonify(respuesta), 409
+
+    if resultado == "datos_incompletos":
+        return jsonify(respuesta), 400
+
+    if resultado == "registrada":
+        return jsonify(respuesta), 201
+
+    return jsonify(
+        {
+            "resultado": "error_interno",
+            "mensaje": "No se pudo registrar la tarjeta"
+        }
+    ), 500
+@app.post("/panel/tarjetas/vincular")
+def vincular_tarjeta_panel():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "Debes iniciar sesion en el panel"
+            }
+        ), 401
+
+    datos = request.get_json(silent=True)
+
+    if not datos:
+        return jsonify(
+            {
+                "resultado": "solicitud_invalida",
+                "mensaje": "Debes enviar los datos en formato JSON"
+            }
+        ), 400
+
+    alumno_id = datos.get("alumno_id")
+    uid = datos.get("uid", "")
+
+    if not isinstance(alumno_id, int):
+        return jsonify(
+            {
+                "resultado": "datos_invalidos",
+                "mensaje": "El ID del alumno debe ser numerico"
+            }
+        ), 400
+
+    if not isinstance(uid, str):
+        return jsonify(
+            {
+                "resultado": "datos_invalidos",
+                "mensaje": "La UID debe ser texto"
+            }
+        ), 400
+
+    uid = uid.strip()
+
+    if not uid:
+        return jsonify(
+            {
+                "resultado": "datos_incompletos",
+                "mensaje": "Falta la UID de la tarjeta"
+            }
+        ), 400
+
+    respuesta = vincular_tarjeta(
+        alumno_id,
+        uid
+    )
+
+    resultado = respuesta.get("resultado")
+
+    if resultado == "alumno_no_existe":
+        return jsonify(respuesta), 404
+
+    if resultado == "tarjeta_no_existe":
+        return jsonify(respuesta), 404
+
+    if resultado == "alumno_inactivo":
+        return jsonify(respuesta), 409
+
+    if resultado in (
+        "ya_tiene_tarjeta",
+        "tarjeta_no_disponible"
+    ):
+        return jsonify(respuesta), 409
+
+    if resultado == "vinculada":
+        return jsonify(respuesta), 200
+
+    return jsonify(
+        {
+            "resultado": "error_interno",
+            "mensaje": "No se pudo vincular la tarjeta"
+        }
+    ), 500
+@app.post("/panel/tarjetas/extraviada")
+def marcar_tarjeta_extraviada_panel():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "Debes iniciar sesion en el panel"
+            }
+        ), 401
+
+    datos = request.get_json(silent=True)
+
+    if not datos:
+        return jsonify(
+            {
+                "resultado": "solicitud_invalida",
+                "mensaje": "Debes enviar los datos en formato JSON"
+            }
+        ), 400
+
+    uid = datos.get("uid", "")
+
+    if not isinstance(uid, str):
+        return jsonify(
+            {
+                "resultado": "datos_invalidos",
+                "mensaje": "La UID debe ser texto"
+            }
+        ), 400
+
+    uid = uid.strip()
+
+    if not uid:
+        return jsonify(
+            {
+                "resultado": "datos_incompletos",
+                "mensaje": "Falta la UID de la tarjeta"
+            }
+        ), 400
+
+    respuesta = marcar_tarjeta_extraviada(
+        uid
+    )
+
+    resultado = respuesta.get("resultado")
+
+    if resultado == "tarjeta_no_existe":
+        return jsonify(respuesta), 404
+
+    if resultado == "ya_extraviada":
+        return jsonify(respuesta), 409
+
+    if resultado == "extraviada":
+        return jsonify(respuesta), 200
+
+    return jsonify(
+        {
+            "resultado": "error_interno",
+            "mensaje": "No se pudo marcar la tarjeta como extraviada"
+        }
+    ), 500
 @app.post("/panel/tarjetas/asignar")
 def asignar_tarjeta_panel():
 
