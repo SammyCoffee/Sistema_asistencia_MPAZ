@@ -13,7 +13,7 @@
 
     <title>Panel MPAZ RFID</title>
 
-    <link rel="stylesheet" href="styles.css?v=7">
+    <link rel="stylesheet" href="styles.css?v=8">
 
 </head>
 
@@ -75,6 +75,10 @@
 
             <a href="#inasistencias">
                 Inasistencias
+            </a>
+
+            <a href="#atrasos">
+                Atrasos
             </a>
 
             <a href="#reportes">
@@ -278,7 +282,41 @@
                 </h2>
 
                 <p>
-                    Aquí se muestran las inasistencias calculadas a partir de las fechas con registros de asistencia.
+                    Consulta las inasistencias por día, semana o mes.
+                    Solo se consideran jornadas que poseen registros de asistencia.
+                </p>
+
+                <div class="filtros-periodo">
+
+                    <label for="periodo-inasistencias">
+                        Período:
+                    </label>
+
+                    <select id="periodo-inasistencias">
+                        <option value="diario">Diario</option>
+                        <option value="semanal">Semanal</option>
+                        <option value="mensual" selected>Mensual</option>
+                    </select>
+
+                    <label for="fecha-inasistencias">
+                        Fecha de referencia:
+                    </label>
+
+                    <input
+                        type="date"
+                        id="fecha-inasistencias"
+                    >
+
+                    <button
+                        type="button"
+                        id="boton-filtrar-inasistencias"
+                    >
+                        Consultar
+                    </button>
+
+                </div>
+
+                <p id="resumen-inasistencias">
                 </p>
 
                 <table class="tabla-lecturas">
@@ -288,12 +326,78 @@
                             <th>Estudiante</th>
                             <th>Curso</th>
                             <th>Inasistencias</th>
+                            <th>Jornadas</th>
                             <th>Estado</th>
                         </tr>
                     </thead>
 
                     <tbody id="tabla-inasistencias">
                     </tbody>
+
+                </table>
+
+            </section>
+
+
+            <section id="atrasos" class="panel-lecturas">
+
+                <h2>
+                    Registro de atrasos
+                </h2>
+
+                <p>
+                    Se considera atraso cuando el estudiante registra
+                    su entrada después de las 08:20.
+                </p>
+
+                <div class="filtros-periodo">
+
+                    <label for="periodo-atrasos">
+                        Período:
+                    </label>
+
+                    <select id="periodo-atrasos">
+                        <option value="diario" selected>Diario</option>
+                        <option value="semanal">Semanal</option>
+                        <option value="mensual">Mensual</option>
+                    </select>
+
+                    <label for="fecha-atrasos">
+                        Fecha de referencia:
+                    </label>
+
+                    <input
+                        type="date"
+                        id="fecha-atrasos"
+                    >
+
+                    <button
+                        type="button"
+                        id="boton-filtrar-atrasos"
+                    >
+                        Consultar
+                    </button>
+
+                </div>
+
+                <p id="resumen-atrasos">
+                </p>
+
+                <table class="tabla-lecturas">
+
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Estudiante</th>
+                            <th>Curso</th>
+                            <th>Hora de llegada</th>
+                            <th>Minutos de atraso</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabla-atrasos">
+                    </tbody>
+
                 </table>
 
             </section>
@@ -325,14 +429,13 @@
                         Reporte semanal
                     </button>
 
-                    <button type="button" id="reporte-mensual">
-                        Reporte mensual
-                     
-                    <button type="button" id="reporte-anual">
-                        Reporte anual
-                    </button>
-                    
-                    </button>
+                <button type="button" id="reporte-mensual">
+                    Reporte mensual
+                </button>
+
+                <button type="button" id="reporte-anual">
+                    Reporte anual
+                </button>
                 </div>
             </section>
 
@@ -341,7 +444,7 @@
 
     </div>
 
-    <script src="app.js?v=7"></script>
+    <script src="app.js?v=8"></script>
 
 </body>
 

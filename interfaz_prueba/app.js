@@ -243,26 +243,143 @@ totalAsistenciasHoy.textContent =
 
 cargarAsistencias();
 
-function obtenerClaseInasistencias(cantidad) {
+function obtenerEstadoInasistencia(cantidad, periodo) {
 
-    if (cantidad > 12) {
-        return "inasistencias-rojo";
+    if (periodo === "diario") {
+
+        if (cantidad >= 1) {
+            return {
+                texto: "Inasistente",
+                clase: "inasistencias-rojo",
+                alerta: true
+            };
+        }
+
+        return {
+            texto: "Normal",
+            clase: "inasistencias-verde",
+            alerta: false
+        };
     }
 
-    if (cantidad > 5) {
-        return "inasistencias-amarillo";
+
+    if (periodo === "semanal") {
+
+        if (cantidad >= 3) {
+            return {
+                texto: "Alerta",
+                clase: "inasistencias-rojo",
+                alerta: true
+            };
+        }
+
+        if (cantidad >= 1) {
+            return {
+                texto: "Observación",
+                clase: "inasistencias-amarillo",
+                alerta: false
+            };
+        }
+
+        return {
+            texto: "Normal",
+            clase: "inasistencias-verde",
+            alerta: false
+        };
     }
 
-    return "inasistencias-verde";
+
+    if (cantidad >= 13) {
+        return {
+            texto: "Crítico",
+            clase: "inasistencias-rojo",
+            alerta: true
+        };
+    }
+
+    if (cantidad >= 6) {
+        return {
+            texto: "Alerta",
+            clase: "inasistencias-amarillo",
+            alerta: true
+        };
+    }
+
+    return {
+        texto: "Normal",
+        clase: "inasistencias-verde",
+        alerta: false
+    };
+}
+
+
+function obtenerFechaActual() {
+
+    const ahora = new Date();
+
+    return [
+        ahora.getFullYear(),
+        String(ahora.getMonth() + 1).padStart(2, "0"),
+        String(ahora.getDate()).padStart(2, "0")
+    ].join("-");
 }
 
 
 const tablaInasistencias =
     document.getElementById("tabla-inasistencias");
 
+const periodoInasistencias =
+    document.getElementById("periodo-inasistencias");
+
+const fechaInasistencias =
+    document.getElementById("fecha-inasistencias");
+
+const botonFiltrarInasistencias =
+    document.getElementById("boton-filtrar-inasistencias");
+
+const resumenInasistencias =
+    document.getElementById("resumen-inasistencias");
+
+
+const tablaAtrasos =
+    document.getElementById("tabla-atrasos");
+
+const periodoAtrasos =
+    document.getElementById("periodo-atrasos");
+
+const fechaAtrasos =
+    document.getElementById("fecha-atrasos");
+
+const botonFiltrarAtrasos =
+    document.getElementById("boton-filtrar-atrasos");
+
+const resumenAtrasos =
+    document.getElementById("resumen-atrasos");
+
+
+fechaInasistencias.value =
+    obtenerFechaActual();
+
+fechaAtrasos.value =
+    obtenerFechaActual();
+
+
 async function cargarInasistencias() {
 
-    const respuesta = await fetch("/inasistencias");
+    const periodo =
+        periodoInasistencias.value;
+
+    const fecha =
+        fechaInasistencias.value;
+
+    let url =
+        `/inasistencias?periodo=${encodeURIComponent(periodo)}`;
+
+    if (fecha) {
+        url += `&fecha=${encodeURIComponent(fecha)}`;
+    }
+
+    const respuesta = await fetch(url);
 
     if (!respuesta.ok) {
         console.error(
@@ -277,31 +394,39 @@ async function cargarInasistencias() {
 
     let cantidadAlertas = 0;
 
+    let jornadasPeriodo = 0;
+
+    if (datos.inasistencias.length > 0) {
+        jornadasPeriodo =
+            datos.inasistencias[0].jornadas_periodo;
+    }
+
     datos.inasistencias.forEach(function (alumno) {
 
-        const cantidad = alumno.inasistencias;
+        const cantidad =
+            alumno.inasistencias;
 
-        let estado = "Normal";
+        const estado =
+            obtenerEstadoInasistencia(
+                cantidad,
+                periodo
+            );
 
-        if (cantidad > 12) {
-            estado = "Crítico";
-        } else if (cantidad > 5) {
-            estado = "Alerta";
-        }
-
-        if (cantidad > 5) {
+        if (estado.alerta) {
             cantidadAlertas++;
         }
 
-        const fila = document.createElement("tr");
+        const fila =
+            document.createElement("tr");
 
         fila.innerHTML = `
             <td>${alumno.nombre}</td>
             <td>${alumno.curso}</td>
             <td>${cantidad}</td>
+            <td>${alumno.jornadas_periodo}</td>
             <td>
-                <span class="${obtenerClaseInasistencias(cantidad)}">
-                    ${estado}
+                <span class="${estado.clase}">
+                    ${estado.texto}
                 </span>
             </td>
         `;
@@ -309,18 +434,102 @@ async function cargarInasistencias() {
         tablaInasistencias.appendChild(fila);
     });
 
+    resumenInasistencias.textContent =
+        `Jornadas consideradas: ${jornadasPeriodo}`;
+
     totalAlertasInasistencia.textContent =
         cantidadAlertas;
 }
 
 
+async function cargarAtrasos() {
+
+    const periodo =
+        periodoAtrasos.value;
+
+    const fecha =
+        fechaAtrasos.value;
+
+    let url =
+        `/atrasos?periodo=${encodeURIComponent(periodo)}`;
+
+    if (fecha) {
+        url += `&fecha=${encodeURIComponent(fecha)}`;
+    }
+
+    const respuesta = await fetch(url);
+
+    if (!respuesta.ok) {
+        console.error(
+            "No se pudieron cargar los atrasos"
+        );
+        return;
+    }
+
+    const datos = await respuesta.json();
+
+    tablaAtrasos.innerHTML = "";
+
+    if (datos.atrasos.length === 0) {
+
+        tablaAtrasos.innerHTML = `
+            <tr>
+                <td colspan="5">
+                    No hay atrasos registrados
+                    para el período seleccionado.
+                </td>
+            </tr>
+        `;
+
+        resumenAtrasos.textContent =
+            "Total de atrasos: 0";
+
+        return;
+    }
+
+    datos.atrasos.forEach(function (atraso) {
+
+        const fila =
+            document.createElement("tr");
+
+        fila.innerHTML = `
+            <td>${atraso.fecha}</td>
+            <td>${atraso.nombre}</td>
+            <td>${atraso.curso}</td>
+            <td>${atraso.hora_entrada}</td>
+            <td>${atraso.minutos_atraso} min</td>
+        `;
+
+        tablaAtrasos.appendChild(fila);
+    });
+
+    resumenAtrasos.textContent =
+        `Total de atrasos: ${datos.total}`;
+}
+
+
+botonFiltrarInasistencias.addEventListener(
+    "click",
+    cargarInasistencias
+);
+
+
+botonFiltrarAtrasos.addEventListener(
+    "click",
+    cargarAtrasos
+);
+
+
 cargarInasistencias();
+cargarAtrasos();
+
 
 async function actualizarPanel() {
 
     await cargarResumenEstudiantes();
     await cargarAsistencias();
     await cargarInasistencias();
+    await cargarAtrasos();
 }
 
 

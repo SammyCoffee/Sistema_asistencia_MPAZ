@@ -11,7 +11,11 @@ from base_datos import (
     guardar_totem,
     cambiar_estado_totem
 )
-from consultar_asistencia import ( obtener_asistencias, obtener_inasistencias )
+from consultar_asistencia import (
+    obtener_asistencias,
+    obtener_inasistencias,
+    obtener_atrasos
+)
 from exportar_asistencias_csv import exportar_asistencias
 
 app = Flask(
@@ -371,7 +375,44 @@ def consultar_inasistencias_api():
             }
         ), 401
 
-    registros = obtener_inasistencias()
+    periodo = request.args.get(
+        "periodo",
+        "mensual"
+    ).strip().lower()
+
+    fecha_referencia = request.args.get(
+        "fecha",
+        ""
+    ).strip()
+
+    if periodo not in (
+        "diario",
+        "semanal",
+        "mensual"
+    ):
+        return jsonify(
+            {
+                "resultado": "periodo_invalido",
+                "mensaje": "El periodo solicitado no es valido"
+            }
+        ), 400
+
+    if not fecha_referencia:
+        fecha_referencia = None
+
+    try:
+        registros = obtener_inasistencias(
+            periodo,
+            fecha_referencia
+        )
+
+    except ValueError:
+        return jsonify(
+            {
+                "resultado": "fecha_invalida",
+                "mensaje": "La fecha debe usar formato YYYY-MM-DD"
+            }
+        ), 400
 
     inasistencias_json = []
 
@@ -381,17 +422,94 @@ def consultar_inasistencias_api():
                 "id": registro[0],
                 "nombre": registro[1],
                 "curso": registro[2],
-                "inasistencias": registro[3]
+                "inasistencias": registro[3],
+                "jornadas_periodo": registro[4]
             }
         )
 
     return jsonify(
         {
             "resultado": "ok",
+            "periodo": periodo,
             "total": len(inasistencias_json),
             "inasistencias": inasistencias_json
         }
-    ), 200    
+    ), 200
+
+
+@app.get("/atrasos")
+def consultar_atrasos_api():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify(
+            {
+                "resultado": "no_autorizado",
+                "mensaje": "Debes iniciar sesion en el panel"
+            }
+        ), 401
+
+    periodo = request.args.get(
+        "periodo",
+        "diario"
+    ).strip().lower()
+
+    fecha_referencia = request.args.get(
+        "fecha",
+        ""
+    ).strip()
+
+    if periodo not in (
+        "diario",
+        "semanal",
+        "mensual"
+    ):
+        return jsonify(
+            {
+                "resultado": "periodo_invalido",
+                "mensaje": "El periodo solicitado no es valido"
+            }
+        ), 400
+
+    if not fecha_referencia:
+        fecha_referencia = None
+
+    try:
+        registros = obtener_atrasos(
+            periodo,
+            fecha_referencia
+        )
+
+    except ValueError:
+        return jsonify(
+            {
+                "resultado": "fecha_invalida",
+                "mensaje": "La fecha debe usar formato YYYY-MM-DD"
+            }
+        ), 400
+
+    atrasos_json = []
+
+    for registro in registros:
+        atrasos_json.append(
+            {
+                "id": registro[0],
+                "nombre": registro[1],
+                "curso": registro[2],
+                "fecha": registro[3],
+                "hora_entrada": registro[4],
+                "minutos_atraso": registro[5]
+            }
+        )
+
+    return jsonify(
+        {
+            "resultado": "ok",
+            "periodo": periodo,
+            "total": len(atrasos_json),
+            "atrasos": atrasos_json
+        }
+    ), 200
+
 
 @app.get("/asistencias/exportar/<periodo>")
 def exportar_asistencias_api(periodo):
