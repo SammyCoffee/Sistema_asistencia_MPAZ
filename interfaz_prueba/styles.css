@@ -73,11 +73,15 @@ button {
         color 0.2s ease,
         transform 0.2s ease,
         box-shadow 0.2s ease;
+
+    background-color: #1677b8;
+    color: white;    
 }
 
 button:hover {
     transform: translateY(-1px);
     box-shadow: 0 3px 8px rgba(16, 42, 67, 0.18);
+    background-color: #0f5f94;
 }
 
 button:active {
