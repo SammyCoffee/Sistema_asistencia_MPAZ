@@ -56,6 +56,33 @@ h1{
     font-size: 14px;
 }
 
+#boton-cerrar-sesion {
+    justify-self: end;
+
+    width: auto;
+    min-width: 120px;
+
+    padding: 10px 18px;
+
+    background-color: #1677b8;
+    color: white;
+
+    border: none;
+    border-radius: 10px;
+
+    font-weight: bold;
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+#boton-cerrar-sesion:hover {
+    background-color: #0f5f94;
+    transform: translateY(-1px);
+}
+
 .contenido {
     margin-top: 20px;
 

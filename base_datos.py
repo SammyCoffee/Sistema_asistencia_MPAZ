@@ -3,16 +3,24 @@ from datetime import datetime
 import os
 
 CURSOS_VALIDOS = {
-    "PKA",
-    "KA",
+    "PK",
+    "K",
     "1A",
+    "1B",
     "2A",
+    "2B",
     "3A",
+    "3B",
     "4A",
+    "4B",
     "5A",
+    "5B",
     "6A",
+    "6B",
     "7A",
+    "7B",
     "8A",
+    "8B",
 }
 
 RUTA_BASE_DATOS = os.getenv(
