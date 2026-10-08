@@ -14,11 +14,12 @@ h1{
 
 .encabezado {
     background-color: white;
-    padding:24px;
+    padding: 24px;
 
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
+    gap: 20px;
 
     border-radius: 15px;
 }
@@ -33,13 +34,26 @@ h1{
 }
 
 .estado-demo {
-    background-color: #fff4cc;
-    color: #8a6500;
+    background-color: #e8f5e9;
+    color: #198754;
 
-    padding: 10px 14px;
+    padding: 10px 16px;
     border-radius: 20px;
 
     font-weight: bold;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    justify-self: center;
+}
+
+.estado-demo::before {
+    content: "●";
+    color: #198754;
+    font-size: 14px;
 }
 
 .contenido {
@@ -159,11 +173,23 @@ h1{
     border-radius: 10px;
 
     font-weight: bold;
+    color: #1677b8;
+
+    transition: background-color 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
 }
 
 .menu-principal .menu-activo {
     background-color: #1677b8;
     color: white;
+    box-shadow: 0 3px 8px rgba(22, 119, 184, 0.25);
+}
+
+.menu-principal a:hover {
+    background-color: #e8f4fb;
+    color: #0f5f94;
+    transform: translateY(-1px);
 }
 
 .buscador-estudiantes {
