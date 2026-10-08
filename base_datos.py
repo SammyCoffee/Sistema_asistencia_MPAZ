@@ -2,6 +2,19 @@ import sqlite3
 from datetime import datetime
 import os
 
+CURSOS_VALIDOS = {
+    "PKA",
+    "KA",
+    "1A",
+    "2A",
+    "3A",
+    "4A",
+    "5A",
+    "6A",
+    "7A",
+    "8A",
+}
+
 RUTA_BASE_DATOS = os.getenv(
     "MPAZ_DB_PATH",
     "data/asistencia.db"
@@ -93,6 +106,12 @@ def registrar_alumno(
     nombre_completo = nombre_completo.strip()
     curso = curso.strip().upper()
 
+    if curso not in CURSOS_VALIDOS:
+        return {
+            "resultado": "curso_invalido",
+            "mensaje": "El curso seleccionado no es válido"
+        }
+    
     if not rut or not nombre_completo or not curso:
         return {
             "resultado": "datos_incompletos"
@@ -152,6 +171,13 @@ def editar_alumno(
     rut = rut.strip()
     nombre_completo = nombre_completo.strip()
     curso = curso.strip().upper()
+    
+    if curso not in CURSOS_VALIDOS:
+        return {
+            "resultado": "curso_invalido",
+            "mensaje": "El curso seleccionado no es válido"
+        }
+    
 
     if not rut or not nombre_completo or not curso:
         return {

@@ -735,6 +735,16 @@ formularioEstudiante.addEventListener(
                 return;
             }
 
+            if (
+                    datos.resultado ===
+                    "curso_invalido"
+                ) {
+                    mensajeEstudiante.textContent =
+                        "Debes seleccionar un curso válido.";
+
+                    return;
+                }
+
 
             if (
                 datos.resultado ===
