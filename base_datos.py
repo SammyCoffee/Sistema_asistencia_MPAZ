@@ -1,6 +1,7 @@
 import sqlite3
 from datetime import datetime
 import os
+import re
 
 CURSOS_VALIDOS = {
     "PK",
@@ -22,6 +23,61 @@ CURSOS_VALIDOS = {
     "8A",
     "8B",
 }
+
+def validar_rut_chileno(rut):
+    rut_limpio = (
+        rut.replace(".", "")
+        .replace("-", "")
+        .strip()
+        .upper()
+    )
+
+    if len(rut_limpio) < 2:
+        return False
+
+    cuerpo = rut_limpio[:-1]
+    dv = rut_limpio[-1]
+
+    if not cuerpo.isdigit():
+        return False
+
+    suma = 0
+    multiplicador = 2
+
+    for numero in reversed(cuerpo):
+        suma += int(numero) * multiplicador
+        multiplicador += 1
+
+        if multiplicador > 7:
+            multiplicador = 2
+
+    resto = 11 - (suma % 11)
+
+    if resto == 11:
+        dv_calculado = "0"
+    elif resto == 10:
+        dv_calculado = "K"
+    else:
+        dv_calculado = str(resto)
+
+    return dv == dv_calculado
+
+
+def validar_nombre_estudiante(nombre):
+    nombre = nombre.strip()
+
+    if len(nombre) < 5:
+        return False
+
+    if not re.fullmatch(
+        r"[A-Za-zÁÉÍÓÚáéíóúÑñÜü' -]+",
+        nombre
+    ):
+        return False
+
+    palabras = nombre.split()
+
+    return len(palabras) >= 2
 
 RUTA_BASE_DATOS = os.getenv(
     "MPAZ_DB_PATH",
@@ -114,15 +170,27 @@ def registrar_alumno(
     nombre_completo = nombre_completo.strip()
     curso = curso.strip().upper()
 
+    if not rut or not nombre_completo or not curso:
+        return {
+            "resultado": "datos_incompletos"
+        }
+
     if curso not in CURSOS_VALIDOS:
         return {
             "resultado": "curso_invalido",
             "mensaje": "El curso seleccionado no es válido"
         }
-    
-    if not rut or not nombre_completo or not curso:
+
+    if not validar_rut_chileno(rut):
         return {
-            "resultado": "datos_incompletos"
+            "resultado": "rut_invalido",
+            "mensaje": "El RUT ingresado no es válido"
+        }
+
+    if not validar_nombre_estudiante(nombre_completo):
+        return {
+            "resultado": "nombre_invalido",
+            "mensaje": "Debes ingresar nombre y apellido válidos"
         }
 
     conexion = obtener_conexion()
@@ -185,7 +253,17 @@ def editar_alumno(
             "resultado": "curso_invalido",
             "mensaje": "El curso seleccionado no es válido"
         }
-    
+    if not validar_rut_chileno(rut):
+        return {
+            "resultado": "rut_invalido",
+            "mensaje": "El RUT ingresado no es válido"
+        }
+
+    if not validar_nombre_estudiante(nombre_completo):
+        return {
+            "resultado": "nombre_invalido",
+            "mensaje": "Debes ingresar nombre y apellido válidos"
+        }
 
     if not rut or not nombre_completo or not curso:
         return {

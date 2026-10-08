@@ -745,6 +745,27 @@ formularioEstudiante.addEventListener(
                     return;
                 }
 
+                if (
+                    datos.resultado ===
+                "rut_invalido"
+            ) {
+                mensajeEstudiante.textContent =
+                    "Debes ingresar un RUT chileno válido.";
+
+                return;
+            }
+
+            if (
+                datos.resultado ===
+                "nombre_invalido"
+            ) {
+                mensajeEstudiante.textContent =
+                    "Debes ingresar un nombre y apellido válidos.";
+
+                return;
+            }
+
+
 
             if (
                 datos.resultado ===
