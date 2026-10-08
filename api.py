@@ -352,6 +352,15 @@ def registrar_alumno_panel():
     if resultado == "datos_incompletos":
         return jsonify(respuesta), 400
 
+    if resultado == "curso_invalido":
+        return jsonify(respuesta), 400
+
+    if resultado == "rut_invalido":
+        return jsonify(respuesta), 400
+
+    if resultado == "nombre_invalido":
+        return jsonify(respuesta), 400
+
     if resultado == "registrado":
         return jsonify(respuesta), 201
 
@@ -435,6 +444,15 @@ def editar_alumno_panel():
         return jsonify(respuesta), 409
 
     if resultado == "datos_incompletos":
+        return jsonify(respuesta), 400
+
+    if resultado == "curso_invalido":
+        return jsonify(respuesta), 400
+
+    if resultado == "rut_invalido":
+        return jsonify(respuesta), 400
+
+    if resultado == "nombre_invalido":
         return jsonify(respuesta), 400
 
     if resultado == "actualizado":
