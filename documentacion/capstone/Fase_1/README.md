@@ -20,3 +20,5 @@ Conforme a la pauta de la Fase 1, se separan las evidencias individuales de las 
 Consulta la [revisión detallada de evidencias de la Fase 1](REVISION_Y_PLAN_ENTREGA.md), donde se documentan las faltas detectadas y una propuesta para completar las secciones 6–8 de la guía 1.5.
 
 **Guía 1.5 (español):** se localizó una versión entre archivos anteriores, pero todavía no está subida a este repositorio porque le faltan secciones y necesita una revisión de información personal.
+
+**Avance del documento 1.1:** hay un [borrador de contenido en Markdown](Evidencias_Individuales/BORRADOR_1.1_AutoevaluacionCompetenciasFase1.md), pero falta conseguir y completar la plantilla oficial; por eso continúa marcado como pendiente en la tabla de requisitos.
