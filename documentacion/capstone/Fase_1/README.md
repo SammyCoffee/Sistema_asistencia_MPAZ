@@ -3,7 +3,8 @@
 Conforme a la pauta de la Fase 1, se separan las evidencias individuales de las grupales. No se han creado documentos ficticios.
 
 ## Evidencias individuales
-- [ ] `Apellido_Nombre_1.1_APT122_AutoevaluacionCompetenciasFase1.docx`
+- [x] [Autoevaluación 1.1 — Samantha Tapia](Evidencias_Individuales/Tapia_Samantha_1.1_APT122_AutoevaluacionCompetenciasFase1.docx) (archivo subido; pendiente de revisión docente).
+- [ ] Autoevaluación 1.1 — Lucas Baeza (evidencia individual independiente).
 - [ ] `Apellido_Nombre_1.2_APT122_DiarioReflexionFase1.docx`
 - [x] Autoevaluación Fase 1 (archivo disponible: [1.3](Evidencias_Individuales/1.3_APT122_AutoevaluacionFase1_MPAZ_RFID_Completada.docx)). Verificar y ajustar el nombre al formato oficial `Apellido_Nombre_1.3_APT122_AutoevaluacionFase1.docx` antes de la entrega.
 
@@ -21,4 +22,4 @@ Consulta la [revisión detallada de evidencias de la Fase 1](REVISION_Y_PLAN_ENT
 
 **Guía 1.5 (español):** se localizó una versión entre archivos anteriores, pero todavía no está subida a este repositorio porque le faltan secciones y necesita una revisión de información personal.
 
-**Avance del documento 1.1:** hay un [borrador de contenido en Markdown](Evidencias_Individuales/BORRADOR_1.1_AutoevaluacionCompetenciasFase1.md), pero falta conseguir y completar la plantilla oficial; por eso continúa marcado como pendiente en la tabla de requisitos.
+**Avance del documento 1.1:** ya se subió el DOCX individual de Samantha Tapia. El [borrador anterior de apoyo](Evidencias_Individuales/BORRADOR_1.1_AutoevaluacionCompetenciasFase1.md) permanece únicamente como material auxiliar y **no es el entregable oficial**. El documento individual de Lucas Baeza está pendiente.
