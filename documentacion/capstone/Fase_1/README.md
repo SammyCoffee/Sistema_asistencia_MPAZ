@@ -14,3 +14,9 @@ Conforme a la pauta de la Fase 1, se separan las evidencias individuales de las 
 - [ ] `1.5_GuiaEstudiante_Fase_1_Definicion_Proyecto_APT` (Inglés, **optativo**)
 
 `[x]` significa que hay un archivo ubicado en la carpeta; **no acredita que haya sido aprobado o esté completamente rellenado**.
+
+## Estado de revisión y siguientes pasos
+
+Consulta la [revisión detallada de evidencias de la Fase 1](REVISION_Y_PLAN_ENTREGA.md), donde se documentan las faltas detectadas y una propuesta para completar las secciones 6–8 de la guía 1.5.
+
+**Guía 1.5 (español):** se localizó una versión entre archivos anteriores, pero todavía no está subida a este repositorio porque le faltan secciones y necesita una revisión de información personal.
