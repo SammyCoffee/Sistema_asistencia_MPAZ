@@ -8,7 +8,7 @@
 | Evidencia | Estado al 12-10-2026 | Próxima acción |
 |---|---|---|
 | 1.1 Autoevaluación de competencias (individual) | **Samantha Tapia:** DOCX subido; **Lucas Baeza:** no localizado | Revisar por docente el de Samantha y añadir el de Lucas cuando esté completo |
-| 1.2 Diario de reflexión (individual) | No localizado | Completar individualmente y subir DOCX con Apellido_Nombre |
+| 1.2 Diario de reflexión (individual) | **Samantha Tapia:** DOCX subido; **Lucas Baeza:** no localizado | Revisar por docente el de Samantha y añadir el de Lucas cuando esté completo |
 | 1.3 Autoevaluación Fase 1 (individual) | Archivo existente en `Evidencias_Individuales/` | Revisar autoría, contenido y nombre final antes de entregar |
 | Presentación idea de proyecto (grupal) | No localizada en el repositorio | Añadir PPTX/PDF de la presentación ya trabajada |
 | 1.4 Formativa Fase 1 (grupal) | Archivo existente en `Evidencias_Grupales/` | Verificar comentarios y aprobación del docente; el archivo actual es una propuesta para revisión |
@@ -78,7 +78,8 @@ El repositorio ya contenía archivos `.db` históricos en `data/`; revisar si gu
 - [x] Partes incompletas y desajustes técnicos identificados.
 - [x] Incorporar el DOCX oficial individual de Samantha Tapia para 1.1.
 - [ ] Incorporar el DOCX oficial individual de Lucas Baeza para 1.1.
-- [ ] Crear/revisar los DOCX oficiales de 1.2 de cada integrante.
+- [x] Incorporar el DOCX individual del diario de Samantha Tapia para 1.2.
+- [ ] Incorporar el DOCX individual del diario de Lucas Baeza para 1.2.
 - [ ] Completar/corregir el DOCX original 1.5 (no basta este Markdown).
 - [ ] Verificar y añadir la presentación.
 - [ ] Incorporar las entregas restantes a GitHub sin datos sensibles.

@@ -5,7 +5,8 @@ Conforme a la pauta de la Fase 1, se separan las evidencias individuales de las 
 ## Evidencias individuales
 - [x] [Autoevaluación 1.1 — Samantha Tapia](Evidencias_Individuales/Tapia_Samantha_1.1_APT122_AutoevaluacionCompetenciasFase1.docx) (archivo subido; pendiente de revisión docente).
 - [ ] Autoevaluación 1.1 — Lucas Baeza (evidencia individual independiente).
-- [ ] `Apellido_Nombre_1.2_APT122_DiarioReflexionFase1.docx`
+- [x] [Diario de Reflexión 1.2 — Samantha Tapia](Evidencias_Individuales/Tapia_Samantha_1.2_APT122_DiarioReflexionFase1.docx) (archivo subido; pendiente de revisión docente).
+- [ ] Diario de Reflexión 1.2 — Lucas Baeza (evidencia individual independiente).
 - [x] Autoevaluación Fase 1 (archivo disponible: [1.3](Evidencias_Individuales/1.3_APT122_AutoevaluacionFase1_MPAZ_RFID_Completada.docx)). Verificar y ajustar el nombre al formato oficial `Apellido_Nombre_1.3_APT122_AutoevaluacionFase1.docx` antes de la entrega.
 
 ## Evidencias grupales

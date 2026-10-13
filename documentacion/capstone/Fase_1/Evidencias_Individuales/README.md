@@ -3,7 +3,7 @@
 Archivos solicitados en la pauta:
 
 1. **1.1 — Samantha Tapia:** [DOCX individual subido](Tapia_Samantha_1.1_APT122_AutoevaluacionCompetenciasFase1.docx). **1.1 — Lucas Baeza:** pendiente de incorporar su autoevaluación individual.
-2. `Apellido_Nombre_1.2_APT122_DiarioReflexionFase1.docx` — pendiente.
+2. **1.2 — Samantha Tapia:** [DOCX individual subido](Tapia_Samantha_1.2_APT122_DiarioReflexionFase1.docx). **1.2 — Lucas Baeza:** pendiente de incorporar su diario individual.
 3. `Apellido_Nombre_1.3_APT122_AutoevaluacionFase1.docx` — disponible una versión previa con el nombre `1.3_APT122_AutoevaluacionFase1_MPAZ_RFID_Completada.docx`.
 
 Usar apellido y nombre reales en el archivo individual. Si el equipo tiene dos integrantes, cada uno debe subir su propia evidencia individual según la pauta.
