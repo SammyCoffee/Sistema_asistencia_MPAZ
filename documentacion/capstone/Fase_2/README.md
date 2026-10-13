@@ -13,7 +13,7 @@ Carpeta prevista según directorio: [Evidencias_Individuales](Evidencias_Individ
 
 ## Evidencias grupales
 
-- [ ] `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` (español)
+- [ ] `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` (español; borrador completado fuera de GitHub, falta validar y subir)
 - [ ] `PLANILLA DE EVALUACIÓN AVANCE FASE 2.xlsx`
 - [ ] `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` (español)
 - [ ] `PLANILLA DE EVALUACIÓN FINAL FASE 2.xlsx`
@@ -40,3 +40,5 @@ Carpeta: [Evidencias_Grupales](Evidencias_Grupales/). Las planillas y pautas de 
 Se dispone de las plantillas originales de **2.1 Diario de Reflexión (grupal)**, **2.2 Autoevaluación (individual)**, **2.3 Formativa (docente)** y **2.4 Guía de Desarrollo (grupal)** en los archivos compartidos para revisión. **No se han subido todavía los DOCX de esas plantillas a GitHub.** El borrador Word 2.1 está preparado fuera del repositorio, pendiente de revisión grupal.
 
 [Ver diferencias entre el directorio y los formularios y próximos pasos](REVISION_FORMULARIOS_2.1_A_2.4.md).
+
+**Avance 2.4:** se preparó un Word editable de tres páginas con el resumen, plan monitoreado y ajustes, utilizando las fichas 02 y 04. El archivo `2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx` está disponible en la conversación para revisión, **no en el repositorio**. El documento señala expresamente las diferencias de autoría entre fichas y guía 1.5; mantiene capturas y pruebas por incorporar.
