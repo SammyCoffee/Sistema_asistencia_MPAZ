@@ -12,7 +12,7 @@
 | 1.3 Autoevaluación Fase 1 (individual) | Archivo existente y revisión documental realizada | Confirmar autoría, justificar niveles y relacionar con la guía 1.5 antes de guardar una versión individual definitiva |
 | Presentación idea de proyecto (grupal) | **PPTX de revisión subido y verificado** en `Evidencias_Grupales/Presentacion_Idea_Proyecto/` | Validar los roles, cronograma y coherencia con la guía 1.5 antes de dar por definitiva la presentación |
 | 1.4 Formativa Fase 1 (grupal) | **Solo borrador de apoyo localizado; no se identificó una heteroevaluación validada del docente en el repositorio** | Conservar el borrador diferenciado y adjuntar versión evaluada únicamente si la entrega el docente |
-| 1.5 Guía Estudiante — Definición Proyecto APT (español) | **Word reconstruido y completado en cuatro páginas**, pendiente de subir a esta carpeta | Confirmar roles, validar calendario y subir `1.5_GuiaEstudiante_Fase_1_Definicion_Proyecto_APT_PARA_REVISION.docx` sin RUT ni datos privados |
+| 1.5 Guía Estudiante — Definición Proyecto APT (español) | **Word de cuatro páginas recibido y reubicado en Evidencias_Grupales** | Confirmar roles, validar calendario y contenido con el equipo/docente; el archivo sigue siendo una versión para revisión |
 | 1.5 Guía en inglés (grupal) | Optativa | Incorporar únicamente si se realizó |
 
 ## Revisión del contenido hallado en la guía 1.5
@@ -81,7 +81,8 @@ El repositorio ya contenía archivos `.db` históricos en `data/`; revisar si gu
 - [x] Incorporar el DOCX individual del diario de Samantha Tapia para 1.2.
 - [ ] Incorporar el DOCX individual del diario de Lucas Baeza para 1.2.
 - [x] Preparar un DOCX reconstruido de la guía 1.5 con las ocho secciones, revisado visualmente.
-- [ ] Validar la asignación real de roles y semanas con el equipo/docente y subir el DOCX a GitHub.
+- [x] Subir y ubicar el DOCX 1.5 en `Evidencias_Grupales/`.
+- [ ] Validar la asignación real de roles y semanas con el equipo/docente.
 - [x] Incorporar la presentación grupal revisada al repositorio.
 - [ ] Validar entre integrantes las responsabilidades y el cronograma de la presentación.
 - [ ] Incorporar las entregas restantes a GitHub sin datos sensibles.
