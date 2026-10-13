@@ -16,3 +16,7 @@ Organización de la documentación del proyecto **Sistema de Asistencia MPAZ RFI
 ## Estado de las evidencias técnicas
 
 Las carpetas están preparadas, pero las **capturas de sistema, pruebas, integración ESP32/PN532 y evidencias visuales de base de datos se mantienen pendientes**. Consulta el [plan de evidencias pendientes](Fase_2/Evidencias_Proyecto/PLAN_EVIDENCIAS_PENDIENTES.md). Los documentos académicos que ya existen permanecen sin cambios. La rama `capstone/organizacion-evidencias` es de revisión; no se fusionará con `main` mientras continuemos ordenando las entregas.
+
+## Orden de revisión
+
+En la **Fase 1**, las evidencias oficiales están separadas de los borradores auxiliares. El archivo 1.5 en Word ya se preparó fuera de GitHub, pero requiere validación y subida manual; la presentación inicial y la evaluación 1.4 por el docente siguen pendientes. En la **Fase 2**, las carpetas y el control de capturas existen, pero los pantallazos permanecen pendientes.

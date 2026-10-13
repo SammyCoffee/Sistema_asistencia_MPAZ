@@ -1,5 +1,7 @@
-# Presentación de la idea de proyecto
+# Presentación de la idea del Proyecto APT — Fase 1
 
-Agregar aquí la presentación utilizada para plantear el Sistema MPAZ RFID en la Fase 1 (archivo PPTX o PDF real).
+**Estado: pendiente de incorporar.** No se encontró un PPTX/PDF de presentación en esta carpeta del repositorio.
 
-Estado: **pendiente de subir**.
+Al recibir el archivo realmente utilizado por el equipo, verificar que incluya el problema de registro de asistencia, los objetivos, los componentes ESP32 + PN532 → API Flask → SQLite → panel web, las competencias aplicadas y la factibilidad; no afirmar pruebas que todavía no hayan sido documentadas.
+
+Nombre sugerido: `Presentacion_Idea_Proyecto_MPAZ_RFID.pptx` (o su PDF final). Esta carpeta contiene el README para que exista aunque no haya presentación subida. No sustituye el archivo requerido.

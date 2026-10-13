@@ -10,4 +10,4 @@ Usar apellido y nombre reales en el archivo individual. Si el equipo tiene dos i
 
 ## Borrador de apoyo 1.1
 
-Se agregó [BORRADOR_1.1_AutoevaluacionCompetenciasFase1.md](BORRADOR_1.1_AutoevaluacionCompetenciasFase1.md), con una propuesta de reflexión en primera persona basada en el trabajo de software del proyecto. **Es un material auxiliar** y no sustituye el [DOCX individual ya subido por Samantha](Tapia_Samantha_1.1_APT122_AutoevaluacionCompetenciasFase1.docx). Se recomienda mantener como evidencias definitivas únicamente los formularios individuales revisados.
+Se agregó [BORRADOR_1.1_AutoevaluacionCompetenciasFase1.md](Material_de_Apoyo/BORRADOR_1.1_AutoevaluacionCompetenciasFase1.md), con una propuesta de reflexión en primera persona basada en el trabajo de software del proyecto. **Es un material auxiliar** y no sustituye el [DOCX individual ya subido por Samantha](Tapia_Samantha_1.1_APT122_AutoevaluacionCompetenciasFase1.docx). Se recomienda mantener como evidencias definitivas únicamente los formularios individuales revisados.
