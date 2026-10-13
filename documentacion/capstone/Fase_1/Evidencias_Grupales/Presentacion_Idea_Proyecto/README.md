@@ -1,7 +1,11 @@
 # Presentación de la idea del Proyecto APT — Fase 1
 
-**Estado: pendiente de incorporar.** No se encontró un PPTX/PDF de presentación en esta carpeta del repositorio.
+**Estado de entrega: pendiente de incorporar el PowerPoint.** El archivo recibido tiene 18 diapositivas y sí corresponde a la presentación de la idea del proyecto.
 
-Al recibir el archivo realmente utilizado por el equipo, verificar que incluya el problema de registro de asistencia, los objetivos, los componentes ESP32 + PN532 → API Flask → SQLite → panel web, las competencias aplicadas y la factibilidad; no afirmar pruebas que todavía no hayan sido documentadas.
+La revisión y los cambios sugeridos están documentados en [REVISION_PRESENTACION_FASE1.md](REVISION_PRESENTACION_FASE1.md).
 
-Nombre sugerido: `Presentacion_Idea_Proyecto_MPAZ_RFID.pptx` (o su PDF final). Esta carpeta contiene el README para que exista aunque no haya presentación subida. No sustituye el archivo requerido.
+La copia corregida para subir se llama `Presentacion_Idea_Proyecto_MPAZ_RFID_REVISION.pptx` y debe revisarse antes con el equipo, especialmente por las responsabilidades de la diapositiva 17 y la Carta Gantt propuesta de la diapositiva 14.
+
+Cuando esté validada, subir aquí el PPTX real mediante **Add file → Upload files** sobre la rama `capstone/organizacion-evidencias`. **No basta con el presente README ni con la revisión textual.**
+
+No confundir esta presentación de la Fase 1 con las capturas o pruebas técnicas de la Fase 2, que siguen pendientes.
