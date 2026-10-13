@@ -9,9 +9,9 @@
 |---|---|---|
 | 1.1 Autoevaluación de competencias (individual) | **Samantha Tapia:** DOCX subido; **Lucas Baeza:** no localizado | Revisar por docente el de Samantha y añadir el de Lucas cuando esté completo |
 | 1.2 Diario de reflexión (individual) | **Samantha Tapia:** DOCX subido; **Lucas Baeza:** no localizado | Revisar por docente el de Samantha y añadir el de Lucas cuando esté completo |
-| 1.3 Autoevaluación Fase 1 (individual) | Archivo existente en `Evidencias_Individuales/` | Revisar autoría, contenido y nombre final antes de entregar |
+| 1.3 Autoevaluación Fase 1 (individual) | Archivo existente y revisión documental realizada | Confirmar autoría, justificar niveles y relacionar con la guía 1.5 antes de guardar una versión individual definitiva |
 | Presentación idea de proyecto (grupal) | No localizada en el repositorio | Añadir PPTX/PDF de la presentación ya trabajada |
-| 1.4 Formativa Fase 1 (grupal) | Archivo existente en `Evidencias_Grupales/` | Verificar comentarios y aprobación del docente; el archivo actual es una propuesta para revisión |
+| 1.4 Formativa Fase 1 (grupal) | **Solo borrador de apoyo localizado; no se identificó una heteroevaluación validada del docente en el repositorio** | Conservar el borrador diferenciado y adjuntar versión evaluada únicamente si la entrega el docente |
 | 1.5 Guía Estudiante — Definición Proyecto APT (español) | Localizada entre los archivos de trabajo anteriores, pero **no incorporada al repositorio** | Completar y corregir el DOCX original, quitar identificadores sensibles y subir versión revisada |
 | 1.5 Guía en inglés (grupal) | Optativa | Incorporar únicamente si se realizó |
 
@@ -104,3 +104,32 @@ El repositorio ya contenía archivos `.db` históricos en `data/`; revisar si gu
 6. **Redacción temporal:** revisar la frase «la implantación física completa ... continúa como incremento posterior» para que describa el estado real a la fecha de entrega; no afirmar funcionalidades no probadas.
 
 **Estado provisional:** presente y cumplimentada, pero **pendiente de validar coherencia y autoría antes de considerarla lista**. No modificar la autoevaluación del estudiante sin que la persona confirme su propio juicio.
+
+## Revisión específica de evidencia 1.4 — Formativa Fase 1
+
+**Archivos contrastados:** `1.4_APT122_FormativaFase1.docx` (pauta oficial sin selecciones) y `Evidencias_Grupales/1.4_APT122_FormativaFase1_MPAZ_RFID_Preparada.docx` (borrador existente en GitHub). El documento de GitHub lleva una advertencia explícita: «BORRADOR DE APOYO PARA REVISIÓN DOCENTE — Las selecciones propuestas no reemplazan la heteroevaluación del/la docente».
+
+### Qué dice la pauta oficial
+
+- **Agente evaluativo: heteroevaluación.** La pauta declara que **el/la docente** debe aplicarla en la semana 2 y revisar la primera parte de la Definición del Proyecto APT.
+- Contempla **cinco indicadores**, con ponderaciones 12 %, 15 %, 10 %, 13 % y 50 %.
+- Su resultado orienta una **recomendación del docente** entre: cumple las condiciones, cumple algunas y requiere modificaciones, o no cumple.
+- Es una evaluación **formativa, de ponderación 0 %**, según la propia pauta, pero no por ello podemos sustituir su valoración oficial.
+- Solicita formato técnico con portada, índice, abstract español/inglés, desarrollo, conclusiones individuales en inglés y reflexión en inglés, según el texto de instrucciones de la pauta.
+
+### Resultado de la revisión del archivo del repositorio
+
+- Está presente un **borrador de ocho páginas**; la plantilla de referencia sin completar tiene siete.
+- El borrador marca propuestas en nivel más alto para varios indicadores y sugiere la opción «cumple las condiciones»; **esto no constituye una decisión tomada por el docente**.
+- Los indicadores de calidad 1.1–4.2 se presentan como «evidencia disponible», mientras 4.3 se señala en desarrollo; debe verificarse su respaldo en el material de la entrega.
+- Incluye un anexo técnico útil del proyecto, pero es **material de apoyo**, no una rúbrica recibida tras la corrección del docente.
+
+### Acciones de organización
+
+- [x] Conservar el archivo original del borrador en el repositorio sin alterar sus selecciones.
+- [x] Identificarlo en el índice como **borrador**, no como heteroevaluación oficial terminada.
+- [ ] Incorporar la pauta evaluada por el docente, si existe o cuando la entregue, sin modificar sus valoraciones.
+- [ ] Comprobar concordancia entre los cinco indicadores y la primera parte del informe/guía 1.5.
+- [ ] No considerar cerrada la evaluación 1.4 hasta contar con una versión válida.
+
+**Conclusión:** la organización de la Fase 1 puede continuar y las capturas técnicas siguen pendientes, pero la evidencia 1.4 permanece **pendiente de validación docente**.
