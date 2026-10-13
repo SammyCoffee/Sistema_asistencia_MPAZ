@@ -1,15 +1,17 @@
-# Evidencias de documentación
+# Evidencias de documentación — Fase 2
 
-Se han reubicado aquí las fichas ya existentes del proyecto, **sin editar su contenido**:
+Estos archivos de seguimiento del proyecto ya se encuentran en GitHub. **Disponibles** no significa «aprobados» ni «prueba técnica verificada».
 
-- `Ficha_Avance_02_MPAZ_RFID_Completada.docx`
-- `Ficha_Avance_03_Proyecto_Capstone_Sistema_Asistencia_MPAZ.pdf`
-- `Ficha_Avance_04_MPAZ_RFID_FINAL.docx`
+| Documento | Para qué sirve | Revisión pendiente |
+|---|---|---|
+| [Ficha de avance 02](Ficha_Avance_02_MPAZ_RFID_Completada.docx) | Seguimiento del primer proceso funcional: pantalla, API y base SQLite (23-09-2026) | Confirmar responsabilidades, porque atribuye varias tareas backend a Lucas |
+| [Ficha de avance 03](Ficha_Avance_03_Proyecto_Capstone_Sistema_Asistencia_MPAZ.pdf) | Archivo PDF de seguimiento | Validar contenido y coherencia con el desarrollo real |
+| [Ficha de avance 04](Ficha_Avance_04_MPAZ_RFID_FINAL.docx) | Trazabilidad de funcionalidades de la versión 1.0 (06-10-2026) | Documenta 87,5 % de avance reconocido; contrastar con pruebas antes de afirmarlo como verificado |
 
-Estas fichas pueden servir como documentación del proyecto, pero **no reemplazan automáticamente** las guías 2.4, 2.6 ni las planillas de evaluación requeridas como evidencias grupales.
+## Evidencia visual pendiente
 
-## Pendiente — captura 01
+- [ ] `01_Arquitectura_Sistema.png` — diagrama del flujo ESP32 + PN532 → API Flask → SQLite → panel web.
 
-- [ ] `01_Arquitectura_Sistema.png` — diagrama visual del flujo de lectura y registro RFID.
+Ninguna captura de arquitectura se da por realizada. [Ver control de las diez evidencias técnicas](../PLAN_EVIDENCIAS_PENDIENTES.md).
 
-Las tres fichas de avance anteriores están **presentes como archivos documentales**, pero este diagrama sigue **pendiente**. [Ver plan general](../PLAN_EVIDENCIAS_PENDIENTES.md).
+Las fichas de seguimiento **no sustituyen** la guía 2.4, la guía 2.6 ni las planillas de evaluación.

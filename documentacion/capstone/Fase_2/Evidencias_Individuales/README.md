@@ -1,7 +1,12 @@
 # Evidencias individuales — Fase 2
 
-Documento requerido:
+Según el directorio de Fase 2, se solicita el **Diario de Reflexión 2.1**.
 
-- `Apellido_Nombre_2.1_APT122_DiarioReflexionFase2.docx`
+| Integrante | Nombre esperado | Estado |
+|---|---|---|
+| Samantha Tapia | `Tapia_Samantha_2.1_APT122_DiarioReflexionFase2.docx` | **Pendiente** |
+| Lucas Baeza | `Baeza_Lucas_2.1_APT122_DiarioReflexionFase2.docx` | **Pendiente** |
 
-Estado: **pendiente de subir**. Cada integrante debe aportar su versión individual con su apellido y nombre.
+**Siguiente paso:** conseguir la plantilla 2.1 original entregada por Duoc UC. Redactar por separado la reflexión de cada integrante sobre su participación real en la Fase 2.
+
+El diario 1.2 de la Fase 1 no sustituye esta evidencia. No crear marcadores vacíos con extensión `.docx`.

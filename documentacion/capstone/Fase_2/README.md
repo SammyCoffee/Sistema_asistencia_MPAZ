@@ -1,26 +1,34 @@
-# Fase 2 — Desarrollo e informe final del proyecto APT
+# Fase 2 — Desarrollo e informe final del Proyecto APT
 
-Esta estructura sigue la pauta de la Fase 2 adjunta. Las evidencias en inglés que aparecen señaladas en la pauta son **optativas**.
+Organización basada en el documento del equipo **«Directorio para carpeta Fase 2 en nuestro GitHub»**.
+
+**[Consultar control detallado de entregas y pendientes](CONTROL_ENTREGAS_FASE_2.md)**
 
 ## Evidencias individuales
-- [ ] `Apellido_Nombre_2.1_APT122_DiarioReflexionFase2.docx`.
+
+- [ ] Diario de reflexión 2.1 de Samantha Tapia — `Tapia_Samantha_2.1_APT122_DiarioReflexionFase2.docx`
+- [ ] Diario de reflexión 2.1 de Lucas Baeza — `Baeza_Lucas_2.1_APT122_DiarioReflexionFase2.docx`
+
+Carpeta: [Evidencias_Individuales](Evidencias_Individuales/). Cada integrante presenta su propio formulario.
 
 ## Evidencias grupales
-- [ ] `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` (Español).
-- [ ] `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` (Inglés, optativo).
-- [ ] `PLANILLA DE EVALUACIÓN AVANCE FASE 2.xlsx`.
-- [ ] `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` (Español).
-- [ ] `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` (Inglés, optativo).
-- [ ] `PLANILLA DE EVALUACIÓN FINAL FASE 2.xlsx`.
+
+- [ ] `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` (español)
+- [ ] `PLANILLA DE EVALUACIÓN AVANCE FASE 2.xlsx`
+- [ ] `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` (español)
+- [ ] `PLANILLA DE EVALUACIÓN FINAL FASE 2.xlsx`
+- [ ] Guía 2.4 en inglés (**optativa**)
+- [ ] Guía 2.6 en inglés (**optativa**)
+
+Carpeta: [Evidencias_Grupales](Evidencias_Grupales/). Las planillas de evaluación se preservarán sin inventar valoraciones docentes.
 
 ## Evidencias del proyecto
-- [ ] [Presentación del proyecto](Evidencias_Proyecto/Presentacion_Proyecto/)
-- [x] [Evidencias de documentación](Evidencias_Proyecto/Evidencias_Documentacion/) — fichas de avance existentes reubicadas.
-- [ ] [Evidencias del sistema/aplicación](Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/) — capturas y pruebas pendientes.
-- [ ] [Base de datos](Evidencias_Proyecto/Base_de_Datos/) — adjuntar solo un esquema o datos ficticios.
 
-**Nota:** los archivos ya disponibles se señalan como presentes, no como validados académicamente.
+- [ ] [Presentación del proyecto](Evidencias_Proyecto/Presentacion_Proyecto/) — presentación Fase 2 pendiente (distinta de la idea Fase 1).
+- [x] [Evidencias de documentación](Evidencias_Proyecto/Evidencias_Documentacion/) — tres fichas de avance disponibles, **sin validación académica definitiva**.
+- [ ] [Evidencias del sistema/aplicación](Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/) — capturas pendientes.
+- [ ] [Base de datos](Evidencias_Proyecto/Base_de_Datos/) — captura, diagrama o esquema de demostración pendiente.
 
-## Lista de capturas por realizar
+[Checklist de las diez evidencias técnicas que recopilaremos después](Evidencias_Proyecto/PLAN_EVIDENCIAS_PENDIENTES.md).
 
-La [lista de evidencias técnicas](Evidencias_Proyecto/PLAN_EVIDENCIAS_PENDIENTES.md) organiza diez grupos de capturas. **Todas las capturas están pendientes**: la creación de carpetas y los documentos ya guardados no significan que se hayan tomado esas evidencias.
+**Importante:** los archivos Word, Excel y las capturas pendientes solo se incorporan cuando existan y puedan revisarse. La existencia de código o fichas no reemplaza automáticamente las entregas oficiales.

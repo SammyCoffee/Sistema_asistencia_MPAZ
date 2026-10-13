@@ -1,14 +1,14 @@
 # Evidencias del proyecto — Fase 2
 
-Las evidencias del Sistema de Asistencia MPAZ RFID se agrupan así:
+| Categoría de la pauta | Estado |
+|---|---|
+| [Presentación del proyecto](Presentacion_Proyecto/) | Pendiente |
+| [Evidencias de documentación](Evidencias_Documentacion/) | **Tres fichas de avance disponibles**; revisar contenidos |
+| [Evidencias del sistema/aplicación](Evidencias_Sistema_Aplicacion/) | Capturas y validaciones pendientes |
+| [Base de datos](Base_de_Datos/) | Captura/diagrama de demostración pendiente |
 
-1. [Presentación del proyecto](Presentacion_Proyecto/)
-2. [Evidencias de documentación](Evidencias_Documentacion/)
-3. [Evidencias del sistema/aplicación](Evidencias_Sistema_Aplicacion/)
-4. [Base de datos](Base_de_Datos/)
+[Control académico de entregas](../CONTROL_ENTREGAS_FASE_2.md)
 
-Se recomienda incluir capturas de las pruebas del ESP32/PN532, la API Flask, el panel web, las exportaciones y la estructura de tablas, siempre usando datos ficticios o anonimizados.
+[Checklist de diez grupos de capturas por realizar](PLAN_EVIDENCIAS_PENDIENTES.md). **Ninguna está marcada como realizada.**
 
-## Control de evidencias visuales
-
-[Consultar checklist de 10 evidencias pendientes](PLAN_EVIDENCIAS_PENDIENTES.md). No se han incorporado pantallazos ni se considera ninguna prueba visual completada. Cada captura tendrá su carpeta según su tipo.
+Los archivos de código siguen en la raíz del repositorio. Para evidencias técnicas se utilizarán únicamente datos ficticios o anonimizados, sin claves ni datos personales.
