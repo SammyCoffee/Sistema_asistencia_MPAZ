@@ -12,12 +12,12 @@
 | 1.3 Autoevaluación Fase 1 (individual) | Archivo existente y revisión documental realizada | Confirmar autoría, justificar niveles y relacionar con la guía 1.5 antes de guardar una versión individual definitiva |
 | Presentación idea de proyecto (grupal) | **PPTX de revisión subido y verificado** en `Evidencias_Grupales/Presentacion_Idea_Proyecto/` | Validar los roles, cronograma y coherencia con la guía 1.5 antes de dar por definitiva la presentación |
 | 1.4 Formativa Fase 1 (grupal) | **Solo borrador de apoyo localizado; no se identificó una heteroevaluación validada del docente en el repositorio** | Conservar el borrador diferenciado y adjuntar versión evaluada únicamente si la entrega el docente |
-| 1.5 Guía Estudiante — Definición Proyecto APT (español) | Localizada entre los archivos de trabajo anteriores, pero **no incorporada al repositorio** | Completar y corregir el DOCX original, quitar identificadores sensibles y subir versión revisada |
+| 1.5 Guía Estudiante — Definición Proyecto APT (español) | **Word reconstruido y completado en cuatro páginas**, pendiente de subir a esta carpeta | Confirmar roles, validar calendario y subir `1.5_GuiaEstudiante_Fase_1_Definicion_Proyecto_APT_PARA_REVISION.docx` sin RUT ni datos privados |
 | 1.5 Guía en inglés (grupal) | Optativa | Incorporar únicamente si se realizó |
 
 ## Revisión del contenido hallado en la guía 1.5
 
-Las secciones 1–5 cuentan con redacción preliminar. Las secciones **6 (Evidencias)**, **7 (Plan de trabajo)** y **8 (Carta Gantt)** aparecen como plantillas sin las respuestas ni asignaciones completas, por lo que aún **no se debe marcar la guía 1.5 como terminada**.
+**Situación de versiones:** el DOCX original previamente disponible presentaba las secciones 6 (Evidencias), 7 (Plan de trabajo) y 8 (Carta Gantt) vacías. **La nueva versión reconstruida para revisión ya completa las ocho secciones**, con seis evidencias previstas, ocho actividades en el plan y una Carta Gantt de 18 semanas. Esto **no equivale a aprobación docente ni a evidencia técnica ejecutada**.
 
 Además, el texto describe aplicación **web y móvil**, registro manual por docente, alertas automáticas y controles RBAC/encriptación como si fuesen parte del alcance. Antes de entregar, ajustarlo al producto que se pueda demostrar: lectura NFC/RFID con **ESP32 + PN532**, transmisión al servidor, **API Flask**, **base de datos SQLite**, **panel web** y **exportación de asistencias**. La autenticación del panel y la llave de la API se pueden documentar con pruebas. No declarar como implementadas características futuras no verificadas.
 
@@ -80,7 +80,8 @@ El repositorio ya contenía archivos `.db` históricos en `data/`; revisar si gu
 - [ ] Incorporar el DOCX oficial individual de Lucas Baeza para 1.1.
 - [x] Incorporar el DOCX individual del diario de Samantha Tapia para 1.2.
 - [ ] Incorporar el DOCX individual del diario de Lucas Baeza para 1.2.
-- [ ] Completar/corregir el DOCX original 1.5 (no basta este Markdown).
+- [x] Preparar un DOCX reconstruido de la guía 1.5 con las ocho secciones, revisado visualmente.
+- [ ] Validar la asignación real de roles y semanas con el equipo/docente y subir el DOCX a GitHub.
 - [x] Incorporar la presentación grupal revisada al repositorio.
 - [ ] Validar entre integrantes las responsabilidades y el cronograma de la presentación.
 - [ ] Incorporar las entregas restantes a GitHub sin datos sensibles.
