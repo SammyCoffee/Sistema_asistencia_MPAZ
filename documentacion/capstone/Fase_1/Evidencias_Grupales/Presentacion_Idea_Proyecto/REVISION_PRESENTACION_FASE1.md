@@ -1,9 +1,9 @@
 # Revisión de presentación — Idea del Proyecto APT (Fase 1)
 
 **Presentación recibida:** `Sistema de Asistencia NFCRFID Escolar 2.0 (1).pptx` (18 diapositivas).  
-**Veredicto:** el contenido corresponde a la **presentación grupal de la idea** del Proyecto APT MPAZ RFID. **Aún no está subida la presentación PPTX a esta carpeta**.
+**Veredicto:** el contenido corresponde a la **presentación grupal de la idea** del Proyecto APT MPAZ RFID. **La presentación PPTX de revisión ya fue subida y verificada en esta carpeta**.
 
-> Este Markdown documenta únicamente la revisión. **No sustituye el PPTX original ni una eventual calificación docente.** Se preparó una copia corregida fuera de GitHub llamada `Presentacion_Idea_Proyecto_MPAZ_RFID_REVISION.pptx`, a subir después de que el equipo compruebe su contenido y las fechas.
+> Este Markdown documenta únicamente la revisión. **No sustituye el PPTX original ni una eventual calificación docente.** Se preparó una copia corregida fuera de GitHub llamada `Presentacion_Idea_Proyecto_MPAZ_RFID_REVISION.pptx`, que ya fue subida a GitHub. La validación de contenido y fechas sigue pendiente.
 
 ## Temas que sí aborda
 
@@ -35,7 +35,7 @@
 - [ ] Confirmar con el equipo la división de responsabilidades de la diapositiva 17.
 - [ ] Validar con el docente las semanas, responsables y cronograma de la diapositiva 14 (se trata de una estimación, no un registro de ejecución).
 - [ ] Confirmar que los criterios e indicadores coinciden con la guía 1.5 final.
-- [ ] **Subir** `Presentacion_Idea_Proyecto_MPAZ_RFID_REVISION.pptx` a esta carpeta en la rama `capstone/organizacion-evidencias`.
-- [ ] Tras su subida, verificar el archivo PPTX en GitHub y actualizar su estado de «pendiente» a «recibido».
+- [x] **Subir** `Presentacion_Idea_Proyecto_MPAZ_RFID_REVISION.pptx` a esta carpeta en la rama `capstone/organizacion-evidencias`.
+- [x] Tras su subida, verificar el archivo PPTX en GitHub y actualizar su estado de «pendiente» a «recibido».
 
 La presentación **no equivale a capturas o pruebas técnicas**. Estas evidencias se reunirán posteriormente, de forma separada, en Fase 2.
