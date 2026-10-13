@@ -19,7 +19,7 @@
 
 | Documento | Estado | Nota |
 |---|---|---|
-| `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` (Español) | **Plantilla recibida; informe pendiente de completar y subir** | Contiene resumen, monitoreo, evidencias y ajustes |
+| `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` (Español) | **Borrador de tres páginas preparado; pendiente de revisión y subida** | Contiene resumen, monitoreo, evidencias y ajustes |
 | Versión 2.4 en inglés | **Optativa — no incorporada** | Solo si el equipo decide realizarla |
 | `PLANILLA DE EVALUACIÓN AVANCE FASE 2.xlsx` | **Pendiente** | No inventar valoraciones ni aprobación docente |
 | `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` (Español) | **Pendiente** | Informe final del proyecto |
@@ -60,7 +60,8 @@ No alterar los archivos originales de seguimiento para imponer una narrativa nue
 - [x] Preparar **borrador grupal 2.1** en Word, fuera de GitHub.
 - [ ] Validar respuestas de 2.1 con ambos integrantes y aclarar ubicación con el docente.
 - [ ] Realizar las autoevaluaciones **2.2** sin inventar niveles.
-- [ ] Completar la guía **2.4** conforme a su pauta, sin dar por aportadas las capturas pendientes.
+- [x] Preparar un borrador Word **2.4** basado en las fichas 02 y 04, sin contar capturas pendientes como anexos.
+- [ ] Revisar responsables y cronograma con Samantha, Lucas y docente; después subir 2.4.
 - [ ] Obtener la **2.3** evaluada realmente por el docente y la planilla de evaluación de avance.
 - [ ] Preparar la guía **2.6** y la planilla final cuando corresponda.
 - [ ] Revisar la presentación final del proyecto.
