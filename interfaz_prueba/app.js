@@ -530,6 +530,7 @@ async function actualizarPanel() {
     await cargarAsistencias();
     await cargarInasistencias();
     await cargarAtrasos();
+    await cargarAnalisisAsistencia();
 }
 
 
@@ -1953,3 +1954,158 @@ resultadoEstudiante.addEventListener("click", async function (evento) {
 
         }
     );    
+// ==========================================
+// ANÁLISIS DE ASISTENCIA POR CURSO
+// ==========================================
+
+async function cargarAnalisisAsistencia() {
+
+    const contenedorAnalisis =
+        document.getElementById(
+            "resumen-analisis-asistencia"
+        );
+
+    try {
+
+        const respuestaAlumnos =
+            await fetch("/alumnos");
+
+        const respuestaAsistencias =
+            await fetch("/asistencias");
+
+        if (
+            !respuestaAlumnos.ok ||
+            !respuestaAsistencias.ok
+        ) {
+            console.error(
+                "No se pudo cargar el análisis de asistencia"
+            );
+            return;
+        }
+
+        const datosAlumnos =
+            await respuestaAlumnos.json();
+
+        const datosAsistencias =
+            await respuestaAsistencias.json();
+
+        const fechaHoy =
+            obtenerFechaActual();
+
+        const alumnosActivos =
+            datosAlumnos.alumnos.filter(
+                function (alumno) {
+                    return (
+                        alumno.estado_alumno === "activo"
+                    );
+                }
+            );
+
+        const cursos = [
+            ...new Set(
+                alumnosActivos.map(
+                    function (alumno) {
+                        return alumno.curso;
+                    }
+                )
+            )
+        ].sort();
+
+        contenedorAnalisis.innerHTML = "";
+
+        cursos.forEach(function (curso) {
+
+            const alumnosCurso =
+                alumnosActivos.filter(
+                    function (alumno) {
+                        return alumno.curso === curso;
+                    }
+                );
+
+            const asistenciasCurso =
+                datosAsistencias.asistencias.filter(
+                    function (asistencia) {
+                        return (
+                            asistencia.curso === curso &&
+                            asistencia.fecha === fechaHoy
+                        );
+                    }
+                );
+
+            const totalAlumnos =
+                alumnosCurso.length;
+
+            const totalPresentes =
+                asistenciasCurso.length;
+
+            let porcentaje = 0;
+
+            if (totalAlumnos > 0) {
+                porcentaje = Math.round(
+                    (
+                        totalPresentes /
+                        totalAlumnos
+                    ) * 100
+                );
+            }
+
+            let claseEstado =
+                "estado-asistencia-alta";
+
+            let textoEstado =
+                "Asistencia alta";
+
+            if (porcentaje < 85) {
+                claseEstado =
+                    "estado-asistencia-baja";
+
+                textoEstado =
+                    "Asistencia baja";
+
+            } else if (porcentaje < 90) {
+
+                claseEstado =
+                    "estado-asistencia-media";
+
+                textoEstado =
+                    "Asistencia media";
+            }
+
+            const tarjeta =
+                document.createElement("div");
+
+            tarjeta.className =
+                `tarjeta-analisis ${claseEstado}`;
+
+            tarjeta.innerHTML = `
+                <h3>${curso}</h3>
+
+                <p class="porcentaje-asistencia">
+                    ${porcentaje}%
+                </p>
+
+                <p>
+                    ${totalPresentes} de
+                    ${totalAlumnos} estudiantes presentes
+                </p>
+
+                <strong>
+                    ${textoEstado}
+                </strong>
+            `;
+
+            contenedorAnalisis.appendChild(
+                tarjeta
+            );
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Error cargando análisis de asistencia:",
+            error
+        );
+    }
+}
+
+cargarAnalisisAsistencia();
