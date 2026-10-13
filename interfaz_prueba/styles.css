@@ -481,3 +481,32 @@ button:active {
 .estado-asistencia-baja {
     border-left-color: #dc3545;
 }
+.resumen-general-asistencia {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+    margin-bottom: 24px;
+}
+
+.dato-resumen {
+    background-color: white;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow:
+        0 3px 10px rgba(16, 42, 67, 0.12);
+    text-align: center;
+}
+
+.dato-resumen-titulo {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #5f6b76;
+}
+
+.dato-resumen strong {
+    font-size: 28px;
+    display: block;
+}

@@ -13,7 +13,7 @@
 
     <title>Panel MPAZ RFID</title>
 
-    <link rel="stylesheet" href="styles.css?v=12">
+    <link rel="stylesheet" href="styles.css?v=13">
 
 </head>
 
@@ -678,13 +678,48 @@
 
             <section id="analisis" class="panel-lecturas">
 
-            <h2>
-                Análisis de datos
-            </h2>
+                    <h2>
+                        Análisis de datos
+                    </h2>
 
-            <p>
-                Resumen del porcentaje de asistencia por curso.
-            </p>
+                    <p>
+                        Resumen del porcentaje de asistencia por curso.
+                    </p>
+
+                    <div
+            id="resumen-general-asistencia"
+            class="resumen-general-asistencia"
+        >
+            <div class="dato-resumen">
+                <span class="dato-resumen-titulo">
+                    Estudiantes activos
+                </span>
+
+                <strong id="analisis-total-estudiantes">
+                    0
+                </strong>
+            </div>
+
+            <div class="dato-resumen">
+                <span class="dato-resumen-titulo">
+                    Presentes hoy
+                </span>
+
+                <strong id="analisis-total-presentes">
+                    0
+                </strong>
+            </div>
+
+            <div class="dato-resumen">
+                <span class="dato-resumen-titulo">
+                    Asistencia general
+                </span>
+
+                <strong id="analisis-porcentaje-general">
+                    0%
+                </strong>
+            </div>
+        </div>
 
             <div
                 id="resumen-analisis-asistencia"
@@ -746,7 +781,7 @@
         ↑
     </button>
 
-    <script src="app.js?v=12"></script>
+    <script src="app.js?v=13"></script>
 
 </body>
 

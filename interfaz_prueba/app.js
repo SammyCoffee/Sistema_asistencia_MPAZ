@@ -116,17 +116,60 @@ async function cargarResumenEstudiantes() {
 
     const datos = await respuesta.json();
 
-    const cursos = [
+   const ordenCursos = [
+    "PK",
+    "K",
+    "1A",
+    "1B",
+    "2A",
+    "2B",
+    "3A",
+    "3B",
+    "4A",
+    "4B",
+    "5A",
+    "5B",
+    "6A",
+    "6B",
+    "7A",
+    "7B",
+    "8A",
+    "8B"
+];
+
+const cursos = [
         ...new Set(
-            datos.alumnos
-                .map(function(alumno) {
+            alumnosActivos.map(
+                function (alumno) {
                     return alumno.curso;
-                })
-                .filter(function(curso) {
-                    return curso;
-                })
+                }
+            )
         )
-    ].sort();
+    ].sort(function (cursoA, cursoB) {
+
+        const posicionA =
+            ordenCursos.indexOf(cursoA);
+
+        const posicionB =
+            ordenCursos.indexOf(cursoB);
+
+        if (
+            posicionA === -1 &&
+            posicionB === -1
+        ) {
+            return cursoA.localeCompare(cursoB);
+        }
+
+        if (posicionA === -1) {
+            return 1;
+        }
+
+        if (posicionB === -1) {
+            return -1;
+        }
+
+        return posicionA - posicionB;
+    });
 
     filtroCursoReporte.innerHTML =
         '<option value="">Todos los cursos</option>';
@@ -1993,13 +2036,60 @@ async function cargarAnalisisAsistencia() {
             obtenerFechaActual();
 
         const alumnosActivos =
-            datosAlumnos.alumnos.filter(
-                function (alumno) {
-                    return (
-                        alumno.estado_alumno === "activo"
+                    datosAlumnos.alumnos.filter(
+                        function (alumno) {
+                            return (
+                                alumno.estado_alumno === "activo"
+                            );
+                        }
                     );
+                    const asistenciasHoy =
+            datosAsistencias.asistencias.filter(
+                function (asistencia) {
+                    return asistencia.fecha === fechaHoy;
                 }
             );
+
+        const totalEstudiantesActivos =
+            alumnosActivos.length;
+
+        const totalPresentesHoy =
+            asistenciasHoy.length;
+
+        let porcentajeGeneral = 0;
+
+        if (totalEstudiantesActivos > 0) {
+                    porcentajeGeneral = Math.round(
+                        (
+                            totalPresentesHoy /
+                            totalEstudiantesActivos
+                        ) * 100
+                    );
+                }
+
+                const elementoTotalEstudiantes =
+            document.getElementById(
+                "analisis-total-estudiantes"
+            );
+
+        const elementoTotalPresentes =
+            document.getElementById(
+                "analisis-total-presentes"
+            );
+
+        const elementoPorcentajeGeneral =
+            document.getElementById(
+                "analisis-porcentaje-general"
+            );
+
+        elementoTotalEstudiantes.textContent =
+            totalEstudiantesActivos;
+
+        elementoTotalPresentes.textContent =
+            totalPresentesHoy;
+
+        elementoPorcentajeGeneral.textContent =
+            `${porcentajeGeneral}%`;
 
         const cursos = [
             ...new Set(
@@ -2071,6 +2161,30 @@ async function cargarAnalisisAsistencia() {
                     "Asistencia media";
             }
 
+              const nombresCursos = {
+                "PK": "Pre-Kínder",
+                "K": "Kínder",
+                "1A": "1° Básico A",
+                "1B": "1° Básico B",
+                "2A": "2° Básico A",
+                "2B": "2° Básico B",
+                "3A": "3° Básico A",
+                "3B": "3° Básico B",
+                "4A": "4° Básico A",
+                "4B": "4° Básico B",
+                "5A": "5° Básico A",
+                "5B": "5° Básico B",
+                "6A": "6° Básico A",
+                "6B": "6° Básico B",
+                "7A": "7° Básico A",
+                "7B": "7° Básico B",
+                "8A": "8° Básico A",
+                "8B": "8° Básico B"
+            };
+
+            const nombreCurso =
+                nombresCursos[curso] ?? curso;
+
             const tarjeta =
                 document.createElement("div");
 
@@ -2078,7 +2192,7 @@ async function cargarAnalisisAsistencia() {
                 `tarjeta-analisis ${claseEstado}`;
 
             tarjeta.innerHTML = `
-                <h3>${curso}</h3>
+                <h3>${nombreCurso}</h3>
 
                 <p class="porcentaje-asistencia">
                     ${porcentaje}%
