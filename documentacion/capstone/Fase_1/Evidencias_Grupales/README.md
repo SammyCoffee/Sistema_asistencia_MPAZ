@@ -1,7 +1,7 @@
 # Evidencias grupales — Fase 1
 
 - [ ] [Presentación de idea de proyecto](Presentacion_Idea_Proyecto/) — por agregar.
-- [x] `1.4_APT122_FormativaFase1_MPAZ_RFID_Preparada.docx` — documento existente reubicado.
+- [ ] **1.4 — Evaluación formativa del docente pendiente.** [Borrador de apoyo 1.4](1.4_APT122_FormativaFase1_MPAZ_RFID_Preparada.docx) presente, **no validado ni calificado por el docente**. No sustituye la heteroevaluación oficial.
 - [ ] `1.5_GuiaEstudiante_Fase_1_Definicion_Proyecto_APT` (Español) — pendiente.
 - [ ] `1.5_GuiaEstudiante_Fase_1_Definicion_Proyecto_APT` (Inglés) — optativo.
 
