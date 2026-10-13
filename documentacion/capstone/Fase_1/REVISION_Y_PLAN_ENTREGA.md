@@ -10,7 +10,7 @@
 | 1.1 Autoevaluación de competencias (individual) | **Samantha Tapia:** DOCX subido; **Lucas Baeza:** no localizado | Revisar por docente el de Samantha y añadir el de Lucas cuando esté completo |
 | 1.2 Diario de reflexión (individual) | **Samantha Tapia:** DOCX subido; **Lucas Baeza:** no localizado | Revisar por docente el de Samantha y añadir el de Lucas cuando esté completo |
 | 1.3 Autoevaluación Fase 1 (individual) | Archivo existente y revisión documental realizada | Confirmar autoría, justificar niveles y relacionar con la guía 1.5 antes de guardar una versión individual definitiva |
-| Presentación idea de proyecto (grupal) | No localizada en el repositorio | Añadir PPTX/PDF de la presentación ya trabajada |
+| Presentación idea de proyecto (grupal) | **PPTX de revisión subido y verificado** en `Evidencias_Grupales/Presentacion_Idea_Proyecto/` | Validar los roles, cronograma y coherencia con la guía 1.5 antes de dar por definitiva la presentación |
 | 1.4 Formativa Fase 1 (grupal) | **Solo borrador de apoyo localizado; no se identificó una heteroevaluación validada del docente en el repositorio** | Conservar el borrador diferenciado y adjuntar versión evaluada únicamente si la entrega el docente |
 | 1.5 Guía Estudiante — Definición Proyecto APT (español) | Localizada entre los archivos de trabajo anteriores, pero **no incorporada al repositorio** | Completar y corregir el DOCX original, quitar identificadores sensibles y subir versión revisada |
 | 1.5 Guía en inglés (grupal) | Optativa | Incorporar únicamente si se realizó |
@@ -81,7 +81,8 @@ El repositorio ya contenía archivos `.db` históricos en `data/`; revisar si gu
 - [x] Incorporar el DOCX individual del diario de Samantha Tapia para 1.2.
 - [ ] Incorporar el DOCX individual del diario de Lucas Baeza para 1.2.
 - [ ] Completar/corregir el DOCX original 1.5 (no basta este Markdown).
-- [ ] Verificar y añadir la presentación.
+- [x] Incorporar la presentación grupal revisada al repositorio.
+- [ ] Validar entre integrantes las responsabilidades y el cronograma de la presentación.
 - [ ] Incorporar las entregas restantes a GitHub sin datos sensibles.
 - [ ] Validar aceptación con docente.
 
