@@ -10,7 +10,7 @@ Conforme a la pauta de la Fase 1, se separan las evidencias individuales de las 
 - [x] [Autoevaluación 1.3 — archivo disponible](Evidencias_Individuales/1.3_APT122_AutoevaluacionFase1_MPAZ_RFID_Completada.docx). **Revisión documental realizada; pendientes la autoría individual, el contraste de niveles marcados y la coherencia con la guía 1.5**; ver [hallazgos de revisión](REVISION_Y_PLAN_ENTREGA.md#revisión-específica-de-evidencia-13--autoevaluación-fase-1).
 
 ## Evidencias grupales
-- [ ] Presentación de la idea de proyecto ([carpeta](Evidencias_Grupales/Presentacion_Idea_Proyecto/))
+- [x] [Presentación de la idea de proyecto — PPTX subido](Evidencias_Grupales/Presentacion_Idea_Proyecto/Presentacion_Idea_Proyecto_MPAZ_RFID_REVISION.pptx) (revisión del equipo y docente pendiente).
 - [ ] **1.4 Formativa Fase 1 — validación docente pendiente.** [Existe un borrador de apoyo](Evidencias_Grupales/1.4_APT122_FormativaFase1_MPAZ_RFID_Preparada.docx), pero **no corresponde presentarlo como evaluación del docente**. [Ver revisión](REVISION_Y_PLAN_ENTREGA.md#revisión-específica-de-evidencia-14--formativa-fase-1).
 - [ ] `1.5_GuiaEstudiante_Fase_1_Definicion_Proyecto_APT` (Español)
 - [ ] `1.5_GuiaEstudiante_Fase_1_Definicion_Proyecto_APT` (Inglés, **optativo**)
@@ -33,4 +33,4 @@ No se requiere incorporar capturas técnicas todavía. La guía 1.5 contiene una
 
 ## Criterio de organización
 
-Los entregables oficiales (DOCX/PPTX) se guardan directamente en `Evidencias_Individuales/` o `Evidencias_Grupales/`. Las notas y borradores no oficiales están separados en `Material_de_Apoyo/`, para que no se confundan con archivos evaluados. La presentación inicial sigue pendiente de incorporar; no se generarán evidencias técnicas hasta que se acuerde retomarlas.
+Los entregables oficiales (DOCX/PPTX) se guardan directamente en `Evidencias_Individuales/` o `Evidencias_Grupales/`. Las notas y borradores no oficiales están separados en `Material_de_Apoyo/`, para que no se confundan con archivos evaluados. La presentación inicial ya está incorporada como PPTX de revisión; no se generarán evidencias técnicas hasta que se acuerde retomarlas.
