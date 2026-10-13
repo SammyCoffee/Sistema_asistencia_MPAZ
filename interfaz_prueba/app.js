@@ -2091,6 +2091,27 @@ async function cargarAnalisisAsistencia() {
         elementoPorcentajeGeneral.textContent =
             `${porcentajeGeneral}%`;
 
+        const ordenCursos = [
+            "PK",
+            "K",
+            "1A",
+            "1B",
+            "2A",
+            "2B",
+            "3A",
+            "3B",
+            "4A",
+            "4B",
+            "5A",
+            "5B",
+            "6A",
+            "6B",
+            "7A",
+            "7B",
+            "8A",
+            "8B"
+        ];
+
         const cursos = [
             ...new Set(
                 alumnosActivos.map(
@@ -2099,7 +2120,31 @@ async function cargarAnalisisAsistencia() {
                     }
                 )
             )
-        ].sort();
+        ].sort(function (cursoA, cursoB) {
+
+            const posicionA =
+                ordenCursos.indexOf(cursoA);
+
+            const posicionB =
+                ordenCursos.indexOf(cursoB);
+
+            if (
+                posicionA === -1 &&
+                posicionB === -1
+            ) {
+                return cursoA.localeCompare(cursoB);
+            }
+
+            if (posicionA === -1) {
+                return 1;
+            }
+
+            if (posicionB === -1) {
+                return -1;
+            }
+
+            return posicionA - posicionB;
+        });
 
         contenedorAnalisis.innerHTML = "";
 
