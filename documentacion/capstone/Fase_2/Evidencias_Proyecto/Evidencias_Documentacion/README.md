@@ -7,3 +7,9 @@ Se han reubicado aquí las fichas ya existentes del proyecto, **sin editar su co
 - `Ficha_Avance_04_MPAZ_RFID_FINAL.docx`
 
 Estas fichas pueden servir como documentación del proyecto, pero **no reemplazan automáticamente** las guías 2.4, 2.6 ni las planillas de evaluación requeridas como evidencias grupales.
+
+## Pendiente — captura 01
+
+- [ ] `01_Arquitectura_Sistema.png` — diagrama visual del flujo de lectura y registro RFID.
+
+Las tres fichas de avance anteriores están **presentes como archivos documentales**, pero este diagrama sigue **pendiente**. [Ver plan general](../PLAN_EVIDENCIAS_PENDIENTES.md).

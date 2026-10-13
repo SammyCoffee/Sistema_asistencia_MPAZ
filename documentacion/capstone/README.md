@@ -12,3 +12,7 @@ Organización de la documentación del proyecto **Sistema de Asistencia MPAZ RFI
 **Nombres:** reemplazar `Apellido_Nombre` por los datos correspondientes al autor. En archivos grupales, respetar el nombre oficial entregado por Duoc UC. Los documentos ya existentes conservaron su nombre original para evitar cambios innecesarios.
 
 **Seguridad:** no subir datos de estudiantes, respaldos productivos de SQLite, secretos ni credenciales. Utilizar ejemplos anonimizados en capturas y bases de demostración.
+
+## Estado de las evidencias técnicas
+
+Las carpetas están preparadas, pero las **capturas de sistema, pruebas, integración ESP32/PN532 y evidencias visuales de base de datos se mantienen pendientes**. Consulta el [plan de evidencias pendientes](Fase_2/Evidencias_Proyecto/PLAN_EVIDENCIAS_PENDIENTES.md). Los documentos académicos que ya existen permanecen sin cambios. La rama `capstone/organizacion-evidencias` es de revisión; no se fusionará con `main` mientras continuemos ordenando las entregas.

@@ -26,3 +26,7 @@ Consulta la [revisión detallada de evidencias de la Fase 1](REVISION_Y_PLAN_ENT
 **Avance del documento 1.1:** ya se subió el DOCX individual de Samantha Tapia. El [borrador anterior de apoyo](Evidencias_Individuales/BORRADOR_1.1_AutoevaluacionCompetenciasFase1.md) permanece únicamente como material auxiliar y **no es el entregable oficial**. El documento individual de Lucas Baeza está pendiente.
 
 **Guía 1.5:** ya existe un [documento auxiliar con evidencias, plan de trabajo y Carta Gantt](Evidencias_Grupales/PLAN_DE_COMPLETADO_GUIA_1.5.md). La versión oficial DOCX **aún no se ha incorporado** y debe revisarse con el docente antes de marcarla como entregada.
+
+## Evidencias técnicas pendientes
+
+No se requiere incorporar capturas técnicas todavía. La guía 1.5 contiene una propuesta de **qué evidenciar**, mientras que los pantallazos y pruebas se recopilarán después en la carpeta de Fase 2. [Ver lista de evidencias pendientes](../Fase_2/Evidencias_Proyecto/PLAN_EVIDENCIAS_PENDIENTES.md).

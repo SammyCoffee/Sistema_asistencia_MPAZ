@@ -20,3 +20,7 @@ Esta estructura sigue la pauta de la Fase 2 adjunta. Las evidencias en inglés q
 - [ ] [Base de datos](Evidencias_Proyecto/Base_de_Datos/) — adjuntar solo un esquema o datos ficticios.
 
 **Nota:** los archivos ya disponibles se señalan como presentes, no como validados académicamente.
+
+## Lista de capturas por realizar
+
+La [lista de evidencias técnicas](Evidencias_Proyecto/PLAN_EVIDENCIAS_PENDIENTES.md) organiza diez grupos de capturas. **Todas las capturas están pendientes**: la creación de carpetas y los documentos ya guardados no significan que se hayan tomado esas evidencias.
