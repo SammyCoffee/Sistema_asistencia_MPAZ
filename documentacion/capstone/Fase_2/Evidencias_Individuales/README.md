@@ -14,3 +14,7 @@ Nombre sugerido: `2.1_APT122_DiarioReflexionFase2_MPAZ_RFID_BORRADOR_GRUPAL.docx
 La autoevaluación 2.2 debe reflejar la valoración de **cada persona** y los ocho indicadores de evaluación; no asignar puntajes sin la decisión individual correspondiente.
 
 [Ver revisión de formularios 2.1–2.4](../REVISION_FORMULARIOS_2.1_A_2.4.md).
+
+## Preparación de 2.2 — Samantha
+
+La [guía de autoevaluación 2.2](Material_de_Apoyo/GUIA_DE_AUTOEVALUACION_2.2.md) enlaza cada uno de los ocho indicadores con antecedentes reales del MPAZ RFID y los pendientes. Se generó un Word auxiliar de **dos páginas** fuera del repositorio, con casillas de nivel **sin marcar**. El formulario original 2.2 sigue **pendiente de selección personal, revisión y subida**.

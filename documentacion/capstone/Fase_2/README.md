@@ -42,3 +42,7 @@ Se dispone de las plantillas originales de **2.1 Diario de Reflexión (grupal)**
 [Ver diferencias entre el directorio y los formularios y próximos pasos](REVISION_FORMULARIOS_2.1_A_2.4.md).
 
 **Avance 2.4:** se preparó un Word editable de tres páginas con el resumen, plan monitoreado y ajustes, utilizando las fichas 02 y 04. El archivo `2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx` está disponible en la conversación para revisión, **no en el repositorio**. El documento señala expresamente las diferencias de autoría entre fichas y guía 1.5; mantiene capturas y pruebas por incorporar.
+
+## Avance de autoevaluación 2.2
+
+Se preparó una **hoja de apoyo Word de dos páginas para Samantha** con análisis de los ocho indicadores y casillas **sin marcar**. Sirve para decidir la valoración personal, pero **todavía no es el 2.2 oficial completado ni está subido a GitHub**. [Ver guía de apoyo](Evidencias_Individuales/Material_de_Apoyo/GUIA_DE_AUTOEVALUACION_2.2.md).

@@ -38,7 +38,8 @@ Contiene:
 - [x] Revisar las plantillas y diferencias de autoría.
 - [x] Preparar diario grupal 2.1 en el diseño original, para revisión.
 - [ ] Revisar el diario con Lucas y Samantha y confirmar destino con el docente.
-- [ ] Revisar y completar por separado las autoevaluaciones 2.2.
+- [x] Elaborar guía de apoyo individual 2.2 para Samantha con ocho indicadores y cuatro niveles sin marcar.
+- [ ] Samantha y Lucas seleccionan individualmente sus niveles y completan los formularios oficiales 2.2.
 - [x] Preparar borrador de guía 2.4 en Word sobre la plantilla original, usando fichas 02 y 04 sin inventar capturas.
 - [ ] Confirmar responsabilidades (difieren entre fichas y guía 1.5), semanas del plan y estado de los módulos; subir la versión revisada.
 - [ ] Recibir evaluación formativa 2.3 corregida por el docente si se proporciona.
@@ -49,3 +50,7 @@ Contiene:
 ### Borrador 2.4 disponible para revisión
 
 Se generó `2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx` como archivo Word de tres páginas fuera de GitHub. Contiene las tres secciones solicitadas y nueve actividades de monitoreo. La Ficha 04 del 06-10-2026 **declara** un avance ponderado del 87,5 %; este dato se cita como autoinforme, no como resultado validado externamente. Se dejan pendientes anexos, pruebas finales y autorización académica. **No se ha subido ni aprobado.**
+
+### Hoja de apoyo 2.2
+
+Se generó `2.2_APT122_AutoevaluacionAvance_Fase2_Tapia_Samantha_HOJA_DE_APOYO.docx` (dos páginas, fuera de GitHub), que relaciona cada indicador oficial con la evidencia existente y lo que falta verificar; todas las valoraciones siguen abiertas. [Guía breve en Markdown](Evidencias_Individuales/Material_de_Apoyo/GUIA_DE_AUTOEVALUACION_2.2.md).

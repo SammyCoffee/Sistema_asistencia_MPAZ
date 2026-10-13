@@ -11,7 +11,7 @@
 | Documento de la pauta | Samantha Tapia | Lucas Baeza | Ubicación |
 |---|---|---|---|
 | `2.1_APT122_DiarioReflexionFase2.docx` | **Borrador grupal preparado**; requiere revisión por Samantha y Lucas | **No aplica una segunda respuesta independiente salvo instrucción docente** | El directorio lo ubica en [Evidencias_Individuales/](Evidencias_Individuales/), pero la plantilla indica «debe ser respondida con tu grupo» |
-| `2.2_APT122_AutoevaluacionAvance Fase2.docx` | **Autoevaluación individual pendiente** | **Autoevaluación individual pendiente** | [Evidencias_Individuales/](Evidencias_Individuales/) — instrumento complementario recibido |
+| `2.2_APT122_AutoevaluacionAvance Fase2.docx` | **Guía de apoyo Word preparada, autoevaluación aún pendiente** | **Autoevaluación individual pendiente** | [Evidencias_Individuales/](Evidencias_Individuales/) — instrumento complementario recibido |
 
 **Criterio:** los documentos 2.1 y 2.2 **no tienen la misma autoría**. La plantilla 2.1 exige responder con el grupo; 2.2 es autoevaluación individual formativa. Confirmar con el docente el nombre/ubicación definitivos de 2.1 debido a la discrepancia en el directorio.
 
@@ -59,7 +59,8 @@ No alterar los archivos originales de seguimiento para imponer una narrativa nue
 - [x] Recibir las plantillas oficiales **2.1, 2.2, 2.3 y 2.4**.
 - [x] Preparar **borrador grupal 2.1** en Word, fuera de GitHub.
 - [ ] Validar respuestas de 2.1 con ambos integrantes y aclarar ubicación con el docente.
-- [ ] Realizar las autoevaluaciones **2.2** sin inventar niveles.
+- [x] Preparar hoja de apoyo para autoevaluación **2.2** de Samantha, sin niveles seleccionados.
+- [ ] Realizar las autoevaluaciones **2.2** de Samantha y Lucas con sus propios niveles, en formularios oficiales.
 - [x] Preparar un borrador Word **2.4** basado en las fichas 02 y 04, sin contar capturas pendientes como anexos.
 - [ ] Revisar responsables y cronograma con Samantha, Lucas y docente; después subir 2.4.
 - [ ] Obtener la **2.3** evaluada realmente por el docente y la planilla de evaluación de avance.
