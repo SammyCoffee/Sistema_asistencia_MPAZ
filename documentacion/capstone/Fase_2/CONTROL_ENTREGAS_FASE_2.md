@@ -10,20 +10,23 @@
 
 | Documento de la pauta | Samantha Tapia | Lucas Baeza | Ubicación |
 |---|---|---|---|
-| `Apellido_Nombre_2.1_APT122_DiarioReflexionFase2.docx` | **Pendiente** | **Pendiente** | [Evidencias_Individuales/](Evidencias_Individuales/) |
+| `2.1_APT122_DiarioReflexionFase2.docx` | **Borrador grupal preparado**; requiere revisión por Samantha y Lucas | **No aplica una segunda respuesta independiente salvo instrucción docente** | El directorio lo ubica en [Evidencias_Individuales/](Evidencias_Individuales/), pero la plantilla indica «debe ser respondida con tu grupo» |
+| `2.2_APT122_AutoevaluacionAvance Fase2.docx` | **Autoevaluación individual pendiente** | **Autoevaluación individual pendiente** | [Evidencias_Individuales/](Evidencias_Individuales/) — instrumento complementario recibido |
 
-**Criterio:** la guía 2.1 es individual; cada integrante debe completar su versión personal y conservar su propia voz y experiencias. No copiar la autoevaluación o el diario de la Fase 1 como si fuera esta nueva evidencia.
+**Criterio:** los documentos 2.1 y 2.2 **no tienen la misma autoría**. La plantilla 2.1 exige responder con el grupo; 2.2 es autoevaluación individual formativa. Confirmar con el docente el nombre/ubicación definitivos de 2.1 debido a la discrepancia en el directorio.
 
 ## 2. Evidencias grupales
 
 | Documento | Estado | Nota |
 |---|---|---|
-| `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` (Español) | **Pendiente** | Documento de desarrollo/avance del proyecto |
+| `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` (Español) | **Plantilla recibida; informe pendiente de completar y subir** | Contiene resumen, monitoreo, evidencias y ajustes |
 | Versión 2.4 en inglés | **Optativa — no incorporada** | Solo si el equipo decide realizarla |
 | `PLANILLA DE EVALUACIÓN AVANCE FASE 2.xlsx` | **Pendiente** | No inventar valoraciones ni aprobación docente |
 | `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` (Español) | **Pendiente** | Informe final del proyecto |
 | Versión 2.6 en inglés | **Optativa — no incorporada** | Solo si el equipo decide realizarla |
 | `PLANILLA DE EVALUACIÓN FINAL FASE 2.xlsx` | **Pendiente** | No alterar puntuaciones oficiales |
+
+**Instrumento complementario 2.3:** `2.3_APT122_FormativaAvance Fase2.docx` (heteroevaluación del docente, semana 7, 0 %) fue recibido como plantilla, pero la evaluación del docente está pendiente.
 
 [Ver carpeta de evidencias grupales](Evidencias_Grupales/).
 
@@ -53,9 +56,12 @@ No alterar los archivos originales de seguimiento para imponer una narrativa nue
 - [x] Crear y verificar la estructura de Fase 2 según el directorio facilitado.
 - [x] Mantener las fichas 02, 03 y 04 en documentación de proyecto.
 - [x] Separar estado «archivo disponible» de «entrega validada».
-- [ ] Conseguir la plantilla oficial **2.1** y preparar las respuestas individuales.
-- [ ] Conseguir y completar la guía **2.4** conforme a su pauta.
-- [ ] Conseguir/validar la planilla de evaluación de avance.
+- [x] Recibir las plantillas oficiales **2.1, 2.2, 2.3 y 2.4**.
+- [x] Preparar **borrador grupal 2.1** en Word, fuera de GitHub.
+- [ ] Validar respuestas de 2.1 con ambos integrantes y aclarar ubicación con el docente.
+- [ ] Realizar las autoevaluaciones **2.2** sin inventar niveles.
+- [ ] Completar la guía **2.4** conforme a su pauta, sin dar por aportadas las capturas pendientes.
+- [ ] Obtener la **2.3** evaluada realmente por el docente y la planilla de evaluación de avance.
 - [ ] Preparar la guía **2.6** y la planilla final cuando corresponda.
 - [ ] Revisar la presentación final del proyecto.
 - [ ] **Más adelante:** capturas, reportes de pruebas, base de datos de demostración y validación técnica.
@@ -63,3 +69,7 @@ No alterar los archivos originales de seguimiento para imponer una narrativa nue
 ## Privacidad
 
 No subir nombres/RUT de alumnos, respaldos SQLite reales, credenciales, claves API, contraseñas, tokens ni capturas con datos escolares identificables a este repositorio público. Mantener identificadores personales que exija Duoc UC en el canal académico privado.
+
+## Corrección importante sobre 2.1–2.4
+
+Al recibir las cuatro plantillas se confirmó que **2.1 se responde grupalmente** (aunque el directorio la sitúe en evidencias individuales), **2.2 es autoevaluación individual**, **2.3 es heteroevaluación del docente**, y **2.4 es informe de desarrollo grupal**. Las plantillas por sí solas no se cuentan como entregas completadas. [Ver revisión](REVISION_FORMULARIOS_2.1_A_2.4.md).
