@@ -21,11 +21,11 @@ Conforme a la pauta de la Fase 1, se separan las evidencias individuales de las 
 
 Consulta la [revisión detallada de evidencias de la Fase 1](REVISION_Y_PLAN_ENTREGA.md), donde se documentan las faltas detectadas y una propuesta para completar las secciones 6–8 de la guía 1.5.
 
-**Guía 1.5 (español):** el DOCX original previo tenía pendientes los apartados 6–8. Se preparó **una nueva versión reconstruida de revisión** con los ocho apartados, evidencias, plan y Carta Gantt, pero el DOCX aún no está subido aquí: faltan aprobación de responsables/plazos y comparación con la plantilla oficial. Guardar datos de identificación solamente en la entrega privada a Duoc UC.
+**Guía 1.5 (español):** se revisó el original y se dejó un DOCX reconstruido y completado, de cuatro páginas, con las ocho secciones, evidencias, plan de trabajo y Carta Gantt. El archivo recomendado para subir es `1.5_GuiaEstudiante_Fase_1_Definicion_Proyecto_APT_PARA_REVISION.docx`. **Todavía no está en GitHub ni aprobado por el docente**. Se armonizaron las fases del cronograma con la presentación (semanas 1–6, 7–12 y 13–18). Guardar los datos personales de identificación solo en el canal privado de Duoc UC.
 
 **Avance del documento 1.1:** ya se subió el DOCX individual de Samantha Tapia. El [borrador anterior de apoyo](Evidencias_Individuales/Material_de_Apoyo/BORRADOR_1.1_AutoevaluacionCompetenciasFase1.md) permanece únicamente como material auxiliar y **no es el entregable oficial**. El documento individual de Lucas Baeza está pendiente.
 
-**Guía 1.5:** ya existe un [documento auxiliar con evidencias, plan de trabajo y Carta Gantt](Evidencias_Grupales/Material_de_Apoyo/PLAN_DE_COMPLETADO_GUIA_1.5.md). La versión oficial DOCX **aún no se ha incorporado** y debe revisarse con el docente antes de marcarla como entregada.
+**Guía 1.5:** existe un [material auxiliar](Evidencias_Grupales/Material_de_Apoyo/PLAN_DE_COMPLETADO_GUIA_1.5.md) y la **versión Word para revisión ya está preparada**; falta cargar el DOCX a GitHub. Deben comprobarse las responsabilidades y semanas con ambos integrantes y el docente.
 
 ## Evidencias técnicas pendientes
 
