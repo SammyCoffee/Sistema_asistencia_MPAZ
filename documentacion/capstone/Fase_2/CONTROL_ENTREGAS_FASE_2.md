@@ -75,3 +75,7 @@ No subir nombres/RUT de alumnos, respaldos SQLite reales, credenciales, claves A
 ## Corrección importante sobre 2.1–2.4
 
 Al recibir las cuatro plantillas se confirmó que **2.1 se responde grupalmente** (aunque el directorio la sitúe en evidencias individuales), **2.2 es autoevaluación individual**, **2.3 es heteroevaluación del docente**, y **2.4 es informe de desarrollo grupal**. Las plantillas por sí solas no se cuentan como entregas completadas. [Ver revisión](REVISION_FORMULARIOS_2.1_A_2.4.md).
+
+## Propuesta razonada de niveles 2.2
+
+[Revisión por indicador de Samantha](Evidencias_Individuales/Material_de_Apoyo/REVISION_NIVELES_2.2_SAMANTHA.md) guardada como **material de apoyo**, no entrega oficial. El formulario individual 2.2 continúa **pendiente de que Samantha seleccione los niveles y apruebe las justificaciones**; el formulario de Lucas también está pendiente. El documento 2.3 permanece reservado a evaluación docente.
