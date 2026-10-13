@@ -18,3 +18,7 @@ La autoevaluación 2.2 debe reflejar la valoración de **cada persona** y los oc
 ## Preparación de 2.2 — Samantha
 
 La [guía de autoevaluación 2.2](Material_de_Apoyo/GUIA_DE_AUTOEVALUACION_2.2.md) enlaza cada uno de los ocho indicadores con antecedentes reales del MPAZ RFID y los pendientes. Se generó un Word auxiliar de **dos páginas** fuera del repositorio, con casillas de nivel **sin marcar**. El formulario original 2.2 sigue **pendiente de selección personal, revisión y subida**.
+
+## Análisis de niveles 2.2 — solo propuesta
+
+Se añadió la [revisión de los ocho indicadores para Samantha](Material_de_Apoyo/REVISION_NIVELES_2.2_SAMANTHA.md) con valoraciones **provisionales y condicionadas**. Estas sugerencias **no son su autoevaluación definitiva**. El formulario Word oficial sigue sin marcas y pendiente de confirmación personal.
