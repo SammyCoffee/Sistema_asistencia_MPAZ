@@ -34,7 +34,7 @@
 
 ## 8. Carta Gantt de 18 semanas
 
-Leyenda: ■ actividad planificada. División ilustrativa: **Fase 1** semanas 1–4, **Fase 2** semanas 5–12, **Fase 3** semanas 13–18. El calendario oficial puede ser distinto.
+Leyenda: ■ actividad planificada. División ilustrativa: **Fase 1** semanas 1–6, **Fase 2** semanas 7–12, **Fase 3** semanas 13–18. El calendario oficial puede ser distinto.
 
 | Actividad | Semanas previstas |
 |---|---|
@@ -52,6 +52,6 @@ Leyenda: ■ actividad planificada. División ilustrativa: **Fase 1** semanas 1�
 - [x] Propuesta escrita para completar los apartados 6–8.
 - [x] Descripción acotada a la solución NFC/RFID documentada.
 - [ ] Confirmación de responsabilidades y semanas con el equipo/docente.
-- [ ] Comparar la nueva versión de Word con la **plantilla oficial original** y conservar todos los apartados exigidos.
+- [x] Revisar los ocho apartados exigidos frente a la plantilla original (la versión de Word es reconstruida y no reproduce literalmente el diseño institucional).
 - [ ] Revisar concordancia con la autoevaluación 1.3 (en especial indicadores 7, 8 y 12).
-- [ ] Subir el DOCX revisado a `Evidencias_Grupales/` sin identificadores privados.
+- [ ] Subir `1.5_GuiaEstudiante_Fase_1_Definicion_Proyecto_APT_PARA_REVISION.docx` a `Evidencias_Grupales/` (documento preparado sin RUT; pendiente de validación y subida).
