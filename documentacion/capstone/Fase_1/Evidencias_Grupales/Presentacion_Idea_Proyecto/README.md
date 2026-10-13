@@ -1,11 +1,12 @@
 # Presentación de la idea del Proyecto APT — Fase 1
 
-**Estado de entrega: pendiente de incorporar el PowerPoint.** El archivo recibido tiene 18 diapositivas y sí corresponde a la presentación de la idea del proyecto.
+**Estado: PPTX subido y verificado en GitHub (no significa aprobación docente).**
 
-La revisión y los cambios sugeridos están documentados en [REVISION_PRESENTACION_FASE1.md](REVISION_PRESENTACION_FASE1.md).
+- [Abrir presentación PowerPoint](./Presentacion_Idea_Proyecto_MPAZ_RFID_REVISION.pptx)
+- [Ver revisión y ajustes pendientes](REVISION_PRESENTACION_FASE1.md)
 
-La copia corregida para subir se llama `Presentacion_Idea_Proyecto_MPAZ_RFID_REVISION.pptx` y debe revisarse antes con el equipo, especialmente por las responsabilidades de la diapositiva 17 y la Carta Gantt propuesta de la diapositiva 14.
+La presentación contiene 18 diapositivas y corresponde a la evidencia grupal de la idea del proyecto MPAZ RFID.
 
-Cuando esté validada, subir aquí el PPTX real mediante **Add file → Upload files** sobre la rama `capstone/organizacion-evidencias`. **No basta con el presente README ni con la revisión textual.**
+**Antes de la entrega definitiva:** verificar con los dos integrantes la distribución de responsabilidades de la diapositiva 17 y validar con el docente el cronograma estimado de la diapositiva 14.
 
-No confundir esta presentación de la Fase 1 con las capturas o pruebas técnicas de la Fase 2, que siguen pendientes.
+No confundir esta presentación de Fase 1 con las capturas o pruebas técnicas de Fase 2, que siguen pendientes.
