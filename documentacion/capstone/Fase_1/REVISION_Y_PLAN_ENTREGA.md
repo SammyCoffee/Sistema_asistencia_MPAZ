@@ -84,3 +84,23 @@ El repositorio ya contenía archivos `.db` históricos en `data/`; revisar si gu
 - [ ] Verificar y añadir la presentación.
 - [ ] Incorporar las entregas restantes a GitHub sin datos sensibles.
 - [ ] Validar aceptación con docente.
+
+## Revisión específica de evidencia 1.3 — Autoevaluación Fase 1
+
+**Documento revisado:** `Evidencias_Individuales/1.3_APT122_AutoevaluacionFase1_MPAZ_RFID_Completada.docx`. Esta es una **revisión documental**, no una evaluación ni aprobación docente.
+
+### Aspectos presentes
+- Conserva la estructura de la pauta institucional y desarrolla una tabla de indicadores de calidad correspondientes a pruebas, gestión, bases de datos y desarrollo e integración de software.
+- Aparecen seleccionados los indicadores 1 al 11 en «Completamente Logrado» y el indicador 12 de comunicación escrita en inglés en «Logrado», con nota explícita de verificación posterior.
+- Añade un fundamento técnico sobre API Flask, base de datos SQLite, tótems, lectura de tarjetas, restricciones de duplicidad y panel web.
+- El indicador de implantación de software 4.3 se identifica **en desarrollo**, lo que evita presentarlo como implementado por completo.
+
+### Correcciones o verificaciones antes de la entrega
+1. **Autoría individual:** el documento no identifica claramente a la estudiante dentro de los apartados revisados. Confirmar autor/a y agregar identificación compatible con el formulario; solo entonces renombrar con `Apellido_Nombre_1.3_APT122_AutoevaluacionFase1.docx`.
+2. **Indicadores 7 y 8:** están marcados como «Completamente Logrado» respecto del plan de trabajo y las evidencias. La versión de la guía 1.5 disponible todavía deja vacías las secciones 6 (evidencias), 7 (plan) y 8 (Gantt). Completar esos apartados y mantener evidencias coherentes, o revisar honestamente el nivel marcado. Una versión final de 1.5 diferente podría resolverlo.
+3. **Indicador 12:** aparece como «Logrado» (60 %) con instrucción «verificar versión final en inglés». Confirmar si el informe de definición realmente contiene abstract en ambos idiomas, conclusiones individuales en inglés y reflexión en inglés, tal como prescribe la pauta; si no, ajustar autoevaluación y trabajo base.
+4. **Indicadores 9 a 11:** antes de asignar puntaje máximo, comprobar las normas de citas, el formato disciplinario y que los indicadores de calidad estén respaldados documentalmente. No basta con que la rúbrica diga «seleccionado».
+5. **Fundamentación final:** es útil, pero funciona como síntesis de la implementación y **no reemplaza** el informe o guía de definición del proyecto.
+6. **Redacción temporal:** revisar la frase «la implantación física completa ... continúa como incremento posterior» para que describa el estado real a la fecha de entrega; no afirmar funcionalidades no probadas.
+
+**Estado provisional:** presente y cumplimentada, pero **pendiente de validar coherencia y autoría antes de considerarla lista**. No modificar la autoevaluación del estudiante sin que la persona confirme su propio juicio.
