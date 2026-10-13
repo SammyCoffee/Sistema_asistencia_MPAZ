@@ -1921,3 +1921,35 @@ resultadoEstudiante.addEventListener("click", async function (evento) {
         
             
         });
+
+        // ==========================================
+    // BOTÓN VOLVER ARRIBA
+    // ==========================================
+
+    const botonVolverArriba =
+        document.getElementById("boton-volver-arriba");
+
+    window.addEventListener(
+        "scroll",
+        function () {
+
+            if (window.scrollY > 300) {
+                botonVolverArriba.style.display = "flex";
+            } else {
+                botonVolverArriba.style.display = "none";
+            }
+
+        }
+    );
+
+    botonVolverArriba.addEventListener(
+        "click",
+        function () {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+    );    
