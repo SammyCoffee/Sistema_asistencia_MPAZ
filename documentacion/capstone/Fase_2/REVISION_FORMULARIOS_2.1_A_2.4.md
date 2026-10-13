@@ -39,8 +39,13 @@ Contiene:
 - [x] Preparar diario grupal 2.1 en el diseño original, para revisión.
 - [ ] Revisar el diario con Lucas y Samantha y confirmar destino con el docente.
 - [ ] Revisar y completar por separado las autoevaluaciones 2.2.
-- [ ] Preparar guía 2.4 basada en las fichas de avance sin inventar capturas.
+- [x] Preparar borrador de guía 2.4 en Word sobre la plantilla original, usando fichas 02 y 04 sin inventar capturas.
+- [ ] Confirmar responsabilidades (difieren entre fichas y guía 1.5), semanas del plan y estado de los módulos; subir la versión revisada.
 - [ ] Recibir evaluación formativa 2.3 corregida por el docente si se proporciona.
 - [ ] Subir los Word definitivos después de la revisión del equipo.
 
 **Privacidad:** no publicar RUT, contraseñas, API keys ni datos personales reales del alumnado.
+
+### Borrador 2.4 disponible para revisión
+
+Se generó `2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx` como archivo Word de tres páginas fuera de GitHub. Contiene las tres secciones solicitadas y nueve actividades de monitoreo. La Ficha 04 del 06-10-2026 **declara** un avance ponderado del 87,5 %; este dato se cita como autoinforme, no como resultado validado externamente. Se dejan pendientes anexos, pruebas finales y autorización académica. **No se ha subido ni aprobado.**
