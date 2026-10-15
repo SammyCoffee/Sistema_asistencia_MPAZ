@@ -1,35 +1,30 @@
-# Plan de evidencias técnicas — pendientes de recopilación
+# Control de evidencias técnicas — disponibles y pendientes
 
-**Proyecto:** Sistema MPAZ RFID · Capstone APT122  
-**Estado:** organización preparada; **ningún pantallazo técnico se marca como realizado o entregado**.
+**Proyecto:** Sistema MPAZ RFID · Capstone APT122
 
-Esta lista corresponde a evidencia de ejecución que se recogerá **paso a paso**. No es necesario capturarla ni subirla ahora. El código y las fichas de avance que ya están en el repositorio **no cuentan automáticamente** como capturas o pruebas documentadas.
+Se recibieron seis imágenes técnicas y una nueva guía 2.4 con anexos. «Documentado» significa respaldo visible disponible; **no significa aprobación docente ni validación completa**. No se ejecutaron nuevas pruebas durante la carga.
 
-| N.º | Estado | Nombre de archivo sugerido | Qué demostrar | Carpeta de destino |
-|---|---|---|---|---|
-| 01 | [ ] Pendiente | `01_Arquitectura_Sistema.png` | Diagrama ESP32–PN532–Wi-Fi–API–SQLite–panel | `Evidencias_Documentacion/` |
-| 02 | [ ] Pendiente | `02_Base_Datos_SQLite.png` | Esquema/tablas con datos de demostración | `Base_de_Datos/` |
-| 03 | [ ] Pendiente | `03_API_Flask_Estado.png` | Resultado real de `GET /estado` | `Evidencias_Sistema_Aplicacion/` |
-| 04 | [ ] Pendiente | `04_Asistencia_Registrada.png` | Respuesta exitosa a lectura con tarjeta ficticia | `Evidencias_Sistema_Aplicacion/` |
-| 05 | [ ] Pendiente | `05_Control_Duplicados.png` | Rechazo de asistencia duplicada o evento repetido | `Evidencias_Sistema_Aplicacion/` |
-| 06 | [ ] Pendiente | `06_Login_Panel.png` | Pantalla de acceso sin credenciales | `Evidencias_Sistema_Aplicacion/` |
-| 07 | [ ] Pendiente | `07_Panel_Asistencias.png` | Vista de asistencias con registros ficticios | `Evidencias_Sistema_Aplicacion/` |
-| 08 | [ ] Pendiente | `08_Reporte_Excel.png` | Reporte exportado y abierto con datos ficticios | `Evidencias_Sistema_Aplicacion/` |
-| 09 | [ ] Pendiente | `09_Totem_ESP32.jpg` y `09_Lectura_PN532.png` | Montaje real y lectura de tarjeta de prueba | `Evidencias_Sistema_Aplicacion/` |
-| 10 | [ ] Pendiente | `10_Integracion_Completa.png` | Recepción desde el tótem y registro en el servidor | `Evidencias_Sistema_Aplicacion/` |
+| N.º | Estado | Respaldo y alcance | Pendiente |
+|---|---|---|---|
+| 01 Arquitectura | Diseño disponible | [PDF y vistas previas](Evidencias_Documentacion/README_DIAGRAMAS.md), anexos A1–A3 | Validación de despliegue; dominio, HTTPS y roles docentes previstos. |
+| 02 SQLite | Parcial documentado | [Tablas](Base_de_Datos/BD_01_Estructura_Tablas_SQLite.png) y [consulta demo](Base_de_Datos/BD_02_Consulta_Asistencia_Demo_2026-10-13.png) | Esquema completo, restricciones e integridad. |
+| 03 Estado API | Pendiente | Sin captura de GET /estado en el paquete | Captura y resultado verificable. |
+| 04 Nueva asistencia | Pendiente | [HTTP 200](Evidencias_Sistema_Aplicacion/API_01_ESP32_Envio_Lectura_HTTP200.png) acredita comunicación; respuesta «El alumno ya…» | Inserción nueva correlacionada con evento y SQLite. |
+| 05 Evento repetido | Documentado en copia de pruebas | [evento_repetido](Evidencias_Sistema_Aplicacion/API_02_Evento_Repetido_Sin_Duplicados.png), 7 registros antes y después | Otros casos, incluida duplicidad diaria, sin respaldo en este paquete. |
+| 06 Login | Pendiente | Sin captura adjunta | Acceso al panel sin exponer credenciales. |
+| 07 Panel | Pendiente | La consulta SQL no sustituye la vista de interfaz | Pantalla con registros ficticios. |
+| 08 Exportación | Pendiente | Sin reporte adjunto | Exportación y apertura de Excel. |
+| 09 Tótem y lectura | Documentado parcialmente | [Montaje](Evidencias_Sistema_Aplicacion/HARDWARE_01_ESP32_PN532_Montaje.jpeg), [tarjeta](Evidencias_Sistema_Aplicacion/HARDWARE_02_Tarjeta_Prueba_PN532.jpeg) y [monitor serie](Evidencias_Sistema_Aplicacion/API_01_ESP32_Envio_Lectura_HTTP200.png) | Validación integral del dispositivo; fotos solas no acreditan registro. |
+| 10 Integración completa | Pendiente | Comunicación y consulta SQLite documentadas por separado | Trazabilidad de una nueva asistencia de extremo a extremo y piloto escolar. |
 
-## Criterios para aceptar cada evidencia
+[Inventario de las seis imágenes y limitaciones](README_EVIDENCIAS_2.4.md).
 
-1. La funcionalidad debe haberse probado realmente; una captura no debe hacer pasar un componente incompleto por terminado.
-2. Utilizar **exclusivamente datos de demostración** y ocultar identificadores de estudiantes, credenciales, tokens, claves y direcciones internas sensibles.
-3. Conservar la captura original y añadir, cuando sea útil, una breve nota con el objetivo, el resultado esperado y el resultado observado.
-4. Revisar con el docente qué capturas exige formalmente la pauta; la lista anterior es una **propuesta de respaldo técnico**, no una sustitución de la rúbrica.
-5. Marcar cada casilla únicamente una vez verificada la evidencia y subido el archivo a su carpeta.
+## Criterios de revisión
 
-## Relación con la Fase 1
+1. Distinguir diseño, evidencia de ejecución y aprobación académica.
+2. Mantener las capturas originales con sus rutas del ZIP y emplear datos ficticios.
+3. Vincular futuras pruebas a objetivo, resultado esperado y observado, evento y registro cuando corresponda.
+4. Revisar requisitos formales con el docente; este control no sustituye la rúbrica.
+5. No marcar como completadas las pruebas sin respaldo ni recalcular el avance declarado en la Ficha 04.
 
-La guía 1.5 incluye la **planificación** de las evidencias. La ejecución documentada (capturas y pruebas) se guardará en la **Fase 2** conforme esté disponible. No duplicar imágenes entre fases si basta con una referencia.
-
-## Paso siguiente (cuando se retome)
-
-Comenzar con `02_Base_Datos_SQLite.png` usando la base de demostración y después continuar con la API, el panel y la integración de hardware. Por ahora **todo permanece pendiente**.
+La planificación de Fase 1 se conserva; la evidencia de ejecución se reúne en Fase 2. Próximo respaldo necesario: nueva asistencia correlacionada, interfaz, exportación y piloto.

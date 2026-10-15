@@ -1,27 +1,26 @@
-# Evidencias del sistema y la aplicación
+# Evidencias del sistema y la aplicación — Fase 2
 
-Agregar aquí **capturas de pantalla**, diagramas, casos de prueba y resultados del sistema MPAZ RFID.
+## Evidencias disponibles para revisión
 
-Componentes del software que ya están versionados en el repositorio (no se copian para evitar duplicidad):
+| Archivo | Resultado documentado | Límite |
+|---|---|---|
+| [Comunicación ESP32–API](API_01_ESP32_Envio_Lectura_HTTP200.png) | Lectura de UID, evento_id, envío JSON, HTTP 200 y respuesta de la API | La respuesta comienza «El alumno ya…». No demuestra inserción de una asistencia nueva. |
+| [Prevención de evento repetido](API_02_Evento_Repetido_Sin_Duplicados.png) | Resultado evento_repetido, 7 registros antes y 7 después | Prueba aislada en COPIA DE PRUEBAS; no certifica todos los casos de asistencia duplicada diaria. |
+| [Montaje ESP32 y PN532](HARDWARE_01_ESP32_PN532_Montaje.jpeg) | Hardware y conexiones | La fotografía no demuestra transmisión ni inserción. |
+| [Tarjeta de prueba y lector](HARDWARE_02_Tarjeta_Prueba_PN532.jpeg) | Presentación de tarjeta al prototipo | La respuesta de lectura se respalda por separado en el monitor serie. |
 
-- [API Flask](../../../../../api.py)
-- [Procesamiento de lecturas](../../../../../procesar_lectura_totem.py)
-- [Panel web](../../../../../interfaz_prueba/)
-- [Pruebas de API](../../../../../probar_api_automaticamente.py)
+Son pruebas documentadas recibidas, **pendientes de revisión docente**. No se ejecutaron pruebas nuevas al incorporar estos archivos.
 
-Evidencias sugeridas: lectura NFC/RFID con datos de prueba, respuestas del endpoint `/lectura`, control de duplicados, login del panel, reporte de asistencias y conexión con el tótem.
+## Evidencias aún pendientes
 
-**No incluir información personal identificable de alumnos ni credenciales.**
+- GET /estado.
+- Nueva asistencia registrada desde el tótem, correlacionando solicitud, evento y registro SQLite.
+- Otros casos de duplicados diarios y validaciones de tarjetas/tótems.
+- Login y panel de asistencias con datos ficticios.
+- Exportación y apertura de reporte Excel.
+- Piloto escolar, validación de extremo a extremo y cierre completo.
+- Dominio, HTTPS y roles docentes, si corresponden al alcance; no se consideran implementados ni aprobados.
 
-## Pendientes — capturas 03 a 10
+[Inventario de anexos](../README_EVIDENCIAS_2.4.md) · [Plan de evidencias](../PLAN_EVIDENCIAS_PENDIENTES.md).
 
-- [ ] Estado de la API Flask.
-- [ ] Lectura y registro exitoso.
-- [ ] Detección de duplicados/eventos repetidos.
-- [ ] Inicio de sesión del panel.
-- [ ] Panel de asistencias con datos de demostración.
-- [ ] Exportación de Excel.
-- [ ] Tótem ESP32 y lectura PN532.
-- [ ] Integración de extremo a extremo.
-
-[Ver nombres de archivo y descripción detallada](../PLAN_EVIDENCIAS_PENDIENTES.md). **No hay capturas subidas todavía.**
+Código existente: [API](../../../../../api.py), [procesamiento](../../../../../procesar_lectura_totem.py), [panel](../../../../../interfaz_prueba/), [pruebas](../../../../../probar_api_automaticamente.py). Utilizar datos ficticios y omitir credenciales y datos reales del alumnado.

@@ -1,16 +1,16 @@
-# Base de datos — evidencia de la Fase 2
+# Base de datos — evidencia de Fase 2
 
-Aportar un **diagrama entidad-relación**, esquema SQL o una base SQLite de demostración que contenga únicamente registros ficticios.
+## Evidencias disponibles
 
-Código ya existente en el repositorio:
+| Archivo | Respaldo documentado | Límite |
+|---|---|---|
+| [Tablas SQLite](BD_01_Estructura_Tablas_SQLite.png) | Listado de alumnos, asistencias, tarjetas y totems | No muestra por sí solo todas las columnas, restricciones o integridad referencial. |
+| [Consulta de asistencia de demostración](BD_02_Consulta_Asistencia_Demo_2026-10-13.png) | JOIN con Alumno Prueba MPAZ, curso 7B, fecha 13-10-2026, entrada y salida | No establece vínculo con la solicitud del monitor serie. |
 
-- [Lógica de base de datos](../../../../../base_datos.py)
-- [Generador de base de demostración](../../../../../crear_base_demostracion.py)
+Recibidas como respaldo parcial; **pendientes de revisión docente**. No se certifica la implementación completa ni la integridad de toda la base.
 
-No agregar archivos `.db` con datos reales de estudiantes. El repositorio es público y contiene respaldos SQLite históricos en `data/`; se recomienda revisar su contenido y sanear el historial, si es necesario, antes de compartirlo como entrega académica.
+Siguen pendientes diagrama entidad-relación/esquema completo, restricciones y pruebas adicionales de integridad. No se incorpora una base SQLite productiva.
 
-## Pendiente — captura 02
+[Código de base de datos](../../../../../base_datos.py) · [Generador de demostración](../../../../../crear_base_demostracion.py).
 
-- [ ] `02_Base_Datos_SQLite.png` — mostrar tablas y estructura usando solamente datos ficticios.
-
-[Ver plan general de evidencias](../PLAN_EVIDENCIAS_PENDIENTES.md). Aún no se ha añadido esta captura.
+[Inventario y alcance de los anexos 2.4](../README_EVIDENCIAS_2.4.md) · [Control técnico](../PLAN_EVIDENCIAS_PENDIENTES.md).

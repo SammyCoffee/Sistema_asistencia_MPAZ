@@ -16,10 +16,14 @@ Documentación académica del proyecto **Sistema MPAZ RFID**. La estructura usa 
 - Las evidencias **individuales** deben identificar a su autor; las **grupales** se conservan por entrega.
 - Materiales de apoyo y borradores se diferencian de documentos oficiales.
 - El código funcional permanece en la raíz del repositorio.
-- Las capturas y validaciones técnicas se recogerán **más adelante**.
+- Se conservan evidencias técnicas parciales; las validaciones sin respaldo continúan pendientes.
 
 **Seguridad:** no subir información personal real de estudiantes, respaldos productivos SQLite, tokens, contraseñas ni API keys. Usar ejemplos ficticios y omitir RUT u otros identificadores privados de las copias públicas.
 
 ## Archivos de Fase 2 incorporados
 
 Disponibles los borradores Word 2.1 y 2.4, dos materiales de apoyo 2.2 y los diagramas (dos PDF y siete PNG), respetando las carpetas del paquete de carga. **Todos requieren revisión; no se consideran entregas aprobadas.** [Ver archivos y estados](Fase_2/README.md).
+
+## Actualización de evidencias 2.4
+
+[Nueva guía 2.4 y seis imágenes técnicas](Fase_2/Evidencias_Proyecto/README_EVIDENCIAS_2.4.md) disponibles con respaldo de SQLite, comunicación ESP32–servidor y prevención de evento repetido. Pendientes de revisión docente; no se certifica piloto, exportación ni implementación completa. El Word anterior se conserva como borrador.

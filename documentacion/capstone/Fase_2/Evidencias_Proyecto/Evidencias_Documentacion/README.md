@@ -12,10 +12,12 @@ Estos archivos de seguimiento del proyecto están disponibles en esta rama. **Di
 
 - [ ] `01_Arquitectura_Sistema.png` — diagrama del flujo ESP32 + PN532 → API Flask → SQLite → panel web.
 
-Ninguna captura de arquitectura se da por realizada. [Ver control de las diez evidencias técnicas](../PLAN_EVIDENCIAS_PENDIENTES.md).
+Ninguna captura de arquitectura se da por realizada. [Ver control actualizado de evidencias técnicas](../PLAN_EVIDENCIAS_PENDIENTES.md).
 
 Las fichas de seguimiento **no sustituyen** la guía 2.4, la guía 2.6 ni las planillas de evaluación.
 
 ## Diagramas y guía visual disponibles
 
 [Consultar los dos PDF y siete PNG de vista previa](README_DIAGRAMAS.md). Son materiales de apoyo pendientes de revisión; no certifican pruebas ejecutadas ni aprobación docente. La captura de arquitectura prevista arriba sigue pendiente como evidencia técnica.
+
+[Capturas técnicas y nueva guía 2.4 con anexos](../README_EVIDENCIAS_2.4.md) disponibles para revisión. Los diagramas mantienen su carácter documental.

@@ -19,7 +19,7 @@
 
 | Documento | Estado | Nota |
 |---|---|---|
-| `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` (Español) | **Borrador disponible; pendiente de revisión y anexos** | Contiene resumen, monitoreo, evidencias y ajustes |
+| `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` (Español) | **Nueva versión con anexos verificables disponible; pendiente de revisión docente. Borrador anterior conservado** | Contiene resumen, monitoreo, evidencias y ajustes |
 | Versión 2.4 en inglés | **Optativa — no incorporada** | Solo si el equipo decide realizarla |
 | `PLANILLA DE EVALUACIÓN AVANCE FASE 2.xlsx` | **Pendiente** | No inventar valoraciones ni aprobación docente |
 | `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` (Español) | **Pendiente** | Informe final del proyecto |
@@ -36,12 +36,12 @@
 |---|---|---|
 | Presentación del proyecto | **Pendiente** | [Presentacion_Proyecto/](Evidencias_Proyecto/Presentacion_Proyecto/) |
 | Evidencias de documentación | **Tres fichas de avance, dos PDF y siete PNG de apoyo disponibles**; revisión final pendiente | [Evidencias_Documentacion/](Evidencias_Proyecto/Evidencias_Documentacion/) |
-| Evidencias de sistema/aplicación | **Pantallazos y pruebas pendientes** | [Evidencias_Sistema_Aplicacion/](Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/) |
-| Base de datos | **Captura/diagrama para la entrega pendiente** | [Base_de_Datos/](Evidencias_Proyecto/Base_de_Datos/) |
+| Evidencias de sistema/aplicación | **Comunicación ESP32–API, evento repetido y montaje documentados; resto de pruebas pendiente** | [Evidencias_Sistema_Aplicacion/](Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/) |
+| Base de datos | **Tablas y consulta SQLite demo documentadas; esquema e integridad pendientes** | [Base_de_Datos/](Evidencias_Proyecto/Base_de_Datos/) |
 
 El código funcional de SQLite, API Flask, panel web y pruebas del sistema se encuentra en la raíz del repositorio y **no debe duplicarse aquí**. Se referenciará cuando preparemos la documentación académica.
 
-[Plan de diez grupos de evidencias técnicas pendientes](Evidencias_Proyecto/PLAN_EVIDENCIAS_PENDIENTES.md). Ninguno se considera realizado por el solo hecho de que exista el código.
+[Plan de diez grupos de evidencias técnicas pendientes](Evidencias_Proyecto/PLAN_EVIDENCIAS_PENDIENTES.md). La existencia de código no basta: los estados actuales se sustentan en las capturas enlazadas.
 
 ## 4. Revisión preliminar de las fichas existentes
 
@@ -51,7 +51,7 @@ El código funcional de SQLite, API Flask, panel web y pruebas del sistema se en
 
 No alterar los archivos originales de seguimiento para imponer una narrativa nueva. Las discrepancias se documentarán y se resolverán con pruebas y confirmación del equipo.
 
-## 5. Próximos pasos académicos (sin capturas todavía)
+## 5. Próximos pasos académicos
 
 - [x] Crear y verificar la estructura de Fase 2 según el directorio facilitado.
 - [x] Mantener las fichas 02, 03 y 04 en documentación de proyecto.
@@ -66,7 +66,7 @@ No alterar los archivos originales de seguimiento para imponer una narrativa nue
 - [ ] Obtener la **2.3** evaluada realmente por el docente y la planilla de evaluación de avance.
 - [ ] Preparar la guía **2.6** y la planilla final cuando corresponda.
 - [ ] Revisar la presentación final del proyecto.
-- [ ] **Más adelante:** capturas, reportes de pruebas, base de datos de demostración y validación técnica.
+- [ ] Completar capturas de interfaz, exportación, nueva asistencia correlacionada, piloto y validación técnica final.
 
 ## Privacidad
 
@@ -83,3 +83,11 @@ Al recibir las cuatro plantillas se confirmó que **2.1 se responde grupalmente*
 ## Archivos incorporados desde el paquete de carga
 
 [Inventario y enlaces a los Word y diagramas](README.md). Se mantienen los borradores y materiales de apoyo pendientes de revisión. Los dos Word 2.2 no reemplazan los formularios oficiales finales. Las siete imágenes son vistas previas de diagramas, no resultados de pruebas del sistema.
+
+## Versión 2.4 con anexos verificables
+
+[Nuevo Word 2.4 para revisión](Evidencias_Grupales/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_ANEXOS_VERIFICABLES_REVISION.docx) disponible con anexos A1–A3 de diseño y B1–B3 de ejecución. **Pendiente de revisión docente y validación de responsables.** El [Word anterior](Evidencias_Grupales/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx) se conserva como borrador histórico.
+
+[Inventario de las seis imágenes y alcance](Evidencias_Proyecto/README_EVIDENCIAS_2.4.md): tablas y consulta SQLite de demostración, comunicación ESP32–API con HTTP 200, evento repetido rechazado en copia de pruebas (7 registros antes y después) y fotografías ESP32/PN532. HTTP 200 no acredita una asistencia nueva; la consulta SQL no está correlacionada con esa solicitud.
+
+Siguen pendientes piloto, GET /estado, login/panel, exportación, integración completa con nueva asistencia correlacionada y validación final. Dominio, HTTPS y roles docentes no se dan por implementados ni aprobados. No se recalcula el 87,5 % declarado en la Ficha 04.

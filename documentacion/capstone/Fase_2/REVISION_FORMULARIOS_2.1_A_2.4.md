@@ -8,7 +8,7 @@
 | **2.1** | Diario de Reflexión Fase 2 | **Respuesta con el grupo** — seis preguntas, dos páginas de plantilla | **Borrador Word grupal preparado** disponible; pendiente de revisión |
 | **2.2** | Autoevaluación Informe Avance Proyecto APT | **Individual**, semana 9, **0 %** | Plantilla recibida; marcar los niveles es una decisión de cada estudiante |
 | **2.3** | Evaluación Formativa Fase 2 / Informe avance Proyecto APT | **Heteroevaluación docente**, semana 7, **0 %** | Plantilla recibida; evaluación por el docente pendiente |
-| **2.4** | Guía Estudiante — Desarrollo Proyecto APT (Fase 2) | **Informe de avance grupal** | Borrador disponible; revisión y anexos pendientes |
+| **2.4** | Guía Estudiante — Desarrollo Proyecto APT (Fase 2) | **Informe de avance grupal** | Nueva versión con anexos disponible; revisión docente pendiente |
 
 ## 2.1 — Diferencia con el directorio
 
@@ -31,7 +31,7 @@ Contiene:
 2. Monitoreo del plan de trabajo con ocho columnas: competencia, actividad, recursos, duración, responsable, observaciones, estado y ajustes.
 3. Factores facilitadores/obstáculos, actividades ajustadas y actividades no iniciadas o retrasadas.
 
-**Importante:** las fichas de avance ya disponibles permiten redactar un **borrador** de progreso, pero las capturas y pruebas técnicas que el equipo decidió recopilar después **siguen pendientes**. No afirmar que hay anexos cuando no están adjuntos.
+**Importante:** las fichas de avance ya disponibles permiten redactar un **borrador** de progreso, pero ya se recibieron seis imágenes con respaldo parcial de SQLite, comunicación y evento repetido. Las pruebas finales, interfaz, exportación y piloto siguen pendientes.
 
 ## Próximas acciones
 
@@ -49,8 +49,16 @@ Contiene:
 
 ### Borrador 2.4 disponible para revisión
 
-Se generó `2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx` como archivo Word de tres páginas, disponible en esta rama como borrador. Contiene las tres secciones solicitadas y nueve actividades de monitoreo. La Ficha 04 del 06-10-2026 **declara** un avance ponderado del 87,5 %; este dato se cita como autoinforme, no como resultado validado externamente. Se dejan pendientes anexos, pruebas finales y autorización académica. **Disponible como borrador; pendiente de revisión, sin aprobación académica.**
+Se generó `2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx` como archivo Word de tres páginas, disponible en esta rama como borrador. Contiene las tres secciones solicitadas y nueve actividades de monitoreo. La Ficha 04 del 06-10-2026 **declara** un avance ponderado del 87,5 %; este dato se cita como autoinforme, no como resultado validado externamente. Ese borrador histórico no incorpora los nuevos anexos; la versión ANEXOS_VERIFICABLES_REVISION sí los incluye. Siguen pendientes pruebas finales y revisión docente. **Disponible como borrador; pendiente de revisión, sin aprobación académica.**
 
 ### Hoja de apoyo 2.2
 
 Se generó `2.2_APT122_AutoevaluacionAvance_Fase2_Tapia_Samantha_HOJA_DE_APOYO.docx` (dos páginas, disponible como material de apoyo pendiente de revisión), que relaciona cada indicador oficial con la evidencia existente y lo que falta verificar; todas las valoraciones siguen abiertas. [Guía breve en Markdown](Evidencias_Individuales/Material_de_Apoyo/GUIA_DE_AUTOEVALUACION_2.2.md).
+
+## Versión 2.4 con anexos verificables
+
+[Nuevo Word 2.4 para revisión](Evidencias_Grupales/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_ANEXOS_VERIFICABLES_REVISION.docx) disponible con anexos A1–A3 de diseño y B1–B3 de ejecución. **Pendiente de revisión docente y validación de responsables.** El [Word anterior](Evidencias_Grupales/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx) se conserva como borrador histórico.
+
+[Inventario de las seis imágenes y alcance](Evidencias_Proyecto/README_EVIDENCIAS_2.4.md): tablas y consulta SQLite de demostración, comunicación ESP32–API con HTTP 200, evento repetido rechazado en copia de pruebas (7 registros antes y después) y fotografías ESP32/PN532. HTTP 200 no acredita una asistencia nueva; la consulta SQL no está correlacionada con esa solicitud.
+
+Siguen pendientes piloto, GET /estado, login/panel, exportación, integración completa con nueva asistencia correlacionada y validación final. Dominio, HTTPS y roles docentes no se dan por implementados ni aprobados. No se recalcula el 87,5 % declarado en la Ficha 04.
