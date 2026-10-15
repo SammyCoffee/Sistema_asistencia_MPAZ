@@ -41,7 +41,7 @@ Contiene:
 - [x] Elaborar guía de apoyo individual 2.2 para Samantha con ocho indicadores y cuatro niveles sin marcar.
 - [ ] Samantha y Lucas seleccionan individualmente sus niveles y completan los formularios oficiales 2.2.
 - [x] Preparar borrador de guía 2.4 en Word sobre la plantilla original, usando fichas 02 y 04 sin inventar capturas.
-- [ ] Confirmar responsabilidades (difieren entre fichas y guía 1.5), semanas del plan y estado de los módulos; subir la versión revisada.
+- [ ] Confirmar responsabilidades históricas (difieren entre fichas y guía 1.5), semanas del plan y estado de los módulos; **la versión 2.4 con anexos ya está subida**.
 - [ ] Recibir evaluación formativa 2.3 corregida por el docente si se proporciona.
 - [ ] Subir los Word definitivos después de la revisión del equipo.
 
@@ -69,3 +69,7 @@ Siguen pendientes piloto, GET /estado, login/panel, exportación, integración c
 - **Formato e inglés:** no se localizaron abstract español/inglés, conclusiones individuales ni reflexión en inglés en las guías 1.5 y 2.4 actuales. Las pautas los mencionan; confirmar el formato de entrega con el docente. La traducción completa optativa es un asunto distinto.
 - **Autoevaluaciones:** 1.3 requiere autoría y revisión de niveles; los formularios oficiales 2.2 de ambos integrantes siguen pendientes. Las propuestas de apoyo no son decisiones personales confirmadas.
 - **Evidencias:** seis imágenes técnicas y anexos A1–A3/B1–B3 disponibles; siguen pendientes interfaz, exportación, nueva asistencia correlacionada, piloto y cierre. No se modifica el 87,5 % declarado en Ficha 04.
+
+### Material bilingüe preparado (no definitivo)
+
+[Resúmenes en español e inglés y propuesta de reflexión individual de Samantha](Evidencias_Grupales/Material_de_Apoyo/ANEXO_BILINGUE_MPAZ_RFID.md). Requiere revisión de la estudiante y aclaración de formato con el docente. Los textos individuales de Lucas y la validación docente siguen pendientes.

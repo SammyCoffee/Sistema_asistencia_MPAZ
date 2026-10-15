@@ -61,7 +61,7 @@ No alterar los archivos originales de seguimiento para imponer una narrativa nue
 - [ ] Validar respuestas de 2.1 con ambos integrantes y aclarar ubicación con el docente.
 - [x] Preparar hoja de apoyo para autoevaluación **2.2** de Samantha, sin niveles seleccionados.
 - [ ] Realizar las autoevaluaciones **2.2** de Samantha y Lucas con sus propios niveles, en formularios oficiales.
-- [x] Preparar un borrador Word **2.4** basado en las fichas 02 y 04, sin contar capturas pendientes como anexos.
+- [x] Preparar el Word **2.4 con anexos A1–A3 y B1–B3**, incorporando los diagramas y las seis imágenes disponibles. Las demás capturas siguen pendientes.
 - [ ] Confirmar responsables y cronograma con Samantha, Lucas y docente; revisar la versión 2.4 con anexos ya disponible.
 - [ ] Obtener la **2.3** evaluada realmente por el docente y la planilla de evaluación de avance.
 - [ ] Preparar la guía **2.6** y la planilla final cuando corresponda.
@@ -98,3 +98,7 @@ Siguen pendientes piloto, GET /estado, login/panel, exportación, integración c
 - **Formato e inglés:** no se localizaron abstract español/inglés, conclusiones individuales ni reflexión en inglés en las guías 1.5 y 2.4 actuales. Las pautas los mencionan; confirmar el formato de entrega con el docente. La traducción completa optativa es un asunto distinto.
 - **Autoevaluaciones:** 1.3 requiere autoría y revisión de niveles; los formularios oficiales 2.2 de ambos integrantes siguen pendientes. Las propuestas de apoyo no son decisiones personales confirmadas.
 - **Evidencias:** seis imágenes técnicas y anexos A1–A3/B1–B3 disponibles; siguen pendientes interfaz, exportación, nueva asistencia correlacionada, piloto y cierre. No se modifica el 87,5 % declarado en Ficha 04.
+
+## Seguimiento de correcciones académicas
+
+El [control específico de inconsistencias y decisiones](CONTROL_CORRECCIONES_2026-10-15.md) explica qué observaciones ya se corrigieron y cuáles requieren información de Lucas o del profesor. También está disponible un [anexo bilingüe de apoyo](Evidencias_Grupales/Material_de_Apoyo/ANEXO_BILINGUE_MPAZ_RFID.md), **sin presentarlo como informe validado**.

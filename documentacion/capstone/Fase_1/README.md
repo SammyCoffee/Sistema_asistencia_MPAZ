@@ -19,7 +19,7 @@ Conforme a la pauta de la Fase 1, se separan las evidencias individuales de las 
 
 ## Estado de revisión y siguientes pasos
 
-Consulta la [revisión detallada de evidencias de la Fase 1](REVISION_Y_PLAN_ENTREGA.md), donde se documentan las faltas detectadas y una propuesta para completar las secciones 6–8 de la guía 1.5.
+Consulta la [revisión detallada de evidencias de la Fase 1](REVISION_Y_PLAN_ENTREGA.md), donde se registran los hallazgos originales y se confirma que las secciones 6–8 ya están completadas en la guía 1.5 revisada; siguen pendientes la validación docente y algunos apartados de formato e inglés.
 
 **Guía 1.5 (español):** se revisó el original y se dejó un DOCX reconstruido y completado, de cuatro páginas, con las ocho secciones, evidencias, plan de trabajo y Carta Gantt. El archivo recomendado para subir es `1.5_GuiaEstudiante_Fase_1_Definicion_Proyecto_APT_PARA_REVISION.docx`. **El documento ya está en la carpeta grupal de GitHub, pero no está aprobado por el docente**. Se armonizaron las fases del cronograma con la presentación (semanas 1–6, 7–12 y 13–18). Guardar los datos personales de identificación solo en el canal privado de Duoc UC.
 
@@ -34,3 +34,7 @@ La guía 1.5 contiene la planificación de evidencias. En Fase 2 ya están dispo
 ## Criterio de organización
 
 Los entregables oficiales (DOCX/PPTX) se guardan directamente en `Evidencias_Individuales/` o `Evidencias_Grupales/`. Las notas y borradores no oficiales están separados en `Material_de_Apoyo/`, para que no se confundan con archivos evaluados. La presentación inicial ya está incorporada como PPTX de revisión; las evidencias técnicas recibidas se conservan en Fase 2, con su alcance y limitaciones.
+
+## Revisión de formato e inglés (versión de apoyo)
+
+Se prepararon [abstracts español/inglés y borradores de conclusión y reflexión de Samantha](../Fase_2/Evidencias_Grupales/Material_de_Apoyo/ANEXO_BILINGUE_MPAZ_RFID.md). Este material **no acredita** que las guías 1.5 o 2.4 cumplan todavía con todos los requisitos formales: antes debe confirmarse con el docente dónde incorporarlo y Lucas debe revisar/redactar su contribución individual.

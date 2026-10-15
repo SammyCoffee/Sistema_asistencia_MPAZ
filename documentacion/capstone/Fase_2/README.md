@@ -42,3 +42,7 @@ Las plantillas oficiales recibidas no se dan por entregas completadas. Se mantie
 [Inventario de las seis imágenes y alcance](Evidencias_Proyecto/README_EVIDENCIAS_2.4.md): tablas y consulta SQLite de demostración, comunicación ESP32–API con HTTP 200, evento repetido rechazado en copia de pruebas (7 registros antes y después) y fotografías ESP32/PN532. HTTP 200 no acredita una asistencia nueva; la consulta SQL no está correlacionada con esa solicitud.
 
 Siguen pendientes piloto, GET /estado, login/panel, exportación, integración completa con nueva asistencia correlacionada y validación final. Dominio, HTTPS y roles docentes no se dan por implementados ni aprobados. No se recalcula el 87,5 % declarado en la Ficha 04.
+
+## Correcciones de consistencia y formato
+
+[Control de correcciones del 15-10-2026](CONTROL_CORRECCIONES_2026-10-15.md) · [Abstract bilingüe y textos personales para revisión](Evidencias_Grupales/Material_de_Apoyo/ANEXO_BILINGUE_MPAZ_RFID.md). El material de inglés es **un borrador complementario**, no una entrega final ni prueba de cumplimiento de todos los requisitos de las pautas.
