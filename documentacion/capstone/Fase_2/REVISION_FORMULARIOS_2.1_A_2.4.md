@@ -5,16 +5,16 @@
 
 | Código | Denominación oficial | Naturaleza | Estado actual |
 |---|---|---|---|
-| **2.1** | Diario de Reflexión Fase 2 | **Respuesta con el grupo** — seis preguntas, dos páginas de plantilla | **Borrador Word grupal preparado** para revisión; aún no subido |
+| **2.1** | Diario de Reflexión Fase 2 | **Respuesta con el grupo** — seis preguntas, dos páginas de plantilla | **Borrador Word grupal preparado** disponible; pendiente de revisión |
 | **2.2** | Autoevaluación Informe Avance Proyecto APT | **Individual**, semana 9, **0 %** | Plantilla recibida; marcar los niveles es una decisión de cada estudiante |
 | **2.3** | Evaluación Formativa Fase 2 / Informe avance Proyecto APT | **Heteroevaluación docente**, semana 7, **0 %** | Plantilla recibida; evaluación por el docente pendiente |
-| **2.4** | Guía Estudiante — Desarrollo Proyecto APT (Fase 2) | **Informe de avance grupal** | Plantilla recibida; desarrollo pendiente |
+| **2.4** | Guía Estudiante — Desarrollo Proyecto APT (Fase 2) | **Informe de avance grupal** | Borrador disponible; revisión y anexos pendientes |
 
 ## 2.1 — Diferencia con el directorio
 
 La imagen «Directorio para carpeta Fase 2 en nuestro GitHub» ubica **2.1 en Evidencias Individuales**, pero la plantilla `2.1_APT122_DiarioReflexionFase2.docx` indica textualmente **«Esta pauta debe ser respondida con tu grupo»**. Las seis preguntas están formuladas para reflexionar sobre objetivos, dificultades, mejoras, inquietudes, distribución de tareas y trabajo conjunto.
 
-**Decisión de organización provisional:** mantener una **referencia** en `Evidencias_Individuales/` para respetar el directorio, pero **no crear dos respuestas individuales falsamente distintas**. Consultar al docente si se requiere una copia de la misma respuesta grupal por integrante o un único documento grupal. El borrador Word original ya completado en el entorno de trabajo se llama `2.1_APT122_DiarioReflexionFase2_MPAZ_RFID_BORRADOR_GRUPAL.docx`. No está todavía subido a GitHub.
+**Decisión de organización provisional:** mantener una **referencia** en `Evidencias_Individuales/` para respetar el directorio, pero **no crear dos respuestas individuales falsamente distintas**. Consultar al docente si se requiere una copia de la misma respuesta grupal por integrante o un único documento grupal. El borrador Word original ya completado en el entorno de trabajo se llama `2.1_APT122_DiarioReflexionFase2_MPAZ_RFID_BORRADOR_GRUPAL.docx`. Está disponible en esta rama como borrador pendiente de revisión.
 
 ## 2.2 — Autoevaluación individual
 
@@ -49,8 +49,8 @@ Contiene:
 
 ### Borrador 2.4 disponible para revisión
 
-Se generó `2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx` como archivo Word de tres páginas fuera de GitHub. Contiene las tres secciones solicitadas y nueve actividades de monitoreo. La Ficha 04 del 06-10-2026 **declara** un avance ponderado del 87,5 %; este dato se cita como autoinforme, no como resultado validado externamente. Se dejan pendientes anexos, pruebas finales y autorización académica. **No se ha subido ni aprobado.**
+Se generó `2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx` como archivo Word de tres páginas, disponible en esta rama como borrador. Contiene las tres secciones solicitadas y nueve actividades de monitoreo. La Ficha 04 del 06-10-2026 **declara** un avance ponderado del 87,5 %; este dato se cita como autoinforme, no como resultado validado externamente. Se dejan pendientes anexos, pruebas finales y autorización académica. **Disponible como borrador; pendiente de revisión, sin aprobación académica.**
 
 ### Hoja de apoyo 2.2
 
-Se generó `2.2_APT122_AutoevaluacionAvance_Fase2_Tapia_Samantha_HOJA_DE_APOYO.docx` (dos páginas, fuera de GitHub), que relaciona cada indicador oficial con la evidencia existente y lo que falta verificar; todas las valoraciones siguen abiertas. [Guía breve en Markdown](Evidencias_Individuales/Material_de_Apoyo/GUIA_DE_AUTOEVALUACION_2.2.md).
+Se generó `2.2_APT122_AutoevaluacionAvance_Fase2_Tapia_Samantha_HOJA_DE_APOYO.docx` (dos páginas, disponible como material de apoyo pendiente de revisión), que relaciona cada indicador oficial con la evidencia existente y lo que falta verificar; todas las valoraciones siguen abiertas. [Guía breve en Markdown](Evidencias_Individuales/Material_de_Apoyo/GUIA_DE_AUTOEVALUACION_2.2.md).

@@ -3,7 +3,7 @@
 | Categoría de la pauta | Estado |
 |---|---|
 | [Presentación del proyecto](Presentacion_Proyecto/) | Pendiente |
-| [Evidencias de documentación](Evidencias_Documentacion/) | **Tres fichas de avance disponibles**; revisar contenidos |
+| [Evidencias de documentación](Evidencias_Documentacion/) | **Tres fichas de avance, dos PDF y siete PNG de apoyo visual disponibles**; pendientes de revisión ([diagramas](Evidencias_Documentacion/README_DIAGRAMAS.md)) |
 | [Evidencias del sistema/aplicación](Evidencias_Sistema_Aplicacion/) | Capturas y validaciones pendientes |
 | [Base de datos](Base_de_Datos/) | Captura/diagrama de demostración pendiente |
 

@@ -10,8 +10,8 @@
 
 | Documento de la pauta | Samantha Tapia | Lucas Baeza | Ubicación |
 |---|---|---|---|
-| `2.1_APT122_DiarioReflexionFase2.docx` | **Borrador grupal preparado**; requiere revisión por Samantha y Lucas | **No aplica una segunda respuesta independiente salvo instrucción docente** | El directorio lo ubica en [Evidencias_Individuales/](Evidencias_Individuales/), pero la plantilla indica «debe ser respondida con tu grupo» |
-| `2.2_APT122_AutoevaluacionAvance Fase2.docx` | **Guía de apoyo Word preparada, autoevaluación aún pendiente** | **Autoevaluación individual pendiente** | [Evidencias_Individuales/](Evidencias_Individuales/) — instrumento complementario recibido |
+| `2.1_APT122_DiarioReflexionFase2.docx` | **Borrador grupal disponible; pendiente de revisión**; requiere revisión por Samantha y Lucas | **No aplica una segunda respuesta independiente salvo instrucción docente** | El directorio lo ubica en [Evidencias_Individuales/](Evidencias_Individuales/), pero la plantilla indica «debe ser respondida con tu grupo» |
+| `2.2_APT122_AutoevaluacionAvance Fase2.docx` | **Hoja de apoyo y propuesta Word disponibles; revisión y autoevaluación oficial aún pendientes** | **Autoevaluación individual pendiente** | [Evidencias_Individuales/](Evidencias_Individuales/) — instrumento complementario recibido |
 
 **Criterio:** los documentos 2.1 y 2.2 **no tienen la misma autoría**. La plantilla 2.1 exige responder con el grupo; 2.2 es autoevaluación individual formativa. Confirmar con el docente el nombre/ubicación definitivos de 2.1 debido a la discrepancia en el directorio.
 
@@ -19,7 +19,7 @@
 
 | Documento | Estado | Nota |
 |---|---|---|
-| `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` (Español) | **Borrador de tres páginas preparado; pendiente de revisión y subida** | Contiene resumen, monitoreo, evidencias y ajustes |
+| `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` (Español) | **Borrador disponible; pendiente de revisión y anexos** | Contiene resumen, monitoreo, evidencias y ajustes |
 | Versión 2.4 en inglés | **Optativa — no incorporada** | Solo si el equipo decide realizarla |
 | `PLANILLA DE EVALUACIÓN AVANCE FASE 2.xlsx` | **Pendiente** | No inventar valoraciones ni aprobación docente |
 | `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` (Español) | **Pendiente** | Informe final del proyecto |
@@ -35,7 +35,7 @@
 | Categoría solicitada | Estado | Ubicación |
 |---|---|---|
 | Presentación del proyecto | **Pendiente** | [Presentacion_Proyecto/](Evidencias_Proyecto/Presentacion_Proyecto/) |
-| Evidencias de documentación | **Tres fichas de avance disponibles**; revisión final pendiente | [Evidencias_Documentacion/](Evidencias_Proyecto/Evidencias_Documentacion/) |
+| Evidencias de documentación | **Tres fichas de avance, dos PDF y siete PNG de apoyo disponibles**; revisión final pendiente | [Evidencias_Documentacion/](Evidencias_Proyecto/Evidencias_Documentacion/) |
 | Evidencias de sistema/aplicación | **Pantallazos y pruebas pendientes** | [Evidencias_Sistema_Aplicacion/](Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/) |
 | Base de datos | **Captura/diagrama para la entrega pendiente** | [Base_de_Datos/](Evidencias_Proyecto/Base_de_Datos/) |
 
@@ -57,12 +57,12 @@ No alterar los archivos originales de seguimiento para imponer una narrativa nue
 - [x] Mantener las fichas 02, 03 y 04 en documentación de proyecto.
 - [x] Separar estado «archivo disponible» de «entrega validada».
 - [x] Recibir las plantillas oficiales **2.1, 2.2, 2.3 y 2.4**.
-- [x] Preparar **borrador grupal 2.1** en Word, fuera de GitHub.
+- [x] Preparar **borrador grupal 2.1** en Word, disponible como borrador en esta rama.
 - [ ] Validar respuestas de 2.1 con ambos integrantes y aclarar ubicación con el docente.
 - [x] Preparar hoja de apoyo para autoevaluación **2.2** de Samantha, sin niveles seleccionados.
 - [ ] Realizar las autoevaluaciones **2.2** de Samantha y Lucas con sus propios niveles, en formularios oficiales.
 - [x] Preparar un borrador Word **2.4** basado en las fichas 02 y 04, sin contar capturas pendientes como anexos.
-- [ ] Revisar responsables y cronograma con Samantha, Lucas y docente; después subir 2.4.
+- [ ] Revisar responsables y cronograma con Samantha, Lucas y docente; preparar versión revisada de 2.4.
 - [ ] Obtener la **2.3** evaluada realmente por el docente y la planilla de evaluación de avance.
 - [ ] Preparar la guía **2.6** y la planilla final cuando corresponda.
 - [ ] Revisar la presentación final del proyecto.
@@ -79,3 +79,7 @@ Al recibir las cuatro plantillas se confirmó que **2.1 se responde grupalmente*
 ## Propuesta razonada de niveles 2.2
 
 [Revisión por indicador de Samantha](Evidencias_Individuales/Material_de_Apoyo/REVISION_NIVELES_2.2_SAMANTHA.md) guardada como **material de apoyo**, no entrega oficial. El formulario individual 2.2 continúa **pendiente de que Samantha seleccione los niveles y apruebe las justificaciones**; el formulario de Lucas también está pendiente. El documento 2.3 permanece reservado a evaluación docente.
+
+## Archivos incorporados desde el paquete de carga
+
+[Inventario y enlaces a los Word y diagramas](README.md). Se mantienen los borradores y materiales de apoyo pendientes de revisión. Los dos Word 2.2 no reemplazan los formularios oficiales finales. Las siete imágenes son vistas previas de diagramas, no resultados de pruebas del sistema.

@@ -1,48 +1,36 @@
 # Fase 2 — Desarrollo e informe final del Proyecto APT
 
-Organización basada en el documento del equipo **«Directorio para carpeta Fase 2 en nuestro GitHub»**.
+Organización basada en el directorio del equipo y en las carpetas del ZIP de carga. **Disponible en esta rama no significa revisado ni aprobado.**
 
-**[Consultar control detallado de entregas y pendientes](CONTROL_ENTREGAS_FASE_2.md)**
+[Control detallado de entregas](CONTROL_ENTREGAS_FASE_2.md) · [Revisión de formularios 2.1–2.4](REVISION_FORMULARIOS_2.1_A_2.4.md).
 
-## Evidencias individuales
+## Word incorporados
 
-- [ ] `2.1_APT122_DiarioReflexionFase2.docx`: **la plantilla oficial indica respuesta grupal**, aunque el directorio de entrega la sitúa bajo evidencias individuales. Se preparó un **borrador grupal fuera de GitHub** que necesita revisión de Samantha y Lucas. Confirmar con el docente si se sube una copia por integrante o un único documento grupal.
-- [ ] `2.2_APT122_AutoevaluacionAvance Fase2.docx`: autoevaluación individual de semana 9, plantilla recibida; todavía sin autoevaluar.
+| Documento | Ubicación | Estado |
+|---|---|---|
+| [2.1 — diario de reflexión](Evidencias_Individuales/2.1_APT122_DiarioReflexionFase2_MPAZ_RFID_BORRADOR_GRUPAL.docx) | Evidencias individuales, según el directorio | **Borrador grupal disponible; pendiente de revisión por Samantha y Lucas** y de confirmar destino con el docente. |
+| [2.2 — hoja de apoyo](Evidencias_Individuales/Material_de_Apoyo/2.2_APT122_AutoevaluacionAvance_Fase2_Tapia_Samantha_HOJA_DE_APOYO.docx) | Material de apoyo individual | Disponible; pendiente de revisión. |
+| [2.2 — propuesta de Samantha](Evidencias_Individuales/Material_de_Apoyo/2.2_APT122_Propuesta_Autoevaluacion_Fase2_Samantha_Tapia_PARA_REVISION.docx) | Material de apoyo individual | Disponible; pendiente de revisión y confirmación personal. |
+| [2.4 — guía de desarrollo](Evidencias_Grupales/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx) | Evidencias grupales | **Borrador disponible; pendiente de revisión**, validación de responsables, cronograma y anexos. |
 
-Carpeta prevista según directorio: [Evidencias_Individuales](Evidencias_Individuales/). Ninguno de estos DOCX está aún subido a esta rama.
-
-## Evidencias grupales
-
-- [ ] `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` (español; borrador completado fuera de GitHub, falta validar y subir)
-- [ ] `PLANILLA DE EVALUACIÓN AVANCE FASE 2.xlsx`
-- [ ] `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` (español)
-- [ ] `PLANILLA DE EVALUACIÓN FINAL FASE 2.xlsx`
-- [ ] Guía 2.4 en inglés (**optativa**)
-- [ ] Guía 2.6 en inglés (**optativa**)
-
-- [ ] `2.3_APT122_FormativaAvance Fase2.docx`: **heteroevaluación docente** de semana 7; plantilla recibida, sin valoración docente.
-
-Carpeta: [Evidencias_Grupales](Evidencias_Grupales/). Las planillas y pautas de evaluación se preservarán sin inventar valoraciones docentes.
+Los materiales 2.2 no son la autoevaluación oficial final marcada. Los formularios oficiales de Samantha y Lucas siguen pendientes. La plantilla 2.1 solicita respuesta grupal aunque el directorio la ubique en individuales.
 
 ## Evidencias del proyecto
 
-- [ ] [Presentación del proyecto](Evidencias_Proyecto/Presentacion_Proyecto/) — presentación Fase 2 pendiente (distinta de la idea Fase 1).
-- [x] [Evidencias de documentación](Evidencias_Proyecto/Evidencias_Documentacion/) — tres fichas de avance disponibles, **sin validación académica definitiva**.
-- [ ] [Evidencias del sistema/aplicación](Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/) — capturas pendientes.
-- [ ] [Base de datos](Evidencias_Proyecto/Base_de_Datos/) — captura, diagrama o esquema de demostración pendiente.
+- [Documentación](Evidencias_Proyecto/Evidencias_Documentacion/README.md): tres fichas de avance, dos PDF de apoyo visual y siete PNG de vista previa disponibles; revisión pendiente.
+- [Diagramas y guía visual](Evidencias_Proyecto/Evidencias_Documentacion/README_DIAGRAMAS.md): enlaces a los PDF y sus vistas previas.
+- [Sistema y aplicación](Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/): capturas y validación técnica pendientes.
+- [Base de datos](Evidencias_Proyecto/Base_de_Datos/): evidencia de demostración pendiente.
+- [Presentación del proyecto](Evidencias_Proyecto/Presentacion_Proyecto/): pendiente; distinta de la presentación de idea de Fase 1.
 
-[Checklist de las diez evidencias técnicas que recopilaremos después](Evidencias_Proyecto/PLAN_EVIDENCIAS_PENDIENTES.md).
+Los diagramas explican el diseño y el proceso; no acreditan por sí solos pruebas funcionales ejecutadas. [Plan de evidencias técnicas](Evidencias_Proyecto/PLAN_EVIDENCIAS_PENDIENTES.md).
 
-**Importante:** los archivos Word, Excel y las capturas pendientes solo se incorporan cuando existan y puedan revisarse. La existencia de código o fichas no reemplaza automáticamente las entregas oficiales.
+## Entregas que siguen pendientes
 
-## Pautas oficiales recibidas (2.1–2.4)
+- Autoevaluaciones oficiales 2.2 de cada integrante.
+- Pauta 2.3 con evaluación real del docente; no incluida en el ZIP.
+- Planilla de evaluación de avance.
+- Guía 2.6 e informe final y planilla de evaluación final.
+- Versiones inglesas de 2.4 y 2.6, optativas si el equipo decide realizarlas.
 
-Se dispone de las plantillas originales de **2.1 Diario de Reflexión (grupal)**, **2.2 Autoevaluación (individual)**, **2.3 Formativa (docente)** y **2.4 Guía de Desarrollo (grupal)** en los archivos compartidos para revisión. **No se han subido todavía los DOCX de esas plantillas a GitHub.** El borrador Word 2.1 está preparado fuera del repositorio, pendiente de revisión grupal.
-
-[Ver diferencias entre el directorio y los formularios y próximos pasos](REVISION_FORMULARIOS_2.1_A_2.4.md).
-
-**Avance 2.4:** se preparó un Word editable de tres páginas con el resumen, plan monitoreado y ajustes, utilizando las fichas 02 y 04. El archivo `2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx` está disponible en la conversación para revisión, **no en el repositorio**. El documento señala expresamente las diferencias de autoría entre fichas y guía 1.5; mantiene capturas y pruebas por incorporar.
-
-## Avance de autoevaluación 2.2
-
-Se preparó una **hoja de apoyo Word de dos páginas para Samantha** con análisis de los ocho indicadores y casillas **sin marcar**. Sirve para decidir la valoración personal, pero **todavía no es el 2.2 oficial completado ni está subido a GitHub**. [Ver guía de apoyo](Evidencias_Individuales/Material_de_Apoyo/GUIA_DE_AUTOEVALUACION_2.2.md).
+Las plantillas oficiales recibidas no se dan por entregas completadas. Se mantienen los nombres `BORRADOR`, `HOJA_DE_APOYO` y `PARA_REVISION` del paquete.

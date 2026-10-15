@@ -19,3 +19,7 @@ Documentación académica del proyecto **Sistema MPAZ RFID**. La estructura usa 
 - Las capturas y validaciones técnicas se recogerán **más adelante**.
 
 **Seguridad:** no subir información personal real de estudiantes, respaldos productivos SQLite, tokens, contraseñas ni API keys. Usar ejemplos ficticios y omitir RUT u otros identificadores privados de las copias públicas.
+
+## Archivos de Fase 2 incorporados
+
+Disponibles los borradores Word 2.1 y 2.4, dos materiales de apoyo 2.2 y los diagramas (dos PDF y siete PNG), respetando las carpetas del paquete de carga. **Todos requieren revisión; no se consideran entregas aprobadas.** [Ver archivos y estados](Fase_2/README.md).

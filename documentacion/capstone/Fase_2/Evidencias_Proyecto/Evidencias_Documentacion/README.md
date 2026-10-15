@@ -1,6 +1,6 @@
 # Evidencias de documentación — Fase 2
 
-Estos archivos de seguimiento del proyecto ya se encuentran en GitHub. **Disponibles** no significa «aprobados» ni «prueba técnica verificada».
+Estos archivos de seguimiento del proyecto están disponibles en esta rama. **Disponibles** no significa «aprobados» ni «prueba técnica verificada».
 
 | Documento | Para qué sirve | Revisión pendiente |
 |---|---|---|
@@ -15,3 +15,7 @@ Estos archivos de seguimiento del proyecto ya se encuentran en GitHub. **Disponi
 Ninguna captura de arquitectura se da por realizada. [Ver control de las diez evidencias técnicas](../PLAN_EVIDENCIAS_PENDIENTES.md).
 
 Las fichas de seguimiento **no sustituyen** la guía 2.4, la guía 2.6 ni las planillas de evaluación.
+
+## Diagramas y guía visual disponibles
+
+[Consultar los dos PDF y siete PNG de vista previa](README_DIAGRAMAS.md). Son materiales de apoyo pendientes de revisión; no certifican pruebas ejecutadas ni aprobación docente. La captura de arquitectura prevista arriba sigue pendiente como evidencia técnica.

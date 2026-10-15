@@ -1,24 +1,20 @@
 # Evidencias individuales — Fase 2
 
-La tabla de directorio que entregó el equipo **ubica el formulario 2.1 en evidencias individuales**, pero la plantilla original de Duoc UC contiene la instrucción «Esta pauta debe ser respondida con tu grupo». **No fabricar dos reflexiones diferentes** ni presentar el borrador como aprobado. Confirmar con el docente si se sube una copia por integrante o el documento común.
+## Archivos disponibles, pendientes de revisión
 
-| Documento | Naturaleza según la plantilla | Estado |
-|---|---|---|
-| `2.1_APT122_DiarioReflexionFase2.docx` | Respuesta **grupal** solicitada por la plantilla | Borrador grupal de seis respuestas **preparado fuera de GitHub**; requiere revisión por Samantha y Lucas |
-| `2.2_APT122_AutoevaluacionAvance Fase2.docx` | **Autoevaluación individual**, semana 9, formativa (0 %) | Plantilla recibida, autoevaluaciones y niveles de dominio **pendientes** |
+| Archivo | Estado y alcance |
+|---|---|
+| [Diario 2.1 — borrador grupal](2.1_APT122_DiarioReflexionFase2_MPAZ_RFID_BORRADOR_GRUPAL.docx) | Disponible; pendiente de revisión por Samantha y Lucas. La plantilla solicita respuesta grupal, aunque el directorio lo ubica aquí. Confirmar con el docente el destino definitivo. |
+| [2.2 — hoja de apoyo](Material_de_Apoyo/2.2_APT122_AutoevaluacionAvance_Fase2_Tapia_Samantha_HOJA_DE_APOYO.docx) | Disponible como apoyo para Samantha; valoraciones abiertas, pendiente de revisión. |
+| [2.2 — propuesta para revisión](Material_de_Apoyo/2.2_APT122_Propuesta_Autoevaluacion_Fase2_Samantha_Tapia_PARA_REVISION.docx) | Propuesta provisional para Samantha, pendiente de revisión y decisión personal. |
 
-### Archivo preparado para el diario 2.1
+Los dos Word 2.2 son materiales de apoyo: **no equivalen a la autoevaluación oficial final marcada**. Samantha y Lucas deben completar individualmente sus formularios oficiales. No se atribuye aprobación docente a ninguno de estos archivos.
 
-Nombre sugerido: `2.1_APT122_DiarioReflexionFase2_MPAZ_RFID_BORRADOR_GRUPAL.docx`. **Todavía no se encuentra en GitHub.** No subir hasta que ambos integrantes verifiquen los hechos y el docente aclare el destino solicitado.
+El 2.1 se conserva como un único borrador grupal, respetando la estructura del ZIP. No crear reflexiones independientes sin instrucción docente.
 
-La autoevaluación 2.2 debe reflejar la valoración de **cada persona** y los ocho indicadores de evaluación; no asignar puntajes sin la decisión individual correspondiente.
+## Apoyo complementario
 
-[Ver revisión de formularios 2.1–2.4](../REVISION_FORMULARIOS_2.1_A_2.4.md).
-
-## Preparación de 2.2 — Samantha
-
-La [guía de autoevaluación 2.2](Material_de_Apoyo/GUIA_DE_AUTOEVALUACION_2.2.md) enlaza cada uno de los ocho indicadores con antecedentes reales del MPAZ RFID y los pendientes. Se generó un Word auxiliar de **dos páginas** fuera del repositorio, con casillas de nivel **sin marcar**. El formulario original 2.2 sigue **pendiente de selección personal, revisión y subida**.
-
-## Análisis de niveles 2.2 — solo propuesta
-
-Se añadió la [revisión de los ocho indicadores para Samantha](Material_de_Apoyo/REVISION_NIVELES_2.2_SAMANTHA.md) con valoraciones **provisionales y condicionadas**. Estas sugerencias **no son su autoevaluación definitiva**. El formulario Word oficial sigue sin marcas y pendiente de confirmación personal.
+- [Guía de autoevaluación 2.2](Material_de_Apoyo/GUIA_DE_AUTOEVALUACION_2.2.md).
+- [Revisión provisional de indicadores de Samantha](Material_de_Apoyo/REVISION_NIVELES_2.2_SAMANTHA.md).
+- [Revisión de formularios 2.1–2.4](../REVISION_FORMULARIOS_2.1_A_2.4.md).
+- [Control general](../CONTROL_ENTREGAS_FASE_2.md).
