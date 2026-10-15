@@ -7,7 +7,7 @@
 | [Comunicación ESP32–API](API_01_ESP32_Envio_Lectura_HTTP200.png) | Lectura de UID, evento_id, envío JSON, HTTP 200 y respuesta de la API | La respuesta comienza «El alumno ya…». No demuestra inserción de una asistencia nueva. |
 | [Prevención de evento repetido](API_02_Evento_Repetido_Sin_Duplicados.png) | Resultado evento_repetido, 7 registros antes y 7 después | Prueba aislada en COPIA DE PRUEBAS; no certifica todos los casos de asistencia duplicada diaria. |
 | [Montaje ESP32 y PN532](HARDWARE_01_ESP32_PN532_Montaje.jpeg) | Hardware y conexiones | La fotografía no demuestra transmisión ni inserción. |
-| [Tarjeta de prueba y lector](HARDWARE_02_Tarjeta_Prueba_PN532.jpeg) | Presentación de tarjeta al prototipo | La respuesta de lectura se respalda por separado en el monitor serie. |
+| [Tarjeta de prueba y lector](HARDWARE_02_Tarjeta_Prueba_PN532.jpeg) | Vista del ESP32 y PN532 conectados; la tarjeta se ve en la fotografía 1 | La respuesta de lectura se respalda por separado en el monitor serie. |
 
 Son pruebas documentadas recibidas, **pendientes de revisión docente**. No se ejecutaron pruebas nuevas al incorporar estos archivos.
 

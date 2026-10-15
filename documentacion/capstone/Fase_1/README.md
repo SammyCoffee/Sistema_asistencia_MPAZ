@@ -29,8 +29,8 @@ Consulta la [revisión detallada de evidencias de la Fase 1](REVISION_Y_PLAN_ENT
 
 ## Evidencias técnicas pendientes
 
-No se requiere incorporar capturas técnicas todavía. La guía 1.5 contiene una propuesta de **qué evidenciar**, mientras que los pantallazos y pruebas se recopilarán después en la carpeta de Fase 2. [Ver lista de evidencias pendientes](../Fase_2/Evidencias_Proyecto/PLAN_EVIDENCIAS_PENDIENTES.md).
+La guía 1.5 contiene la planificación de evidencias. En Fase 2 ya están disponibles seis imágenes de SQLite, comunicación ESP32–API, rechazo de evento repetido y hardware; las pruebas de cierre continúan pendientes. [Ver lista de evidencias pendientes](../Fase_2/Evidencias_Proyecto/PLAN_EVIDENCIAS_PENDIENTES.md).
 
 ## Criterio de organización
 
-Los entregables oficiales (DOCX/PPTX) se guardan directamente en `Evidencias_Individuales/` o `Evidencias_Grupales/`. Las notas y borradores no oficiales están separados en `Material_de_Apoyo/`, para que no se confundan con archivos evaluados. La presentación inicial ya está incorporada como PPTX de revisión; no se generarán evidencias técnicas hasta que se acuerde retomarlas.
+Los entregables oficiales (DOCX/PPTX) se guardan directamente en `Evidencias_Individuales/` o `Evidencias_Grupales/`. Las notas y borradores no oficiales están separados en `Material_de_Apoyo/`, para que no se confundan con archivos evaluados. La presentación inicial ya está incorporada como PPTX de revisión; las evidencias técnicas recibidas se conservan en Fase 2, con su alcance y limitaciones.

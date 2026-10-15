@@ -19,7 +19,7 @@
 
 **Situación de versiones:** el DOCX original previamente disponible presentaba las secciones 6 (Evidencias), 7 (Plan de trabajo) y 8 (Carta Gantt) vacías. **La nueva versión reconstruida para revisión ya completa las ocho secciones**, con seis evidencias previstas, ocho actividades en el plan y una Carta Gantt de 18 semanas. Esto **no equivale a aprobación docente ni a evidencia técnica ejecutada**.
 
-Además, el texto describe aplicación **web y móvil**, registro manual por docente, alertas automáticas y controles RBAC/encriptación como si fuesen parte del alcance. Antes de entregar, ajustarlo al producto que se pueda demostrar: lectura NFC/RFID con **ESP32 + PN532**, transmisión al servidor, **API Flask**, **base de datos SQLite**, **panel web** y **exportación de asistencias**. La autenticación del panel y la llave de la API se pueden documentar con pruebas. No declarar como implementadas características futuras no verificadas.
+La versión original describía aplicación móvil, alertas y controles futuros. La versión actual 1.5 ya limita el alcance a lo demostrable y excluye móvil nativo y alertas automáticas como funciones demostradas. Mantener coherencia con: lectura NFC/RFID con **ESP32 + PN532**, transmisión al servidor, **API Flask**, **base de datos SQLite**, **panel web** y **exportación de asistencias**. La autenticación del panel y la llave de la API se pueden documentar con pruebas. No declarar como implementadas características futuras no verificadas.
 
 La distribución de roles debe reflejar el trabajo realizado: **integrante de software** (API, BD, panel web, pruebas y documentación de integración) e **integrante de hardware/IoT** (ESP32, lector PN532, firmware y montaje). Verificar nombres y responsabilidades reales con ambos integrantes.
 
@@ -67,7 +67,7 @@ Las duraciones siguientes son **estimaciones orientativas**, no fechas oficiales
 
 ## Confidencialidad antes de subir la guía 1.5
 
-El archivo localizado contiene **datos de identificación personal de integrantes del equipo**. No debe publicarse en este repositorio abierto sin revisar y retirar, cuando corresponda, números de identificación y otros datos privados. Conservar una versión académica íntegra por el canal privado de entrega si el docente lo exige.
+El original revisado contenía datos de identificación. La guía 1.5 actual reserva los RUT para la entrega privada; mantener ese criterio en futuras versiones públicas. Conservar una versión académica íntegra por el canal privado de entrega si el docente lo exige.
 
 El repositorio ya contenía archivos `.db` históricos en `data/`; revisar si guardan registros de estudiantes. El `.gitignore` no elimina datos ya publicados ni del historial.
 
@@ -100,7 +100,7 @@ El repositorio ya contenía archivos `.db` históricos en `data/`; revisar si gu
 
 ### Correcciones o verificaciones antes de la entrega
 1. **Autoría individual:** el documento no identifica claramente a la estudiante dentro de los apartados revisados. Confirmar autor/a y agregar identificación compatible con el formulario; solo entonces renombrar con `Apellido_Nombre_1.3_APT122_AutoevaluacionFase1.docx`.
-2. **Indicadores 7 y 8:** están marcados como «Completamente Logrado» respecto del plan de trabajo y las evidencias. La versión de la guía 1.5 disponible todavía deja vacías las secciones 6 (evidencias), 7 (plan) y 8 (Gantt). Completar esos apartados y mantener evidencias coherentes, o revisar honestamente el nivel marcado. Una versión final de 1.5 diferente podría resolverlo.
+2. **Indicadores 7 y 8:** están marcados como «Completamente Logrado» respecto del plan de trabajo y las evidencias. La guía 1.5 actual ya completa las secciones 6 (evidencias), 7 (plan) y 8 (Gantt). La observación de apartados vacíos corresponde a la versión original y está resuelta; resta confirmar coherencia, responsables y calendario antes de ratificar la valoración personal.
 3. **Indicador 12:** aparece como «Logrado» (60 %) con instrucción «verificar versión final en inglés». Confirmar si el informe de definición realmente contiene abstract en ambos idiomas, conclusiones individuales en inglés y reflexión en inglés, tal como prescribe la pauta; si no, ajustar autoevaluación y trabajo base.
 4. **Indicadores 9 a 11:** antes de asignar puntaje máximo, comprobar las normas de citas, el formato disciplinario y que los indicadores de calidad estén respaldados documentalmente. No basta con que la rúbrica diga «seleccionado».
 5. **Fundamentación final:** es útil, pero funciona como síntesis de la implementación y **no reemplaza** el informe o guía de definición del proyecto.
@@ -135,4 +135,12 @@ El repositorio ya contenía archivos `.db` históricos en `data/`; revisar si gu
 - [ ] Comprobar concordancia entre los cinco indicadores y la primera parte del informe/guía 1.5.
 - [ ] No considerar cerrada la evaluación 1.4 hasta contar con una versión válida.
 
-**Conclusión:** la organización de la Fase 1 puede continuar y las capturas técnicas siguen pendientes, pero la evidencia 1.4 permanece **pendiente de validación docente**.
+**Conclusión:** la Fase 2 ya contiene evidencias técnicas parciales; la evidencia 1.4 permanece **pendiente de validación docente**.
+
+## Pendientes de cierre documental
+
+- 1.1 y 1.2 de Lucas: no disponibles en esta rama.
+- 1.3: confirmar autoría individual y niveles; el nivel de inglés no se ratifica sin los apartados correspondientes.
+- 1.4: incorporar evaluación del docente cuando esté disponible.
+- 1.5 y presentación: confirmar responsables y calendario; las secciones 6–8 de la guía ya están completas.
+- Formato e inglés: la pauta pide abstract español/inglés, conclusiones individuales y reflexión en inglés. No se localizaron esos apartados en la guía 1.5 actual. Confirmar con el docente si van en un informe complementario. La traducción íntegra optativa no elimina esos requisitos por sí sola.

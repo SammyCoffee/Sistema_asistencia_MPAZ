@@ -11,7 +11,7 @@ Se incluyen seis fotografías/capturas originales adjuntas por el equipo y la Gu
 | [API_01_ESP32_Envio_Lectura_HTTP200.png](Evidencias_Sistema_Aplicacion/API_01_ESP32_Envio_Lectura_HTTP200.png) | UID de tarjeta de pruebas, `evento_id`, JSON, HTTP 200 y respuesta desde API | HTTP 200 **no equivale** a inserción de nueva asistencia; el mensaje visible empieza «El alumno ya…» |
 | [API_02_Evento_Repetido_Sin_Duplicados.png](Evidencias_Sistema_Aplicacion/API_02_Evento_Repetido_Sin_Duplicados.png) | Prueba `evento_repetido` con 7 registros antes y después | Realizada en **copia de pruebas**, no en datos reales de alumnos |
 | [HARDWARE_01_ESP32_PN532_Montaje.jpeg](Evidencias_Sistema_Aplicacion/HARDWARE_01_ESP32_PN532_Montaje.jpeg) | Foto del hardware y cableado | No demuestra por sí misma una transmisión exitosa |
-| [HARDWARE_02_Tarjeta_Prueba_PN532.jpeg](Evidencias_Sistema_Aplicacion/HARDWARE_02_Tarjeta_Prueba_PN532.jpeg) | Tarjeta de prueba aproximada al lector | No demuestra por sí misma una inserción de asistencia |
+| [HARDWARE_02_Tarjeta_Prueba_PN532.jpeg](Evidencias_Sistema_Aplicacion/HARDWARE_02_Tarjeta_Prueba_PN532.jpeg) | Vista del ESP32 encendido y PN532 conectado; la tarjeta aparece en HARDWARE_01 | No demuestra por sí misma una inserción de asistencia |
 
 Los **dos PDF originales de diagramas** ya están en `Evidencias_Documentacion/`, por lo que no se duplican en este paquete. La Guía 2.4 los contiene como anexos A1–A3.
 

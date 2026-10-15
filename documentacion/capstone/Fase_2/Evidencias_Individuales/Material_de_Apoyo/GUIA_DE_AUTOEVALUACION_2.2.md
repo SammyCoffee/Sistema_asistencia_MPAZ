@@ -10,7 +10,7 @@ La rúbrica oficial corresponde a la semana 9, es una **autoevaluación individu
 |---|---|---|---|---|
 | 1 | Ajustes al Proyecto APT | 20 % | Ficha 04 y planificación de cierre | Qué cambió, por qué y qué retroalimentación existe |
 | 2 | Metodología para cumplir objetivos | 20 % | Fichas de avance, Python/Flask, SQLite y panel | Cumplimiento de objetivos de avance y cronograma real |
-| 3 | Evidencias de avance | 25 % | Fichas 02, 03, 04 en GitHub | Capturas, casos de prueba y anexos técnicos aún pendientes |
+| 3 | Evidencias de avance | 25 % | Fichas 02–04, seis imágenes y anexos A1–A3/B1–B3 disponibles | Interfaz, exportación, nueva asistencia correlacionada y piloto pendientes |
 | 4 | Lenguaje técnico preciso | 5 % | Términos API, Flask, SQLite, UID, idempotencia, PN532 | Verificar definiciones y afirmaciones técnicas |
 | 5 | Redacción, ortografía y citas | 5 % | Borrador de guía 2.4 | Corrección final y referencias bibliográficas |
 | 6 | Formato del informe de avance | 5 % | Plantilla breve de guía 2.4 redactada | La pauta 2.2 también pide portada, índice, abstracts y conclusiones/reflexión; consultar docente |
@@ -20,7 +20,7 @@ La rúbrica oficial corresponde a la semana 9, es una **autoevaluación individu
 **Fuente académica:** `2.2_APT122_AutoevaluacionAvance Fase2.docx` que entregó el equipo (pauta de 8 indicadores).  
 **Fuente del proyecto:** fichas 02 y 04, documentación y código del repositorio. La ficha 04 **declara** 87,5 % de avance, que no equivale a certificación independiente.
 
-**Hoja Word de apoyo:** `2.2_APT122_AutoevaluacionAvance_Fase2_Tapia_Samantha_HOJA_DE_APOYO.docx` fue preparada en la conversación, **pero no está subida a GitHub**. Contiene un espacio sin marcar para que Samantha seleccione un nivel por indicador.
+**Hoja Word de apoyo:** `2.2_APT122_AutoevaluacionAvance_Fase2_Tapia_Samantha_HOJA_DE_APOYO.docx` está disponible en esta carpeta y fue actualizada con el alcance de las evidencias recibidas. Contiene un espacio sin marcar para que Samantha seleccione un nivel por indicador.
 
 ## Pendientes
 

@@ -77,7 +77,7 @@ Considero que mi principal fortaleza es relacionar una necesidad concreta del es
 
 ### Referencias al proyecto
 
-- [API Flask](../../../../api.py)
-- [Base de datos](../../../../base_datos.py)
-- [Panel web](../../../../interfaz_prueba/)
-- [Documentación de Fase 1](../REVISION_Y_PLAN_ENTREGA.md)
+- [API Flask](../../../../../api.py)
+- [Base de datos](../../../../../base_datos.py)
+- [Panel web](../../../../../interfaz_prueba/)
+- [Documentación de Fase 1](../../REVISION_Y_PLAN_ENTREGA.md)

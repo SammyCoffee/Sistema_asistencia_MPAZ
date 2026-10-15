@@ -4,7 +4,7 @@
 
 **Referencia:** «Directorio para carpeta Fase 2 en nuestro GitHub», documento compartido por el equipo. La organización replica sus tres categorías: evidencias individuales, evidencias grupales y evidencias del proyecto.
 
-> **Significado del estado:** «Disponible» indica que un archivo existe en esta rama; **no** indica aprobación docente ni que su contenido haya sido verificado con pruebas. «Pendiente» significa que el archivo solicitado todavía no se ha incorporado en la carpeta de entrega correspondiente. No crear documentos ficticios para aparentar cumplimiento.
+> **Significado del estado:** «Disponible» indica que un archivo existe en esta rama; **no** indica aprobación docente ni que su contenido haya sido verificado con pruebas. «Pendiente» identifica la acción específica que falta: incorporar un archivo, completar una prueba o revisar un documento disponible. No crear documentos ficticios para aparentar cumplimiento.
 
 ## 1. Evidencias individuales
 
@@ -62,7 +62,7 @@ No alterar los archivos originales de seguimiento para imponer una narrativa nue
 - [x] Preparar hoja de apoyo para autoevaluación **2.2** de Samantha, sin niveles seleccionados.
 - [ ] Realizar las autoevaluaciones **2.2** de Samantha y Lucas con sus propios niveles, en formularios oficiales.
 - [x] Preparar un borrador Word **2.4** basado en las fichas 02 y 04, sin contar capturas pendientes como anexos.
-- [ ] Revisar responsables y cronograma con Samantha, Lucas y docente; preparar versión revisada de 2.4.
+- [ ] Confirmar responsables y cronograma con Samantha, Lucas y docente; revisar la versión 2.4 con anexos ya disponible.
 - [ ] Obtener la **2.3** evaluada realmente por el docente y la planilla de evaluación de avance.
 - [ ] Preparar la guía **2.6** y la planilla final cuando corresponda.
 - [ ] Revisar la presentación final del proyecto.
@@ -91,3 +91,10 @@ Al recibir las cuatro plantillas se confirmó que **2.1 se responde grupalmente*
 [Inventario de las seis imágenes y alcance](Evidencias_Proyecto/README_EVIDENCIAS_2.4.md): tablas y consulta SQLite de demostración, comunicación ESP32–API con HTTP 200, evento repetido rechazado en copia de pruebas (7 registros antes y después) y fotografías ESP32/PN532. HTTP 200 no acredita una asistencia nueva; la consulta SQL no está correlacionada con esa solicitud.
 
 Siguen pendientes piloto, GET /estado, login/panel, exportación, integración completa con nueva asistencia correlacionada y validación final. Dominio, HTTPS y roles docentes no se dan por implementados ni aprobados. No se recalcula el 87,5 % declarado en la Ficha 04.
+
+## Aclaraciones para la revisión del equipo y docente
+
+- **Responsabilidades:** las guías 1.5 y 2.1 proponen Samantha para software/API/BD/panel y Lucas para ESP32/PN532. Las fichas 02 y 04 atribuyen algunas tareas de software a Lucas. La distribución propuesta no resuelve la autoría histórica: confirmar quién ejecutó cada tarea y documentar el acuerdo; las fichas originales se conservan.
+- **Formato e inglés:** no se localizaron abstract español/inglés, conclusiones individuales ni reflexión en inglés en las guías 1.5 y 2.4 actuales. Las pautas los mencionan; confirmar el formato de entrega con el docente. La traducción completa optativa es un asunto distinto.
+- **Autoevaluaciones:** 1.3 requiere autoría y revisión de niveles; los formularios oficiales 2.2 de ambos integrantes siguen pendientes. Las propuestas de apoyo no son decisiones personales confirmadas.
+- **Evidencias:** seis imágenes técnicas y anexos A1–A3/B1–B3 disponibles; siguen pendientes interfaz, exportación, nueva asistencia correlacionada, piloto y cierre. No se modifica el 87,5 % declarado en Ficha 04.

@@ -62,3 +62,10 @@ Se generó `2.2_APT122_AutoevaluacionAvance_Fase2_Tapia_Samantha_HOJA_DE_APOYO.d
 [Inventario de las seis imágenes y alcance](Evidencias_Proyecto/README_EVIDENCIAS_2.4.md): tablas y consulta SQLite de demostración, comunicación ESP32–API con HTTP 200, evento repetido rechazado en copia de pruebas (7 registros antes y después) y fotografías ESP32/PN532. HTTP 200 no acredita una asistencia nueva; la consulta SQL no está correlacionada con esa solicitud.
 
 Siguen pendientes piloto, GET /estado, login/panel, exportación, integración completa con nueva asistencia correlacionada y validación final. Dominio, HTTPS y roles docentes no se dan por implementados ni aprobados. No se recalcula el 87,5 % declarado en la Ficha 04.
+
+## Aclaraciones para la revisión del equipo y docente
+
+- **Responsabilidades:** las guías 1.5 y 2.1 proponen Samantha para software/API/BD/panel y Lucas para ESP32/PN532. Las fichas 02 y 04 atribuyen algunas tareas de software a Lucas. La distribución propuesta no resuelve la autoría histórica: confirmar quién ejecutó cada tarea y documentar el acuerdo; las fichas originales se conservan.
+- **Formato e inglés:** no se localizaron abstract español/inglés, conclusiones individuales ni reflexión en inglés en las guías 1.5 y 2.4 actuales. Las pautas los mencionan; confirmar el formato de entrega con el docente. La traducción completa optativa es un asunto distinto.
+- **Autoevaluaciones:** 1.3 requiere autoría y revisión de niveles; los formularios oficiales 2.2 de ambos integrantes siguen pendientes. Las propuestas de apoyo no son decisiones personales confirmadas.
+- **Evidencias:** seis imágenes técnicas y anexos A1–A3/B1–B3 disponibles; siguen pendientes interfaz, exportación, nueva asistencia correlacionada, piloto y cierre. No se modifica el 87,5 % declarado en Ficha 04.

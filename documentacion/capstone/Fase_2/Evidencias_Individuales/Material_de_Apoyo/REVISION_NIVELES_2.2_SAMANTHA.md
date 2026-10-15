@@ -8,7 +8,7 @@
 |---|---:|---|---|
 | 1. Ajustes al Proyecto APT | 20 % | **Logrado (60 %)** | Las fichas presentan prioridades y ajustes; confirmar retroalimentación docente. |
 | 2. Metodología para cumplir objetivos | 20 % | **Logrado (60 %)** | Desarrollo incremental descrito en fichas y módulos; cronograma real por corroborar. |
-| 3. Evidencias de avance | 25 % | **Logrado (60 %), condicionado** | Fichas de avance 02, 03 y 04 y código están disponibles; faltan capturas/validaciones visuales. Si el docente considera los ajustes mayores, revisar hacia «Logro incipiente». |
+| 3. Evidencias de avance | 25 % | **Logrado (60 %), condicionado** | Fichas 02–04, seis imágenes y anexos A1–A3/B1–B3 disponibles. La propuesta numérica sigue sin confirmar; faltan pruebas de cierre y decisión personal. |
 | 4. Lenguaje técnico preciso | 5 % | **Logrado (60 %)** | Términos Flask, SQLite, API REST, PN532, UID e idempotencia usados en informe; revisar consistencia y terminología para nivel máximo. |
 | 5. Redacción, ortografía y citas | 5 % | **Logrado (60 %), condicionado** | Borrador legible, pero citas y referencias aún por verificar según exigencia docente. |
 | 6. Formato del informe de avance | 5 % | **Logro incipiente (30 %)** | La guía 2.4 contiene resumen, tabla de monitoreo y ajustes, pero no demuestra portada, índice, abstracts, conclusiones ni reflexión individual del informe técnico mencionado por la pauta 2.2. |
@@ -20,14 +20,14 @@
 ## Fuentes de la propuesta
 
 - `2.2_APT122_AutoevaluacionAvance Fase2.docx` — rúbrica original con ocho indicadores.
-- `2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx` — borrador grupal de tres páginas **aún fuera de GitHub**.
+- `2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx` — borrador histórico disponible en GitHub; la nueva versión ANEXOS_VERIFICABLES_REVISION incorpora anexos.
 - Fichas 02 (23-09-2026) y 04 (06-10-2026), más el archivo PDF Ficha 03 que todavía debe revisarse íntegramente.
 - Código del Sistema MPAZ RFID en el repositorio, como componente de desarrollo, no como sustituto de evidencias de ejecución.
 
 ## Checklist para cerrar el 2.2
 
 - [x] Analizar y razonar los ocho indicadores.
-- [x] Preparar Word auxiliar de una página: `2.2_APT122_Propuesta_Autoevaluacion_Fase2_Samantha_Tapia_PARA_REVISION.docx` (creado en conversación, **no subido**).
+- [x] Preparar Word auxiliar de una página: `2.2_APT122_Propuesta_Autoevaluacion_Fase2_Samantha_Tapia_PARA_REVISION.docx` (disponible en esta carpeta, pendiente de decisión personal).
 - [ ] Samantha revisa y decide personalmente qué nivel marcar en cada indicador.
 - [ ] Completar la **plantilla oficial original** sin alterar sus descriptores.
 - [ ] Verificar los apartados y las evidencias todavía pendientes.
