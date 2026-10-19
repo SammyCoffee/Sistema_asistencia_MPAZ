@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Panel Docente | MPAZ RFID</title>
+
+    <link rel="stylesheet" href="/profesor/profesor.css">
+</head>
+
+<body class="pagina-panel">
+
+    <div class="contenedor-panel">
+
+        <header class="cabecera-panel">
+
+            <div class="informacion-sistema">
+                <p class="nombre-escuela">
+                    Escuela Escritora Marcela Paz
+                </p>
+
+                <h1>Portal Docente</h1>
+
+                <p class="subtitulo-login">
+                    Sistema MPAZ RFID
+                </p>
+            </div>
+
+            <button
+                type="button"
+                id="boton-cerrar-sesion"
+                class="boton-cerrar"
+            >
+                Cerrar sesión
+            </button>
+
+        </header>
+
+        <main>
+
+            <section class="bienvenida-panel">
+
+                <h2>Bienvenido/a</h2>
+
+                <p id="nombre-profesor">
+                    Verificando sesión...
+                </p>
+
+            </section>
+
+            <section class="seccion-asignaciones">
+
+                <div class="titulo-seccion">
+
+                    <div>
+                        <h2>Mis cursos y asignaturas</h2>
+
+                        <p>
+                            Seleccione el curso y la asignatura
+                            correspondiente a su clase.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div
+                    id="mensaje-panel"
+                    class="mensaje-panel"
+                    role="status"
+                    aria-live="polite"
+                >
+                    Cargando asignaciones...
+                </div>
+
+                <div
+                    id="lista-asignaciones"
+                    class="lista-asignaciones"
+                ></div>
+
+            </section>
+
+            <section class="informacion-panel">
+
+                <h2>Gestión de asistencia</h2>
+
+                <p>
+                    Desde este portal podrá gestionar
+                    sus clases y verificar la asistencia
+                    de los estudiantes.
+                </p>
+
+                <p>
+                    El registro de ingreso al establecimiento
+                    mediante RFID se mantendrá independiente
+                    de la asistencia registrada en el aula.
+                </p>
+
+            </section>
+
+        </main>
+
+        <footer class="pie-panel">
+
+            <p>
+                Sistema MPAZ RFID ·
+                Escuela Escritora Marcela Paz
+            </p>
+
+        </footer>
+
+    </div>
+
+    <script src="/profesor/profesor.js"></script>
+
+</body>
+
+</html>

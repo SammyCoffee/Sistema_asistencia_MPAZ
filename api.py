@@ -5,6 +5,8 @@ from flask import (Flask,jsonify,request,session,redirect,send_file)
 from consultar_alumnos import obtener_alumnos, buscar_alumnos
 from procesar_lectura_totem import procesar_lectura_totem
 from base_datos import (
+    autenticar_usuario,
+    obtener_asignaciones_profesor,
     asignar_tarjeta_por_rut,
     bloquear_tarjeta,
     obtener_totems,
@@ -121,6 +123,130 @@ def cerrar_sesion_panel():
             "mensaje": "Sesion cerrada correctamente"
         }
     ),200
+
+
+@app.post("/profesor/login")
+def iniciar_sesion_profesor():
+    datos = request.get_json(silent=True) or {}
+
+    if not isinstance(datos, dict):
+        return jsonify({
+            "resultado": "datos_invalidos"
+        }), 400
+
+    usuario = datos.get("usuario", "")
+    password = datos.get("password", "")
+
+    resultado = autenticar_usuario(usuario, password)
+
+    if resultado["resultado"] == "datos_invalidos":
+        return jsonify({
+            "resultado": "datos_invalidos"
+        }), 400
+
+    if resultado["resultado"] == "datos_incompletos":
+        return jsonify({
+            "resultado": "datos_incompletos"
+        }), 400
+
+    if resultado["resultado"] != "autenticado":
+        return jsonify({
+            "resultado": "credenciales_invalidas"
+        }), 401
+
+    if resultado["rol"] != "profesor":
+        return jsonify({
+            "resultado": "acceso_denegado"
+        }), 403
+
+    session.clear()
+
+    session["profesor_id"] = resultado["id"]
+    session["profesor_usuario"] = resultado["usuario"]
+    session["profesor_nombre"] = resultado["nombre_completo"]
+    session["profesor_rol"] = resultado["rol"]
+
+    return jsonify({
+        "resultado": "ok",
+        "mensaje": "Sesion docente iniciada correctamente",
+        "profesor": {
+            "id": resultado["id"],
+            "nombre": resultado["nombre_completo"],
+            "usuario": resultado["usuario"],
+            "rol": resultado["rol"]
+        }
+    }), 200
+
+
+@app.get("/profesor/sesion")
+def consultar_sesion_profesor():
+
+    profesor_id = session.get("profesor_id")
+    profesor_rol = session.get("profesor_rol")
+
+    if not profesor_id or profesor_rol != "profesor":
+        return jsonify({
+            "resultado": "no_autorizado",
+            "mensaje": "No existe una sesion docente activa"
+        }), 401
+
+    return jsonify({
+        "resultado": "ok",
+        "autorizado": True,
+        "profesor": {
+            "id": profesor_id,
+            "usuario": session.get("profesor_usuario"),
+            "nombre": session.get("profesor_nombre"),
+            "rol": profesor_rol
+        }
+    }), 200
+
+
+@app.post("/profesor/logout")
+def cerrar_sesion_profesor():
+
+    if (
+        not session.get("profesor_id")
+        or session.get("profesor_rol") != "profesor"
+    ):
+        return jsonify({
+            "resultado": "no_autorizado",
+            "mensaje": "No existe una sesion docente activa"
+        }), 401
+
+    session.pop("profesor_id", None)
+    session.pop("profesor_usuario", None)
+    session.pop("profesor_nombre", None)
+    session.pop("profesor_rol", None)
+
+    return jsonify({
+        "resultado": "ok",
+        "mensaje": "Sesion docente cerrada correctamente"
+    }), 200
+
+
+@app.get("/profesor/asignaciones")
+def consultar_asignaciones_profesor():
+
+    profesor_id = session.get("profesor_id")
+    profesor_rol = session.get("profesor_rol")
+
+    if not profesor_id or profesor_rol != "profesor":
+        return jsonify({
+            "resultado": "no_autorizado",
+            "mensaje": "Debe iniciar sesion como profesor"
+        }), 401
+
+    resultado = obtener_asignaciones_profesor(profesor_id)
+
+    if resultado["resultado"] != "ok":
+        return jsonify({
+            "resultado": "acceso_denegado",
+            "mensaje": "Profesor no autorizado o inactivo"
+        }), 403
+
+    return jsonify(resultado), 200
+
 
 @app.get("/estado")
 def consultar_estado():

@@ -1,0 +1,438 @@
+/* ==========================================
+   MPAZ RFID - PORTAL DOCENTE
+   Escuela Escritora Marcela Paz
+   ========================================== */
+
+:root {
+    --azul: #1677b8;
+    --azul-oscuro: #102a43;
+    --azul-hover: #0f5f94;
+    --fondo: #f1f5f9;
+    --blanco: #ffffff;
+    --texto: #243b53;
+    --texto-secundario: #627d98;
+    --borde: #d9e2ec;
+    --error: #c62828;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+}
+
+/* PANTALLA DE INICIO DE SESIÓN */
+
+.pagina-login {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.contenedor-login {
+    width: 100%;
+    max-width: 440px;
+}
+
+.tarjeta-login {
+    background: var(--blanco);
+    border-radius: 18px;
+    padding: 38px;
+    box-shadow: 0 12px 35px rgba(16, 42, 67, 0.10);
+}
+
+.encabezado-login {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.identidad {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.identidad-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 18px;
+    background: var(--azul);
+    color: var(--blanco);
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.nombre-escuela {
+    color: var(--texto-secundario);
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.encabezado-login h1 {
+    color: var(--azul-oscuro);
+    font-size: 29px;
+    margin: 8px 0;
+}
+
+.subtitulo-login {
+    color: var(--azul);
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+.descripcion-login {
+    color: var(--texto-secundario);
+    font-size: 14px;
+    margin-top: 12px;
+}
+
+/* FORMULARIO */
+
+.grupo-campo {
+    margin-bottom: 22px;
+}
+
+.grupo-campo label {
+    display: block;
+    margin-bottom: 9px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.grupo-campo input {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    font-size: 15px;
+    color: var(--texto);
+    background: var(--blanco);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.grupo-campo input:focus {
+    outline: none;
+    border-color: var(--azul);
+    box-shadow: 0 0 0 3px rgba(22, 119, 184, 0.12);
+}
+
+/* BOTONES */
+
+.boton-principal {
+    width: 100%;
+    padding: 14px;
+    background: var(--azul);
+    color: var(--blanco);
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.boton-principal:hover {
+    background: var(--azul-hover);
+    transform: translateY(-1px);
+}
+
+.boton-principal:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* MENSAJES */
+
+.mensaje-login {
+    min-height: 20px;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.mensaje-login.error {
+    color: var(--error);
+}
+
+.mensaje-login.exito {
+    color: #198754;
+}
+
+/* PIE DE PÁGINA */
+
+.pie-login {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--borde);
+    text-align: center;
+}
+
+.pie-login p {
+    color: var(--texto-secundario);
+    font-size: 12px;
+}
+
+.pie-login span {
+    display: block;
+    margin-top: 10px;
+    color: var(--texto-secundario);
+    font-size: 12px;
+}
+
+/* DISEÑO RESPONSIVO */
+
+@media (max-width: 480px) {
+    .pagina-login {
+        padding: 15px;
+    }
+
+    .tarjeta-login {
+        padding: 26px 22px;
+    }
+
+    .encabezado-login h1 {
+        font-size: 25px;
+    }
+
+    .identidad-icono {
+        width: 60px;
+        height: 60px;
+        font-size: 22px;
+    }
+}
+
+/* ==========================================
+   PANEL PRINCIPAL DEL DOCENTE
+   ========================================== */
+
+.pagina-panel {
+    min-height: 100vh;
+    background: var(--fondo);
+}
+
+.contenedor-panel {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 28px;
+}
+
+/* ENCABEZADO */
+
+.cabecera-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    padding: 26px 30px;
+    background: var(--blanco);
+    border-radius: 16px;
+
+    box-shadow: 0 4px 16px rgba(16, 42, 67, 0.05);
+}
+
+.informacion-sistema h1 {
+    margin: 8px 0;
+    color: var(--azul-oscuro);
+    font-size: 28px;
+}
+
+.informacion-sistema p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.boton-cerrar {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+
+    background: var(--azul);
+    color: var(--blanco);
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.boton-cerrar:hover {
+    background: var(--azul-hover);
+}
+
+/* BIENVENIDA */
+
+.bienvenida-panel {
+    margin-top: 24px;
+    padding: 26px 30px;
+
+    background: var(--blanco);
+    border-radius: 16px;
+}
+
+.bienvenida-panel h2 {
+    margin: 0 0 10px;
+    color: var(--azul-oscuro);
+}
+
+.bienvenida-panel p {
+    margin: 0;
+    font-size: 18px;
+    color: var(--azul);
+    font-weight: bold;
+}
+
+/* ASIGNACIONES */
+
+.seccion-asignaciones {
+    margin-top: 24px;
+    padding: 28px 30px;
+
+    background: var(--blanco);
+    border-radius: 16px;
+}
+
+.titulo-seccion h2 {
+    margin-top: 0;
+    color: var(--azul-oscuro);
+}
+
+.titulo-seccion p {
+    color: var(--texto-secundario);
+    font-size: 14px;
+}
+
+.lista-asignaciones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 18px;
+    margin-top: 24px;
+}
+
+.tarjeta-asignacion {
+    padding: 24px;
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    background: #f8fafc;
+
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tarjeta-asignacion:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(16, 42, 67, 0.08);
+}
+
+.tarjeta-asignacion h3 {
+    margin: 0 0 12px;
+    color: var(--azul-oscuro);
+    font-size: 21px;
+}
+
+.tarjeta-asignacion p {
+    color: var(--texto-secundario);
+    margin-bottom: 20px;
+}
+
+.boton-asignacion {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+
+    background: var(--azul);
+    color: var(--blanco);
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.boton-asignacion:hover {
+    background: var(--azul-hover);
+}
+
+.boton-asignacion:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* MENSAJES */
+
+.mensaje-panel {
+    margin-top: 20px;
+    color: var(--texto-secundario);
+    font-size: 14px;
+}
+
+.mensaje-panel.error {
+    color: var(--error);
+}
+
+/* INFORMACIÓN */
+
+.informacion-panel {
+    margin-top: 24px;
+    padding: 28px 30px;
+
+    background: var(--blanco);
+    border-radius: 16px;
+}
+
+.informacion-panel h2 {
+    margin-top: 0;
+    color: var(--azul-oscuro);
+}
+
+.informacion-panel p {
+    color: var(--texto-secundario);
+    line-height: 1.7;
+}
+
+/* PIE DE PÁGINA */
+
+.pie-panel {
+    padding: 24px;
+    text-align: center;
+    color: var(--texto-secundario);
+    font-size: 12px;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 768px) {
+
+    .contenedor-panel {
+        padding: 15px;
+    }
+
+    .cabecera-panel {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 22px;
+    }
+
+    .boton-cerrar {
+        width: 100%;
+    }
+
+    .bienvenida-panel,
+    .seccion-asignaciones,
+    .informacion-panel {
+        padding: 22px;
+    }
+
+    .lista-asignaciones {
+        grid-template-columns: 1fr;
+    }
+
+}

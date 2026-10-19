@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Portal Docente | MPAZ RFID</title>
+
+    <link rel="stylesheet" href="/profesor/profesor.css">
+</head>
+
+<body class="pagina-login">
+
+    <main class="contenedor-login">
+
+        <section class="tarjeta-login">
+
+            <header class="encabezado-login">
+
+                <div class="identidad">
+                    <span class="identidad-icono">MP</span>
+                </div>
+
+                <p class="nombre-escuela">
+                    Escuela Escritora Marcela Paz
+                </p>
+
+                <h1>Portal Docente</h1>
+
+                <p class="subtitulo-login">
+                    Sistema MPAZ RFID
+                </p>
+
+                <p class="descripcion-login">
+                    Gestión de clases y asistencia escolar
+                </p>
+
+            </header>
+
+            <form id="formulario-profesor">
+
+                <div class="grupo-campo">
+
+                    <label for="usuario">
+                        Usuario
+                    </label>
+
+                    <input
+                        type="text"
+                        id="usuario"
+                        name="usuario"
+                        placeholder="Ingrese su usuario"
+                        autocomplete="username"
+                        maxlength="80"
+                        required
+                    >
+
+                </div>
+
+                <div class="grupo-campo">
+
+                    <label for="password">
+                        Contraseña
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Ingrese su contraseña"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+                <button
+                    type="submit"
+                    id="boton-ingresar"
+                    class="boton-principal"
+                >
+                    Iniciar sesión
+                </button>
+
+                <p
+                    id="mensaje-login"
+                    class="mensaje-login"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+
+            </form>
+
+            <footer class="pie-login">
+
+                <p>
+                    Acceso exclusivo para docentes autorizados
+                </p>
+
+                <span>
+                    Escuela Escritora Marcela Paz
+                    · San Bernardo
+                </span>
+
+            </footer>
+
+        </section>
+
+    </main>
+
+    <script src="/profesor/profesor.js"></script>
+
+</body>
+
+</html>

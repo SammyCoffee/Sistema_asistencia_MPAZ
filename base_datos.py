@@ -1367,11 +1367,373 @@ def obtener_totems():
         conexion.close()
 
 
+def registrar_usuario(nombre_completo, usuario, password, rol):
+    import sqlite3
+    from datetime import datetime
+    from werkzeug.security import generate_password_hash
+
+    if not all(isinstance(v, str) for v in
+               (nombre_completo, usuario, password, rol)):
+        return {"resultado": "datos_invalidos"}
+
+    nombre_completo = nombre_completo.strip()
+    usuario = usuario.strip().lower()
+    rol = rol.strip().lower()
+
+    if not nombre_completo or not usuario or not password:
+        return {"resultado": "datos_incompletos"}
+
+    if rol not in ("administrador", "profesor"):
+        return {"resultado": "rol_invalido"}
+
+    if len(password) < 8:
+        return {"resultado": "password_demasiado_corto"}
+
+    if len(password) > 15:
+        return {"resultado": "password_demasiado_largo"}
+
+    if len(usuario) > 50 or len(nombre_completo) > 150:
+        return {"resultado": "datos_invalidos"}
+
+    password_hash = generate_password_hash(password)
+
+    fecha_creacion = datetime.now().strftime(
+        "%Y-%m-%d %H:%M:%S"
+    )
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            INSERT INTO usuarios (
+                nombre_completo,
+                usuario,
+                password_hash,
+                rol,
+                estado,
+                fecha_creacion
+            )
+            VALUES (?, ?, ?, ?, 'activo', ?)
+            """,
+            (
+                nombre_completo,
+                usuario,
+                password_hash,
+                rol,
+                fecha_creacion
+            )
+        )
+
+        conexion.commit()
+
+        return {
+            "resultado": "usuario_registrado",
+            "id": cursor.lastrowid,
+            "usuario": usuario,
+            "rol": rol
+        }
+
+    except sqlite3.IntegrityError:
+        conexion.rollback()
+
+        return {
+            "resultado": "usuario_duplicado"
+        }
+
+    finally:
+        conexion.close()
+
+
+
+def autenticar_usuario(usuario, password):
+    from werkzeug.security import check_password_hash
+
+    if not isinstance(usuario, str) or not isinstance(password, str):
+        return {"resultado": "datos_invalidos"}
+
+    usuario = usuario.strip().lower()
+
+    if not usuario or not password:
+        return {"resultado": "datos_incompletos"}
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            SELECT
+                id,
+                nombre_completo,
+                usuario,
+                password_hash,
+                rol,
+                estado
+            FROM usuarios
+            WHERE usuario = ?
+            LIMIT 1
+            """,
+            (usuario,)
+        )
+
+        fila = cursor.fetchone()
+
+        if not fila:
+            return {"resultado": "credenciales_invalidas"}
+
+        if fila[5] != "activo":
+            return {"resultado": "usuario_inactivo"}
+
+        if not check_password_hash(fila[3], password):
+            return {"resultado": "credenciales_invalidas"}
+
+        return {
+            "resultado": "autenticado",
+            "id": fila[0],
+            "nombre_completo": fila[1],
+            "usuario": fila[2],
+            "rol": fila[4]
+        }
+
+    finally:
+        conexion.close()
+
+
+
+def asignar_profesor_curso(profesor_id, curso, asignatura_id):
+    if not isinstance(profesor_id, int) or isinstance(profesor_id, bool):
+        return {"resultado": "profesor_invalido"}
+
+    if not isinstance(asignatura_id, int) or isinstance(asignatura_id, bool):
+        return {"resultado": "asignatura_invalida"}
+
+    if not isinstance(curso, str) or not curso.strip():
+        return {"resultado": "curso_invalido"}
+
+    curso = curso.strip().upper()
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            SELECT rol, estado
+            FROM usuarios
+            WHERE id = ?
+            """,
+            (profesor_id,)
+        )
+
+        profesor = cursor.fetchone()
+
+        if not profesor or profesor[0] != "profesor":
+            return {"resultado": "profesor_no_autorizado"}
+
+        if profesor[1] != "activo":
+            return {"resultado": "profesor_inactivo"}
+
+        cursor.execute(
+            """
+            SELECT estado
+            FROM asignaturas
+            WHERE id = ?
+            """,
+            (asignatura_id,)
+        )
+
+        asignatura = cursor.fetchone()
+
+        if not asignatura:
+            return {"resultado": "asignatura_no_existe"}
+
+        if asignatura[0] != "activo":
+            return {"resultado": "asignatura_inactiva"}
+
+        cursor.execute(
+            """
+            SELECT 1
+            FROM alumnos
+            WHERE UPPER(TRIM(curso)) = ?
+              AND estado = 'activo'
+            LIMIT 1
+            """,
+            (curso,)
+        )
+
+        if not cursor.fetchone():
+            return {"resultado": "curso_sin_alumnos_activos"}
+
+        cursor.execute(
+            """
+            SELECT id, estado
+            FROM profesores_cursos
+            WHERE profesor_id = ?
+              AND curso = ?
+              AND asignatura_id = ?
+            """,
+            (profesor_id, curso, asignatura_id)
+        )
+
+        existente = cursor.fetchone()
+
+        if existente:
+            if existente[1] == "activo":
+                return {
+                    "resultado": "asignacion_existente",
+                    "id": existente[0]
+                }
+
+            cursor.execute(
+                """
+                UPDATE profesores_cursos
+                SET estado = 'activo'
+                WHERE id = ?
+                """,
+                (existente[0],)
+            )
+
+            conexion.commit()
+
+            return {
+                "resultado": "asignacion_reactivada",
+                "id": existente[0]
+            }
+
+        cursor.execute(
+            """
+            INSERT INTO profesores_cursos
+                (profesor_id, curso, asignatura_id, estado)
+            VALUES (?, ?, ?, 'activo')
+            """,
+            (profesor_id, curso, asignatura_id)
+        )
+
+        conexion.commit()
+
+        return {
+            "resultado": "asignacion_creada",
+            "id": cursor.lastrowid
+        }
+
+    finally:
+        conexion.close()
+
+
+def obtener_asignaciones_profesor(profesor_id):
+    """
+    Obtiene los cursos y asignaturas activos de un profesor.
+    """
+
+    if (
+        not isinstance(profesor_id, int)
+        or isinstance(profesor_id, bool)
+        or profesor_id <= 0
+    ):
+        return {
+            "resultado": "profesor_invalido",
+            "asignaciones": []
+        }
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            SELECT rol, estado
+            FROM usuarios
+            WHERE id = ?
+            LIMIT 1
+            """,
+            (profesor_id,)
+        )
+
+        profesor = cursor.fetchone()
+
+        if not profesor or profesor[0] != "profesor":
+            return {
+                "resultado": "profesor_no_autorizado",
+                "asignaciones": []
+            }
+
+        if profesor[1] != "activo":
+            return {
+                "resultado": "profesor_inactivo",
+                "asignaciones": []
+            }
+
+        cursor.execute(
+            """
+            SELECT
+                pc.id,
+                pc.curso,
+                a.id,
+                a.nombre
+            FROM profesores_cursos pc
+            INNER JOIN asignaturas a
+                ON pc.asignatura_id = a.id
+            WHERE pc.profesor_id = ?
+              AND pc.estado = 'activo'
+              AND a.estado = 'activo'
+            ORDER BY pc.curso, a.nombre
+            """,
+            (profesor_id,)
+        )
+
+        asignaciones = []
+
+        for fila in cursor.fetchall():
+            asignaciones.append({
+                "asignacion_id": fila[0],
+                "curso": fila[1],
+                "asignatura_id": fila[2],
+                "asignatura": fila[3]
+            })
+
+        return {
+            "resultado": "ok",
+            "asignaciones": asignaciones
+        }
+
+    finally:
+        conexion.close()
+
 def crear_tablas():
     conexion = obtener_conexion()
     cursor = conexion.cursor()
 
     try:
+
+
+	        # ==========================================
+        # USUARIOS DEL SISTEMA
+        # ADMINISTRADORES Y PROFESORES
+        # ==========================================
+
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS usuarios (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+                nombre_completo TEXT NOT NULL,
+
+                usuario TEXT NOT NULL UNIQUE,
+
+                password_hash TEXT NOT NULL,
+
+                rol TEXT NOT NULL
+                    CHECK (rol IN ('administrador', 'profesor')),
+
+                estado TEXT NOT NULL DEFAULT 'activo'
+                    CHECK (estado IN ('activo', 'inactivo')),
+
+                fecha_creacion TEXT NOT NULL
+            )
+            """
+        )
         cursor.execute(
             """
             CREATE TABLE IF NOT EXISTS alumnos (
@@ -1482,6 +1844,39 @@ def crear_tablas():
             CREATE UNIQUE INDEX IF NOT EXISTS
                 indice_evento_salida_asistencias
             ON asistencias(evento_salida_id)
+            """
+        )
+
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS asignaturas (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nombre TEXT NOT NULL UNIQUE,
+                estado TEXT NOT NULL DEFAULT 'activo'
+                    CHECK (estado IN ('activo', 'inactivo'))
+            )
+            """
+        )
+
+
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS profesores_cursos (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                profesor_id INTEGER NOT NULL,
+                curso TEXT NOT NULL,
+                asignatura_id INTEGER NOT NULL,
+                estado TEXT NOT NULL DEFAULT 'activo'
+                    CHECK (estado IN ('activo', 'inactivo')),
+
+                FOREIGN KEY (profesor_id)
+                    REFERENCES usuarios(id),
+
+                FOREIGN KEY (asignatura_id)
+                    REFERENCES asignaturas(id),
+
+                UNIQUE (profesor_id, curso, asignatura_id)
+            )
             """
         )
 
