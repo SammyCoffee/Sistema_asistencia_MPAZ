@@ -436,3 +436,53 @@ body {
     }
 
 }
+
+
+/* ESTUDIANTES DEL CURSO */
+
+.seccion-estudiantes[hidden] {
+    display: none;
+}
+
+.seccion-estudiantes {
+    margin-top: 24px;
+    padding: 28px 30px;
+    background: var(--blanco);
+    border-radius: 16px;
+}
+
+.lista-estudiantes {
+    margin-top: 20px;
+}
+
+.lista-estudiantes ol {
+    margin: 0;
+    padding-left: 28px;
+}
+
+.lista-estudiantes li {
+    padding: 14px 12px;
+    margin-bottom: 10px;
+    background: #f8fafc;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    color: var(--azul-oscuro);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.lista-estudiantes li::marker {
+    color: var(--azul);
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .seccion-estudiantes {
+        padding: 22px;
+    }
+
+    .lista-estudiantes li {
+        padding: 12px;
+        font-size: 14px;
+    }
+}

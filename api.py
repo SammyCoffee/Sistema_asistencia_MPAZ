@@ -7,6 +7,7 @@ from procesar_lectura_totem import procesar_lectura_totem
 from base_datos import (
     autenticar_usuario,
     obtener_asignaciones_profesor,
+    obtener_alumnos_curso_profesor,
     asignar_tarjeta_por_rut,
     bloquear_tarjeta,
     obtener_totems,
@@ -250,6 +251,49 @@ def consultar_asignaciones_profesor():
         }), 403
 
     return jsonify(resultado), 200
+
+
+@app.get("/profesor/cursos/<curso>/alumnos")
+def consultar_alumnos_curso_profesor(curso):
+
+    profesor_id = session.get("profesor_id")
+    profesor_rol = session.get("profesor_rol")
+
+    if (
+        not isinstance(profesor_id, int)
+        or isinstance(profesor_id, bool)
+        or profesor_id <= 0
+        or profesor_rol != "profesor"
+    ):
+        return jsonify({
+            "resultado": "no_autorizado",
+            "mensaje": "Debe iniciar sesion como profesor"
+        }), 401
+
+    if not curso.strip() or len(curso.strip()) > 20:
+        return jsonify({
+            "resultado": "curso_invalido",
+            "mensaje": "El curso solicitado no es valido"
+        }), 400
+
+    resultado = obtener_alumnos_curso_profesor(
+        profesor_id,
+        curso
+    )
+
+    if resultado["resultado"] == "ok":
+        return jsonify(resultado), 200
+
+    if resultado["resultado"] == "curso_invalido":
+        return jsonify({
+            "resultado": "curso_invalido",
+            "mensaje": "El curso solicitado no es valido"
+        }), 400
+
+    return jsonify({
+        "resultado": "acceso_denegado",
+        "mensaje": "No tiene autorizacion para consultar este curso"
+    }), 403
 
 
 @app.get("/estado")

@@ -119,6 +119,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const mensajePanel = document.getElementById("mensaje-panel");
     const botonCerrarSesion = document.getElementById("boton-cerrar-sesion");
 
+    const seccionEstudiantes = document.getElementById("seccion-estudiantes");
+    const tituloEstudiantes = document.getElementById("titulo-estudiantes");
+    const descripcionEstudiantes = document.getElementById("descripcion-estudiantes");
+    const mensajeEstudiantes = document.getElementById("mensaje-estudiantes");
+    const listaEstudiantes = document.getElementById("lista-estudiantes");
+
     function mostrarMensajePanel(mensaje, tipo = "") {
         mensajePanel.textContent = mensaje;
         mensajePanel.className = "mensaje-panel " + tipo;
@@ -153,6 +159,88 @@ document.addEventListener("DOMContentLoaded", async () => {
         return datos;
     }
 
+    let consultaEstudiantesActual = 0;
+
+    async function cargarEstudiantesCurso(curso, asignatura) {
+        const numeroConsulta = ++consultaEstudiantesActual;
+
+        seccionEstudiantes.hidden = false;
+
+        tituloEstudiantes.textContent = "Estudiantes del curso " + curso;
+        descripcionEstudiantes.textContent = "Asignatura: " + asignatura;
+
+        listaEstudiantes.replaceChildren();
+
+        mensajeEstudiantes.className = "mensaje-panel";
+        mensajeEstudiantes.textContent = "Cargando estudiantes...";
+
+        try {
+
+            const ruta = "/profesor/cursos/"
+                + encodeURIComponent(curso)
+                + "/alumnos";
+
+            const { respuesta, datos } = await solicitarJSON(ruta);
+
+            if (numeroConsulta !== consultaEstudiantesActual) {
+                return;
+            }
+
+            if (respuesta.status === 401) {
+                redirigirLogin();
+                return;
+            }
+
+            if (respuesta.status === 403) {
+                mensajeEstudiantes.className = "mensaje-panel error";
+                mensajeEstudiantes.textContent =
+                    "No tiene autorización para consultar este curso.";
+                return;
+            }
+
+            if (!respuesta.ok || datos.resultado !== "ok") {
+                mensajeEstudiantes.className = "mensaje-panel error";
+                mensajeEstudiantes.textContent =
+                    "No fue posible consultar los estudiantes.";
+                return;
+            }
+
+            const alumnos = Array.isArray(datos.alumnos)
+                ? datos.alumnos
+                : [];
+
+            if (alumnos.length === 0) {
+                mensajeEstudiantes.textContent =
+                    "Este curso no tiene estudiantes activos registrados.";
+                return;
+            }
+
+            const lista = document.createElement("ol");
+
+            alumnos.forEach((alumno) => {
+                const elemento = document.createElement("li");
+                elemento.textContent = alumno.nombre;
+                lista.appendChild(elemento);
+            });
+
+            listaEstudiantes.appendChild(lista);
+
+            mensajeEstudiantes.textContent =
+                "Estudiantes encontrados: " + alumnos.length;
+
+        } catch (error) {
+
+            if (numeroConsulta !== consultaEstudiantesActual) {
+                return;
+            }
+
+            mensajeEstudiantes.className = "mensaje-panel error";
+            mensajeEstudiantes.textContent =
+                "No fue posible conectar con el servidor.";
+
+        }
+    }
+
     function crearTarjetaAsignacion(asignacion) {
 
         const tarjeta = document.createElement("article");
@@ -173,8 +261,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         boton.disabled = true;
         boton.title = "Funcionalidad en desarrollo";
 
+        // Botón para consultar estudiantes del curso.
+        const botonEstudiantes = document.createElement("button");
+        botonEstudiantes.type = "button";
+        botonEstudiantes.className = "boton-asignacion";
+        botonEstudiantes.textContent = "Ver estudiantes";
+        botonEstudiantes.dataset.curso = asignacion.curso;
+
+        botonEstudiantes.addEventListener("click", () => {
+            cargarEstudiantesCurso(
+                asignacion.curso,
+                asignacion.asignatura
+            );
+        });
+
         tarjeta.appendChild(titulo);
         tarjeta.appendChild(asignatura);
+        tarjeta.appendChild(botonEstudiantes);
         tarjeta.appendChild(boton);
 
         return tarjeta;

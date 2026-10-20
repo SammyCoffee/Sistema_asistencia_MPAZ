@@ -1893,5 +1893,111 @@ def crear_tablas():
         print("Tablas creadas correctamente")
     finally:
         conexion.close()
+
+
+def obtener_alumnos_curso_profesor(profesor_id, curso):
+    """
+    Obtiene los estudiantes activos de un curso
+    únicamente si el profesor tiene autorización.
+    """
+
+    if (
+        not isinstance(profesor_id, int)
+        or isinstance(profesor_id, bool)
+        or profesor_id <= 0
+    ):
+        return {
+            "resultado": "profesor_invalido",
+            "alumnos": []
+        }
+
+    if not isinstance(curso, str) or not curso.strip():
+        return {
+            "resultado": "curso_invalido",
+            "alumnos": []
+        }
+
+    curso = curso.strip().upper()
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        # Verificar que el profesor exista y esté activo.
+        cursor.execute(
+            """
+            SELECT id
+            FROM usuarios
+            WHERE id = ?
+              AND rol = 'profesor'
+              AND estado = 'activo'
+            LIMIT 1
+            """,
+            (profesor_id,)
+        )
+
+        if cursor.fetchone() is None:
+            return {
+                "resultado": "profesor_no_autorizado",
+                "alumnos": []
+            }
+
+        # Comprobar que tenga asignado el curso.
+        cursor.execute(
+            """
+            SELECT 1
+            FROM profesores_cursos pc
+            INNER JOIN asignaturas a
+                ON a.id = pc.asignatura_id
+            WHERE pc.profesor_id = ?
+              AND pc.curso = ?
+              AND pc.estado = 'activo'
+              AND a.estado = 'activo'
+            LIMIT 1
+            """,
+            (profesor_id, curso)
+        )
+
+        if cursor.fetchone() is None:
+            return {
+                "resultado": "curso_no_autorizado",
+                "alumnos": []
+            }
+
+        # Consultar solamente los estudiantes activos.
+        cursor.execute(
+            """
+            SELECT
+                id,
+                nombre_completo,
+                curso
+            FROM alumnos
+            WHERE curso = ?
+              AND estado = 'activo'
+            ORDER BY nombre_completo ASC
+            """,
+            (curso,)
+        )
+
+        alumnos = [
+            {
+                "id": fila[0],
+                "nombre": fila[1],
+                "curso": fila[2]
+            }
+            for fila in cursor.fetchall()
+        ]
+
+        return {
+            "resultado": "ok",
+            "curso": curso,
+            "total": len(alumnos),
+            "alumnos": alumnos
+        }
+
+    finally:
+        conexion.close()
+
+
 if __name__ == "__main__":
     crear_tablas()
