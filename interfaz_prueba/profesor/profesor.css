@@ -486,3 +486,123 @@ body {
         font-size: 14px;
     }
 }
+
+/* Separacion entre botones de las tarjetas de cursos */
+.tarjeta-asignacion .boton-asignacion + .boton-asignacion {
+    margin-top: 10px;
+}
+
+/* ESTILOS DE CONSULTA RFID - PASO 175 */
+
+.controles-asistencia {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.controles-asistencia label {
+    font-weight: 600;
+}
+
+.controles-asistencia input[type="date"] {
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font: inherit;
+}
+
+.controles-asistencia .boton-asignacion {
+    width: auto;
+    min-width: 150px;
+    margin: 0;
+}
+
+.resumen-asistencia {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.resumen-asistencia p {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 16px;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.resumen-asistencia strong {
+    display: block;
+    margin-top: 8px;
+    font-size: 24px;
+    color: #0f172a;
+}
+
+.contenedor-tabla-asistencia {
+    width: 100%;
+    overflow-x: auto;
+    margin: 20px 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+}
+
+.tabla-asistencia {
+    width: 100%;
+    min-width: 560px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.tabla-asistencia th,
+.tabla-asistencia td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+}
+
+.tabla-asistencia th {
+    background: #f1f5f9;
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.tabla-asistencia tbody tr:hover {
+    background: #f8fafc;
+}
+
+.tabla-asistencia tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.nota-asistencia {
+    margin-top: 18px;
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .resumen-asistencia {
+        grid-template-columns: 1fr;
+    }
+
+    .controles-asistencia {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .controles-asistencia input[type="date"],
+    .controles-asistencia .boton-asignacion {
+        width: 100%;
+    }
+}
+
+#seccion-asistencia[hidden],
+#resumen-asistencia[hidden],
+#contenedor-tabla-asistencia[hidden] {
+    display: none;
+}

@@ -81,7 +81,6 @@
 
             </section>
 
-                         </section>
 
             <!-- ESTUDIANTES DEL CURSO SELECCIONADO -->
 
@@ -120,13 +119,109 @@
 
             </section>
 
-                        </section>
-
-            <!-- ESTUDIANTES DEL CURSO SELECCIONADO -->
 
 
 
 
+
+
+
+
+            <!-- CONSULTA DE ASISTENCIA RFID DEL CURSO -->
+            <section
+                id="seccion-asistencia"
+                class="seccion-estudiantes"
+                aria-labelledby="titulo-asistencia"
+                hidden
+            >
+
+                <div class="titulo-seccion">
+                    <div>
+                        <h2 id="titulo-asistencia">
+                            Asistencia RFID del curso
+                        </h2>
+
+                        <p id="descripcion-asistencia">
+                            Consulte los registros de ingreso y salida.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="controles-asistencia">
+                    <label for="fecha-asistencia">
+                        Fecha de consulta
+                    </label>
+
+                    <input
+                        type="date"
+                        id="fecha-asistencia"
+                        name="fecha-asistencia"
+                    >
+
+                    <button
+                        type="button"
+                        id="boton-consultar-asistencia"
+                        class="boton-asignacion"
+                    >
+                        Consultar
+                    </button>
+                </div>
+
+                <div
+                    id="mensaje-asistencia"
+                    class="mensaje-panel"
+                    role="status"
+                    aria-live="polite"
+                ></div>
+
+                <div
+                    id="resumen-asistencia"
+                    class="resumen-asistencia"
+                    hidden
+                >
+                    <p>
+                        Total de estudiantes:
+                        <strong id="total-estudiantes-asistencia">0</strong>
+                    </p>
+
+                    <p>
+                        Ingresos registrados:
+                        <strong id="ingresos-registrados">0</strong>
+                    </p>
+
+                    <p>
+                        Sin registro de ingreso:
+                        <strong id="sin-registro-asistencia">0</strong>
+                    </p>
+                </div>
+
+                <div
+                    class="contenedor-tabla-asistencia"
+                    id="contenedor-tabla-asistencia"
+                    hidden
+                >
+                    <table class="tabla-asistencia">
+                        <thead>
+                            <tr>
+                                <th scope="col">Estudiante</th>
+                                <th scope="col">Entrada</th>
+                                <th scope="col">Salida</th>
+                                <th scope="col">Estado</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="cuerpo-tabla-asistencia">
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="nota-asistencia">
+                    Los estudiantes sin lectura RFID no se
+                    consideran automáticamente ausentes.
+                    La asistencia de aula se gestiona por separado.
+                </p>
+
+            </section>
 
             <section class="informacion-panel">
 

@@ -1416,6 +1416,70 @@ def recibir_lectura():
     
     return jsonify(respuesta), 200
 
+
+
+@app.route(
+    "/profesor/cursos/<curso>/asistencia",
+    methods=["GET"]
+)
+def consultar_asistencia_curso_profesor(curso):
+    """
+    Permite consultar la asistencia RFID de un curso
+    únicamente a profesores autorizados.
+    """
+    from base_datos import obtener_asistencia_curso_profesor
+
+    profesor_id = session.get("profesor_id")
+    profesor_rol = session.get("profesor_rol")
+
+    if (
+        not isinstance(profesor_id, int)
+        or isinstance(profesor_id, bool)
+        or profesor_id <= 0
+        or profesor_rol != "profesor"
+    ):
+        return jsonify({
+            "resultado": "no_autorizado",
+            "mensaje": "Debe iniciar sesion como profesor"
+        }), 401
+
+    if not curso.strip() or len(curso.strip()) > 20:
+        return jsonify({
+            "resultado": "curso_invalido",
+            "mensaje": "El curso solicitado no es valido"
+        }), 400
+
+    fecha = request.args.get("fecha")
+
+    if not fecha:
+        return jsonify({
+            "resultado": "fecha_invalida",
+            "mensaje": "Debe indicar una fecha valida"
+        }), 400
+
+    resultado = obtener_asistencia_curso_profesor(
+        profesor_id,
+        curso,
+        fecha
+    )
+
+    if resultado["resultado"] == "ok":
+        return jsonify(resultado), 200
+
+    if resultado["resultado"] in (
+        "curso_invalido",
+        "fecha_invalida"
+    ):
+        return jsonify({
+            "resultado": resultado["resultado"],
+            "mensaje": "Los parametros solicitados no son validos"
+        }), 400
+
+    return jsonify({
+        "resultado": "acceso_denegado",
+        "mensaje": "No tiene autorizacion para consultar este curso"
+    }), 403
+
 if __name__ == "__main__":
 
     app.run(

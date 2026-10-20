@@ -125,6 +125,45 @@ document.addEventListener("DOMContentLoaded", async () => {
     const mensajeEstudiantes = document.getElementById("mensaje-estudiantes");
     const listaEstudiantes = document.getElementById("lista-estudiantes");
 
+    const seccionAsistencia = document.getElementById("seccion-asistencia");
+    const tituloAsistencia = document.getElementById("titulo-asistencia");
+    const descripcionAsistencia = document.getElementById("descripcion-asistencia");
+    const fechaAsistencia = document.getElementById("fecha-asistencia");
+    const mensajeAsistencia = document.getElementById("mensaje-asistencia");
+
+    let cursoAsistenciaSeleccionado = null;
+    let asignaturaAsistenciaSeleccionada = null;
+
+    function mostrarSeccionAsistencia(curso, asignatura) {
+        cursoAsistenciaSeleccionado = curso;
+        asignaturaAsistenciaSeleccionada = asignatura;
+        consultaAsistenciaActual++;
+
+        const botonConsulta = document.getElementById(
+            "boton-consultar-asistencia"
+        );
+
+        botonConsulta.disabled = false;
+
+        seccionAsistencia.hidden = false;
+
+        tituloAsistencia.textContent = "Asistencia RFID - Curso " + curso;
+        descripcionAsistencia.textContent = "Asignatura: " + asignatura;
+
+        mensajeAsistencia.className = "mensaje-panel";
+        mensajeAsistencia.textContent =
+            "Seleccione una fecha y presione Consultar.";
+
+        document.getElementById("resumen-asistencia").hidden = true;
+        document.getElementById("contenedor-tabla-asistencia").hidden = true;
+        document.getElementById("cuerpo-tabla-asistencia").replaceChildren();
+
+        if (!fechaAsistencia.value) {
+            fechaAsistencia.value = new Date().toLocaleDateString("en-CA");
+        }
+    }
+
+
     function mostrarMensajePanel(mensaje, tipo = "") {
         mensajePanel.textContent = mensaje;
         mensajePanel.className = "mensaje-panel " + tipo;
@@ -241,6 +280,190 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
+
+    /* ==========================================
+       CONSULTA DE ASISTENCIA RFID
+       ========================================== */
+
+    const botonConsultarAsistencia = document.getElementById(
+        "boton-consultar-asistencia"
+    );
+
+    const resumenAsistencia = document.getElementById(
+        "resumen-asistencia"
+    );
+
+    const contenedorTablaAsistencia = document.getElementById(
+        "contenedor-tabla-asistencia"
+    );
+
+    const cuerpoTablaAsistencia = document.getElementById(
+        "cuerpo-tabla-asistencia"
+    );
+
+    const totalEstudiantesAsistencia = document.getElementById(
+        "total-estudiantes-asistencia"
+    );
+
+    const ingresosRegistrados = document.getElementById(
+        "ingresos-registrados"
+    );
+
+    const sinRegistroAsistencia = document.getElementById(
+        "sin-registro-asistencia"
+    );
+
+    let consultaAsistenciaActual = 0;
+
+    function limpiarResultadosAsistencia() {
+        resumenAsistencia.hidden = true;
+        contenedorTablaAsistencia.hidden = true;
+        cuerpoTablaAsistencia.replaceChildren();
+    }
+
+    async function consultarAsistenciaRFID() {
+        const numeroConsulta = ++consultaAsistenciaActual;
+        const curso = cursoAsistenciaSeleccionado;
+        const fecha = fechaAsistencia.value;
+
+        limpiarResultadosAsistencia();
+
+        mensajeAsistencia.className = "mensaje-panel";
+
+        if (!curso) {
+            mensajeAsistencia.className = "mensaje-panel error";
+            mensajeAsistencia.textContent =
+                "Primero debe seleccionar un curso.";
+            return;
+        }
+
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
+            mensajeAsistencia.className = "mensaje-panel error";
+            mensajeAsistencia.textContent =
+                "Seleccione una fecha válida.";
+            return;
+        }
+
+        mensajeAsistencia.textContent =
+            "Consultando registros de asistencia RFID...";
+
+        botonConsultarAsistencia.disabled = true;
+
+        try {
+            const ruta = "/profesor/cursos/"
+                + encodeURIComponent(curso)
+                + "/asistencia?fecha="
+                + encodeURIComponent(fecha);
+
+            const { respuesta, datos } = await solicitarJSON(ruta);
+
+            if (numeroConsulta !== consultaAsistenciaActual) {
+                return;
+            }
+
+            if (respuesta.status === 401) {
+                redirigirLogin();
+                return;
+            }
+
+            if (respuesta.status === 403) {
+                mensajeAsistencia.className = "mensaje-panel error";
+                mensajeAsistencia.textContent =
+                    "No tiene autorización para consultar este curso.";
+                return;
+            }
+
+            if (!respuesta.ok || !datos || datos.resultado !== "ok") {
+                mensajeAsistencia.className = "mensaje-panel error";
+                mensajeAsistencia.textContent =
+                    "No fue posible consultar la asistencia RFID.";
+                return;
+            }
+
+            const estudiantes = Array.isArray(datos.estudiantes)
+                ? datos.estudiantes
+                : [];
+
+            totalEstudiantesAsistencia.textContent =
+                String(datos.total_estudiantes);
+
+            ingresosRegistrados.textContent =
+                String(datos.ingresos_registrados);
+
+            sinRegistroAsistencia.textContent =
+                String(datos.sin_registro);
+
+            estudiantes.forEach((estudiante) => {
+                const fila = document.createElement("tr");
+
+                const nombre = document.createElement("td");
+                nombre.textContent = estudiante.nombre ?? "Sin nombre";
+
+                const entrada = document.createElement("td");
+                entrada.textContent = estudiante.hora_entrada || "—";
+
+                const salida = document.createElement("td");
+                salida.textContent = estudiante.hora_salida || "—";
+
+                const estado = document.createElement("td");
+                estado.textContent =
+                    estudiante.estado === "ingreso_registrado"
+                        ? "Ingreso registrado"
+                        : "Sin registro de ingreso";
+
+                fila.appendChild(nombre);
+                fila.appendChild(entrada);
+                fila.appendChild(salida);
+                fila.appendChild(estado);
+
+                cuerpoTablaAsistencia.appendChild(fila);
+            });
+
+            resumenAsistencia.hidden = false;
+            contenedorTablaAsistencia.hidden =
+                estudiantes.length === 0;
+
+            mensajeAsistencia.textContent =
+                estudiantes.length === 0
+                    ? "Este curso no tiene estudiantes activos registrados."
+                    : "Consulta completada correctamente.";
+
+        } catch (error) {
+            if (numeroConsulta !== consultaAsistenciaActual) {
+                return;
+            }
+
+            mensajeAsistencia.className = "mensaje-panel error";
+            mensajeAsistencia.textContent =
+                "No fue posible conectar con el servidor.";
+
+        } finally {
+            if (numeroConsulta === consultaAsistenciaActual) {
+                botonConsultarAsistencia.disabled = false;
+            }
+        }
+    }
+
+    fechaAsistencia.addEventListener("change", () => {
+        // Invalidar respuestas de consultas anteriores.
+        consultaAsistenciaActual++;
+
+        // Limpiar los resultados de la fecha anterior.
+        limpiarResultadosAsistencia();
+
+        // Permitir consultar nuevamente.
+        botonConsultarAsistencia.disabled = false;
+
+        mensajeAsistencia.className = "mensaje-panel";
+        mensajeAsistencia.textContent =
+            "La fecha cambió. Presione Consultar para actualizar los registros.";
+    });
+
+    botonConsultarAsistencia.addEventListener(
+        "click",
+        consultarAsistenciaRFID
+    );
+
     function crearTarjetaAsignacion(asignacion) {
 
         const tarjeta = document.createElement("article");
@@ -275,9 +498,22 @@ document.addEventListener("DOMContentLoaded", async () => {
             );
         });
 
+        const botonAsistencia = document.createElement("button");
+        botonAsistencia.type = "button";
+        botonAsistencia.className = "boton-asignacion";
+        botonAsistencia.textContent = "Consultar asistencia";
+
+        botonAsistencia.addEventListener("click", () => {
+            mostrarSeccionAsistencia(
+                asignacion.curso,
+                asignacion.asignatura
+            );
+        });
+
         tarjeta.appendChild(titulo);
         tarjeta.appendChild(asignatura);
         tarjeta.appendChild(botonEstudiantes);
+        tarjeta.appendChild(botonAsistencia);
         tarjeta.appendChild(boton);
 
         return tarjeta;

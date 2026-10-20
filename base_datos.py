@@ -2001,3 +2001,162 @@ def obtener_alumnos_curso_profesor(profesor_id, curso):
 
 if __name__ == "__main__":
     crear_tablas()
+
+
+def obtener_asistencia_curso_profesor(profesor_id, curso, fecha):
+    """
+    Consulta la asistencia RFID de un curso en una fecha,
+    verificando previamente los permisos del profesor.
+    """
+    from datetime import date as tipo_fecha
+
+    if (
+        not isinstance(profesor_id, int)
+        or isinstance(profesor_id, bool)
+        or profesor_id <= 0
+    ):
+        return {
+            "resultado": "profesor_invalido",
+            "estudiantes": []
+        }
+
+    if not isinstance(curso, str) or not curso.strip():
+        return {
+            "resultado": "curso_invalido",
+            "estudiantes": []
+        }
+
+    curso = curso.strip().upper()
+
+    if len(curso) > 20:
+        return {
+            "resultado": "curso_invalido",
+            "estudiantes": []
+        }
+
+    if not isinstance(fecha, str):
+        return {
+            "resultado": "fecha_invalida",
+            "estudiantes": []
+        }
+
+    try:
+        fecha_validada = tipo_fecha.fromisoformat(fecha)
+
+        if fecha_validada.isoformat() != fecha:
+            raise ValueError("Formato de fecha incorrecto")
+
+    except ValueError:
+        return {
+            "resultado": "fecha_invalida",
+            "estudiantes": []
+        }
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            SELECT id
+            FROM usuarios
+            WHERE id = ?
+              AND rol = 'profesor'
+              AND estado = 'activo'
+            LIMIT 1
+            """,
+            (profesor_id,)
+        )
+
+        if cursor.fetchone() is None:
+            return {
+                "resultado": "profesor_no_autorizado",
+                "estudiantes": []
+            }
+
+        cursor.execute(
+            """
+            SELECT 1
+            FROM profesores_cursos pc
+            INNER JOIN asignaturas a
+                ON a.id = pc.asignatura_id
+            WHERE pc.profesor_id = ?
+              AND pc.curso = ?
+              AND pc.estado = 'activo'
+              AND a.estado = 'activo'
+            LIMIT 1
+            """,
+            (profesor_id, curso)
+        )
+
+        if cursor.fetchone() is None:
+            return {
+                "resultado": "curso_no_autorizado",
+                "estudiantes": []
+            }
+
+        cursor.execute(
+            """
+            SELECT
+                al.id,
+                al.nombre_completo,
+                COALESCE(
+                    (
+                        SELECT MIN(
+                            COALESCE(a.hora_entrada, a.hora)
+                        )
+                        FROM asistencias a
+                        WHERE a.alumno_id = al.id
+                          AND a.fecha = ?
+                    ),
+                    NULL
+                ) AS hora_entrada,
+                (
+                    SELECT MAX(a.hora_salida)
+                    FROM asistencias a
+                    WHERE a.alumno_id = al.id
+                      AND a.fecha = ?
+                ) AS hora_salida
+            FROM alumnos al
+            WHERE al.curso = ?
+              AND al.estado = 'activo'
+            ORDER BY al.nombre_completo ASC, al.id ASC
+            """,
+            (fecha, fecha, curso)
+        )
+
+        estudiantes = []
+
+        for fila in cursor.fetchall():
+            hora_entrada = fila[2]
+            hora_salida = fila[3]
+
+            estudiantes.append({
+                "id": fila[0],
+                "nombre": fila[1],
+                "hora_entrada": hora_entrada,
+                "hora_salida": hora_salida,
+                "estado": (
+                    "ingreso_registrado"
+                    if hora_entrada is not None
+                    else "sin_registro"
+                )
+            })
+
+        ingresos = sum(
+            estudiante["estado"] == "ingreso_registrado"
+            for estudiante in estudiantes
+        )
+
+        return {
+            "resultado": "ok",
+            "curso": curso,
+            "fecha": fecha,
+            "total_estudiantes": len(estudiantes),
+            "ingresos_registrados": ingresos,
+            "sin_registro": len(estudiantes) - ingresos,
+            "estudiantes": estudiantes
+        }
+
+    finally:
+        conexion.close()
