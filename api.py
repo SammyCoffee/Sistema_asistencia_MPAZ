@@ -34,6 +34,10 @@ app = Flask(
     )
 
 @app.get("/")
+def mostrar_inicio():
+    return app.send_static_file("inicio.html")
+
+
 @app.get("/index.html")
 def mostrar_panel():
 
