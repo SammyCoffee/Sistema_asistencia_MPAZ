@@ -1,3 +1,4 @@
+from base_datos import obtener_detalle_sesion_clase_profesor
 import os
 import secrets
 
@@ -21,6 +22,7 @@ from base_datos import (
     vincular_tarjeta,
     marcar_tarjeta_extraviada
 )
+from base_datos import obtener_sesiones_clase_profesor
 from consultar_asistencia import (
     obtener_asistencias,
     obtener_inasistencias,
@@ -130,6 +132,31 @@ def cerrar_sesion_panel():
     ),200
 
 
+
+def validar_csrf_profesor():
+    """
+    Valida el token CSRF enviado por un profesor autenticado.
+
+    Debe utilizarse en las rutas docentes que modifican datos.
+    """
+
+    token_sesion = session.get("profesor_csrf")
+    token_peticion = request.headers.get("X-CSRF-Token")
+
+    if (
+        not isinstance(token_sesion, str)
+        or not isinstance(token_peticion, str)
+        or not token_sesion
+        or not token_peticion
+    ):
+        return False
+
+    return secrets.compare_digest(
+        token_sesion,
+        token_peticion
+    )
+
+
 @app.post("/profesor/login")
 def iniciar_sesion_profesor():
     datos = request.get_json(silent=True) or {}
@@ -170,6 +197,7 @@ def iniciar_sesion_profesor():
     session["profesor_usuario"] = resultado["usuario"]
     session["profesor_nombre"] = resultado["nombre_completo"]
     session["profesor_rol"] = resultado["rol"]
+    session["profesor_csrf"] = secrets.token_urlsafe(32)
 
     return jsonify({
         "resultado": "ok",
@@ -198,6 +226,7 @@ def consultar_sesion_profesor():
     return jsonify({
         "resultado": "ok",
         "autorizado": True,
+        "csrf_token": session.get("profesor_csrf"),
         "profesor": {
             "id": profesor_id,
             "usuario": session.get("profesor_usuario"),
@@ -223,11 +252,377 @@ def cerrar_sesion_profesor():
     session.pop("profesor_usuario", None)
     session.pop("profesor_nombre", None)
     session.pop("profesor_rol", None)
+    session.pop("profesor_csrf", None)
 
     return jsonify({
         "resultado": "ok",
         "mensaje": "Sesion docente cerrada correctamente"
     }), 200
+
+
+
+@app.post("/profesor/sesiones")
+def crear_sesion_clase_api():
+    """
+    Crea una sesión de asistencia docente para una
+    asignación autorizada del profesor autenticado.
+    """
+
+    from base_datos import crear_sesion_clase_profesor
+
+    profesor_id = session.get("profesor_id")
+    profesor_rol = session.get("profesor_rol")
+
+    if (
+        not isinstance(profesor_id, int)
+        or isinstance(profesor_id, bool)
+        or profesor_id <= 0
+        or profesor_rol != "profesor"
+    ):
+        return jsonify({
+            "resultado": "no_autorizado",
+            "mensaje": "Debe iniciar sesion como profesor"
+        }), 401
+
+    if not validar_csrf_profesor():
+        return jsonify({
+            "resultado": "csrf_invalido",
+            "mensaje": "Token de seguridad invalido o ausente"
+        }), 403
+
+    if not request.is_json:
+        return jsonify({
+            "resultado": "datos_invalidos",
+            "mensaje": "Debe enviar datos JSON"
+        }), 400
+
+    datos = request.get_json(silent=True)
+
+    if not isinstance(datos, dict):
+        return jsonify({
+            "resultado": "datos_invalidos",
+            "mensaje": "El contenido JSON no es valido"
+        }), 400
+
+    asignacion_id = datos.get("asignacion_id")
+    fecha = datos.get("fecha")
+    hora_inicio = datos.get("hora_inicio")
+
+    resultado = crear_sesion_clase_profesor(
+        profesor_id,
+        asignacion_id,
+        fecha,
+        hora_inicio
+    )
+
+    codigo = resultado.get("resultado")
+
+    if codigo == "sesion_creada":
+        return jsonify(resultado), 201
+
+    if codigo == "sesion_existente":
+        return jsonify(resultado), 200
+
+    if codigo in (
+        "profesor_invalido",
+        "asignacion_invalida",
+        "fecha_invalida",
+        "hora_invalida"
+    ):
+        return jsonify(resultado), 400
+
+    if codigo in (
+        "asignacion_no_autorizada",
+        "profesor_no_autorizado"
+    ):
+        return jsonify({
+            "resultado": "acceso_denegado",
+            "mensaje": "No tiene autorizacion para esta asignacion"
+        }), 403
+
+    return jsonify({
+        "resultado": "error_creacion",
+        "mensaje": "No fue posible crear la sesion"
+    }), 500
+
+
+
+@app.post("/profesor/sesiones/<int:sesion_id>/asistencia")
+def registrar_asistencia_clase_api(sesion_id):
+    """
+    Registra o corrige la asistencia de un estudiante
+    en una sesión docente que permanezca en borrador.
+    """
+
+    from base_datos import registrar_asistencia_clase_profesor
+
+    profesor_id = session.get("profesor_id")
+    profesor_rol = session.get("profesor_rol")
+
+    if (
+        not isinstance(profesor_id, int)
+        or isinstance(profesor_id, bool)
+        or profesor_id <= 0
+        or profesor_rol != "profesor"
+    ):
+        return jsonify({
+            "resultado": "no_autorizado",
+            "mensaje": "Debe iniciar sesion como profesor"
+        }), 401
+
+    if not validar_csrf_profesor():
+        return jsonify({
+            "resultado": "csrf_invalido",
+            "mensaje": "Token de seguridad invalido o ausente"
+        }), 403
+
+    if not request.is_json:
+        return jsonify({
+            "resultado": "datos_invalidos",
+            "mensaje": "Debe enviar datos JSON"
+        }), 400
+
+    datos = request.get_json(silent=True)
+
+    if not isinstance(datos, dict):
+        return jsonify({
+            "resultado": "datos_invalidos",
+            "mensaje": "El contenido JSON no es valido"
+        }), 400
+
+    alumno_id = datos.get("alumno_id")
+    estado = datos.get("estado")
+    observacion = datos.get("observacion")
+
+    if (
+        observacion is not None
+        and (
+            not isinstance(observacion, str)
+            or len(observacion) > 500
+        )
+    ):
+        return jsonify({
+            "resultado": "observacion_invalida",
+            "mensaje": "La observacion debe ser texto de maximo 500 caracteres"
+        }), 400
+
+    resultado = registrar_asistencia_clase_profesor(
+        profesor_id,
+        sesion_id,
+        alumno_id,
+        estado,
+        observacion
+    )
+
+    codigo = resultado.get("resultado")
+
+    if codigo == "asistencia_guardada":
+        return jsonify(resultado), 200
+
+    if codigo in (
+        "profesor_invalido",
+        "sesion_invalida",
+        "alumno_invalido",
+        "estado_invalido",
+        "observacion_invalida"
+    ):
+        return jsonify(resultado), 400
+
+    if codigo in (
+        "sesion_no_autorizada",
+        "alumno_no_autorizado",
+        "profesor_no_autorizado"
+    ):
+        return jsonify({
+            "resultado": "acceso_denegado",
+            "mensaje": "No tiene autorizacion para esta operacion"
+        }), 403
+
+    if codigo == "sesion_no_editable":
+        return jsonify({
+            "resultado": "sesion_no_editable",
+            "mensaje": "La sesion ya no permite modificaciones"
+        }), 409
+
+    if codigo == "error_integridad":
+        return jsonify({
+            "resultado": "error_integridad",
+            "mensaje": "No fue posible guardar la asistencia"
+        }), 409
+
+    return jsonify({
+        "resultado": "error_registro",
+        "mensaje": "No fue posible registrar la asistencia"
+    }), 500
+
+
+
+@app.post("/profesor/sesiones/<int:sesion_id>/confirmar")
+def confirmar_sesion_clase_api(sesion_id):
+    """
+    Confirma una sesión de asistencia docente cuando
+    todos los estudiantes activos están verificados.
+    """
+
+    from base_datos import confirmar_sesion_clase_profesor
+
+    profesor_id = session.get("profesor_id")
+    profesor_rol = session.get("profesor_rol")
+
+    if (
+        not isinstance(profesor_id, int)
+        or isinstance(profesor_id, bool)
+        or profesor_id <= 0
+        or profesor_rol != "profesor"
+    ):
+        return jsonify({
+            "resultado": "no_autorizado",
+            "mensaje": "Debe iniciar sesion como profesor"
+        }), 401
+
+    if not validar_csrf_profesor():
+        return jsonify({
+            "resultado": "csrf_invalido",
+            "mensaje": "Token de seguridad invalido o ausente"
+        }), 403
+
+    resultado = confirmar_sesion_clase_profesor(
+        profesor_id,
+        sesion_id
+    )
+
+    codigo = resultado.get("resultado")
+
+    if codigo == "sesion_confirmada":
+        return jsonify(resultado), 200
+
+    if codigo in (
+        "profesor_invalido",
+        "sesion_invalida"
+    ):
+        return jsonify(resultado), 400
+
+    if codigo in (
+        "sesion_no_autorizada",
+        "profesor_no_autorizado"
+    ):
+        return jsonify({
+            "resultado": "acceso_denegado",
+            "mensaje": "No tiene autorizacion para esta sesion"
+        }), 403
+
+    if codigo == "asistencia_incompleta":
+        return jsonify(resultado), 409
+
+    if codigo in (
+        "sesion_no_editable",
+        "sesion_ya_confirmada",
+        "sesion_no_confirmable",
+        "curso_sin_alumnos"
+    ):
+        return jsonify(resultado), 409
+
+    return jsonify({
+        "resultado": "error_confirmacion",
+        "mensaje": "No fue posible confirmar la sesion"
+    }), 500
+
+
+
+@app.get("/profesor/asignaciones/<int:asignacion_id>/sesiones")
+def consultar_sesiones_clase_api(asignacion_id):
+    """
+    Consulta sesiones de una asignación docente autorizada.
+    """
+
+    profesor_id = session.get("profesor_id")
+    profesor_rol = session.get("profesor_rol")
+
+    if profesor_id is None or profesor_rol != "profesor":
+        return jsonify({
+            "resultado": "no_autenticado",
+            "mensaje": "Debe iniciar sesión como profesor"
+        }), 401
+
+    if asignacion_id <= 0:
+        return jsonify({
+            "resultado": "asignacion_invalida"
+        }), 400
+
+    resultado = obtener_sesiones_clase_profesor(
+        profesor_id,
+        asignacion_id
+    )
+
+    codigo_resultado = resultado.get("resultado")
+
+    if codigo_resultado == "ok":
+        return jsonify(resultado), 200
+
+    if codigo_resultado in (
+        "profesor_invalido",
+        "asignacion_invalida"
+    ):
+        return jsonify(resultado), 400
+
+    if codigo_resultado in (
+        "profesor_no_autorizado",
+        "profesor_inactivo",
+        "asignacion_no_autorizada"
+    ):
+        return jsonify(resultado), 403
+
+    return jsonify({
+        "resultado": "error_consulta",
+        "mensaje": "No fue posible consultar las sesiones"
+    }), 500
+
+
+
+@app.get("/profesor/sesiones/<int:sesion_id>")
+def consultar_detalle_sesion_clase_api(sesion_id):
+    """
+    Consulta el detalle de una sesión docente autorizada.
+    No modifica datos RFID ni registros de asistencia.
+    """
+
+    profesor_id = session.get("profesor_id")
+    profesor_rol = session.get("profesor_rol")
+
+    if profesor_id is None or profesor_rol != "profesor":
+        return jsonify({
+            "resultado": "no_autenticado",
+            "mensaje": "Debe iniciar sesión como profesor"
+        }), 401
+
+    if sesion_id <= 0:
+        return jsonify({
+            "resultado": "sesion_invalido"
+        }), 400
+
+    resultado = obtener_detalle_sesion_clase_profesor(
+        profesor_id,
+        sesion_id
+    )
+
+    codigo_resultado = resultado.get("resultado")
+
+    if codigo_resultado == "ok":
+        return jsonify(resultado), 200
+
+    if codigo_resultado in (
+        "profesor_invalido",
+        "sesion_invalido"
+    ):
+        return jsonify(resultado), 400
+
+    if codigo_resultado == "sesion_no_autorizada":
+        return jsonify(resultado), 403
+
+    return jsonify({
+        "resultado": "error_consulta",
+        "mensaje": "No fue posible consultar la sesión"
+    }), 500
 
 
 @app.get("/profesor/asignaciones")

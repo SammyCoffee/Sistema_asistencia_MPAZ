@@ -185,6 +185,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         return { respuesta, datos };
     }
 
+    let tokenCSRFProfesor = null;
+
     async function verificarSesion() {
 
         const { respuesta, datos } = await solicitarJSON(
@@ -192,8 +194,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
 
         if (!respuesta.ok || datos.resultado !== "ok") {
+            tokenCSRFProfesor = null;
             return null;
         }
+
+        tokenCSRFProfesor = datos.csrf_token || null;
 
         return datos;
     }
@@ -464,6 +469,722 @@ document.addEventListener("DOMContentLoaded", async () => {
         consultarAsistenciaRFID
     );
 
+
+    /* ==========================================
+       GESTIÓN DE ASISTENCIA EN CLASE
+       ========================================== */
+
+    const seccionGestionClase = document.getElementById(
+        "seccion-gestion-clase"
+    );
+
+    const tituloGestionClase = document.getElementById(
+        "titulo-gestion-clase"
+    );
+
+    const descripcionGestionClase = document.getElementById(
+        "descripcion-gestion-clase"
+    );
+
+    const mensajeGestionClase = document.getElementById(
+        "mensaje-gestion-clase"
+    );
+
+    const listaSesionesClase = document.getElementById(
+        "lista-sesiones-clase"
+    );
+
+    const botonConsultarSesionesClase = document.getElementById(
+        "boton-consultar-sesiones-clase"
+    );
+
+    const botonCrearSesionClase = document.getElementById(
+        "boton-crear-sesion-clase"
+    );
+
+    const fechaSesionClase = document.getElementById(
+        "fecha-sesion-clase"
+    );
+
+    const horaSesionClase = document.getElementById(
+        "hora-sesion-clase"
+    );
+
+    let asignacionClaseSeleccionada = null;
+    let consultaSesionesActual = 0;
+
+    function mostrarMensajeGestionClase(mensaje, tipo = "") {
+        mensajeGestionClase.textContent = mensaje;
+        mensajeGestionClase.className = "mensaje-panel " + tipo;
+    }
+
+    function seleccionarGestionClase(asignacion) {
+        consultaSesionesActual++;
+
+        asignacionClaseSeleccionada = asignacion;
+        sesionClaseAbiertaId = null;
+        consultaDetalleClaseActual++;
+
+        seccionGestionClase.hidden = false;
+
+        tituloGestionClase.textContent =
+            "Verificación de asistencia - Curso "
+            + asignacion.curso;
+
+        descripcionGestionClase.textContent =
+            "Asignatura: " + asignacion.asignatura;
+
+        listaSesionesClase.replaceChildren();
+        listaSesionesClase.hidden = true;
+
+        document.getElementById(
+            "detalle-sesion-clase"
+        ).hidden = true;
+
+        botonConsultarSesionesClase.disabled = false;
+
+        // La creación requiere una asignación docente seleccionada.
+        botonCrearSesionClase.disabled = false;
+
+        if (!fechaSesionClase.value) {
+            fechaSesionClase.value =
+                new Date().toLocaleDateString("en-CA");
+        }
+
+        if (!horaSesionClase.value) {
+            const ahora = new Date();
+
+            horaSesionClase.value =
+                String(ahora.getHours()).padStart(2, "0")
+                + ":"
+                + String(ahora.getMinutes()).padStart(2, "0");
+        }
+
+        mostrarMensajeGestionClase(
+            "Asignatura seleccionada. "
+            + "Puede consultar sus sesiones anteriores."
+        );
+
+        seccionGestionClase.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+    async function guardarAsistenciaAlumnoClase(
+        sesionId,
+        alumnoId,
+        estado,
+        boton
+    ) {
+        const estadosPermitidos = [
+            "presente",
+            "atrasado",
+            "no_presente"
+        ];
+
+        if (!estadosPermitidos.includes(estado)) {
+            mostrarMensajeGestionClase(
+                "Estado de asistencia no válido.",
+                "error"
+            );
+            return;
+        }
+
+        if (!tokenCSRFProfesor) {
+            mostrarMensajeGestionClase(
+                "No se pudo verificar la sesión docente. "
+                + "Vuelva a iniciar sesión.",
+                "error"
+            );
+            return;
+        }
+
+        boton.disabled = true;
+
+        mostrarMensajeGestionClase(
+            "Guardando asistencia del estudiante..."
+        );
+
+        try {
+            const { respuesta, datos } = await solicitarJSON(
+                "/profesor/sesiones/"
+                + encodeURIComponent(sesionId)
+                + "/asistencia",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-Token": tokenCSRFProfesor
+                    },
+                    body: JSON.stringify({
+                        alumno_id: alumnoId,
+                        estado: estado
+                    })
+                }
+            );
+
+            if (respuesta.status === 401) {
+                redirigirLogin();
+                return;
+            }
+
+            if (!respuesta.ok) {
+                mostrarMensajeGestionClase(
+                    datos.mensaje
+                    || "No fue posible guardar la asistencia.",
+                    "error"
+                );
+                return;
+            }
+
+            if (datos.resultado !== "asistencia_guardada") {
+                mostrarMensajeGestionClase(
+                    "El servidor no confirmó el registro.",
+                    "error"
+                );
+                return;
+            }
+
+            await abrirDetalleSesionClase(sesionId);
+
+            mostrarMensajeGestionClase(
+                "Asistencia guardada correctamente."
+            );
+
+        } catch (error) {
+            mostrarMensajeGestionClase(
+                "Error de conexión al guardar la asistencia.",
+                "error"
+            );
+
+        } finally {
+            boton.disabled = false;
+        }
+    }
+
+    let sesionClaseAbiertaId = null;
+    let confirmacionClaseEnCurso = false;
+
+    document.getElementById(
+        "boton-confirmar-sesion-clase"
+    ).addEventListener(
+        "click",
+        confirmarAsistenciaSesionClase
+    );
+
+    async function confirmarAsistenciaSesionClase() {
+        const sesionId = sesionClaseAbiertaId;
+
+        if (!Number.isInteger(sesionId) || sesionId <= 0) {
+            mostrarMensajeGestionClase(
+                "Primero debe abrir una sesión de clase.",
+                "error"
+            );
+            return;
+        }
+
+        if (confirmacionClaseEnCurso) {
+            return;
+        }
+
+        if (!tokenCSRFProfesor) {
+            mostrarMensajeGestionClase(
+                "La sesión docente no tiene un token válido. "
+                + "Vuelva a iniciar sesión.",
+                "error"
+            );
+            return;
+        }
+
+        const boton = document.getElementById(
+            "boton-confirmar-sesion-clase"
+        );
+
+        if (boton.disabled) {
+            return;
+        }
+
+        const aceptado = window.confirm(
+            "¿Desea confirmar definitivamente la asistencia? "
+            + "Después de confirmar no podrá modificar "
+            + "los registros de esta sesión."
+        );
+
+        if (!aceptado) {
+            return;
+        }
+
+        confirmacionClaseEnCurso = true;
+        boton.disabled = true;
+
+        mostrarMensajeGestionClase(
+            "Confirmando asistencia de la clase..."
+        );
+
+        try {
+            const { respuesta, datos } = await solicitarJSON(
+                "/profesor/sesiones/"
+                + encodeURIComponent(sesionId)
+                + "/confirmar",
+                {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-Token": tokenCSRFProfesor
+                    }
+                }
+            );
+
+            if (respuesta.status === 401) {
+                redirigirLogin();
+                return;
+            }
+
+            if (
+                !respuesta.ok
+                || datos.resultado !== "sesion_confirmada"
+            ) {
+                mostrarMensajeGestionClase(
+                    datos.mensaje
+                    || "No fue posible confirmar la asistencia.",
+                    "error"
+                );
+
+                await abrirDetalleSesionClase(sesionId);
+                return;
+            }
+
+            await abrirDetalleSesionClase(sesionId);
+
+            mostrarMensajeGestionClase(
+                "Asistencia confirmada correctamente. "
+                + "La sesión quedó bloqueada para edición."
+            );
+
+            await consultarSesionesClase();
+
+        } catch (error) {
+            mostrarMensajeGestionClase(
+                "No se pudo completar la confirmación. "
+                + "Consulte nuevamente el estado de la sesión.",
+                "error"
+            );
+
+        } finally {
+            confirmacionClaseEnCurso = false;
+        }
+    }
+
+    let consultaDetalleClaseActual = 0;
+
+    async function abrirDetalleSesionClase(sesionId) {
+        const numeroConsulta = ++consultaDetalleClaseActual;
+
+        const detalle = document.getElementById(
+            "detalle-sesion-clase"
+        );
+
+        const lista = document.getElementById(
+            "lista-asistencia-clase"
+        );
+
+        detalle.hidden = true;
+        lista.replaceChildren();
+
+        mostrarMensajeGestionClase(
+            "Cargando asistencia de la clase..."
+        );
+
+        try {
+            const { respuesta, datos } = await solicitarJSON(
+                "/profesor/sesiones/" + encodeURIComponent(sesionId)
+            );
+
+            if (numeroConsulta !== consultaDetalleClaseActual) {
+                return;
+            }
+
+            if (respuesta.status === 401) {
+                redirigirLogin();
+                return;
+            }
+
+            if (!respuesta.ok || datos.resultado !== "ok") {
+                mostrarMensajeGestionClase(
+                    datos.mensaje
+                    || "No fue posible consultar la sesión.",
+                    "error"
+                );
+                return;
+            }
+
+            const sesion = datos.sesion;
+            const alumnos = datos.alumnos || [];
+
+            sesionClaseAbiertaId = Number(sesion.sesion_id);
+
+            document.getElementById(
+                "titulo-detalle-sesion"
+            ).textContent =
+                "Asistencia - "
+                + sesion.curso
+                + " - "
+                + sesion.asignatura;
+
+            document.getElementById(
+                "estado-sesion-clase"
+            ).textContent =
+                "Fecha: " + sesion.fecha
+                + " | Hora: " + sesion.hora_inicio
+                + " | Estado: " + sesion.estado;
+
+            document.getElementById(
+                "total-alumnos-clase"
+            ).textContent = sesion.total_alumnos;
+
+            document.getElementById(
+                "registrados-clase"
+            ).textContent = sesion.registrados;
+
+            document.getElementById(
+                "pendientes-clase"
+            ).textContent = sesion.pendientes;
+
+            for (const alumno of alumnos) {
+                const tarjeta = document.createElement("article");
+                tarjeta.className = "tarjeta-estudiante";
+
+                const nombre = document.createElement("strong");
+                nombre.textContent = alumno.nombre;
+
+                const estado = document.createElement("p");
+
+                estado.textContent =
+                    "Estado: "
+                    + alumno.estado.replaceAll("_", " ");
+
+                tarjeta.append(nombre, estado);
+
+                if (sesion.estado === "borrador") {
+                    const controles = document.createElement("div");
+                    controles.className = "controles-asistencia";
+
+                    const opciones = [
+                        ["Presente", "presente"],
+                        ["Atrasado", "atrasado"],
+                        ["No presente", "no_presente"]
+                    ];
+
+                    for (const [etiqueta, valor] of opciones) {
+                        const boton = document.createElement("button");
+
+                        boton.type = "button";
+                        boton.className = "boton-asignacion";
+                        boton.textContent = etiqueta;
+
+                        if (alumno.estado === valor) {
+                            boton.setAttribute(
+                                "aria-pressed",
+                                "true"
+                            );
+                        }
+
+                        boton.addEventListener("click", () => {
+                            guardarAsistenciaAlumnoClase(
+                                sesion.sesion_id,
+                                alumno.alumno_id,
+                                valor,
+                                boton
+                            );
+                        });
+
+                        controles.appendChild(boton);
+                    }
+
+                    tarjeta.appendChild(controles);
+                }
+
+                lista.appendChild(tarjeta);
+            }
+
+            if (alumnos.length === 0) {
+                const mensaje = document.createElement("p");
+                mensaje.textContent =
+                    "No hay estudiantes activos en este curso.";
+                lista.appendChild(mensaje);
+            }
+
+            document.getElementById(
+                "boton-todos-presentes"
+            ).disabled = true;
+
+            const botonConfirmar = document.getElementById(
+                "boton-confirmar-sesion-clase"
+            );
+
+            const puedeConfirmar =
+                sesion.estado === "borrador"
+                && sesion.total_alumnos > 0
+                && sesion.pendientes === 0;
+
+            botonConfirmar.disabled = !puedeConfirmar;
+
+            detalle.hidden = false;
+
+            mostrarMensajeGestionClase(
+                "Detalle de la sesión cargado correctamente."
+            );
+
+            detalle.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        } catch (error) {
+            if (numeroConsulta === consultaDetalleClaseActual) {
+                mostrarMensajeGestionClase(
+                    "No fue posible conectar con el servidor.",
+                    "error"
+                );
+            }
+        }
+    }
+
+    async function consultarSesionesClase() {
+        if (!asignacionClaseSeleccionada) {
+            mostrarMensajeGestionClase(
+                "Seleccione primero una asignatura.",
+                "error"
+            );
+            return;
+        }
+
+        const numeroConsulta = ++consultaSesionesActual;
+        const asignacionId = asignacionClaseSeleccionada.asignacion_id;
+
+        listaSesionesClase.replaceChildren();
+        listaSesionesClase.hidden = true;
+
+        botonConsultarSesionesClase.disabled = true;
+
+        mostrarMensajeGestionClase(
+            "Consultando sesiones de clase..."
+        );
+
+        try {
+            const ruta = "/profesor/asignaciones/"
+                + encodeURIComponent(asignacionId)
+                + "/sesiones";
+
+            const { respuesta, datos } = await solicitarJSON(ruta);
+
+            if (numeroConsulta !== consultaSesionesActual) {
+                return;
+            }
+
+            if (respuesta.status === 401) {
+                redirigirLogin();
+                return;
+            }
+
+            if (respuesta.status === 403) {
+                mostrarMensajeGestionClase(
+                    "No tiene autorización para consultar "
+                    + "esta asignatura.",
+                    "error"
+                );
+                return;
+            }
+
+            if (!respuesta.ok || datos.resultado !== "ok") {
+                mostrarMensajeGestionClase(
+                    "No fue posible consultar las sesiones.",
+                    "error"
+                );
+                return;
+            }
+
+            const sesiones = Array.isArray(datos.sesiones)
+                ? datos.sesiones
+                : [];
+
+            if (sesiones.length === 0) {
+                mostrarMensajeGestionClase(
+                    "Esta asignatura todavía no tiene "
+                    + "sesiones de asistencia registradas."
+                );
+                return;
+            }
+
+            const lista = document.createElement("ol");
+
+            sesiones.forEach((sesion) => {
+                const elemento = document.createElement("li");
+
+                const fecha = sesion.fecha || "Sin fecha";
+                const hora = sesion.hora_inicio || "--:--";
+                const estado = sesion.estado || "desconocido";
+
+                const registrados = Number(
+                    sesion.registrados ?? 0
+                );
+
+                const pendientes = Number(
+                    sesion.pendientes ?? 0
+                );
+
+                elemento.textContent =
+                    fecha + " · " + hora
+                    + " · " + estado
+                    + " · Registrados: " + registrados
+                    + " · Sin verificar: " + pendientes;
+
+                const botonAbrir = document.createElement("button");
+                botonAbrir.type = "button";
+                botonAbrir.className = "boton-asignacion";
+                botonAbrir.textContent = "Abrir sesión";
+
+                botonAbrir.addEventListener("click", () => {
+                    abrirDetalleSesionClase(sesion.sesion_id);
+                });
+
+                elemento.appendChild(botonAbrir);
+
+                lista.appendChild(elemento);
+            });
+
+            listaSesionesClase.appendChild(lista);
+            listaSesionesClase.hidden = false;
+
+            mostrarMensajeGestionClase(
+                "Sesiones encontradas: " + sesiones.length
+            );
+
+        } catch (error) {
+            if (numeroConsulta !== consultaSesionesActual) {
+                return;
+            }
+
+            mostrarMensajeGestionClase(
+                "No fue posible conectar con el servidor.",
+                "error"
+            );
+
+        } finally {
+            if (numeroConsulta === consultaSesionesActual) {
+                botonConsultarSesionesClase.disabled = false;
+            }
+        }
+    }
+
+    async function crearSesionClase() {
+        if (!asignacionClaseSeleccionada) {
+            mostrarMensajeGestionClase(
+                "Seleccione primero una asignatura.",
+                "error"
+            );
+            return;
+        }
+
+        if (!tokenCSRFProfesor) {
+            mostrarMensajeGestionClase(
+                "No se pudo verificar la sesión docente. "
+                + "Vuelva a iniciar sesión.",
+                "error"
+            );
+            return;
+        }
+
+        const asignacionId =
+            asignacionClaseSeleccionada.asignacion_id;
+
+        const fecha = fechaSesionClase.value;
+        const horaInicio = horaSesionClase.value;
+
+        if (!fecha || !horaInicio) {
+            mostrarMensajeGestionClase(
+                "Debe indicar la fecha y hora de la clase.",
+                "error"
+            );
+            return;
+        }
+
+        botonCrearSesionClase.disabled = true;
+
+        mostrarMensajeGestionClase(
+            "Creando sesión de clase..."
+        );
+
+        try {
+            const { respuesta, datos } = await solicitarJSON(
+                "/profesor/sesiones",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-Token": tokenCSRFProfesor
+                    },
+                    body: JSON.stringify({
+                        asignacion_id: asignacionId,
+                        fecha: fecha,
+                        hora_inicio: horaInicio
+                    })
+                }
+            );
+
+            if (respuesta.status === 401) {
+                redirigirLogin();
+                return;
+            }
+
+            if (respuesta.status === 403) {
+                mostrarMensajeGestionClase(
+                    "No tiene autorización para crear "
+                    + "sesiones en esta asignatura.",
+                    "error"
+                );
+                return;
+            }
+
+            if (!respuesta.ok) {
+                mostrarMensajeGestionClase(
+                    datos.mensaje
+                    || "No fue posible crear la sesión.",
+                    "error"
+                );
+                return;
+            }
+
+            const mensajeCreacion =
+                datos.resultado === "sesion_existente"
+                    ? "La sesión ya estaba registrada."
+                    : "Sesión de clase creada correctamente.";
+
+            await consultarSesionesClase();
+
+            mostrarMensajeGestionClase(mensajeCreacion);
+
+        } catch (error) {
+            mostrarMensajeGestionClase(
+                "No fue posible conectar con el servidor.",
+                "error"
+            );
+        } finally {
+            botonCrearSesionClase.disabled = false;
+        }
+    }
+
+    botonCrearSesionClase.addEventListener(
+        "click",
+        crearSesionClase
+    );
+
+    botonConsultarSesionesClase.addEventListener(
+        "click",
+        consultarSesionesClase
+    );
+
+
     function crearTarjetaAsignacion(asignacion) {
 
         const tarjeta = document.createElement("article");
@@ -480,9 +1201,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         boton.className = "boton-asignacion";
         boton.textContent = "Gestión de clase";
 
-        // Se habilitará al implementar las clases.
-        boton.disabled = true;
-        boton.title = "Funcionalidad en desarrollo";
+        boton.disabled = false;
+        boton.title = "Verificar asistencia en clase";
+
+        boton.addEventListener("click", () => {
+            seleccionarGestionClase(asignacion);
+        });
 
         // Botón para consultar estudiantes del curso.
         const botonEstudiantes = document.createElement("button");

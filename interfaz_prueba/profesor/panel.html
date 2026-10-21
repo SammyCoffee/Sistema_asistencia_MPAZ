@@ -223,7 +223,169 @@
 
             </section>
 
-            <section class="informacion-panel">
+
+            <!-- VERIFICACIÓN OPCIONAL DE ASISTENCIA EN CLASE -->
+
+            <section
+                id="seccion-gestion-clase"
+                class="seccion-estudiantes"
+                aria-labelledby="titulo-gestion-clase"
+                hidden
+            >
+
+                <div class="titulo-seccion">
+                    <div>
+                        <h2 id="titulo-gestion-clase">
+                            Verificación de asistencia en clase
+                        </h2>
+
+                        <p id="descripcion-gestion-clase">
+                            Seleccione una asignatura para comenzar.
+                        </p>
+                    </div>
+                </div>
+
+                <p class="nota-asistencia">
+                    Esta verificación es opcional y complementaria
+                    al libro de clases tradicional. Los estudiantes
+                    sin verificar no se consideran automáticamente
+                    ausentes.
+                </p>
+
+                <div
+                    id="mensaje-gestion-clase"
+                    class="mensaje-panel"
+                    role="status"
+                    aria-live="polite"
+                >
+                    Seleccione Gestión de clase en una asignatura.
+                </div>
+
+                <div class="controles-asistencia">
+
+                    <label for="fecha-sesion-clase">
+                        Fecha de la clase
+                    </label>
+
+                    <input
+                        type="date"
+                        id="fecha-sesion-clase"
+                        name="fecha-sesion-clase"
+                    >
+
+                    <label for="hora-sesion-clase">
+                        Hora de inicio
+                    </label>
+
+                    <input
+                        type="time"
+                        id="hora-sesion-clase"
+                        name="hora-sesion-clase"
+                    >
+
+                    <button
+                        type="button"
+                        id="boton-crear-sesion-clase"
+                        class="boton-asignacion"
+                        disabled
+                    >
+                        Crear sesión
+                    </button>
+
+                    <button
+                        type="button"
+                        id="boton-consultar-sesiones-clase"
+                        class="boton-asignacion"
+                        disabled
+                    >
+                        Ver sesiones anteriores
+                    </button>
+
+                </div>
+
+                <div
+                    id="lista-sesiones-clase"
+                    class="lista-estudiantes"
+                    hidden
+                ></div>
+
+                <div
+                    id="detalle-sesion-clase"
+                    hidden
+                >
+
+                    <h3 id="titulo-detalle-sesion">
+                        Asistencia de la clase
+                    </h3>
+
+                    <p id="estado-sesion-clase">
+                        Sesión sin seleccionar.
+                    </p>
+
+                    <div
+                        id="resumen-sesion-clase"
+                        class="resumen-asistencia"
+                    >
+                        <p>
+                            Total de estudiantes:
+                            <strong id="total-alumnos-clase">0</strong>
+                        </p>
+
+                        <p>
+                            Registrados:
+                            <strong id="registrados-clase">0</strong>
+                        </p>
+
+                        <p>
+                            Sin verificar:
+                            <strong id="pendientes-clase">0</strong>
+                        </p>
+                    </div>
+
+                    <div class="controles-asistencia">
+
+                        <button
+                            type="button"
+                            id="boton-todos-presentes"
+                            class="boton-asignacion"
+                            disabled
+                        >
+                            Marcar todos presentes
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="lista-asistencia-clase"
+                        class="lista-estudiantes"
+                    ></div>
+
+                    <div class="controles-asistencia">
+
+                        <button
+                            type="button"
+                            id="boton-confirmar-sesion-clase"
+                            class="boton-asignacion"
+                            disabled
+                        >
+                            Confirmar asistencia
+                        </button>
+
+                    </div>
+
+                    <p class="nota-asistencia">
+                        Antes de confirmar, todos los estudiantes
+                        deben tener un estado registrado.
+                        Las sesiones confirmadas quedan bloqueadas
+                        para edición ordinaria.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+<section class="informacion-panel">
 
                 <h2>Gestión de asistencia</h2>
 

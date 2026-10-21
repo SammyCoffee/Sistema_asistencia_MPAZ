@@ -1888,9 +1888,855 @@ def crear_tablas():
             """
         )
 
+
+        # ==========================================
+        # SESIONES DE CONFIRMACION DOCENTE
+        # ==========================================
+
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS sesiones_clase (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+                asignacion_id INTEGER NOT NULL,
+
+                fecha TEXT NOT NULL,
+
+                hora_inicio TEXT NOT NULL,
+
+                modalidad TEXT NOT NULL DEFAULT 'por_clase'
+                    CHECK (modalidad IN ('por_clase', 'diaria')),
+
+                estado TEXT NOT NULL DEFAULT 'borrador'
+                    CHECK (estado IN ('borrador', 'confirmada', 'anulada')),
+
+                fecha_creacion TEXT NOT NULL
+                    DEFAULT (datetime('now')),
+
+                fecha_confirmacion TEXT,
+
+                FOREIGN KEY (asignacion_id)
+                    REFERENCES profesores_cursos(id),
+
+                UNIQUE (
+                    asignacion_id,
+                    fecha,
+                    modalidad,
+                    hora_inicio
+                )
+            )
+            """
+        )
+
+        # ==========================================
+        # ASISTENCIAS CONFIRMADAS POR EL DOCENTE
+        # ==========================================
+
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS asistencias_clase (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+                sesion_clase_id INTEGER NOT NULL,
+
+                alumno_id INTEGER NOT NULL,
+
+                estado TEXT NOT NULL
+                    CHECK (
+                        estado IN (
+                            'presente',
+                            'atrasado',
+                            'no_presente'
+                        )
+                    ),
+
+                observacion TEXT,
+
+                fecha_registro TEXT NOT NULL
+                    DEFAULT (datetime('now')),
+
+                FOREIGN KEY (sesion_clase_id)
+                    REFERENCES sesiones_clase(id),
+
+                FOREIGN KEY (alumno_id)
+                    REFERENCES alumnos(id),
+
+                UNIQUE (sesion_clase_id, alumno_id)
+            )
+            """
+        )
+
+        cursor.execute(
+            """
+            CREATE INDEX IF NOT EXISTS
+                indice_sesiones_clase_fecha
+            ON sesiones_clase(fecha, estado)
+            """
+        )
+
+        cursor.execute(
+            """
+            CREATE INDEX IF NOT EXISTS
+                indice_asistencias_clase_alumno
+            ON asistencias_clase(alumno_id)
+            """
+        )
+
         conexion.commit()
 
         print("Tablas creadas correctamente")
+    finally:
+        conexion.close()
+
+
+
+def crear_sesion_clase_profesor(
+    profesor_id,
+    asignacion_id,
+    fecha,
+    hora_inicio
+):
+    """
+    Crea o recupera una sesión de verificación docente.
+
+    La sesión comienza en estado borrador.
+    No modifica los registros de asistencia RFID.
+    """
+
+    from datetime import date as tipo_fecha
+    from datetime import time as tipo_hora
+    import sqlite3
+
+    if (
+        not isinstance(profesor_id, int)
+        or isinstance(profesor_id, bool)
+        or profesor_id <= 0
+    ):
+        return {"resultado": "profesor_invalido"}
+
+    if (
+        not isinstance(asignacion_id, int)
+        or isinstance(asignacion_id, bool)
+        or asignacion_id <= 0
+    ):
+        return {"resultado": "asignacion_invalida"}
+
+    if not isinstance(fecha, str):
+        return {"resultado": "fecha_invalida"}
+
+    try:
+        fecha_validada = tipo_fecha.fromisoformat(fecha)
+
+        if fecha_validada.isoformat() != fecha:
+            return {"resultado": "fecha_invalida"}
+
+    except ValueError:
+        return {"resultado": "fecha_invalida"}
+
+    if not isinstance(hora_inicio, str):
+        return {"resultado": "hora_invalida"}
+
+    try:
+        hora_validada = tipo_hora.fromisoformat(hora_inicio)
+
+        hora_normalizada = hora_validada.strftime("%H:%M")
+
+        if hora_normalizada != hora_inicio:
+            return {"resultado": "hora_invalida"}
+
+    except ValueError:
+        return {"resultado": "hora_invalida"}
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            SELECT
+                pc.id,
+                pc.curso,
+                a.nombre
+            FROM profesores_cursos pc
+            INNER JOIN usuarios u
+                ON u.id = pc.profesor_id
+            INNER JOIN asignaturas a
+                ON a.id = pc.asignatura_id
+            WHERE pc.id = ?
+              AND pc.profesor_id = ?
+              AND pc.estado = 'activo'
+              AND u.rol = 'profesor'
+              AND u.estado = 'activo'
+              AND a.estado = 'activo'
+            LIMIT 1
+            """,
+            (asignacion_id, profesor_id)
+        )
+
+        asignacion = cursor.fetchone()
+
+        if asignacion is None:
+            return {"resultado": "asignacion_no_autorizada"}
+
+        cursor.execute(
+            """
+            SELECT id, estado
+            FROM sesiones_clase
+            WHERE asignacion_id = ?
+              AND fecha = ?
+              AND modalidad = 'por_clase'
+              AND hora_inicio = ?
+            LIMIT 1
+            """,
+            (
+                asignacion_id,
+                fecha,
+                hora_inicio
+            )
+        )
+
+        existente = cursor.fetchone()
+
+        if existente is not None:
+            return {
+                "resultado": "sesion_existente",
+                "sesion_id": existente[0],
+                "estado": existente[1]
+            }
+
+        try:
+            cursor.execute(
+                """
+                INSERT INTO sesiones_clase (
+                    asignacion_id,
+                    fecha,
+                    hora_inicio,
+                    modalidad,
+                    estado
+                )
+                VALUES (?, ?, ?, 'por_clase', 'borrador')
+                """,
+                (
+                    asignacion_id,
+                    fecha,
+                    hora_inicio
+                )
+            )
+
+            conexion.commit()
+
+            return {
+                "resultado": "sesion_creada",
+                "sesion_id": cursor.lastrowid,
+                "estado": "borrador",
+                "curso": asignacion[1],
+                "asignatura": asignacion[2]
+            }
+
+        except sqlite3.IntegrityError:
+            conexion.rollback()
+
+            cursor.execute(
+                """
+                SELECT id, estado
+                FROM sesiones_clase
+                WHERE asignacion_id = ?
+                  AND fecha = ?
+                  AND modalidad = 'por_clase'
+                  AND hora_inicio = ?
+                LIMIT 1
+                """,
+                (
+                    asignacion_id,
+                    fecha,
+                    hora_inicio
+                )
+            )
+
+            existente = cursor.fetchone()
+
+            if existente is None:
+                raise
+
+            return {
+                "resultado": "sesion_existente",
+                "sesion_id": existente[0],
+                "estado": existente[1]
+            }
+
+    finally:
+        conexion.close()
+
+
+def registrar_asistencia_clase_profesor(
+    profesor_id,
+    sesion_id,
+    alumno_id,
+    estado,
+    observacion=None
+):
+    """
+    Registra o actualiza la asistencia de un estudiante
+    dentro de una sesión docente en estado borrador.
+
+    No modifica la asistencia registrada por RFID.
+    """
+
+    import sqlite3
+
+    for valor, nombre_campo in (
+        (profesor_id, "profesor"),
+        (sesion_id, "sesion"),
+        (alumno_id, "alumno")
+    ):
+        if (
+            not isinstance(valor, int)
+            or isinstance(valor, bool)
+            or valor <= 0
+        ):
+            return {
+                "resultado": f"{nombre_campo}_invalido"
+            }
+
+    estados_permitidos = (
+        "presente",
+        "atrasado",
+        "no_presente"
+    )
+
+    if estado not in estados_permitidos:
+        return {"resultado": "estado_invalido"}
+
+    if observacion is not None:
+        if not isinstance(observacion, str):
+            return {"resultado": "observacion_invalida"}
+
+        observacion = observacion.strip()
+
+        if len(observacion) > 500:
+            return {"resultado": "observacion_demasiado_larga"}
+
+        if not observacion:
+            observacion = None
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        # Bloquear escrituras concurrentes durante la validación.
+        cursor.execute("BEGIN IMMEDIATE")
+
+        cursor.execute(
+            """
+            SELECT
+                sc.id,
+                sc.estado,
+                pc.curso
+            FROM sesiones_clase sc
+            INNER JOIN profesores_cursos pc
+                ON pc.id = sc.asignacion_id
+            INNER JOIN usuarios u
+                ON u.id = pc.profesor_id
+            INNER JOIN asignaturas a
+                ON a.id = pc.asignatura_id
+            WHERE sc.id = ?
+              AND pc.profesor_id = ?
+              AND pc.estado = 'activo'
+              AND u.rol = 'profesor'
+              AND u.estado = 'activo'
+              AND a.estado = 'activo'
+            LIMIT 1
+            """,
+            (sesion_id, profesor_id)
+        )
+
+        sesion = cursor.fetchone()
+
+        if sesion is None:
+            return {"resultado": "sesion_no_autorizada"}
+
+        if sesion[1] != "borrador":
+            return {
+                "resultado": "sesion_no_editable",
+                "estado_sesion": sesion[1]
+            }
+
+        curso = sesion[2]
+
+        cursor.execute(
+            """
+            SELECT id
+            FROM alumnos
+            WHERE id = ?
+              AND curso = ?
+              AND estado = 'activo'
+            LIMIT 1
+            """,
+            (alumno_id, curso)
+        )
+
+        if cursor.fetchone() is None:
+            return {"resultado": "alumno_no_autorizado"}
+
+        cursor.execute(
+            """
+            INSERT INTO asistencias_clase (
+                sesion_clase_id,
+                alumno_id,
+                estado,
+                observacion
+            )
+            VALUES (?, ?, ?, ?)
+            ON CONFLICT(sesion_clase_id, alumno_id)
+            DO UPDATE SET
+                estado = excluded.estado,
+                observacion = excluded.observacion,
+                fecha_registro = datetime('now')
+            """,
+            (
+                sesion_id,
+                alumno_id,
+                estado,
+                observacion
+            )
+        )
+
+        conexion.commit()
+
+        return {
+            "resultado": "asistencia_guardada",
+            "sesion_id": sesion_id,
+            "alumno_id": alumno_id,
+            "estado": estado
+        }
+
+    except sqlite3.IntegrityError:
+        conexion.rollback()
+        return {"resultado": "error_integridad"}
+
+    finally:
+        conexion.close()
+
+
+def confirmar_sesion_clase_profesor(profesor_id, sesion_id):
+    """
+    Confirma una sesión docente cuando todos los estudiantes
+    activos del curso tienen un registro de asistencia.
+
+    No modifica los registros de asistencia RFID.
+    """
+
+    for valor, campo in (
+        (profesor_id, "profesor"),
+        (sesion_id, "sesion")
+    ):
+        if (
+            not isinstance(valor, int)
+            or isinstance(valor, bool)
+            or valor <= 0
+        ):
+            return {"resultado": f"{campo}_invalido"}
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        # Evita modificaciones concurrentes durante la confirmación.
+        cursor.execute("BEGIN IMMEDIATE")
+
+        cursor.execute(
+            """
+            SELECT
+                sc.estado,
+                pc.curso
+            FROM sesiones_clase sc
+            INNER JOIN profesores_cursos pc
+                ON pc.id = sc.asignacion_id
+            INNER JOIN usuarios u
+                ON u.id = pc.profesor_id
+            INNER JOIN asignaturas a
+                ON a.id = pc.asignatura_id
+            WHERE sc.id = ?
+              AND pc.profesor_id = ?
+              AND pc.estado = 'activo'
+              AND u.rol = 'profesor'
+              AND u.estado = 'activo'
+              AND a.estado = 'activo'
+            LIMIT 1
+            """,
+            (sesion_id, profesor_id)
+        )
+
+        sesion = cursor.fetchone()
+
+        if sesion is None:
+            return {"resultado": "sesion_no_autorizada"}
+
+        estado_sesion, curso = sesion
+
+        if estado_sesion != "borrador":
+            return {
+                "resultado": "sesion_no_confirmable",
+                "estado_sesion": estado_sesion
+            }
+
+        # Contar estudiantes activos del curso.
+        cursor.execute(
+            """
+            SELECT COUNT(*)
+            FROM alumnos
+            WHERE curso = ?
+              AND estado = 'activo'
+            """,
+            (curso,)
+        )
+
+        total_alumnos = cursor.fetchone()[0]
+
+        if total_alumnos == 0:
+            return {"resultado": "curso_sin_alumnos"}
+
+        # Contar estudiantes activos con asistencia registrada.
+        cursor.execute(
+            """
+            SELECT COUNT(*)
+            FROM asistencias_clase ac
+            INNER JOIN alumnos al
+                ON al.id = ac.alumno_id
+            WHERE ac.sesion_clase_id = ?
+              AND al.curso = ?
+              AND al.estado = 'activo'
+            """,
+            (sesion_id, curso)
+        )
+
+        total_registrados = cursor.fetchone()[0]
+
+        pendientes = total_alumnos - total_registrados
+
+        if pendientes > 0:
+            return {
+                "resultado": "asistencia_incompleta",
+                "total_alumnos": total_alumnos,
+                "registrados": total_registrados,
+                "pendientes": pendientes
+            }
+
+        # Confirmar definitivamente la sesión.
+        cursor.execute(
+            """
+            UPDATE sesiones_clase
+            SET estado = 'confirmada',
+                fecha_confirmacion = datetime('now')
+            WHERE id = ?
+              AND estado = 'borrador'
+            """,
+            (sesion_id,)
+        )
+
+        if cursor.rowcount != 1:
+            conexion.rollback()
+            return {"resultado": "error_confirmacion"}
+
+        conexion.commit()
+
+        return {
+            "resultado": "sesion_confirmada",
+            "sesion_id": sesion_id,
+            "total_alumnos": total_alumnos,
+            "registrados": total_registrados,
+            "pendientes": 0
+        }
+
+    finally:
+        conexion.close()
+
+
+def obtener_sesiones_clase_profesor(profesor_id, asignacion_id):
+    """
+    Consulta las sesiones de una asignación autorizada.
+
+    Los estudiantes sin registro se consideran pendientes
+    de verificación, nunca ausentes automáticamente.
+
+    No modifica datos RFID ni registros docentes.
+    """
+
+    if (
+        not isinstance(profesor_id, int)
+        or isinstance(profesor_id, bool)
+        or profesor_id <= 0
+    ):
+        return {
+            "resultado": "profesor_invalido",
+            "sesiones": []
+        }
+
+    if (
+        not isinstance(asignacion_id, int)
+        or isinstance(asignacion_id, bool)
+        or asignacion_id <= 0
+    ):
+        return {
+            "resultado": "asignacion_invalida",
+            "sesiones": []
+        }
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        # Verificar profesor y asignación activa.
+        cursor.execute(
+            """
+            SELECT
+                pc.curso,
+                a.nombre
+            FROM profesores_cursos pc
+            INNER JOIN usuarios u
+                ON u.id = pc.profesor_id
+            INNER JOIN asignaturas a
+                ON a.id = pc.asignatura_id
+            WHERE pc.id = ?
+              AND pc.profesor_id = ?
+              AND pc.estado = 'activo'
+              AND u.rol = 'profesor'
+              AND u.estado = 'activo'
+              AND a.estado = 'activo'
+            LIMIT 1
+            """,
+            (asignacion_id, profesor_id)
+        )
+
+        asignacion = cursor.fetchone()
+
+        if asignacion is None:
+            return {
+                "resultado": "asignacion_no_autorizada",
+                "sesiones": []
+            }
+
+        curso, asignatura = asignacion
+
+        # Contar estudiantes activos del curso.
+        cursor.execute(
+            """
+            SELECT COUNT(*)
+            FROM alumnos
+            WHERE curso = ?
+              AND estado = 'activo'
+            """,
+            (curso,)
+        )
+
+        total_alumnos = cursor.fetchone()[0]
+
+        # Consultar sesiones de la asignación.
+        cursor.execute(
+            """
+            SELECT
+                sc.id,
+                sc.fecha,
+                sc.hora_inicio,
+                sc.modalidad,
+                sc.estado,
+                sc.fecha_creacion,
+                sc.fecha_confirmacion,
+                (
+                    SELECT COUNT(*)
+                    FROM asistencias_clase ac
+                    INNER JOIN alumnos al
+                        ON al.id = ac.alumno_id
+                    WHERE ac.sesion_clase_id = sc.id
+                      AND al.curso = ?
+                      AND al.estado = 'activo'
+                ) AS registrados
+            FROM sesiones_clase sc
+            WHERE sc.asignacion_id = ?
+            ORDER BY
+                sc.fecha DESC,
+                sc.hora_inicio DESC,
+                sc.id DESC
+            """,
+            (curso, asignacion_id)
+        )
+
+        sesiones = []
+
+        for fila in cursor.fetchall():
+            registrados = fila[7]
+
+            sesiones.append({
+                "sesion_id": fila[0],
+                "asignacion_id": asignacion_id,
+                "curso": curso,
+                "asignatura": asignatura,
+                "fecha": fila[1],
+                "hora_inicio": fila[2],
+                "modalidad": fila[3],
+                "estado": fila[4],
+                "fecha_creacion": fila[5],
+                "fecha_confirmacion": fila[6],
+                "total_alumnos": total_alumnos,
+                "registrados": registrados,
+                "pendientes": max(
+                    total_alumnos - registrados,
+                    0
+                )
+            })
+
+        return {
+            "resultado": "ok",
+            "asignacion_id": asignacion_id,
+            "curso": curso,
+            "asignatura": asignatura,
+            "total_sesiones": len(sesiones),
+            "sesiones": sesiones
+        }
+
+    finally:
+        conexion.close()
+
+
+
+def obtener_detalle_sesion_clase_profesor(profesor_id, sesion_id):
+    """
+    Consulta una sesión docente y la asistencia individual.
+
+    Los estudiantes sin registro se muestran como
+    'sin_verificar', sin modificar la base de datos.
+
+    No modifica los registros RFID.
+    """
+
+    for valor, campo in (
+        (profesor_id, "profesor"),
+        (sesion_id, "sesion")
+    ):
+        if (
+            not isinstance(valor, int)
+            or isinstance(valor, bool)
+            or valor <= 0
+        ):
+            return {
+                "resultado": f"{campo}_invalido",
+                "alumnos": []
+            }
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        # Verificar que la sesión pertenezca al profesor.
+        cursor.execute(
+            """
+            SELECT
+                sc.id,
+                sc.asignacion_id,
+                pc.curso,
+                a.nombre,
+                sc.fecha,
+                sc.hora_inicio,
+                sc.modalidad,
+                sc.estado,
+                sc.fecha_creacion,
+                sc.fecha_confirmacion
+            FROM sesiones_clase sc
+            INNER JOIN profesores_cursos pc
+                ON pc.id = sc.asignacion_id
+            INNER JOIN usuarios u
+                ON u.id = pc.profesor_id
+            INNER JOIN asignaturas a
+                ON a.id = pc.asignatura_id
+            WHERE sc.id = ?
+              AND pc.profesor_id = ?
+              AND pc.estado = 'activo'
+              AND u.rol = 'profesor'
+              AND u.estado = 'activo'
+              AND a.estado = 'activo'
+            LIMIT 1
+            """,
+            (sesion_id, profesor_id)
+        )
+
+        sesion = cursor.fetchone()
+
+        if sesion is None:
+            return {
+                "resultado": "sesion_no_autorizada",
+                "alumnos": []
+            }
+
+        curso = sesion[2]
+
+        # LEFT JOIN conserva estudiantes sin asistencia.
+        cursor.execute(
+            """
+            SELECT
+                al.id,
+                al.nombre_completo,
+                al.curso,
+                ac.estado,
+                ac.observacion,
+                ac.fecha_registro
+            FROM alumnos al
+            LEFT JOIN asistencias_clase ac
+                ON ac.alumno_id = al.id
+               AND ac.sesion_clase_id = ?
+            WHERE al.curso = ?
+              AND al.estado = 'activo'
+            ORDER BY
+                al.nombre_completo ASC,
+                al.id ASC
+            """,
+            (sesion_id, curso)
+        )
+
+        alumnos = []
+
+        for fila in cursor.fetchall():
+            estado = (
+                fila[3]
+                if fila[3] is not None
+                else "sin_verificar"
+            )
+
+            alumnos.append({
+                "alumno_id": fila[0],
+                "nombre": fila[1],
+                "curso": fila[2],
+                "estado": estado,
+                "observacion": fila[4],
+                "fecha_registro": fila[5]
+            })
+
+        registrados = sum(
+            alumno["estado"] != "sin_verificar"
+            for alumno in alumnos
+        )
+
+        total_alumnos = len(alumnos)
+
+        return {
+            "resultado": "ok",
+            "sesion": {
+                "sesion_id": sesion[0],
+                "asignacion_id": sesion[1],
+                "curso": sesion[2],
+                "asignatura": sesion[3],
+                "fecha": sesion[4],
+                "hora_inicio": sesion[5],
+                "modalidad": sesion[6],
+                "estado": sesion[7],
+                "fecha_creacion": sesion[8],
+                "fecha_confirmacion": sesion[9],
+                "total_alumnos": total_alumnos,
+                "registrados": registrados,
+                "pendientes": total_alumnos - registrados
+            },
+            "alumnos": alumnos
+        }
+
     finally:
         conexion.close()
 
