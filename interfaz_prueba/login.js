@@ -27,6 +27,6 @@ formularioLogin.addEventListener("submit", async function(event) {
     mensajeLogin.textContent = datos.mensaje;
 
     if (respuesta.ok) {
-        window.location.href = "/";
+        window.location.href = "/index.html";
     }
 });

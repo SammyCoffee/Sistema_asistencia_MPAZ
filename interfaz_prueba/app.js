@@ -116,6 +116,12 @@ async function cargarResumenEstudiantes() {
 
     const datos = await respuesta.json();
 
+    const alumnosActivos = datos.alumnos.filter(
+        function (alumno) {
+            return alumno.estado_alumno === "activo";
+        }
+    );
+
    const ordenCursos = [
     "PK",
     "K",
