@@ -1275,6 +1275,33 @@ document.addEventListener("DOMContentLoaded", async () => {
             asistenciaMasivaEnCurso = false;
             recuperarControlesAsistenciaClase();
         }
+
+        /* MPAZ-ACTUALIZAR-HISTORIAL-V1 */
+
+        if (
+            guardados > 0
+            && Number(sesionClaseAbiertaId) === Number(sesionId)
+        ) {
+            try {
+                const historialActualizado =
+                    await consultarSesionesClase();
+
+                if (historialActualizado) {
+                    mostrarMensajeGestionClase(
+                        "Registro masivo finalizado. "
+                        + "Guardados: " + guardados
+                        + ". Fallidos: " + fallidos + ".",
+                        fallidos > 0 ? "error" : ""
+                    );
+                }
+            } catch (error) {
+                mostrarMensajeGestionClase(
+                    "La asistencia fue registrada, "
+                    + "pero no se pudo actualizar el historial.",
+                    "error"
+                );
+            }
+        }
     }
 
     async function consultarSesionesClase() {
@@ -1343,14 +1370,18 @@ document.addEventListener("DOMContentLoaded", async () => {
                 return true;
             }
 
+            /* MPAZ-TARJETAS-SESIONES-V2 */
             const lista = document.createElement("ol");
+            lista.classList.add("mpaz-lista-sesiones");
 
             sesiones.forEach((sesion) => {
                 const elemento = document.createElement("li");
+                elemento.classList.add("mpaz-sesion-tarjeta");
 
                 const fecha = sesion.fecha || "Sin fecha";
                 const hora = sesion.hora_inicio || "--:--";
                 const estado = sesion.estado || "desconocido";
+                elemento.dataset.estado = estado;
 
                 const registrados = Number(
                     sesion.registrados ?? 0
@@ -1368,8 +1399,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 const botonAbrir = document.createElement("button");
                 botonAbrir.type = "button";
-                botonAbrir.className = "boton-asignacion";
-                botonAbrir.textContent = "Abrir sesión";
+                botonAbrir.className = "boton-asignacion mpaz-sesion-boton";
+                botonAbrir.textContent = estado === "confirmada"
+                    ? "Ver detalle"
+                    : estado === "borrador"
+                        ? "Continuar registro"
+                        : "Abrir sesión";
 
                 botonAbrir.addEventListener("click", () => {
                     if (hayOperacionAsistenciaEnCurso()) {

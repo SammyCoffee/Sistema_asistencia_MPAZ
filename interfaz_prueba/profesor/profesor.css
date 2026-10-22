@@ -807,3 +807,244 @@ body {
         justify-self: start;
     }
 }
+
+
+/* ==========================================
+   MPAZ RFID - CONTROLES DEL ENCABEZADO
+   ========================================== */
+
+.acciones-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    min-width: 0;
+}
+
+.menu-configuracion {
+    position: relative;
+}
+
+.menu-configuracion > summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #102a43;
+
+    font-size: 23px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.menu-configuracion > summary::-webkit-details-marker {
+    display: none;
+}
+
+.menu-configuracion > summary:hover {
+    background: #e8f3fb;
+}
+
+.menu-configuracion > summary:focus-visible {
+    outline: 3px solid #1677b8;
+    outline-offset: 3px;
+}
+
+.contenido-configuracion {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    z-index: 100;
+
+    width: 240px;
+    max-width: calc(100vw - 40px);
+    padding: 18px;
+
+    background: #ffffff;
+    color: #243b53;
+
+    border: 1px solid #dbe4ee;
+    border-radius: 12px;
+
+    box-shadow: 0 12px 28px rgba(16, 42, 67, 0.16);
+}
+
+.contenido-configuracion h2 {
+    margin: 0 0 10px;
+    font-size: 17px;
+}
+
+.contenido-configuracion p {
+    margin: 0 0 12px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.contenido-configuracion a {
+    display: block;
+    padding: 10px;
+    border-radius: 8px;
+
+    background: #e8f3fb;
+    color: #10598b;
+
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.contenido-configuracion a:hover {
+    background: #d5eaf8;
+}
+
+@media (max-width: 768px) {
+    .acciones-cabecera {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .contenido-configuracion {
+        right: 0;
+    }
+}
+
+
+/* MPAZ-TARJETAS-SESIONES-V2 */
+
+.mpaz-lista-sesiones {
+    list-style: none;
+    margin: 16px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mpaz-sesion-tarjeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #dce5ef;
+    border-left: 5px solid #7893ae;
+    border-radius: 10px;
+    color: #173b61;
+    font-size: 14px;
+}
+
+.mpaz-sesion-tarjeta[data-estado="confirmada"] {
+    border-left-color: #16a34a;
+}
+
+.mpaz-sesion-tarjeta[data-estado="borrador"] {
+    border-left-color: #eab308;
+}
+
+.mpaz-sesion-tarjeta button.mpaz-sesion-boton {
+    width: auto;
+    min-width: 145px;
+    max-width: 100%;
+    flex-shrink: 0;
+    padding: 10px 16px;
+    margin: 0;
+}
+
+@media (max-width: 650px) {
+    .mpaz-sesion-tarjeta {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .mpaz-sesion-tarjeta button.mpaz-sesion-boton {
+        width: 100%;
+    }
+}
+
+
+/* ==========================================
+   MPAZ-MODO-SOLO-LECTURA-V1
+   SESIONES CONFIRMADAS
+   ========================================== */
+
+/* Destacar visualmente las sesiones confirmadas */
+
+#detalle-sesion-clase[data-estado="confirmada"]
+#estado-sesion-clase {
+    padding: 14px 16px;
+    background: #ecfdf5;
+    border: 1px solid #bbf7d0;
+    border-left: 5px solid #16a34a;
+    border-radius: 10px;
+    color: #166534;
+    font-weight: 600;
+}
+
+/* Indicador de solo lectura */
+
+#detalle-sesion-clase[data-estado="confirmada"]
+#estado-sesion-clase::after {
+    content: " · Solo lectura";
+    font-weight: 700;
+}
+
+/* Ocultar el bloque de acciones masivas */
+
+#detalle-sesion-clase[data-estado="confirmada"]
+div:has(> #boton-masivo-presentes) {
+    display: none;
+}
+
+/* Ocultar el bloque de confirmación */
+
+#detalle-sesion-clase[data-estado="confirmada"]
+div:has(> #boton-confirmar-sesion-clase) {
+    display: none;
+}
+
+/* Ocultar instrucciones de edición */
+
+#detalle-sesion-clase[data-estado="confirmada"]
+.nota-asistencia {
+    display: none;
+}
+
+/* Mantener visibles los registros */
+
+#detalle-sesion-clase[data-estado="confirmada"]
+#lista-asistencia-clase {
+    margin-top: 18px;
+}
+
+
+/* ==========================================
+   MPAZ-MODO-BORRADOR-V1
+   SESIONES PENDIENTES DE CONFIRMACION
+   ========================================== */
+
+#detalle-sesion-clase[data-estado="borrador"]
+#estado-sesion-clase {
+    padding: 14px 16px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-left: 5px solid #eab308;
+    border-radius: 10px;
+    color: #92400e;
+    font-weight: 600;
+}
+
+#detalle-sesion-clase[data-estado="borrador"]
+#estado-sesion-clase::after {
+    content: " · Registro pendiente de confirmación";
+    font-weight: 700;
+}
