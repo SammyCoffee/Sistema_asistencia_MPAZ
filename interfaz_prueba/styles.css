@@ -17,7 +17,7 @@ h1{
     padding: 24px;
 
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: minmax(0, 1fr) auto auto;
     align-items: center;
     gap: 20px;
 
@@ -509,4 +509,111 @@ button:active {
 .dato-resumen strong {
     font-size: 28px;
     display: block;
+}
+
+/* ==========================================
+   MPAZ RFID - CONTROLES DEL ENCABEZADO
+   ========================================== */
+
+.acciones-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    min-width: 0;
+}
+
+.menu-configuracion {
+    position: relative;
+}
+
+.menu-configuracion > summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #102a43;
+
+    font-size: 23px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.menu-configuracion > summary::-webkit-details-marker {
+    display: none;
+}
+
+.menu-configuracion > summary:hover {
+    background: #e8f3fb;
+}
+
+.menu-configuracion > summary:focus-visible {
+    outline: 3px solid #1677b8;
+    outline-offset: 3px;
+}
+
+.contenido-configuracion {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    z-index: 100;
+
+    width: 240px;
+    max-width: calc(100vw - 40px);
+    padding: 18px;
+
+    background: #ffffff;
+    color: #243b53;
+
+    border: 1px solid #dbe4ee;
+    border-radius: 12px;
+
+    box-shadow: 0 12px 28px rgba(16, 42, 67, 0.16);
+}
+
+.contenido-configuracion h2 {
+    margin: 0 0 10px;
+    font-size: 17px;
+}
+
+.contenido-configuracion p {
+    margin: 0 0 12px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.contenido-configuracion a {
+    display: block;
+    padding: 10px;
+    border-radius: 8px;
+
+    background: #e8f3fb;
+    color: #10598b;
+
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.contenido-configuracion a:hover {
+    background: #d5eaf8;
+}
+
+@media (max-width: 768px) {
+    .acciones-cabecera {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .contenido-configuracion {
+        right: 0;
+    }
 }
