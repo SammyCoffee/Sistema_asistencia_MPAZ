@@ -571,98 +571,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    async function guardarAsistenciaAlumnoClase(
-        sesionId,
-        alumnoId,
-        estado,
-        boton
-    ) {
-        const estadosPermitidos = [
-            "presente",
-            "atrasado",
-            "no_presente"
-        ];
-
-        if (!estadosPermitidos.includes(estado)) {
-            mostrarMensajeGestionClase(
-                "Estado de asistencia no válido.",
-                "error"
-            );
-            return;
-        }
-
-        if (!tokenCSRFProfesor) {
-            mostrarMensajeGestionClase(
-                "No se pudo verificar la sesión docente. "
-                + "Vuelva a iniciar sesión.",
-                "error"
-            );
-            return;
-        }
-
-        boton.disabled = true;
-
-        mostrarMensajeGestionClase(
-            "Guardando asistencia del estudiante..."
-        );
-
-        try {
-            const { respuesta, datos } = await solicitarJSON(
-                "/profesor/sesiones/"
-                + encodeURIComponent(sesionId)
-                + "/asistencia",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-Token": tokenCSRFProfesor
-                    },
-                    body: JSON.stringify({
-                        alumno_id: alumnoId,
-                        estado: estado
-                    })
-                }
-            );
-
-            if (respuesta.status === 401) {
-                redirigirLogin();
-                return;
-            }
-
-            if (!respuesta.ok) {
-                mostrarMensajeGestionClase(
-                    datos.mensaje
-                    || "No fue posible guardar la asistencia.",
-                    "error"
-                );
-                return;
-            }
-
-            if (datos.resultado !== "asistencia_guardada") {
-                mostrarMensajeGestionClase(
-                    "El servidor no confirmó el registro.",
-                    "error"
-                );
-                return;
-            }
-
-            await abrirDetalleSesionClase(sesionId);
-
-            mostrarMensajeGestionClase(
-                "Asistencia guardada correctamente."
-            );
-
-        } catch (error) {
-            mostrarMensajeGestionClase(
-                "Error de conexión al guardar la asistencia.",
-                "error"
-            );
-
-        } finally {
-            boton.disabled = false;
-        }
-    }
-
     let sesionClaseAbiertaId = null;
     let confirmacionClaseEnCurso = false;
 
@@ -684,7 +592,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        if (confirmacionClaseEnCurso) {
+        if (
+            confirmacionClaseEnCurso
+            || asistenciaMasivaEnCurso
+            || creacionSesionEnCurso
+        ) {
             return;
         }
 
@@ -754,24 +666,107 @@ document.addEventListener("DOMContentLoaded", async () => {
                 return;
             }
 
-            await abrirDetalleSesionClase(sesionId);
+            const detalleActualizado = await abrirDetalleSesionClase(
+                sesionId
+            );
+
+            if (!detalleActualizado) {
+                mostrarMensajeGestionClase(
+                    "El servidor confirmó la asistencia, "
+                    + "pero no fue posible actualizar el detalle. "
+                    + "Consulte nuevamente la sesión.",
+                    "error"
+                );
+                return;
+            }
+
+            const detalleConfirmado = document.getElementById(
+                "detalle-sesion-clase"
+            );
+
+            if (
+                !detalleConfirmado
+                || detalleConfirmado.hidden
+                || detalleConfirmado.dataset.estado !== "confirmada"
+                || Number(sesionClaseAbiertaId) !== Number(sesionId)
+            ) {
+                mostrarMensajeGestionClase(
+                    "El servidor aceptó la confirmación, "
+                    + "pero el estado actualizado de la sesión "
+                    + "no coincide con lo esperado. "
+                    + "Consulte nuevamente antes de continuar.",
+                    "error"
+                );
+                return;
+            }
+
+            const listaActualizada = await consultarSesionesClase();
+
+            if (!listaActualizada) {
+                mostrarMensajeGestionClase(
+                    "Asistencia confirmada correctamente, "
+                    + "pero no fue posible actualizar la lista "
+                    + "de sesiones. Consulte nuevamente.",
+                    "error"
+                );
+                return;
+            }
 
             mostrarMensajeGestionClase(
                 "Asistencia confirmada correctamente. "
                 + "La sesión quedó bloqueada para edición."
             );
 
-            await consultarSesionesClase();
-
         } catch (error) {
             mostrarMensajeGestionClase(
-                "No se pudo completar la confirmación. "
-                + "Consulte nuevamente el estado de la sesión.",
+                "No se recibió una respuesta de confirmación. "
+                + "Verificando el estado de la sesión...",
                 "error"
             );
 
+            const estadoVerificado = await abrirDetalleSesionClase(
+                sesionId
+            );
+
+            if (!estadoVerificado) {
+                mostrarMensajeGestionClase(
+                    "No fue posible verificar el estado de la sesión. "
+                    + "Consulte nuevamente antes de continuar.",
+                    "error"
+                );
+            } else {
+                const detalleVerificado = document.getElementById(
+                    "detalle-sesion-clase"
+                );
+
+                if (detalleVerificado.dataset.estado === "confirmada") {
+                    mostrarMensajeGestionClase(
+                        "La sesión figura como confirmada en el servidor. "
+                        + "Los registros quedaron bloqueados."
+                    );
+                } else {
+                    mostrarMensajeGestionClase(
+                        "Se verificó el estado de la sesión. "
+                        + "Revise los registros antes de continuar."
+                    );
+                }
+            }
+
         } finally {
             confirmacionClaseEnCurso = false;
+
+            const detalleActual = document.getElementById(
+                "detalle-sesion-clase"
+            );
+
+            if (
+                detalleActual
+                && !detalleActual.hidden
+                && detalleActual.dataset.estado === "borrador"
+                && Number(sesionClaseAbiertaId) === Number(sesionId)
+            ) {
+                recuperarControlesAsistenciaClase();
+            }
         }
     }
 
@@ -789,6 +784,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
 
         detalle.hidden = true;
+        detalle.dataset.estado = "";
+        detalle.dataset.totalAlumnos = "";
+        detalle.dataset.pendientes = "";
         lista.replaceChildren();
 
         mostrarMensajeGestionClase(
@@ -801,12 +799,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             );
 
             if (numeroConsulta !== consultaDetalleClaseActual) {
-                return;
+                return false;
             }
 
             if (respuesta.status === 401) {
                 redirigirLogin();
-                return;
+                return false;
             }
 
             if (!respuesta.ok || datos.resultado !== "ok") {
@@ -815,13 +813,20 @@ document.addEventListener("DOMContentLoaded", async () => {
                     || "No fue posible consultar la sesión.",
                     "error"
                 );
-                return;
+                return false;
             }
 
             const sesion = datos.sesion;
             const alumnos = datos.alumnos || [];
 
             sesionClaseAbiertaId = Number(sesion.sesion_id);
+            detalle.dataset.estado = sesion.estado;
+            detalle.dataset.totalAlumnos = String(
+                sesion.total_alumnos
+            );
+            detalle.dataset.pendientes = String(
+                sesion.pendientes
+            );
 
             document.getElementById(
                 "titulo-detalle-sesion"
@@ -851,60 +856,67 @@ document.addEventListener("DOMContentLoaded", async () => {
             ).textContent = sesion.pendientes;
 
             for (const alumno of alumnos) {
-                const tarjeta = document.createElement("article");
-                tarjeta.className = "tarjeta-estudiante";
+                const fila = document.createElement("div");
+                fila.className = "fila-asistencia-estudiante";
 
-                const nombre = document.createElement("strong");
+                const estadoActual = alumno.estado || "sin_verificar";
+
+                const estadosValidos = [
+                    "presente",
+                    "atrasado",
+                    "no_presente"
+                ];
+
+                const estadoVisual = estadosValidos.includes(estadoActual)
+                    ? estadoActual
+                    : "sin_verificar";
+
+                const nombresEstados = {
+                    presente: "Presente",
+                    atrasado: "Atrasado",
+                    no_presente: "No presente",
+                    sin_verificar: "Sin verificar"
+                };
+
+                const nombre = document.createElement("span");
+                nombre.className = "nombre-estudiante-asistencia";
                 nombre.textContent = alumno.nombre;
 
-                const estado = document.createElement("p");
+                const estado = document.createElement("span");
+                estado.className =
+                    "estado-estudiante-asistencia estado-" + estadoVisual;
 
-                estado.textContent =
-                    "Estado: "
-                    + alumno.estado.replaceAll("_", " ");
-
-                tarjeta.append(nombre, estado);
+                estado.textContent = nombresEstados[estadoVisual];
 
                 if (sesion.estado === "borrador") {
-                    const controles = document.createElement("div");
-                    controles.className = "controles-asistencia";
+                    const etiqueta = document.createElement("label");
+                    etiqueta.className = "seleccion-estudiante-fila";
 
-                    const opciones = [
-                        ["Presente", "presente"],
-                        ["Atrasado", "atrasado"],
-                        ["No presente", "no_presente"]
-                    ];
+                    const casilla = document.createElement("input");
+                    casilla.type = "checkbox";
+                    casilla.className = "casilla-asistencia-masiva";
+                    casilla.value = String(alumno.alumno_id);
 
-                    for (const [etiqueta, valor] of opciones) {
-                        const boton = document.createElement("button");
+                    casilla.setAttribute(
+                        "aria-label",
+                        "Seleccionar a " + alumno.nombre
+                    );
 
-                        boton.type = "button";
-                        boton.className = "boton-asignacion";
-                        boton.textContent = etiqueta;
+                    etiqueta.append(casilla, nombre, estado);
+                    fila.appendChild(etiqueta);
 
-                        if (alumno.estado === valor) {
-                            boton.setAttribute(
-                                "aria-pressed",
-                                "true"
-                            );
-                        }
-
-                        boton.addEventListener("click", () => {
-                            guardarAsistenciaAlumnoClase(
-                                sesion.sesion_id,
-                                alumno.alumno_id,
-                                valor,
-                                boton
-                            );
-                        });
-
-                        controles.appendChild(boton);
-                    }
-
-                    tarjeta.appendChild(controles);
+                    casilla.addEventListener("change", () => {
+                        fila.classList.toggle(
+                            "fila-seleccionada",
+                            casilla.checked
+                        );
+                    });
+                } else {
+                    fila.append(nombre, estado);
+                    fila.classList.add("fila-solo-lectura");
                 }
 
-                lista.appendChild(tarjeta);
+                lista.appendChild(fila);
             }
 
             if (alumnos.length === 0) {
@@ -914,9 +926,115 @@ document.addEventListener("DOMContentLoaded", async () => {
                 lista.appendChild(mensaje);
             }
 
-            document.getElementById(
-                "boton-todos-presentes"
-            ).disabled = true;
+            const seleccionarTodos = document.getElementById(
+                "seleccionar-todos-asistencia"
+            );
+
+            const casillas = Array.from(
+                lista.querySelectorAll(".casilla-asistencia-masiva")
+            );
+
+            const botonesMasivos = [
+                document.getElementById("boton-masivo-presentes"),
+                document.getElementById("boton-masivo-atrasados"),
+                document.getElementById("boton-masivo-no-presentes")
+            ];
+
+            const contadorSeleccion = document.getElementById(
+                "contador-seleccion-asistencia"
+            );
+
+            function actualizarSeleccionAsistencia() {
+                const seleccionados = casillas.filter(
+                    casilla => casilla.checked
+                ).length;
+
+                contadorSeleccion.textContent =
+                    seleccionados + " estudiantes seleccionados";
+
+                seleccionarTodos.checked =
+                    casillas.length > 0
+                    && seleccionados === casillas.length;
+
+                seleccionarTodos.indeterminate =
+                    seleccionados > 0
+                    && seleccionados < casillas.length;
+
+                const operacionEnCurso =
+                    asistenciaMasivaEnCurso
+                    || confirmacionClaseEnCurso;
+
+                for (const boton of botonesMasivos) {
+                    boton.disabled =
+                        seleccionados === 0
+                        || sesion.estado !== "borrador"
+                        || operacionEnCurso;
+                }
+            }
+
+            seleccionarTodos.disabled =
+                sesion.estado !== "borrador"
+                || casillas.length === 0
+                || asistenciaMasivaEnCurso
+                || confirmacionClaseEnCurso;
+
+            seleccionarTodos.checked = false;
+            seleccionarTodos.indeterminate = false;
+
+            seleccionarTodos.onchange = () => {
+                for (const casilla of casillas) {
+                    casilla.checked = seleccionarTodos.checked;
+                }
+
+                actualizarSeleccionAsistencia();
+            };
+
+            for (const casilla of casillas) {
+                casilla.addEventListener(
+                    "change",
+                    actualizarSeleccionAsistencia
+                );
+            }
+
+            actualizarSeleccionAsistencia();
+
+            const accionesMasivas = [
+                ["boton-masivo-presentes", "presente"],
+                ["boton-masivo-atrasados", "atrasado"],
+                ["boton-masivo-no-presentes", "no_presente"]
+            ];
+
+            for (const [idBoton, estadoAsistencia] of accionesMasivas) {
+                const botonMasivo = document.getElementById(idBoton);
+
+                botonMasivo.onclick = async () => {
+                    if (
+                        asistenciaMasivaEnCurso
+                        || confirmacionClaseEnCurso
+                        || sesion.estado !== "borrador"
+                    ) {
+                        return;
+                    }
+
+                    const seleccionados = casillas
+                        .filter(casilla => casilla.checked)
+                        .map(casilla => Number(casilla.value));
+
+                    if (seleccionados.length === 0) {
+                        mostrarMensajeGestionClase(
+                            "Seleccione al menos un estudiante.",
+                            "error"
+                        );
+                        return;
+                    }
+
+                    await guardarAsistenciaMasivaClase(
+                        sesion.sesion_id,
+                        seleccionados,
+                        estadoAsistencia
+                    );
+                };
+            }
 
             const botonConfirmar = document.getElementById(
                 "boton-confirmar-sesion-clase"
@@ -927,7 +1045,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                 && sesion.total_alumnos > 0
                 && sesion.pendientes === 0;
 
-            botonConfirmar.disabled = !puedeConfirmar;
+            botonConfirmar.disabled =
+                !puedeConfirmar
+                || asistenciaMasivaEnCurso
+                || confirmacionClaseEnCurso;
 
             detalle.hidden = false;
 
@@ -940,6 +1061,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 block: "start"
             });
 
+            return true;
+
         } catch (error) {
             if (numeroConsulta === consultaDetalleClaseActual) {
                 mostrarMensajeGestionClase(
@@ -947,6 +1070,210 @@ document.addEventListener("DOMContentLoaded", async () => {
                     "error"
                 );
             }
+
+            return false;
+        }
+    }
+
+    let asistenciaMasivaEnCurso = false;
+
+    function recuperarControlesAsistenciaClase() {
+        if (hayOperacionAsistenciaEnCurso()) {
+            return;
+        }
+
+        if (!sesionClaseAbiertaId) {
+            return;
+        }
+
+        const detalle = document.getElementById(
+            "detalle-sesion-clase"
+        );
+
+        if (
+            !detalle
+            || detalle.hidden
+            || detalle.dataset.estado !== "borrador"
+        ) {
+            return;
+        }
+
+        const casillas = Array.from(
+            detalle.querySelectorAll(
+                ".casilla-asistencia-masiva"
+            )
+        );
+
+        const seleccionarTodos = document.getElementById(
+            "seleccionar-todos-asistencia"
+        );
+
+        const botonesMasivos = [
+            document.getElementById("boton-masivo-presentes"),
+            document.getElementById("boton-masivo-atrasados"),
+            document.getElementById("boton-masivo-no-presentes")
+        ];
+
+        const seleccionados = casillas.filter(
+            casilla => casilla.checked
+        ).length;
+
+        for (const casilla of casillas) {
+            casilla.disabled = false;
+        }
+
+        if (seleccionarTodos) {
+            seleccionarTodos.disabled = casillas.length === 0;
+        }
+
+        for (const boton of botonesMasivos) {
+            if (boton) {
+                boton.disabled = seleccionados === 0;
+            }
+        }
+
+        const botonConfirmar = document.getElementById(
+            "boton-confirmar-sesion-clase"
+        );
+
+        const totalAlumnos = Number(
+            detalle.dataset.totalAlumnos
+        );
+
+        const pendientes = Number(
+            detalle.dataset.pendientes
+        );
+
+        const puedeConfirmar =
+            Number.isInteger(totalAlumnos)
+            && totalAlumnos > 0
+            && Number.isInteger(pendientes)
+            && pendientes === 0
+            && detalle.dataset.totalAlumnos !== ""
+            && detalle.dataset.pendientes !== "";
+
+        if (botonConfirmar) {
+            botonConfirmar.disabled = !puedeConfirmar;
+        }
+    }
+
+    async function guardarAsistenciaMasivaClase(
+        sesionId,
+        alumnosIds,
+        estado
+    ) {
+        const estadosPermitidos = [
+            "presente",
+            "atrasado",
+            "no_presente"
+        ];
+
+        if (
+            asistenciaMasivaEnCurso
+            || confirmacionClaseEnCurso
+            || creacionSesionEnCurso
+            || !estadosPermitidos.includes(estado)
+            || !tokenCSRFProfesor
+            || !Array.isArray(alumnosIds)
+            || alumnosIds.length === 0
+            || Number(sesionClaseAbiertaId) !== Number(sesionId)
+        ) {
+            return;
+        }
+
+        asistenciaMasivaEnCurso = true;
+
+        const controles = [
+            "seleccionar-todos-asistencia",
+            "boton-masivo-presentes",
+            "boton-masivo-atrasados",
+            "boton-masivo-no-presentes",
+            "boton-confirmar-sesion-clase"
+        ];
+
+        for (const id of controles) {
+            document.getElementById(id).disabled = true;
+        }
+
+        document.querySelectorAll(
+            "#lista-asistencia-clase button, "
+            + "#lista-asistencia-clase input"
+        ).forEach(elemento => {
+            elemento.disabled = true;
+        });
+
+        let guardados = 0;
+        let fallidos = 0;
+        let sesionExpirada = false;
+
+        try {
+            for (const alumnoId of alumnosIds) {
+                if (Number(sesionClaseAbiertaId) !== Number(sesionId)) {
+                    fallidos += alumnosIds.length - guardados - fallidos;
+                    break;
+                }
+
+                mostrarMensajeGestionClase(
+                    "Registrando asistencias: "
+                    + (guardados + fallidos + 1)
+                    + " de "
+                    + alumnosIds.length
+                );
+
+                try {
+                    const { respuesta, datos } = await solicitarJSON(
+                        "/profesor/sesiones/"
+                        + encodeURIComponent(sesionId)
+                        + "/asistencia",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-Token": tokenCSRFProfesor
+                            },
+                            body: JSON.stringify({
+                                alumno_id: alumnoId,
+                                estado: estado
+                            })
+                        }
+                    );
+
+                    if (respuesta.status === 401) {
+                        sesionExpirada = true;
+                        break;
+                    }
+
+                    if (
+                        respuesta.ok
+                        && datos.resultado === "asistencia_guardada"
+                    ) {
+                        guardados++;
+                    } else {
+                        fallidos++;
+                    }
+                } catch (error) {
+                    fallidos++;
+                }
+            }
+
+            if (sesionExpirada) {
+                redirigirLogin();
+                return;
+            }
+
+            if (Number(sesionClaseAbiertaId) === Number(sesionId)) {
+                await abrirDetalleSesionClase(sesionId);
+
+                mostrarMensajeGestionClase(
+                    "Registro masivo finalizado. "
+                    + "Guardados: " + guardados
+                    + ". Fallidos: " + fallidos + ".",
+                    fallidos > 0 ? "error" : ""
+                );
+            }
+        } finally {
+            asistenciaMasivaEnCurso = false;
+            recuperarControlesAsistenciaClase();
         }
     }
 
@@ -956,7 +1283,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 "Seleccione primero una asignatura.",
                 "error"
             );
-            return;
+            return false;
         }
 
         const numeroConsulta = ++consultaSesionesActual;
@@ -979,12 +1306,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             const { respuesta, datos } = await solicitarJSON(ruta);
 
             if (numeroConsulta !== consultaSesionesActual) {
-                return;
+                return false;
             }
 
             if (respuesta.status === 401) {
                 redirigirLogin();
-                return;
+                return false;
             }
 
             if (respuesta.status === 403) {
@@ -993,7 +1320,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     + "esta asignatura.",
                     "error"
                 );
-                return;
+                return false;
             }
 
             if (!respuesta.ok || datos.resultado !== "ok") {
@@ -1001,7 +1328,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     "No fue posible consultar las sesiones.",
                     "error"
                 );
-                return;
+                return false;
             }
 
             const sesiones = Array.isArray(datos.sesiones)
@@ -1013,7 +1340,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     "Esta asignatura todavía no tiene "
                     + "sesiones de asistencia registradas."
                 );
-                return;
+                return true;
             }
 
             const lista = document.createElement("ol");
@@ -1045,6 +1372,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                 botonAbrir.textContent = "Abrir sesión";
 
                 botonAbrir.addEventListener("click", () => {
+                    if (hayOperacionAsistenciaEnCurso()) {
+                        mostrarMensajeGestionClase(
+                            "Espere a que termine la operación "
+                            + "antes de abrir otra sesión.",
+                            "error"
+                        );
+                        return;
+                    }
+
                     abrirDetalleSesionClase(sesion.sesion_id);
                 });
 
@@ -1060,15 +1396,19 @@ document.addEventListener("DOMContentLoaded", async () => {
                 "Sesiones encontradas: " + sesiones.length
             );
 
+            return true;
+
         } catch (error) {
             if (numeroConsulta !== consultaSesionesActual) {
-                return;
+                return false;
             }
 
             mostrarMensajeGestionClase(
                 "No fue posible conectar con el servidor.",
                 "error"
             );
+
+            return false;
 
         } finally {
             if (numeroConsulta === consultaSesionesActual) {
@@ -1077,7 +1417,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
+    let creacionSesionEnCurso = false;
+
     async function crearSesionClase() {
+        if (creacionSesionEnCurso || hayOperacionAsistenciaEnCurso()) {
+            mostrarMensajeGestionClase(
+                "Espere a que finalice la operación actual.",
+                "error"
+            );
+            return;
+        }
+
         if (!asignacionClaseSeleccionada) {
             mostrarMensajeGestionClase(
                 "Seleccione primero una asignatura.",
@@ -1109,6 +1459,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
+        creacionSesionEnCurso = true;
         botonCrearSesionClase.disabled = true;
 
         mostrarMensajeGestionClase(
@@ -1170,7 +1521,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                 "error"
             );
         } finally {
-            botonCrearSesionClase.disabled = false;
+            creacionSesionEnCurso = false;
+            botonCrearSesionClase.disabled =
+                !asignacionClaseSeleccionada;
         }
     }
 
@@ -1185,66 +1538,172 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
 
 
-    function crearTarjetaAsignacion(asignacion) {
+    /* ==========================================
+       SELECTORES DE CURSO Y ASIGNATURA
+       ========================================== */
 
-        const tarjeta = document.createElement("article");
-        tarjeta.className = "tarjeta-asignacion";
+    const selectorCurso = document.getElementById("selector-curso");
+    const selectorAsignatura = document.getElementById("selector-asignatura");
 
-        const titulo = document.createElement("h3");
-        titulo.textContent = "Curso " + asignacion.curso;
+    const botonVerEstudiantesCurso = document.getElementById(
+        "boton-ver-estudiantes-curso"
+    );
 
-        const asignatura = document.createElement("p");
-        asignatura.textContent = asignacion.asignatura;
+    const botonVerRFIDCurso = document.getElementById(
+        "boton-ver-rfid-curso"
+    );
 
-        const boton = document.createElement("button");
-        boton.type = "button";
-        boton.className = "boton-asignacion";
-        boton.textContent = "Gestión de clase";
+    const botonGestionarClase = document.getElementById(
+        "boton-gestionar-clase"
+    );
 
-        boton.disabled = false;
-        boton.title = "Verificar asistencia en clase";
+    let asignacionesDisponibles = [];
 
-        boton.addEventListener("click", () => {
-            seleccionarGestionClase(asignacion);
-        });
+    function obtenerAsignacionSeleccionada() {
+        const asignacionId = Number(selectorAsignatura.value);
 
-        // Botón para consultar estudiantes del curso.
-        const botonEstudiantes = document.createElement("button");
-        botonEstudiantes.type = "button";
-        botonEstudiantes.className = "boton-asignacion";
-        botonEstudiantes.textContent = "Ver estudiantes";
-        botonEstudiantes.dataset.curso = asignacion.curso;
-
-        botonEstudiantes.addEventListener("click", () => {
-            cargarEstudiantesCurso(
-                asignacion.curso,
-                asignacion.asignatura
-            );
-        });
-
-        const botonAsistencia = document.createElement("button");
-        botonAsistencia.type = "button";
-        botonAsistencia.className = "boton-asignacion";
-        botonAsistencia.textContent = "Consultar asistencia";
-
-        botonAsistencia.addEventListener("click", () => {
-            mostrarSeccionAsistencia(
-                asignacion.curso,
-                asignacion.asignatura
-            );
-        });
-
-        tarjeta.appendChild(titulo);
-        tarjeta.appendChild(asignatura);
-        tarjeta.appendChild(botonEstudiantes);
-        tarjeta.appendChild(botonAsistencia);
-        tarjeta.appendChild(boton);
-
-        return tarjeta;
+        return asignacionesDisponibles.find(
+            (asignacion) => asignacion.asignacion_id === asignacionId
+        ) || null;
     }
 
-    async function cargarAsignaciones() {
+    function actualizarBotonesAsignacion() {
+        const asignacion = obtenerAsignacionSeleccionada();
+        const disponible = asignacion !== null;
 
+        botonVerEstudiantesCurso.disabled = !disponible;
+        botonVerRFIDCurso.disabled = !disponible;
+        botonGestionarClase.disabled = !disponible;
+    }
+
+    function hayOperacionAsistenciaEnCurso() {
+        return asistenciaMasivaEnCurso
+            || confirmacionClaseEnCurso
+            || creacionSesionEnCurso;
+    }
+
+    function limpiarSeccionesAsignacion() {
+        seccionEstudiantes.hidden = true;
+        seccionAsistencia.hidden = true;
+        seccionGestionClase.hidden = true;
+
+        // Limpiar la asignación y sesión de clase anteriores.
+        asignacionClaseSeleccionada = null;
+        sesionClaseAbiertaId = null;
+
+        document.getElementById(
+            "detalle-sesion-clase"
+        ).hidden = true;
+
+        listaSesionesClase.replaceChildren();
+        listaSesionesClase.hidden = true;
+
+        // Invalidar consultas anteriores.
+        consultaEstudiantesActual++;
+        consultaAsistenciaActual++;
+        consultaSesionesActual++;
+        consultaDetalleClaseActual++;
+
+        limpiarResultadosAsistencia();
+    }
+
+    let cursoSeleccionadoAnterior = "";
+    let asignaturaSeleccionadaAnterior = "";
+
+    selectorCurso.addEventListener("change", () => {
+        if (hayOperacionAsistenciaEnCurso()) {
+            selectorCurso.value = cursoSeleccionadoAnterior;
+
+            mostrarMensajeGestionClase(
+                "Espere a que termine el registro de asistencia "
+                + "antes de cambiar de curso.",
+                "error"
+            );
+            return;
+        }
+
+        const curso = selectorCurso.value;
+        cursoSeleccionadoAnterior = curso;
+        asignaturaSeleccionadaAnterior = "";
+
+        limpiarSeccionesAsignacion();
+
+        selectorAsignatura.replaceChildren();
+
+        const opcionInicial = document.createElement("option");
+        opcionInicial.value = "";
+        opcionInicial.textContent = "Seleccione una asignatura";
+
+        selectorAsignatura.appendChild(opcionInicial);
+
+        const asignaturas = asignacionesDisponibles.filter(
+            (asignacion) => asignacion.curso === curso
+        );
+
+        asignaturas.forEach((asignacion) => {
+            const opcion = document.createElement("option");
+
+            opcion.value = String(asignacion.asignacion_id);
+            opcion.textContent = asignacion.asignatura;
+
+            selectorAsignatura.appendChild(opcion);
+        });
+
+        selectorAsignatura.disabled = asignaturas.length === 0;
+
+        actualizarBotonesAsignacion();
+    });
+
+    selectorAsignatura.addEventListener("change", () => {
+        if (hayOperacionAsistenciaEnCurso()) {
+            selectorAsignatura.value =
+                asignaturaSeleccionadaAnterior;
+
+            mostrarMensajeGestionClase(
+                "Espere a que termine el registro de asistencia "
+                + "antes de cambiar de asignatura.",
+                "error"
+            );
+            return;
+        }
+
+        asignaturaSeleccionadaAnterior = selectorAsignatura.value;
+
+        limpiarSeccionesAsignacion();
+        actualizarBotonesAsignacion();
+    });
+
+    botonVerEstudiantesCurso.addEventListener("click", () => {
+        const asignacion = obtenerAsignacionSeleccionada();
+
+        if (!asignacion) return;
+
+        cargarEstudiantesCurso(
+            asignacion.curso,
+            asignacion.asignatura
+        );
+    });
+
+    botonVerRFIDCurso.addEventListener("click", () => {
+        const asignacion = obtenerAsignacionSeleccionada();
+
+        if (!asignacion) return;
+
+        mostrarSeccionAsistencia(
+            asignacion.curso,
+            asignacion.asignatura
+        );
+    });
+
+    botonGestionarClase.addEventListener("click", () => {
+        const asignacion = obtenerAsignacionSeleccionada();
+
+        if (!asignacion) return;
+
+        seleccionarGestionClase(asignacion);
+    });
+
+    async function cargarAsignaciones() {
         mostrarMensajePanel("Cargando cursos y asignaturas...");
 
         const { respuesta, datos } = await solicitarJSON(
@@ -1264,24 +1723,49 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        listaAsignaciones.replaceChildren();
+        asignacionesDisponibles = Array.isArray(datos.asignaciones)
+            ? datos.asignaciones
+            : [];
 
-        const asignaciones = datos.asignaciones || [];
+        selectorCurso.replaceChildren();
+        selectorAsignatura.replaceChildren();
 
-        if (asignaciones.length === 0) {
-            mostrarMensajePanel(
-                "No tiene cursos o asignaturas asignados."
-            );
-            return;
-        }
+        const opcionCurso = document.createElement("option");
+        opcionCurso.value = "";
+        opcionCurso.textContent = "Seleccione un curso";
+        selectorCurso.appendChild(opcionCurso);
 
-        asignaciones.forEach((asignacion) => {
-            const tarjeta = crearTarjetaAsignacion(asignacion);
-            listaAsignaciones.appendChild(tarjeta);
+        const opcionAsignatura = document.createElement("option");
+        opcionAsignatura.value = "";
+        opcionAsignatura.textContent = "Seleccione una asignatura";
+        selectorAsignatura.appendChild(opcionAsignatura);
+
+        const cursos = [
+            ...new Set(
+                asignacionesDisponibles.map(
+                    (asignacion) => asignacion.curso
+                )
+            )
+        ];
+
+        cursos.forEach((curso) => {
+            const opcion = document.createElement("option");
+
+            opcion.value = curso;
+            opcion.textContent = curso;
+
+            selectorCurso.appendChild(opcion);
         });
 
+        selectorCurso.disabled = cursos.length === 0;
+        selectorAsignatura.disabled = true;
+
+        actualizarBotonesAsignacion();
+
         mostrarMensajePanel(
-            "Asignaciones disponibles: " + asignaciones.length
+            cursos.length === 0
+                ? "No tiene cursos o asignaturas asignados."
+                : "Seleccione un curso y una asignatura para continuar."
         );
     }
 

@@ -606,3 +606,204 @@ body {
 #contenedor-tabla-asistencia[hidden] {
     display: none;
 }
+
+
+/* MPAZ - SELECTORES DE CURSO Y ASIGNATURA */
+
+.selector-asignaciones {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    padding: 24px;
+    margin-top: 20px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+}
+
+.campo-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.campo-selector label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.campo-selector select {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #1e293b;
+    font: inherit;
+    cursor: pointer;
+}
+
+.campo-selector select:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 2px;
+}
+
+.campo-selector select:disabled {
+    background-color: #f1f5f9;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
+.acciones-selector {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 4px;
+}
+
+.acciones-selector .boton-asignacion {
+    flex: 1 1 170px;
+    min-height: 44px;
+}
+
+@media (max-width: 640px) {
+    .selector-asignaciones {
+        grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .acciones-selector {
+        flex-direction: column;
+    }
+
+    .acciones-selector .boton-asignacion {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+}
+
+
+/* MPAZ - LISTA COMPACTA DE ASISTENCIA DOCENTE */
+
+#lista-asistencia-clase {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 18px;
+}
+
+.fila-asistencia-estudiante {
+    border: 1px solid #e2e8f0;
+    border-radius: 9px;
+    background: #ffffff;
+    transition: background-color 0.15s, border-color 0.15s;
+}
+
+.seleccion-estudiante-fila {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 16px;
+    cursor: pointer;
+    min-height: 52px;
+}
+
+.seleccion-estudiante-fila:hover {
+    background: #f8fafc;
+}
+
+.seleccion-estudiante-fila input[type="checkbox"] {
+    width: 19px;
+    height: 19px;
+    margin: 0;
+    accent-color: #2563eb;
+    cursor: pointer;
+}
+
+.nombre-estudiante-asistencia {
+    font-weight: 600;
+    color: #1e293b;
+    overflow-wrap: anywhere;
+}
+
+.estado-estudiante-asistencia {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 11px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.estado-presente {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.estado-atrasado {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.estado-no_presente {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.estado-sin_verificar {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.fila-asistencia-estudiante.fila-seleccionada {
+    background: #eff6ff;
+    border-color: #60a5fa;
+}
+
+.fila-seleccionada .seleccion-estudiante-fila:hover {
+    background: #dbeafe;
+}
+
+.fila-solo-lectura {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 16px;
+    min-height: 52px;
+}
+
+.seleccion-estudiante-fila:focus-within {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+    .seleccion-estudiante-fila {
+        grid-template-columns: 22px minmax(0, 1fr);
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .seleccion-estudiante-fila .estado-estudiante-asistencia {
+        grid-column: 2;
+        justify-self: start;
+    }
+
+    .fila-solo-lectura {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .fila-solo-lectura .estado-estudiante-asistencia {
+        justify-self: start;
+    }
+}

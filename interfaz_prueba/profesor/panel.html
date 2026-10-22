@@ -74,10 +74,77 @@
                     Cargando asignaciones...
                 </div>
 
+                <!-- SELECTOR DE CURSO Y ASIGNATURA -->
                 <div
                     id="lista-asignaciones"
                     class="lista-asignaciones"
+                    hidden
                 ></div>
+
+                <div class="selector-asignaciones">
+
+                    <div class="campo-selector">
+                        <label for="selector-curso">
+                            Curso
+                        </label>
+
+                        <select
+                            id="selector-curso"
+                            name="curso"
+                            disabled
+                        >
+                            <option value="">
+                                Seleccione un curso
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="campo-selector">
+                        <label for="selector-asignatura">
+                            Asignatura
+                        </label>
+
+                        <select
+                            id="selector-asignatura"
+                            name="asignatura"
+                            disabled
+                        >
+                            <option value="">
+                                Seleccione una asignatura
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="acciones-selector">
+                        <button
+                            type="button"
+                            id="boton-ver-estudiantes-curso"
+                            class="boton-asignacion"
+                            disabled
+                        >
+                            Ver estudiantes
+                        </button>
+
+                        <button
+                            type="button"
+                            id="boton-ver-rfid-curso"
+                            class="boton-asignacion"
+                            disabled
+                        >
+                            Consultar RFID
+                        </button>
+
+                        <button
+                            type="button"
+                            id="boton-gestionar-clase"
+                            class="boton-asignacion"
+                            disabled
+                        >
+                            Gestionar clase
+                        </button>
+                    </div>
+
+                </div>
 
             </section>
 
@@ -344,14 +411,48 @@
 
                     <div class="controles-asistencia">
 
+                        <label class="seleccion-todos-asistencia">
+                            <input
+                                type="checkbox"
+                                id="seleccionar-todos-asistencia"
+                                disabled
+                            >
+                            Seleccionar todos
+                        </label>
+
                         <button
                             type="button"
-                            id="boton-todos-presentes"
+                            id="boton-masivo-presentes"
                             class="boton-asignacion"
                             disabled
                         >
-                            Marcar todos presentes
+                            Marcar presentes
                         </button>
+
+                        <button
+                            type="button"
+                            id="boton-masivo-atrasados"
+                            class="boton-asignacion"
+                            disabled
+                        >
+                            Marcar atrasados
+                        </button>
+
+                        <button
+                            type="button"
+                            id="boton-masivo-no-presentes"
+                            class="boton-asignacion"
+                            disabled
+                        >
+                            Marcar no presentes
+                        </button>
+
+                        <p
+                            id="contador-seleccion-asistencia"
+                            aria-live="polite"
+                        >
+                            0 estudiantes seleccionados
+                        </p>
 
                     </div>
 
