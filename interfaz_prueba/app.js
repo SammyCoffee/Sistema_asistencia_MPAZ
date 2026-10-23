@@ -1543,7 +1543,7 @@ function mostrarFichaEstudiante(alumnoSeleccionado) {
             `}
 
 
-             ${alumnoSeleccionado.estado_tarjeta === "activa" ? `
+             ${alumnoSeleccionado.estado_alumno === "activo" && alumnoSeleccionado.estado_tarjeta === "activa" ? `
                 <button
                     type="button"
                     class="boton-bloquear-tarjeta-real"
@@ -1553,7 +1553,7 @@ function mostrarFichaEstudiante(alumnoSeleccionado) {
                 </button>
             ` : ""}
 
-            ${alumnoSeleccionado.estado_tarjeta === "bloqueada" ? `
+            ${alumnoSeleccionado.estado_alumno === "activo" && alumnoSeleccionado.estado_tarjeta === "bloqueada" ? `
                 <button
                     type="button"
                     class="boton-desbloquear-tarjeta-real"
