@@ -21,3 +21,7 @@ Las fichas de seguimiento **no sustituyen** la guía 2.4, la guía 2.6 ni las pl
 [Consultar los dos PDF y siete PNG de vista previa](README_DIAGRAMAS.md). Son materiales de apoyo pendientes de revisión; no certifican pruebas ejecutadas ni aprobación docente. La captura de arquitectura prevista arriba sigue pendiente como evidencia técnica.
 
 [Capturas técnicas y nueva guía 2.4 con anexos](../README_EVIDENCIAS_2.4.md) disponibles para revisión. Los diagramas mantienen su carácter documental.
+
+## Ficha de Avance 05 — Vista de procesos 4+1
+
+El [control de la Ficha 05](README_FICHA05.md), el [diagrama editable DOT](MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.dot) y su [vista Mermaid](MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.md) **ya están en esta rama**. La ficha Word y los diagramas PNG/SVG están preparados en un ZIP para su subida mediante Work, pero **aún no figuran en esta carpeta**. Su revisión académica continúa pendiente.

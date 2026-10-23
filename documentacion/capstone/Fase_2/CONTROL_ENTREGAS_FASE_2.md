@@ -102,3 +102,7 @@ Siguen pendientes piloto, GET /estado, login/panel, exportación, integración c
 ## Seguimiento de correcciones académicas
 
 El [control específico de inconsistencias y decisiones](CONTROL_CORRECCIONES_2026-10-15.md) explica qué observaciones ya se corrigieron y cuáles requieren información de Lucas o del profesor. También está disponible un [anexo bilingüe de apoyo](Evidencias_Grupales/Material_de_Apoyo/ANEXO_BILINGUE_MPAZ_RFID.md), **sin presentarlo como informe validado**.
+
+## Ficha de Avance 05 — Pendiente de carga binaria
+
+[Control Ficha 05](Evidencias_Proyecto/Evidencias_Documentacion/README_FICHA05.md): el diagrama de actividades A01–A14 está disponible como DOT y Mermaid. **Aún faltan por subir** `Ficha_Avance_05_MPAZ_RFID_003D_PARA_REVISION.docx`, su imagen PNG y el SVG. No se modifica el código ni la Ficha 04; la medición 87,5 % sigue como referencia, no como nueva validación.
