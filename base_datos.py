@@ -760,7 +760,17 @@ def bloquear_tarjeta(uid):
        conexion.close()
 
 def activar_tarjeta(uid):
+    """
+    Reactiva una tarjeta bloqueada si esta asignada
+    a un estudiante activo.
+    """
+    if not isinstance(uid, str):
+        return "uid_invalido"
+
     uid = uid.strip().replace(" ", "").upper()
+
+    if not uid:
+        return "uid_invalido"
 
     conexion = obtener_conexion()
     cursor = conexion.cursor()
@@ -768,24 +778,48 @@ def activar_tarjeta(uid):
     try:
         cursor.execute(
             """
-            UPDATE tarjetas
-            SET estado = 'activa',
-                fecha_bloqueo = NULL
-            WHERE uid = ?
-                AND estado = 'bloqueada'
+            SELECT t.id, t.estado, a.estado
+            FROM tarjetas AS t
+            LEFT JOIN alumnos AS a
+                ON a.id = t.alumno_id
+            WHERE t.uid = ?
+            LIMIT 1
             """,
             (uid,)
         )
 
-        if cursor.rowcount == 0:
-            return False
+        tarjeta = cursor.fetchone()
+
+        if tarjeta is None:
+            return "tarjeta_no_existe"
+
+        if tarjeta[1] != "bloqueada":
+            return "tarjeta_no_bloqueada"
+
+        if tarjeta[2] != "activo":
+            return "alumno_no_autorizado"
+
+        cursor.execute(
+            """
+            UPDATE tarjetas
+            SET estado = 'activa',
+                fecha_bloqueo = NULL
+            WHERE id = ?
+              AND estado = 'bloqueada'
+            """,
+            (tarjeta[0],)
+        )
+
+        if cursor.rowcount != 1:
+            conexion.rollback()
+            return "no_actualizada"
 
         conexion.commit()
-
-        return True
+        return "activada"
 
     finally:
         conexion.close()
+
 
 def asignar_tarjeta_por_rut(rut,uid):
     rut = rut.strip()

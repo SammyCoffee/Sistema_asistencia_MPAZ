@@ -15,7 +15,7 @@ const totalAlertasInasistencia =
         "total-alertas-inasistencia"
     );
 
-    
+
 
 const totalEstudiantes =
     document.getElementById("total-estudiantes");
@@ -213,7 +213,7 @@ cargarResumenEstudiantes();
 async function cargarAsistencias() {
 
     const respuesta = await fetch("/asistencias");
-	
+
     if (!respuesta.ok) {
         console.error(
             "No se pudieron cargar las asistencias"
@@ -1475,39 +1475,21 @@ resultadoEstudiante.innerHTML = listaResultados;
 
 });
 
-resultadoEstudiante.addEventListener("click", async function (evento) {
 
-
-    if (evento.target.classList.contains("boton-ver-alumno")) {
-
-        const idAlumno = Number(evento.target.dataset.id);
-
-        console.log("ID del alumno seleccionado:", idAlumno);
-
-        const alumnoSeleccionado = alumnosEncontrados.find(function (alumno){
-
-            return alumno.id === idAlumno;
-        });
-
-        console.log(
-            "Alumno encontrado:",
-            Boolean(alumnoSeleccionado)
-        );
-
-        console.log("Datos completos del alumno:", alumnoSeleccionado);
-        
-        if (alumnoSeleccionado) {
-
-            resultadoEstudiante.innerHTML = `
+// ==========================================
+// FICHA ADMINISTRATIVA DEL ESTUDIANTE
+// ==========================================
+function mostrarFichaEstudiante(alumnoSeleccionado) {
+    resultadoEstudiante.innerHTML = `
             <div class="ficha-estudiante">
-            
+
             <h3>${alumnoSeleccionado.nombre}</h3>
-            
+
             <p>
-            
+
             <strong>Curso:</strong>
             ${alumnoSeleccionado.curso}
-            
+
             </p>
 
             <p>
@@ -1562,17 +1544,27 @@ resultadoEstudiante.addEventListener("click", async function (evento) {
 
 
              ${alumnoSeleccionado.estado_tarjeta === "activa" ? `
-                 <button
-                        type="button"
-                        class="boton-bloquear-tarjeta-real"
-                        data-id="${alumnoSeleccionado.id}"
+                <button
+                    type="button"
+                    class="boton-bloquear-tarjeta-real"
+                    data-id="${alumnoSeleccionado.id}"
                 >
-                        Bloquear tarjeta
+                    Bloquear tarjeta
+                </button>
+            ` : ""}
+
+            ${alumnoSeleccionado.estado_tarjeta === "bloqueada" ? `
+                <button
+                    type="button"
+                    class="boton-desbloquear-tarjeta-real"
+                    data-id="${alumnoSeleccionado.id}"
+                >
+                    Desbloquear tarjeta
                 </button>
             ` : ""}
 
 
-              
+
 
             <button
                 type="button"
@@ -1580,10 +1572,36 @@ resultadoEstudiante.addEventListener("click", async function (evento) {
             >
                 Volver a resultados
             </button>        
-            
+
          </div>
-            
-            `;
+
+    `;
+}
+
+resultadoEstudiante.addEventListener("click", async function (evento) {
+
+
+    if (evento.target.classList.contains("boton-ver-alumno")) {
+
+        const idAlumno = Number(evento.target.dataset.id);
+
+        console.log("ID del alumno seleccionado:", idAlumno);
+
+        const alumnoSeleccionado = alumnosEncontrados.find(function (alumno){
+
+            return alumno.id === idAlumno;
+        });
+
+        console.log(
+            "Alumno encontrado:",
+            Boolean(alumnoSeleccionado)
+        );
+
+        console.log("Datos completos del alumno:", alumnoSeleccionado);
+
+        if (alumnoSeleccionado) {
+
+            mostrarFichaEstudiante(alumnoSeleccionado);
         }
 
         return;
@@ -1734,77 +1752,7 @@ resultadoEstudiante.addEventListener("click", async function (evento) {
             );
 
 
-            resultadoEstudiante.innerHTML = `
-                <div class="ficha-estudiante">
-
-                    <h3>
-                        ${alumnoSeleccionado.nombre}
-                    </h3>
-
-                    <p>
-                        <strong>Curso:</strong>
-                        ${alumnoSeleccionado.curso}
-                    </p>
-
-                    <p>
-                        <strong>RUT:</strong>
-                        ${alumnoSeleccionado.rut}
-                    </p>
-
-                    <p>
-                        <strong>Tarjeta RFID:</strong>
-                        ${alumnoSeleccionado.uid ?? "Sin tarjeta asignada"}
-                    </p>
-
-                    <p>
-                        <strong>Estado tarjeta:</strong>
-                        ${alumnoSeleccionado.estado_tarjeta ?? "Sin tarjeta"}
-                    </p>
-
-                    <p>
-                        <strong>Estado del estudiante:</strong>
-                        ${alumnoSeleccionado.estado_alumno}
-                    </p>
-
-                    <button
-                        type="button"
-                        class="boton-editar-estudiante"
-                        data-id="${alumnoSeleccionado.id}"
-                    >
-                        Editar estudiante
-                    </button>
-
-                    ${
-                        alumnoSeleccionado.estado_alumno === "activo"
-                            ? `
-                                <button
-                                    type="button"
-                                    class="boton-desactivar-estudiante"
-                                    data-id="${alumnoSeleccionado.id}"
-                                >
-                                    Dar de baja
-                                </button>
-                            `
-                            : `
-                                <button
-                                    type="button"
-                                    class="boton-reactivar-estudiante"
-                                    data-id="${alumnoSeleccionado.id}"
-                                >
-                                    Reactivar estudiante
-                                </button>
-                            `
-                    }
-
-                    <button
-                        type="button"
-                        class="boton-volver-resultados"
-                    >
-                        Volver a resultados
-                    </button>
-
-                </div>
-            `;
+            mostrarFichaEstudiante(alumnoSeleccionado);
 
             await cargarResumenEstudiantes();
 
@@ -1860,6 +1808,69 @@ resultadoEstudiante.addEventListener("click", async function (evento) {
         return;
     }
 
+
+        if (evento.target.classList.contains("boton-desbloquear-tarjeta-real")) {
+
+            const idAlumno = Number(evento.target.dataset.id);
+
+            const alumnoSeleccionado = alumnosEncontrados.find(
+                alumno => alumno.id === idAlumno
+            );
+
+            if (!alumnoSeleccionado || !alumnoSeleccionado.uid) {
+                alert("No se encontró una tarjeta asociada al estudiante.");
+                return;
+            }
+
+            if (alumnoSeleccionado.estado_alumno !== "activo") {
+                alert("No es posible desbloquear tarjetas de estudiantes inactivos.");
+                return;
+            }
+
+            if (!confirm(
+                `¿Deseas desbloquear la tarjeta ${alumnoSeleccionado.uid}?`
+            )) {
+                return;
+            }
+
+            try {
+                const respuesta = await fetch(
+                    "/panel/tarjetas/desbloquear",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            uid: alumnoSeleccionado.uid
+                        })
+                    }
+                );
+
+                const datos = await respuesta.json();
+
+                if (!respuesta.ok || datos.resultado !== "activada") {
+                    alert(datos.mensaje ?? "No se pudo desbloquear la tarjeta.");
+                    return;
+                }
+
+                alumnoSeleccionado.estado_tarjeta = "activa";
+
+                await cargarTarjetas();
+                await cargarOpcionesVinculacion();
+                await cargarResumenEstudiantes();
+
+                alert("Tarjeta RFID desbloqueada correctamente.");
+
+mostrarFichaEstudiante(alumnoSeleccionado);
+
+            } catch (error) {
+                console.error("Error al desbloquear tarjeta:", error);
+                alert("No fue posible conectar con el servidor.");
+            }
+
+            return;
+        }
 
         if (evento.target.classList.contains("boton-bloquear-tarjeta-real")) {
 
@@ -1921,40 +1932,8 @@ resultadoEstudiante.addEventListener("click", async function (evento) {
 
         await cargarResumenEstudiantes();
 
-       resultadoEstudiante.innerHTML = `
-    <div class="ficha-estudiante">
+mostrarFichaEstudiante(alumnoSeleccionado);
 
-        <h3>${alumnoSeleccionado.nombre}</h3>
-
-        <p>
-            <strong>Curso:</strong>
-            ${alumnoSeleccionado.curso}
-        </p>
-
-        <p>
-            <strong>RUT:</strong>
-            ${alumnoSeleccionado.rut}
-        </p>
-
-        <p>
-            <strong>Tarjeta RFID:</strong>
-            ${alumnoSeleccionado.uid}
-        </p>
-
-        <p>
-            <strong>Estado:</strong>
-            ${alumnoSeleccionado.estado_tarjeta}
-        </p>
-
-        <button
-            type="button"
-            class="boton-volver-resultados"
-        >
-            Volver a resultados
-        </button>
-
-    </div>
-`;
     return;
     }
 
@@ -1965,11 +1944,11 @@ resultadoEstudiante.addEventListener("click", async function (evento) {
     return;
     }
 
-    
 
-            
-        
-            
+
+
+
+
         });
 
         // ==========================================

@@ -1724,6 +1724,57 @@ def bloquear_tarjeta_panel():
         }
     ), 200
 
+@app.post("/panel/tarjetas/desbloquear")
+def desbloquear_tarjeta_panel():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify({
+            "resultado": "no_autorizado",
+            "mensaje": "Debe iniciar sesion como administrador"
+        }), 401
+
+    if not request.is_json:
+        return jsonify({
+            "resultado": "datos_invalidos"
+        }), 400
+
+    datos = request.get_json(silent=True)
+
+    if not isinstance(datos, dict):
+        return jsonify({
+            "resultado": "datos_invalidos"
+        }), 400
+
+    uid = datos.get("uid")
+
+    if not isinstance(uid, str) or not uid.strip():
+        return jsonify({
+            "resultado": "uid_invalido"
+        }), 400
+
+    from base_datos import activar_tarjeta
+
+    resultado = activar_tarjeta(uid)
+
+    if resultado == "activada":
+        return jsonify({
+            "resultado": "activada",
+            "mensaje": "Tarjeta desbloqueada correctamente"
+        }), 200
+
+    if resultado == "tarjeta_no_existe":
+        return jsonify({"resultado": resultado}), 404
+
+    if resultado in (
+        "tarjeta_no_bloqueada",
+        "alumno_no_autorizado",
+        "no_actualizada"
+    ):
+        return jsonify({"resultado": resultado}), 409
+
+    return jsonify({"resultado": "uid_invalido"}), 400
+
+
 @app.post("/lectura")
 def recibir_lectura():
     clave_recibida = request.headers.get("X-API-KEY", "")
