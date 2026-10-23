@@ -47,4 +47,4 @@ flowchart TD
 - **Condiciones de validación:** clave API y campos, tótem activo, tarjeta/alumno autorizado y evento no procesado.
 - **Limitaciones:** un diagrama no demuestra que el recorrido completo se probó; falta correlacionar una nueva lectura con su registro persistido.
 
-**Fuente editable DOT:** [Abrir .dot](MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.dot). La versión PNG/SVG y la Ficha 05 Word se prepararon fuera de GitHub y están pendientes de transferencia a la misma carpeta.
+**Fuente editable DOT:** [Abrir .dot](MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.dot). La [versión PNG](MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.png), el [SVG](MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.svg) y la [Ficha 05 Word](Ficha_Avance_05_MPAZ_RFID_003D_PARA_REVISION.docx) están subidos en la misma carpeta desde el 23-10-2026; pendientes de revisión académica.

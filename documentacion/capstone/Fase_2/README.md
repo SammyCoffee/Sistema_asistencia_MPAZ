@@ -17,7 +17,7 @@ Los materiales 2.2 no son la autoevaluación oficial final marcada. Los formular
 
 ## Evidencias del proyecto
 
-- [Documentación](Evidencias_Proyecto/Evidencias_Documentacion/README.md): tres fichas de avance, dos PDF de apoyo visual y siete PNG de vista previa disponibles; revisión pendiente.
+- [Documentación](Evidencias_Proyecto/Evidencias_Documentacion/README.md): cuatro fichas de avance, dos PDF de apoyo visual y siete PNG de vista previa disponibles; revisión pendiente.
 - [Diagramas y guía visual](Evidencias_Proyecto/Evidencias_Documentacion/README_DIAGRAMAS.md): enlaces a los PDF y sus vistas previas.
 - [Sistema y aplicación](Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/): evidencias parciales de comunicación, evento repetido y montaje disponibles; validación completa pendiente.
 - [Base de datos](Evidencias_Proyecto/Base_de_Datos/): tablas y consulta de demostración documentadas; esquema completo e integridad pendientes.
@@ -47,8 +47,8 @@ Siguen pendientes piloto, GET /estado, login/panel, exportación, integración c
 
 [Control de correcciones del 15-10-2026](CONTROL_CORRECCIONES_2026-10-15.md) · [Abstract bilingüe y textos personales para revisión](Evidencias_Grupales/Material_de_Apoyo/ANEXO_BILINGUE_MPAZ_RFID.md). El material de inglés es **un borrador complementario**, no una entrega final ni prueba de cumplimiento de todos los requisitos de las pautas.
 
-## Ficha de Avance 05 — En preparación de entrega
+## Ficha de Avance 05 — Archivos subidos para revisión
 
 [Control de Ficha 05 y archivos](Evidencias_Proyecto/Evidencias_Documentacion/README_FICHA05.md) · [Diagrama de actividades UML visible en GitHub](Evidencias_Proyecto/Evidencias_Documentacion/MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.md).
 
-**Estado:** fuente DOT y vista Mermaid incorporadas; Word de siete páginas, PNG y SVG **pendientes de transferencia**. Se mantiene el 87,5 % histórico de la ficha 04 sin declarar una nueva medición.
+**Estado:** fuente DOT y vista Mermaid conservadas; Word, PNG y SVG **subidos el 23-10-2026**, disponibles en el control enlazado. Revisión académica pendiente. Se mantiene el 87,5 % histórico de la ficha 04 sin declarar una nueva medición.

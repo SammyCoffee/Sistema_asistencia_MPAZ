@@ -24,4 +24,4 @@ Las fichas de seguimiento **no sustituyen** la guía 2.4, la guía 2.6 ni las pl
 
 ## Ficha de Avance 05 — Vista de procesos 4+1
 
-El [control de la Ficha 05](README_FICHA05.md), el [diagrama editable DOT](MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.dot) y su [vista Mermaid](MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.md) **ya están en esta rama**. La ficha Word y los diagramas PNG/SVG están preparados en un ZIP para su subida mediante Work, pero **aún no figuran en esta carpeta**. Su revisión académica continúa pendiente.
+El [control de la Ficha 05](README_FICHA05.md), el [diagrama editable DOT](MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.dot) y su [vista Mermaid](MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.md) **ya están en esta rama**. La [ficha Word](Ficha_Avance_05_MPAZ_RFID_003D_PARA_REVISION.docx), el [PNG](MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.png) y el [SVG](MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.svg) **están subidos en esta carpeta** desde el 23-10-2026. Su revisión académica continúa pendiente.

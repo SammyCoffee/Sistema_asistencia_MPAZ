@@ -1,20 +1,20 @@
 # Ficha de Avance 05 — Capstone MPAZ RFID
 
 **Sección:** 003D  
-**Estado:** materiales de revisión preparados; **solo el diagrama fuente DOT y su representación Mermaid están incorporados en esta rama por ahora**.
+**Estado:** Word, PNG, SVG, fuente DOT y representación Mermaid **subidos en esta rama**; revisión académica pendiente.
 
 ## Archivos disponibles en GitHub
 
 - [Diagrama editable DOT](MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.dot).
 - [Vista de procesos UML con diagrama renderizable (Mermaid)](MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.md).
 
-## Archivos preparados que aún deben subirse
+## Archivos subidos el 23-10-2026
 
-Los tres archivos siguientes están incluidos en el paquete ZIP de Ficha 05 disponible en la conversación y **todavía no figuran como cargados en GitHub**:
+- [x] [Ficha de Avance 05 Word para revisión](Ficha_Avance_05_MPAZ_RFID_003D_PARA_REVISION.docx)
+- [x] [Diagrama de actividades UML PNG](MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.png)
+- [x] [Diagrama de actividades UML SVG](MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.svg)
 
-- `Ficha_Avance_05_MPAZ_RFID_003D_PARA_REVISION.docx`
-- `MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.png`
-- `MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.svg`
+Se conservaron las rutas internas del ZIP y todas las fichas anteriores. La carga no implica aprobación docente ni validación técnica adicional.
 
 **Carpeta de destino:** `documentacion/capstone/Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/`
 
