@@ -11,8 +11,8 @@ Se recibieron seis imágenes técnicas y una nueva guía 2.4 con anexos. Además
 | 03 Estado API | **Prueba simulada informada** | [GET /estado 200](Evidencias_Sistema_Aplicacion/F05_2026-10-25_PRUEBA_SIMULADA_API_SQLITE.md) | Falta TXT original y, si se exige, captura del servicio desplegado. |
 | 04 Nueva asistencia | **Correlación simulada documentada** | [POST /lectura y SQLite con el mismo evento_id, 0→1](Evidencias_Sistema_Aplicacion/F05_2026-10-25_PRUEBA_SIMULADA_API_SQLITE.md). La [captura del ESP32](Evidencias_Sistema_Aplicacion/API_01_ESP32_Envio_Lectura_HTTP200.png) solo acredita comunicación. | Falta repetir correlación con tarjeta y tótem físico. |
 | 05 Evento repetido | Documentado en pruebas aisladas | [Captura previa](Evidencias_Sistema_Aplicacion/API_02_Evento_Repetido_Sin_Duplicados.png) con 7→7 y [simulación nueva](Evidencias_Sistema_Aplicacion/F05_2026-10-25_PRUEBA_SIMULADA_API_SQLITE.md) con 1→1 | Falta validación física y otros casos de duplicidad diaria. |
-| 06 Login | Pendiente | Sin captura adjunta | Acceso al panel sin exponer credenciales. |
-| 07 Panel | Pendiente | La consulta SQL no sustituye la vista de interfaz | Pantalla con registros ficticios. |
+| 06 Login | Pendiente | El panel docente se ha capturado, pero no muestra inicio de sesión | Acceso al panel sin exponer credenciales; capturas docentes pendientes de carga a la rama. |
+| 07 Panel | Capturas recibidas, no subidas | DOCENTE_01/02/03 aportadas al asistente: sesiones borrador, parcial y confirmada de solo lectura | Cargar capturas al repositorio y comprobar persistencia tras recargar. |
 | 08 Exportación | Pendiente | Sin reporte adjunto | Exportación y apertura de Excel. |
 | 09 Tótem y lectura | Documentado parcialmente | [Montaje](Evidencias_Sistema_Aplicacion/HARDWARE_01_ESP32_PN532_Montaje.jpeg), [tarjeta](Evidencias_Sistema_Aplicacion/HARDWARE_02_Tarjeta_Prueba_PN532.jpeg) y [monitor serie](Evidencias_Sistema_Aplicacion/API_01_ESP32_Envio_Lectura_HTTP200.png) | Validación integral del dispositivo; fotos solas no acreditan registro. |
 | 10 Integración completa | **Backend simulado demostrado; integración física pendiente** | [Simulación correlacionada solicitud→API→SQLite](Evidencias_Sistema_Aplicacion/F05_2026-10-25_PRUEBA_SIMULADA_API_SQLITE.md) | Faltan lectura física PN532/ESP32, transmisión Wi-Fi correlacionada y piloto escolar. |
@@ -27,4 +27,4 @@ Se recibieron seis imágenes técnicas y una nueva guía 2.4 con anexos. Además
 4. Revisar requisitos formales con el docente; este control no sustituye la rúbrica.
 5. No marcar como completadas las pruebas sin respaldo ni recalcular el avance declarado en la Ficha 04.
 
-La planificación de Fase 1 se conserva; la evidencia de ejecución se reúne en Fase 2. Próximo respaldo necesario: TXT de la simulación y nueva asistencia correlacionada **desde el lector físico**, interfaz/exportación y piloto.
+La planificación de Fase 1 se conserva; la evidencia de ejecución se reúne en Fase 2. TXT original de la simulación ya disponible en GitHub. Próximo respaldo: Word actualizado y 3 capturas docentes (pendientes de carga), una nueva asistencia correlacionada **desde el lector físico**, exportación y piloto.

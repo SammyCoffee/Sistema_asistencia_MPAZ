@@ -13,7 +13,9 @@ Estas capturas están documentadas y **pendientes de revisión docente**. Adicio
 
 ## Evidencia de simulación reciente
 
-[Prueba Ficha 05 — API y SQLite temporal (25-10-2026)](F05_2026-10-25_PRUEBA_SIMULADA_API_SQLITE.md): entrada de prueba (0→1), mismo evento en SQLite, prevención de evento repetido (1→1), rechazo de tótem inactivo (403), rechazo sin clave (401) y GET /estado (200). **Transcripción facilitada por el equipo**, TXT original aún por subir. No emplea ESP32 físico.
+[Prueba Ficha 05 — API y SQLite temporal (25-10-2026)](F05_2026-10-25_PRUEBA_SIMULADA_API_SQLITE.md): entrada de prueba (0→1), mismo evento en SQLite, prevención de evento repetido (1→1), rechazo de tótem inactivo (403), rechazo sin clave (401) y GET /estado (200). **Prueba facilitada por el equipo; TXT original ya disponible** en el enlace siguiente. No emplea ESP32 físico.
+
+TXT original: [F05_2026-10-25_PRUEBA_SIMULADA_TERMINAL_ORIGINAL.txt](F05_2026-10-25_PRUEBA_SIMULADA_TERMINAL_ORIGINAL.txt). Las capturas DOCENTE_01/02/03 fueron recibidas y están preparadas para carga por Work, pero **todavía no están subidas**.
 
 ## Evidencias aún pendientes
 
