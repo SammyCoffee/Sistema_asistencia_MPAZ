@@ -30,3 +30,9 @@ Se conservaron las rutas internas del ZIP y todas las fichas anteriores. La carg
 La Ficha 05 mantiene **87,5 % como dato declarado en la Ficha 04**, sin afirmar que se ha confirmado un nuevo porcentaje. Falta la prueba correlacionada de una nueva asistencia, las capturas del panel y la exportación, el piloto y la validación del docente. No alterar la autoría histórica ni asignar firmas.
 
 **No modificar código ni `main` ni fusionar ramas.**
+
+## Nueva evidencia de terminal — 25-10-2026
+
+**Disponible como transcripción del equipo:** [Prueba aislada de API y SQLite sin hardware](../Evidencias_Sistema_Aplicacion/F05_2026-10-25_PRUEBA_SIMULADA_API_SQLITE.md). La ejecución informa `entrada_registrada`, correlación del mismo `evento_id` (0→1), `evento_repetido` (1→1), rechazo de tótem inactivo (403), rechazo sin clave (401) y GET `/estado` (200). 
+
+**Límite:** fue una simulación `Flask.test_client()` con BD temporal y versión local `d167c1c`, no una prueba física del ESP32 ni del servidor escolar; la Ficha 05 Word sigue pendiente de incorporar esta referencia. No recalcular el 87,5 % de la Ficha 04 sin revisar F01–F09.

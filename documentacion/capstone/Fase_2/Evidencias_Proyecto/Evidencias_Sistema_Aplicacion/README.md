@@ -9,12 +9,16 @@
 | [Montaje ESP32 y PN532](HARDWARE_01_ESP32_PN532_Montaje.jpeg) | Hardware y conexiones | La fotografía no demuestra transmisión ni inserción. |
 | [Tarjeta de prueba y lector](HARDWARE_02_Tarjeta_Prueba_PN532.jpeg) | Vista del ESP32 y PN532 conectados; la tarjeta se ve en la fotografía 1 | La respuesta de lectura se respalda por separado en el monitor serie. |
 
-Son pruebas documentadas recibidas, **pendientes de revisión docente**. No se ejecutaron pruebas nuevas al incorporar estos archivos.
+Estas capturas están documentadas y **pendientes de revisión docente**. Adicionalmente, el equipo informó el 25-10-2026 una prueba en terminal de Flask y SQLite temporal que se registra a continuación; no la confundimos con ejecución en la escuela.
+
+## Evidencia de simulación reciente
+
+[Prueba Ficha 05 — API y SQLite temporal (25-10-2026)](F05_2026-10-25_PRUEBA_SIMULADA_API_SQLITE.md): entrada de prueba (0→1), mismo evento en SQLite, prevención de evento repetido (1→1), rechazo de tótem inactivo (403), rechazo sin clave (401) y GET /estado (200). **Transcripción facilitada por el equipo**, TXT original aún por subir. No emplea ESP32 físico.
 
 ## Evidencias aún pendientes
 
-- GET /estado.
-- Nueva asistencia registrada desde el tótem, correlacionando solicitud, evento y registro SQLite.
+- GET /estado **en el servicio desplegado** (en simulación test_client ya se informó HTTP 200).
+- Nueva asistencia **desde el tótem físico** correlacionando lectura, evento y registro SQLite (la simulación ya demostró el flujo API→SQLite).
 - Otros casos de duplicados diarios y validaciones de tarjetas/tótems.
 - Login y panel de asistencias con datos ficticios.
 - Exportación y apertura de reporte Excel.
