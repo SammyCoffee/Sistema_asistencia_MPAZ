@@ -1,0 +1,51 @@
+=======================================================================
+FICHA 05 | PRUEBA SIMULADA SIN ESP32 | SOLO DATOS FICTICIOS
+=======================================================================
+Momento: 2026-10-25 09:32:36
+Versión Git: d167c1c
+Método: Flask test_client (sin conexión al servidor real)
+Base escolar real: NO SE UTILIZA
+Tablas creadas correctamente
+[OK] Esquema de prueba creado
+     Solo se creó un archivo SQLite temporal
+
+[1] Comprobación GET /estado
+[OK] GET /estado
+     HTTP=200
+
+[2] Estado antes de la nueva entrada
+Registros antes: 0
+Evento enviado: F05-PRUEBA-5247DE3F908C
+UID ficticio: F05A1B2C
+Tótem ficticio: TOTEM-F05-SIMULADO
+
+[3] POST /lectura (nueva entrada simulada)
+HTTP: 200
+Resultado: entrada_registrada
+Hora registrada: 09:32:36
+[OK] Entrada registrada
+
+[4] Correlación con la escritura SQLite (MISMO evento_id)
+Registro SQLite: ('2026-10-25', '09:32:36', 'F05-PRUEBA-5247DE3F908C', 'F05-PRUEBA-5247DE3F908C')
+Registros después: 1
+[OK] Mismo evento encontrado en SQLite
+
+[5] Reenvío del mismo evento: no debe duplicar
+Resultado: evento_repetido
+Registros antes/después: 1 / 1
+[OK] Idempotencia evento_repetido
+
+[6] Validación de tótem desactivado
+HTTP: 403 | Resultado: totem_inactivo
+[OK] Tótem inactivo rechazado sin escritura
+
+[7] Validación de solicitud SIN clave API
+HTTP: 401 | Resultado: no_autorizado
+[OK] Solicitud sin clave rechazada sin escritura
+
+=======================================================================
+PRUEBAS SIMULADAS APROBADAS EN EL CÓDIGO DEL PROYECTO
+Lectura: simulada por HTTP/Flask; NO capturada por ESP32 físico
+Base de datos: TEMPORAL y DE PRUEBA; se elimina al finalizar
+No demuestra: piloto escolar, lector PN532 físico, exportación o despliegue real
+=======================================================================
