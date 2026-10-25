@@ -2,7 +2,7 @@
 
 **Proyecto:** Sistema MPAZ RFID · **Sección:** 003D · **Fecha/hora informada:** 2026-10-25 09:32:36 (hora del equipo de ejecución).  
 **Versión Git local indicada por la prueba:** `d167c1c`. **Medio:** Python, `Flask.test_client()` y una base de datos SQLite **temporal**, eliminada al finalizar.  
-**Origen de esta evidencia:** transcripción de terminal compartida por el equipo el 25-10-2026. **No se ejecutó de forma independiente desde este repositorio** ni se adjuntó todavía el TXT original generado con `tee`.
+**Origen de esta evidencia:** transcripción de terminal compartida por el equipo el 25-10-2026. **No se ejecutó de forma independiente desde este repositorio.** El TXT original generado con `tee` ya fue adjuntado.
 
 > **Alcance:** se prueba el procesamiento del backend con UID y tótem ficticios. **No prueba una lectura física PN532, transmisión Wi-Fi del ESP32, despliegue real, login/panel, exportación Excel ni piloto escolar.** El porcentaje de 87,5 % de la Ficha 04 no se modifica automáticamente.
 
@@ -25,6 +25,7 @@ La transcripción informa que la base escolar real **no fue utilizada**. El scri
 
 ## Referencias y trazabilidad
 
+- [TXT original de salida](F05_2026-10-25_PRUEBA_SIMULADA_TERMINAL_ORIGINAL.txt).
 - [Script reproducible utilizado](../Evidencias_Documentacion/Material_de_Apoyo/Prueba_Ficha05_MPAZ_sin_hardware.py).
 - [Ficha de avance 05](../Evidencias_Documentacion/Ficha_Avance_05_MPAZ_RFID_003D_PARA_REVISION.docx).
 - [Diagrama de actividades UML](../Evidencias_Documentacion/MPAZ_RFID_Ficha05_Diagrama_Actividades_UML.md).
@@ -33,7 +34,7 @@ La transcripción informa que la base escolar real **no fue utilizada**. El scri
 
 ## Próximos respaldos
 
-- [ ] Adjuntar el **TXT original** `prueba_terminal_f05.txt` generado en `~/pruebas_mpaz/evidencias_ficha05/`, después de comprobar que no contenga secretos.
+- [x] [TXT original de la terminal (adjunto y verificado)](F05_2026-10-25_PRUEBA_SIMULADA_TERMINAL_ORIGINAL.txt), producido en `~/pruebas_mpaz/evidencias_ficha05/`.
 - [ ] Incorporar esta evidencia al Word oficial de la Ficha 05 con fecha, versión `d167c1c` y referencia a la simulación.
 - [ ] Probar una lectura real del PN532/ESP32 contra la API y correlacionar con SQLite cuando se cuente con el equipo físico.
 - [ ] Confirmar responsables, semana académica, porcentaje actualizado y observación docente.
