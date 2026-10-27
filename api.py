@@ -1768,6 +1768,7 @@ def desbloquear_tarjeta_panel():
     if resultado in (
         "tarjeta_no_bloqueada",
         "alumno_no_autorizado",
+        "otra_tarjeta_activa",
         "no_actualizada"
     ):
         return jsonify({"resultado": resultado}), 409
@@ -1925,6 +1926,503 @@ def consultar_asistencia_curso_profesor(curso):
         "resultado": "acceso_denegado",
         "mensaje": "No tiene autorizacion para consultar este curso"
     }), 403
+
+
+@app.get("/panel/calendario/jornada")
+def consultar_jornada_escolar_panel():
+    """
+    Consulta administrativa de una jornada escolar.
+
+    No crea ni modifica registros.
+    """
+
+    import sqlite3
+
+    from calendario_escolar import (
+        resolver_jornada_escolar,
+        validar_fecha_escolar,
+        validar_curso_escolar
+    )
+
+    from base_datos import obtener_conexion
+
+    if not session.get("panel_autorizado", False):
+        return jsonify({
+            "resultado": "no_autorizado",
+            "mensaje": "Debe iniciar sesion como administrador"
+        }), 401
+
+    fecha = request.args.get("fecha", "")
+    curso = request.args.get("curso", "")
+
+    try:
+        fecha = validar_fecha_escolar(fecha)
+        curso = validar_curso_escolar(curso)
+
+    except ValueError as error:
+        codigo = str(error)
+
+        return jsonify({
+            "resultado": codigo,
+            "mensaje": (
+                "La fecha o el curso solicitado no es valido"
+            )
+        }), 400
+
+    try:
+        conexion = obtener_conexion()
+
+        try:
+            jornada = resolver_jornada_escolar(
+                conexion,
+                fecha,
+                curso
+            )
+
+        finally:
+            conexion.close()
+
+    except sqlite3.OperationalError as error:
+
+        if "no such table: calendario_jornadas" in str(error):
+            return jsonify({
+                "resultado": "calendario_no_preparado",
+                "mensaje": (
+                    "La estructura del calendario escolar "
+                    "todavia no esta instalada"
+                )
+            }), 503
+
+        raise
+
+    return jsonify({
+        "resultado": "ok",
+        "jornada": jornada
+    }), 200
+
+
+
+# ==========================================
+# MPAZ - ADMINISTRACION DEL CALENDARIO
+# ==========================================
+
+@app.get("/panel/calendario/token")
+def obtener_token_calendario_panel():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify({
+            "resultado": "no_autorizado"
+        }), 401
+
+    session["calendario_csrf"] = secrets.token_urlsafe(32)
+
+    respuesta = jsonify({
+        "resultado": "ok",
+        "csrf_token": session["calendario_csrf"]
+    })
+
+    respuesta.headers["Cache-Control"] = "no-store"
+    return respuesta, 200
+
+
+def procesar_jornada_calendario_panel(accion):
+
+    import sqlite3
+
+    from base_datos import obtener_conexion
+    from calendario_administracion import guardar_jornada_escolar
+
+    if not session.get("panel_autorizado", False):
+        return jsonify({
+            "resultado": "no_autorizado"
+        }), 401
+
+
+    # MPAZ - PASO 665
+    # Bloqueo de escritura del lado del servidor.
+    # Deshabilitado por defecto.
+
+    if (
+        os.getenv(
+            "MPAZ_CALENDARIO_ESCRITURA_HABILITADA",
+            ""
+        ).strip().lower() != "si"
+    ):
+        return jsonify({
+            "resultado": "calendario_escritura_deshabilitada",
+            "mensaje": (
+                "La administracion del calendario "
+                "no esta habilitada en este entorno"
+            )
+        }), 403
+
+    token_sesion = session.get("calendario_csrf")
+    token_recibido = request.headers.get("X-CSRF-Token")
+
+    if (
+        not isinstance(token_sesion, str)
+        or not isinstance(token_recibido, str)
+        or not token_sesion
+        or not secrets.compare_digest(
+            token_sesion, token_recibido
+        )
+    ):
+        return jsonify({
+            "resultado": "csrf_invalido",
+            "mensaje": "Token de seguridad ausente o invalido"
+        }), 403
+
+    if not request.is_json:
+        return jsonify({
+            "resultado": "datos_invalidos"
+        }), 400
+
+    datos = request.get_json(silent=True)
+
+    if not isinstance(datos, dict):
+        return jsonify({
+            "resultado": "datos_invalidos"
+        }), 400
+
+    curso = datos.get("curso")
+
+    # Un alcance general se representa como NULL.
+    if curso == "":
+        curso = None
+
+    conexion = None
+
+    try:
+        conexion = obtener_conexion()
+
+        resultado = guardar_jornada_escolar(
+            conexion,
+            accion=accion,
+            fecha=datos.get("fecha"),
+            curso=curso,
+            condicion=datos.get("condicion"),
+            motivo=datos.get("motivo"),
+            hora_entrada=datos.get("hora_entrada"),
+            hora_salida=datos.get("hora_salida")
+        )
+
+    except ValueError as error:
+        return jsonify({
+            "resultado": str(error),
+            "mensaje": "Datos de jornada invalidos"
+        }), 400
+
+    except sqlite3.IntegrityError:
+        return jsonify({
+            "resultado": "conflicto_registro"
+        }), 409
+
+    except sqlite3.OperationalError as error:
+
+        if "no such table" in str(error).lower():
+            return jsonify({
+                "resultado": "calendario_no_preparado",
+                "mensaje": "Faltan estructuras del calendario"
+            }), 503
+
+        return jsonify({
+            "resultado": "base_datos_no_disponible"
+        }), 503
+
+    finally:
+        if conexion is not None:
+            conexion.close()
+
+    codigo = resultado.get("resultado")
+
+    if codigo == "creada":
+        return jsonify(resultado), 201
+
+    if codigo == "actualizada":
+        return jsonify(resultado), 200
+
+    if codigo == "sin_cambios":
+        return jsonify(resultado), 200
+
+    if codigo == "ya_existe":
+        return jsonify(resultado), 409
+
+    if codigo == "no_existe":
+        return jsonify(resultado), 404
+
+    return jsonify({
+        "resultado": "error_interno"
+    }), 500
+
+
+@app.post("/panel/calendario/jornadas/registrar")
+def registrar_jornada_calendario_panel():
+    return procesar_jornada_calendario_panel("crear")
+
+
+@app.post("/panel/calendario/jornadas/editar")
+def editar_jornada_calendario_panel():
+    return procesar_jornada_calendario_panel("editar")
+
+
+
+# ====================================================
+# MPAZ RFID - CONSULTAS DEL CALENDARIO ESCOLAR
+# ====================================================
+
+@app.get("/panel/calendario/mes")
+def consultar_calendario_mensual_panel():
+
+    import re
+    import sqlite3
+    from datetime import date
+
+    from base_datos import obtener_conexion
+    from calendario_escolar import validar_curso_escolar
+
+    if not session.get("panel_autorizado", False):
+        return jsonify({
+            "resultado": "no_autorizado"
+        }), 401
+
+    mes = request.args.get("mes", "")
+    curso = request.args.get("curso", "").strip()
+
+    if not re.fullmatch(
+        "[0-9]{4}-(0[1-9]|1[0-2])", mes
+    ):
+        return jsonify({
+            "resultado": "mes_invalido"
+        }), 400
+
+    try:
+        date.fromisoformat(mes + "-01")
+
+        if curso:
+            curso = validar_curso_escolar(curso)
+        else:
+            curso = None
+
+    except ValueError:
+        return jsonify({
+            "resultado": "parametros_invalidos"
+        }), 400
+
+    # Consultar solamente el mes solicitado.
+    inicio = mes + "-01"
+
+    anio = int(mes[:4])
+    numero_mes = int(mes[5:7])
+
+    if numero_mes == 12:
+        if anio == 9999:
+            fin = "9999-13-01"
+        else:
+            fin = f"{anio + 1:04d}-01-01"
+    else:
+        fin = f"{anio:04d}-{numero_mes + 1:02d}-01"
+
+    if curso is None:
+        consulta = """
+            SELECT id, fecha, curso, condicion,
+                   hora_entrada, hora_salida, motivo
+            FROM calendario_jornadas
+            WHERE fecha >= ?
+              AND fecha < ?
+              AND curso IS NULL
+            ORDER BY fecha
+        """
+        parametros = (inicio, fin)
+
+    else:
+        consulta = """
+            SELECT id, fecha, curso, condicion,
+                   hora_entrada, hora_salida, motivo
+            FROM calendario_jornadas
+            WHERE fecha >= ?
+              AND fecha < ?
+              AND (curso IS NULL OR curso = ?)
+            ORDER BY fecha,
+                CASE
+                    WHEN curso IS NULL THEN 0
+                    ELSE 1
+                END
+        """
+        parametros = (inicio, fin, curso)
+
+    conexion = None
+
+    try:
+        conexion = obtener_conexion()
+        registros = conexion.execute(
+            consulta, parametros
+        ).fetchall()
+
+    except sqlite3.OperationalError as error:
+        if "no such table" in str(error).lower():
+            return jsonify({
+                "resultado": "calendario_no_preparado"
+            }), 503
+
+        return jsonify({
+            "resultado": "base_datos_no_disponible"
+        }), 503
+
+    finally:
+        if conexion is not None:
+            conexion.close()
+
+    por_fecha = {}
+
+    for fila in registros:
+        por_fecha[fila[1]] = {
+            "id": fila[0],
+            "fecha": fila[1],
+            "curso": curso,
+            "condicion": fila[3],
+            "alcance": (
+                "curso" if fila[2] is not None
+                else "general"
+            ),
+            "hora_entrada": fila[4],
+            "hora_salida": fila[5],
+            "motivo": fila[6]
+        }
+
+    jornadas = list(por_fecha.values())
+
+    respuesta = jsonify({
+        "resultado": "ok",
+        "mes": mes,
+        "curso": curso,
+        "total": len(jornadas),
+        "jornadas": jornadas
+    })
+
+    respuesta.headers["Cache-Control"] = "no-store"
+    return respuesta, 200
+
+
+@app.get("/panel/calendario/jornadas/historial")
+def consultar_historial_calendario_panel():
+
+    import json
+    import sqlite3
+
+    from base_datos import obtener_conexion
+    from calendario_escolar import (
+        validar_fecha_escolar,
+        validar_curso_escolar
+    )
+
+    if not session.get("panel_autorizado", False):
+        return jsonify({
+            "resultado": "no_autorizado"
+        }), 401
+
+    fecha = request.args.get("fecha", "")
+    curso = request.args.get("curso", "").strip()
+
+    try:
+        fecha = validar_fecha_escolar(fecha)
+
+        if curso:
+            curso = validar_curso_escolar(curso)
+        else:
+            curso = None
+
+    except ValueError:
+        return jsonify({
+            "resultado": "parametros_invalidos"
+        }), 400
+
+    conexion = None
+
+    try:
+        conexion = obtener_conexion()
+
+        jornada = conexion.execute(
+            """
+            SELECT id
+            FROM calendario_jornadas
+            WHERE fecha = ?
+              AND curso IS ?
+            LIMIT 1
+            """,
+            (fecha, curso)
+        ).fetchone()
+
+        if jornada is None:
+            return jsonify({
+                "resultado": "jornada_no_encontrada"
+            }), 404
+
+        jornada_id = jornada[0]
+
+        total = conexion.execute(
+            """
+            SELECT COUNT(*)
+            FROM calendario_auditoria
+            WHERE jornada_id = ?
+            """,
+            (jornada_id,)
+        ).fetchone()[0]
+
+        filas = conexion.execute(
+            """
+            SELECT id, accion, valor_anterior,
+                   valor_nuevo, actor, registrado_en
+            FROM calendario_auditoria
+            WHERE jornada_id = ?
+            ORDER BY id DESC
+            LIMIT 100
+            """,
+            (jornada_id,)
+        ).fetchall()
+
+    except sqlite3.OperationalError as error:
+        if "no such table" in str(error).lower():
+            return jsonify({
+                "resultado": "calendario_no_preparado"
+            }), 503
+
+        return jsonify({
+            "resultado": "base_datos_no_disponible"
+        }), 503
+
+    finally:
+        if conexion is not None:
+            conexion.close()
+
+    historial = []
+
+    for fila in filas:
+        historial.append({
+            "id": fila[0],
+            "accion": fila[1],
+            "anterior": (
+                json.loads(fila[2])
+                if fila[2] is not None
+                else None
+            ),
+            "nuevo": json.loads(fila[3]),
+            "actor": fila[4],
+            "registrado_en": fila[5]
+        })
+
+    respuesta = jsonify({
+        "resultado": "ok",
+        "jornada_id": jornada_id,
+        "fecha": fecha,
+        "curso": curso,
+        "total_cambios": total,
+        "historial_limitado": total > len(historial),
+        "historial": historial
+    })
+
+    respuesta.headers["Cache-Control"] = "no-store"
+    return respuesta, 200
+
 
 if __name__ == "__main__":
 

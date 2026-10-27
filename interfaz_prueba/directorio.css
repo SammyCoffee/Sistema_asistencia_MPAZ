@@ -1,0 +1,182 @@
+
+/* Directorio institucional MPAZ */
+
+.mpaz-directorio {
+    margin: 24px 0;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid #d9e6ee;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(12, 37, 78, .06);
+}
+
+.mpaz-directorio-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+}
+
+.mpaz-directorio-cabecera h3 {
+    color: #102b59;
+    font-size: 24px;
+    margin: 6px 0;
+}
+
+.mpaz-directorio-cabecera p {
+    color: #536b80;
+    margin: 0;
+}
+
+.mpaz-etiqueta {
+    color: #0c7181;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.mpaz-contador {
+    background: #f4f8fc;
+    border-left: 4px solid #e3ac27;
+    border-radius: 12px;
+    padding: 12px 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mpaz-contador strong {
+    font-size: 25px;
+    color: #102b59;
+}
+
+.mpaz-contador span {
+    color: #536b80;
+    font-size: 12px;
+}
+
+.mpaz-filtros {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, minmax(125px, 1fr));
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.mpaz-filtros label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #263e5f;
+}
+
+.mpaz-filtros input,
+.mpaz-filtros select {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 11px;
+    background: #fff;
+    border: 1px solid #cad8e6;
+    border-radius: 9px;
+    color: #243b53;
+}
+
+.mpaz-tabla-contenedor {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #e1e8ef;
+    border-radius: 12px;
+}
+
+.mpaz-tabla-directorio {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+.mpaz-tabla-directorio th {
+    background: #102b59;
+    color: #fff;
+    text-align: left;
+    padding: 13px;
+    font-size: 13px;
+}
+
+.mpaz-tabla-directorio td {
+    padding: 12px 13px;
+    border-bottom: 1px solid #e7edf3;
+    font-size: 14px;
+}
+
+.mpaz-tabla-directorio tbody tr:hover {
+    background: #f5fafd;
+}
+
+.mpaz-estado {
+    display: inline-block;
+    border-radius: 30px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    background: #e6eff8;
+    color: #163d74;
+}
+
+.mpaz-estado.activo,
+.mpaz-estado.activa {
+    background: #dff5e8;
+    color: #196a3d;
+}
+
+.mpaz-estado.inactivo,
+.mpaz-estado.bloqueada,
+.mpaz-estado.extraviada {
+    background: #fce8e8;
+    color: #9b2828;
+}
+
+.mpaz-estado.sin-tarjeta {
+    background: #fff2d6;
+    color: #855b09;
+}
+
+.mpaz-tabla-directorio button {
+    min-width: 0;
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+.mpaz-paginacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding-top: 16px;
+    color: #536b80;
+}
+
+.mpaz-paginacion button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+@media (max-width: 900px) {
+    .mpaz-filtros {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    .mpaz-directorio {
+        padding: 15px;
+    }
+
+    .mpaz-filtros {
+        grid-template-columns: 1fr;
+    }
+}

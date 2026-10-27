@@ -778,7 +778,7 @@ def activar_tarjeta(uid):
     try:
         cursor.execute(
             """
-            SELECT t.id, t.estado, a.estado
+            SELECT t.id, t.estado, a.estado, t.alumno_id
             FROM tarjetas AS t
             LEFT JOIN alumnos AS a
                 ON a.id = t.alumno_id
@@ -799,6 +799,23 @@ def activar_tarjeta(uid):
         if tarjeta[2] != "activo":
             return "alumno_no_autorizado"
 
+        # Evitar reactivar una tarjeta anterior cuando el
+        # estudiante ya utiliza otra tarjeta RFID activa.
+        cursor.execute(
+            """
+            SELECT 1
+            FROM tarjetas
+            WHERE alumno_id = ?
+              AND id != ?
+              AND estado = 'activa'
+            LIMIT 1
+            """,
+            (tarjeta[3], tarjeta[0])
+        )
+
+        if cursor.fetchone() is not None:
+            return "otra_tarjeta_activa"
+
         cursor.execute(
             """
             UPDATE tarjetas
@@ -806,8 +823,15 @@ def activar_tarjeta(uid):
                 fecha_bloqueo = NULL
             WHERE id = ?
               AND estado = 'bloqueada'
+              AND NOT EXISTS (
+                  SELECT 1
+                  FROM tarjetas AS otra
+                  WHERE otra.alumno_id = ?
+                    AND otra.id != ?
+                    AND otra.estado = 'activa'
+              )
             """,
-            (tarjeta[0],)
+            (tarjeta[0], tarjeta[3], tarjeta[0])
         )
 
         if cursor.rowcount != 1:

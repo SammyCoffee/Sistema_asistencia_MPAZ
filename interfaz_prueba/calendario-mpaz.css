@@ -1,0 +1,402 @@
+
+/* MPAZ-CALENDARIO-6571 */
+
+#calendario {
+    color: #243b53;
+}
+
+.mpaz-cal-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.mpaz-cal-cabecera h2 {
+    color: #102b59;
+    margin: 5px 0;
+}
+
+.mpaz-cal-cabecera p {
+    color: #64748b;
+    margin: 6px 0;
+}
+
+.mpaz-cal-cabecera small,
+.mpaz-cal-tarjeta > small,
+.mpaz-cal-barra small {
+    font-size: 11px;
+    font-weight: 800;
+    color: #078fa3;
+    letter-spacing: 1px;
+}
+
+.mpaz-cal-etiqueta {
+    padding: 9px 14px;
+    border-radius: 20px;
+    background: #e5f6f8;
+    color: #08798b;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.mpaz-cal-aviso {
+    border-left: 4px solid #deb03a;
+    background: #fff8e7;
+    padding: 15px 18px;
+    border-radius: 10px;
+    color: #73551e;
+    font-size: 13px;
+    margin-bottom: 22px;
+}
+
+.mpaz-cal-aviso p {
+    margin: 6px 0 0;
+}
+
+.mpaz-cal-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr);
+    gap: 18px;
+    align-items: start;
+}
+
+.mpaz-cal-tarjeta {
+    padding: 21px;
+    border: 1px solid #dde7f0;
+    background: white;
+    border-radius: 15px;
+    min-width: 0;
+}
+
+.mpaz-cal-tarjeta h3 {
+    color: #102b59;
+    margin: 5px 0 18px;
+}
+
+.mpaz-cal-barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.mpaz-cal-controles {
+    display: flex;
+    gap: 6px;
+}
+
+.mpaz-cal-controles button {
+    background: #f1f7fc;
+    border: 1px solid #d9e5ef;
+    color: #173762;
+    padding: 8px 13px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.mpaz-cal-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #294463;
+    margin-bottom: 13px;
+}
+
+.mpaz-cal-campo input,
+.mpaz-cal-campo select,
+.mpaz-cal-campo textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cad8e6;
+    border-radius: 9px;
+    background: white;
+    color: #243b53;
+    font: inherit;
+    min-width: 0;
+}
+
+.mpaz-cal-leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 11px;
+    color: #718397;
+    margin: 10px 0 16px;
+}
+
+.mpaz-cal-leyenda span:nth-child(1) {
+    color: #078fa3;
+}
+
+.mpaz-cal-leyenda span:nth-child(2) {
+    color: #ac821d;
+}
+
+.mpaz-cal-semana,
+.mpaz-cal-cuadricula {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px;
+}
+
+.mpaz-cal-semana {
+    text-align: center;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.mpaz-cal-dia {
+    min-height: 76px;
+    padding: 8px 5px;
+    border: 1px solid #e0e9f2;
+    background: #f9fbfd;
+    color: #173762;
+    border-radius: 10px;
+    text-align: left;
+    cursor: pointer;
+    min-width: 0;
+}
+
+.mpaz-cal-dia strong,
+.mpaz-cal-dia small {
+    display: block;
+}
+
+.mpaz-cal-dia small {
+    margin-top: 10px;
+    font-size: 10px;
+    color: #7c8fa2;
+}
+
+.mpaz-cal-dia:hover,
+.mpaz-cal-dia.es-hoy {
+    border-color: #12a9bd;
+}
+
+.mpaz-cal-dia.seleccionado {
+    border: 2px solid #deb03a;
+    background: #effafd;
+}
+
+.mpaz-cal-fecha-resumen {
+    background: #f0f7fd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 18px;
+}
+
+.mpaz-cal-fecha-resumen span {
+    display: block;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.mpaz-cal-fecha-resumen strong {
+    display: block;
+    margin-top: 5px;
+    color: #102b59;
+}
+
+.mpaz-cal-horarios {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+#mpaz-cal-guardar {
+    width: 100%;
+    margin-top: 5px;
+    padding: 12px;
+    border-radius: 9px;
+}
+
+#mpaz-cal-guardar:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+#mpaz-cal-mensaje,
+.mpaz-cal-nota {
+    color: #718397;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+@media (max-width: 980px) {
+    .mpaz-cal-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 550px) {
+    .mpaz-cal-tarjeta {
+        padding: 12px;
+    }
+
+    .mpaz-cal-dia {
+        min-height: 62px;
+    }
+}
+
+
+/* MPAZ-CALENDARIO-660 */
+
+.mpaz-cal-estado-consulta {
+    padding: 10px 13px;
+    border-radius: 9px;
+    background: #eff6fb;
+    color: #315675;
+    font-size: 12px;
+    margin: 12px 0;
+    line-height: 1.5;
+}
+
+.mpaz-cal-detalle-jornada {
+    padding: 14px;
+    border-radius: 10px;
+    background: #f8fafc;
+    border: 1px solid #dee7ef;
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 15px;
+    overflow-wrap: anywhere;
+}
+
+.mpaz-cal-detalle-jornada strong {
+    display: block;
+    color: #102b59;
+}
+
+.mpaz-cal-detalle-jornada p {
+    margin: 5px 0;
+}
+
+.mpaz-cal-dia.estado-lectiva {
+    background: #e5f5ea;
+    border-color: #9edab1;
+}
+
+.mpaz-cal-dia.estado-suspendida {
+    background: #fde9e9;
+    border-color: #f0aaaa;
+}
+
+.mpaz-cal-dia.estado-feriado {
+    background: #eeeafb;
+    border-color: #c8b9ee;
+}
+
+.mpaz-cal-dia.estado-reducida {
+    background: #fff3d6;
+    border-color: #eacb79;
+}
+
+.mpaz-cal-dia.estado-horario_especial {
+    background: #e3f4fa;
+    border-color: #9bcede;
+}
+
+.mpaz-cal-dia.estado-sin_configurar {
+    background: #f9fbfd;
+    border-color: #e0e9f2;
+}
+
+.mpaz-cal-dia.estado-consultando {
+    background: #f2f5f8;
+}
+
+#calendario .mpaz-cal-dia.seleccionado {
+    outline: 2px solid #e3af29;
+    outline-offset: 1px;
+}
+
+#calendario .mpaz-cal-dia:focus-visible {
+    outline: 3px solid #0a8299;
+    outline-offset: 2px;
+}
+
+.mpaz-cal-historial {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid #e1e9f1;
+}
+
+.mpaz-cal-historial h3 {
+    margin-bottom: 10px;
+}
+
+#mpaz-cal-historial-contenido {
+    color: #516a81;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.mpaz-cal-historial-item {
+    padding: 12px;
+    margin: 9px 0;
+    background: #f7fafd;
+    border-left: 3px solid #12a9bd;
+    border-radius: 8px;
+}
+
+.mpaz-cal-historial-item strong {
+    display: block;
+    color: #102b59;
+    margin-bottom: 5px;
+}
+
+.mpaz-cal-historial-item p {
+    margin: 4px 0;
+}
+
+/* MPAZ-CALENDARIO-663 */
+
+.mpaz-cal-edicion-cuadro {
+    padding: 14px;
+    margin: 12px 0 18px;
+    border: 1px solid #c8e4e9;
+    border-radius: 11px;
+    background: #f0fafb;
+    color: #244863;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.mpaz-cal-edicion-cuadro strong {
+    color: #102b59;
+}
+
+.mpaz-cal-edicion-cuadro p {
+    margin: 7px 0;
+}
+
+.mpaz-cal-edicion-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.mpaz-cal-edicion-acciones button {
+    border-radius: 8px;
+    padding: 10px 13px;
+}
+
+.mpaz-cal-edicion-acciones button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+#mpaz-cal-operacion[data-error="si"] {
+    color: #a52c2c;
+    font-weight: 700;
+}
