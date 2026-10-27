@@ -117,70 +117,34 @@
 })();
 
 
-/* ==========================================
-   MPAZ-VISTAS-627
-   BARRA COMPACTA Y SELECTOR DE MÓDULOS
-   ========================================== */
-
+/* ==================================================
+   MPAZ: navegacion sin selector duplicado.
+   Las tarjetas y los hashes existentes siguen activos.
+   Se conservan los botones originales y sus eventos.
+   ================================================== */
 (function () {
     "use strict";
+    const controles = document.querySelector(".encabezado .acciones-cabecera");
+    const destino = document.getElementById("mpaz-acciones-admin");
+    const volver = document.getElementById("mpaz-volver-panel");
 
-    const controlesOriginales = document.querySelector(
-        ".encabezado .acciones-cabecera"
-    );
-
-    const destino = document.getElementById(
-        "mpaz-acciones-admin"
-    );
-
-    const selector = document.getElementById(
-        "mpaz-selector-vista"
-    );
-
-    const volver = document.getElementById(
-        "mpaz-volver-panel"
-    );
-
-    if (!controlesOriginales || !destino || !selector || !volver) {
-        console.error("No se pudo preparar la navegación MPAZ.");
+    if (!controles || !destino || !volver) {
+        console.error("No se pudo preparar la barra institucional MPAZ.");
         return;
     }
 
-    // Mover los botones existentes, sin duplicarlos.
-    // El cierre de sesión conserva sus eventos originales.
-    destino.appendChild(controlesOriginales);
+    destino.appendChild(controles);
 
-    const enlacePortal = destino.querySelector(
-        ".boton-volver-inicio"
-    );
+    const cambiarPortal = destino.querySelector(".boton-volver-inicio");
+    if (cambiarPortal) cambiarPortal.textContent = "Cambiar portal";
 
-    if (enlacePortal) {
-        enlacePortal.textContent = "Cambiar portal";
+    function actualizarVolver() {
+        const vista = decodeURIComponent(location.hash.slice(1));
+        const valido = ["estudiantes", "tarjetas", "vinculacion", "asistencias",
+            "inasistencias", "atrasos", "analisis", "calendario", "reportes"];
+        volver.hidden = !valido.includes(vista);
     }
 
-    function sincronizarVista() {
-        const solicitada = window.location.hash
-            .replace("#", "");
-
-        const opciones = Array.from(selector.options)
-            .map(opcion => opcion.value);
-
-        const vista = opciones.includes(solicitada)
-            ? solicitada
-            : "inicio";
-
-        selector.value = vista;
-        volver.hidden = vista === "inicio";
-    }
-
-    selector.addEventListener("change", function () {
-        window.location.hash = "#" + selector.value;
-    });
-
-    window.addEventListener(
-        "hashchange",
-        sincronizarVista
-    );
-
-    sincronizarVista();
+    window.addEventListener("hashchange", actualizarVolver);
+    actualizarVolver();
 })();

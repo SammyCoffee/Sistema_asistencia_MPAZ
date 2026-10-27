@@ -15,13 +15,14 @@
 
     <link rel="stylesheet" href="styles.css?v=13">
     <link rel="stylesheet" href="directorio.css?v=1">
-    <link rel="stylesheet" href="panel-mpaz.css?v=2">
+    <link rel="stylesheet" href="panel-mpaz.css?v=3">
     <link rel="stylesheet" href="inventario-mpaz.css?v=1">
     <link rel="stylesheet" href="vinculacion-mpaz.css?v=1">
 
     <link rel="stylesheet" href="asistencias-mpaz.css?v=1">
     <link rel="stylesheet" href="inasistencias-mpaz.css?v=1">
     <link rel="stylesheet" href="calendario-mpaz.css?v=1">
+    <link rel="stylesheet" href="identidad-mpaz.css?v=2">
 </head>
 
 
@@ -65,22 +66,21 @@
                 ← Volver al inicio
             </a>
 <details class="menu-configuracion">
-    <summary
-        aria-label="Abrir configuración"
-        title="Configuración"
-    >⚙</summary>
-
-    <div class="contenido-configuracion">
-        <h2>Configuración</h2>
-
-        <p>
-            Sistema de Asistencia Escolar MPAZ RFID.
-            Escuela Escritora Marcela Paz.
-        </p>
-
-        <a href="/inicio.html">
-            Seleccionar portal
-        </a>
+    <summary aria-label="Abrir preferencias de visualización" title="Preferencias de visualización">⚙</summary>
+    <div class="contenido-configuracion mpaz-preferencias">
+        <h2>Preferencias</h2>
+        <p class="mpaz-config-ayuda">Personaliza la apariencia de este dispositivo.</p>
+        <label class="mpaz-ajuste">
+            <span><strong>Tema oscuro</strong><small>Usar colores de alto contraste</small></span>
+            <input type="checkbox" data-mpaz-ajuste="oscuro">
+        </label>
+        <label class="mpaz-ajuste">
+            <span><strong>Vista compacta</strong><small>Reducir espacios entre elementos</small></span>
+            <input type="checkbox" data-mpaz-ajuste="compacto">
+        </label>
+        <button type="button" class="mpaz-restablecer" data-mpaz-restablecer>Restablecer vista</button>
+        <p class="mpaz-ajustes-estado" role="status" aria-live="polite"></p>
+        <a href="/inicio.html" class="mpaz-enlace-portales">Ir a selección de portales ↗</a>
     </div>
 </details>
 <button type="button"
@@ -102,7 +102,7 @@
 <div class="mpaz-barra">
 
     <div class="mpaz-barra-identidad">
-        <span class="mpaz-marca">MP</span>
+        <img class="mpaz-marca mpaz-escudo" src="/escudo-mpaz.webp" width="48" height="48" alt="Escudo de la escuela">
 
         <div>
             <strong>Escuela Escritora Marcela Paz</strong>
@@ -119,25 +119,6 @@
         >
             ← Panel principal
         </a>
-
-        <label class="mpaz-selector-contenedor">
-            <span class="mpaz-solo-lectores">Cambiar módulo</span>
-
-            <select
-                id="mpaz-selector-vista"
-                aria-label="Cambiar módulo administrativo"
-            >
-                <option value="inicio">Inicio</option>
-                <option value="estudiantes">Estudiantes</option>
-                <option value="tarjetas">Tarjetas RFID</option>
-                <option value="vinculacion">Vinculación</option>
-                <option value="asistencias">Asistencias</option>
-                <option value="inasistencias">Inasistencias</option>
-                <option value="atrasos">Atrasos</option>
-                <option value="analisis">Análisis de datos</option>
-                <option value="reportes">Reportes</option>
-            </select>
-        </label>
 
         <div id="mpaz-acciones-admin"></div>
     </div>
@@ -258,6 +239,12 @@
         <span>📊</span>
         <strong>Análisis</strong>
         <small>Estadísticas escolares</small>
+    </a>
+
+    <a href="#calendario">
+        <span aria-hidden="true">🗓️</span>
+        <strong>Calendario escolar</strong>
+        <small>Jornadas y fechas</small>
     </a>
 
     <a href="#reportes">
@@ -1632,9 +1619,10 @@
         ↑
     </button>
 
+    <script src="identidad-mpaz.js?v=2"></script>
     <script src="app.js?v=13"></script>
     <script src="directorio.js?v=1"></script>
-    <script src="panel-mpaz.js?v=1"></script>
+    <script src="panel-mpaz.js?v=3"></script>
     <script src="inventario-mpaz.js?v=1"></script>
     <script src="vinculacion-rapida.js?v=1"></script>
     <script src="vinculacion-mpaz.js?v=1"></script>
