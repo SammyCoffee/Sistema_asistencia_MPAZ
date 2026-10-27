@@ -1,3 +1,110 @@
+// MPAZ-CSRF-687
+// Incorporar token CSRF solo a las escrituras administrativas.
+// No modifica /lectura, login, logout ni el calendario.
+
+(() => {
+    "use strict";
+
+    const fetchOriginal = window.fetch.bind(window);
+
+    const rutasProtegidas = new Set([
+        "/panel/totems/registrar",
+        "/panel/totems/estado",
+        "/panel/alumnos/registrar",
+        "/panel/alumnos/editar",
+        "/panel/alumnos/estado",
+        "/panel/tarjetas/registrar",
+        "/panel/tarjetas/vincular",
+        "/panel/tarjetas/extraviada",
+        "/panel/tarjetas/asignar",
+        "/panel/tarjetas/bloquear",
+        "/panel/tarjetas/desbloquear"
+    ]);
+
+    let solicitudToken = null;
+
+    async function obtenerTokenAdministrativo() {
+        if (!solicitudToken) {
+            solicitudToken = (async () => {
+                const respuesta = await fetchOriginal(
+                    "/panel/csrf-token",
+                    {
+                        credentials: "same-origin",
+                        cache: "no-store"
+                    }
+                );
+
+                if (!respuesta.ok) {
+                    throw new Error(
+                        "No se pudo verificar la sesión administrativa."
+                    );
+                }
+
+                const datos = await respuesta.json();
+
+                if (
+                    typeof datos.csrf_token !== "string" ||
+                    !datos.csrf_token
+                ) {
+                    throw new Error(
+                        "Token de seguridad administrativo inválido."
+                    );
+                }
+
+                return datos.csrf_token;
+            })();
+        }
+
+        try {
+            return await solicitudToken;
+        } catch (error) {
+            solicitudToken = null;
+            throw error;
+        }
+    }
+
+    window.fetch = async function(recurso, opciones) {
+        const configuracion = opciones || {};
+
+        const metodo = String(
+            configuracion.method ||
+            (recurso instanceof Request ? recurso.method : "GET")
+        ).toUpperCase();
+
+        if (metodo !== "POST") {
+            return fetchOriginal(recurso, opciones);
+        }
+
+        const destino = recurso instanceof Request
+            ? recurso.url
+            : String(recurso);
+
+        const url = new URL(destino, window.location.href);
+
+        if (
+            url.origin !== window.location.origin ||
+            !rutasProtegidas.has(url.pathname)
+        ) {
+            return fetchOriginal(recurso, opciones);
+        }
+
+        const token = await obtenerTokenAdministrativo();
+
+        const encabezados = new Headers(
+            configuracion.headers ||
+            (recurso instanceof Request ? recurso.headers : undefined)
+        );
+
+        encabezados.set("X-CSRF-Token", token);
+
+        return fetchOriginal(recurso, {
+            ...configuracion,
+            credentials: "same-origin",
+            headers: encabezados
+        });
+    };
+})();
+
 
 
 

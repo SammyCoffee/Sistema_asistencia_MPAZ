@@ -70,6 +70,85 @@ if not PANEL_PASSWORD:
         "No se encontro la variable de entorno MPAZ_PANEL_PASSWORD"
     )
 
+
+# MPAZ-CSRF-687
+# Proteccion centralizada de operaciones administrativas.
+# No interviene en /lectura ni en el portal docente.
+
+RUTAS_ADMIN_CSRF = frozenset({
+    "/panel/totems/registrar",
+    "/panel/totems/estado",
+    "/panel/alumnos/registrar",
+    "/panel/alumnos/editar",
+    "/panel/alumnos/estado",
+    "/panel/tarjetas/registrar",
+    "/panel/tarjetas/vincular",
+    "/panel/tarjetas/extraviada",
+    "/panel/tarjetas/asignar",
+    "/panel/tarjetas/bloquear",
+    "/panel/tarjetas/desbloquear",
+})
+
+
+@app.before_request
+def proteger_escrituras_administrativas_csrf():
+
+    if (
+        request.method != "POST"
+        or request.path not in RUTAS_ADMIN_CSRF
+    ):
+        return None
+
+    if not session.get("panel_autorizado", False):
+        return jsonify({
+            "resultado": "no_autorizado",
+            "mensaje": "Sesion administrativa requerida"
+        }), 401
+
+    token_sesion = session.get("panel_csrf")
+    token_recibido = request.headers.get("X-CSRF-Token")
+
+    if (
+        not isinstance(token_sesion, str)
+        or not isinstance(token_recibido, str)
+        or not token_sesion
+        or not token_recibido
+        or not secrets.compare_digest(
+            token_sesion, token_recibido
+        )
+    ):
+        return jsonify({
+            "resultado": "csrf_invalido",
+            "mensaje": "Token CSRF ausente o invalido"
+        }), 403
+
+    return None
+
+
+@app.get("/panel/csrf-token")
+def obtener_token_administrativo():
+
+    if not session.get("panel_autorizado", False):
+        return jsonify({
+            "resultado": "no_autorizado"
+        }), 401
+
+    token = session.get("panel_csrf")
+
+    if not isinstance(token, str) or not token:
+        token = secrets.token_urlsafe(32)
+        session["panel_csrf"] = token
+
+    respuesta = jsonify({
+        "resultado": "ok",
+        "csrf_token": token
+    })
+
+    respuesta.headers["Cache-Control"] = "no-store"
+
+    return respuesta, 200
+
+
 @app.post("/panel/login")
 def iniciar_sesion_panel():
     datos = request.get_json(silent=True) or {}
@@ -93,6 +172,7 @@ def iniciar_sesion_panel():
         ), 401
 
     session["panel_autorizado"] = True
+    session["panel_csrf"] = secrets.token_urlsafe(32)
 
     return jsonify(
         {
@@ -123,6 +203,7 @@ def consultar_sesion_panel():
 def cerrar_sesion_panel():
 
     session.pop("panel_autorizado", None)
+    session.pop("panel_csrf", None)
 
     return jsonify(
         {
