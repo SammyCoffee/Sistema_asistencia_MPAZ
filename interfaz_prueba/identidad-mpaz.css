@@ -408,3 +408,295 @@ img.mpaz-sello.mpaz-escudo {width:49px;height:49px;}
 .mpaz-login-admin img.mpaz-sello.mpaz-escudo {width:64px;height:64px;}
 .identidad img.identidad-icono.mpaz-escudo {width:75px;height:75px;border:0;border-radius:50%;background:transparent;object-fit:contain;}
 img.mpaz-grafico-sello.mpaz-escudo-grafico {width:82px;height:82px;margin:17px 0 8px;}
+
+
+/* MPAZ-MOVIL-OSCURO-738 */
+
+/* Diseño adaptable a celulares */
+@media (max-width: 650px) {
+
+    .mpaz-barra {
+        width: 100%;
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .mpaz-barra-identidad {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .mpaz-barra-identidad > div {
+        min-width: 0;
+    }
+
+    .mpaz-barra-identidad strong,
+    .mpaz-barra-identidad small {
+        overflow-wrap: anywhere;
+    }
+
+    .mpaz-barra-navegacion {
+        width: 100%;
+        min-width: 0;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #mpaz-acciones-admin {
+        width: 100%;
+        min-width: 0;
+    }
+
+    #mpaz-acciones-admin .acciones-cabecera {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        min-width: 0;
+        gap: 8px;
+    }
+
+    #mpaz-acciones-admin .boton-volver-inicio {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    /* Configuracion dentro de la pantalla */
+    .menu-configuracion
+    .contenido-configuracion.mpaz-preferencias {
+        position: fixed;
+        top: 72px;
+        right: 12px;
+        left: auto;
+        width: min(320px, calc(100vw - 24px));
+        max-width: calc(100vw - 24px);
+        max-height: calc(100vh - 84px);
+        max-height: calc(100dvh - 84px);
+        overflow-y: auto;
+        z-index: 2000;
+    }
+
+    /* Dos columnas para las tarjetas del tablero */
+    .mpaz-accesos {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+        gap: 9px;
+    }
+
+    .mpaz-accesos a {
+        min-width: 0;
+        min-height: 103px;
+        padding: 11px;
+        gap: 5px;
+        overflow-wrap: anywhere;
+    }
+
+    .mpaz-accesos a span {
+        font-size: 20px;
+    }
+
+    .mpaz-accesos a strong {
+        font-size: clamp(11px, 3.4vw, 14px);
+        line-height: 1.3;
+    }
+
+    .mpaz-accesos a small {
+        font-size: 11px;
+        line-height: 1.3;
+    }
+
+    .mpaz-accesos a:last-child {
+        grid-column: 1 / -1;
+    }
+
+    /* Formulario de estudiantes en una columna */
+    #mpaz-formulario-plegable > summary {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        line-height: 1.5;
+        font-size: 14px;
+        padding: 13px;
+    }
+
+    #mpaz-formulario-plegable > .panel-administracion {
+        margin: 0 9px 10px;
+    }
+
+    #formulario-estudiante {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 9px;
+    }
+
+    #formulario-estudiante > label,
+    #formulario-estudiante > input:not([type="hidden"]),
+    #formulario-estudiante > select {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    #formulario-estudiante .acciones-formulario {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 9px;
+        margin-top: 14px;
+    }
+
+    #formulario-estudiante .acciones-formulario button {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+/* Mejorar contraste del modo oscuro */
+html[data-mpaz-tema="oscuro"] .panel-lecturas,
+html[data-mpaz-tema="oscuro"] .panel-administracion,
+html[data-mpaz-tema="oscuro"] .mpaz-sesion-tarjeta,
+html[data-mpaz-tema="oscuro"] .resumen-asistencia p,
+html[data-mpaz-tema="oscuro"] .fila-asistencia-estudiante,
+html[data-mpaz-tema="oscuro"] .fila-solo-lectura {
+    background: #1c304b;
+    color: #f1f7ff;
+    border-color: #48617c;
+}
+
+html[data-mpaz-tema="oscuro"] .resumen-asistencia strong,
+html[data-mpaz-tema="oscuro"] .nombre-estudiante-asistencia,
+html[data-mpaz-tema="oscuro"] .mpaz-sesion-tarjeta strong {
+    color: #ffffff;
+}
+
+html[data-mpaz-tema="oscuro"] .seleccion-estudiante-fila:hover,
+html[data-mpaz-tema="oscuro"]
+.fila-asistencia-estudiante.fila-seleccionada,
+html[data-mpaz-tema="oscuro"]
+.fila-seleccionada .seleccion-estudiante-fila:hover {
+    background: #28476a;
+}
+
+html[data-mpaz-tema="oscuro"]
+#detalle-sesion-clase[data-estado="confirmada"]
+#estado-sesion-clase {
+    background: #123c33;
+    color: #dcffe9;
+    border-color: #34a474;
+}
+
+html[data-mpaz-tema="oscuro"]
+#detalle-sesion-clase[data-estado="borrador"]
+#estado-sesion-clase {
+    background: #403317;
+    color: #fff3c2;
+    border-color: #d4a42d;
+}
+
+html[data-mpaz-tema="oscuro"]
+.mpaz-sesion-tarjeta button.mpaz-sesion-boton {
+    color: #112942;
+    background: #a6ddf4;
+}
+
+
+/* MPAZ-CONTRASTE-LOGIN-739 */
+
+/* Boton administrativo legible en modo oscuro */
+html[data-mpaz-tema="oscuro"]
+.mpaz-login-admin form button {
+    background: #75c9ee !important;
+    color: #0b2038 !important;
+    font-weight: 700;
+}
+
+html[data-mpaz-tema="oscuro"]
+.mpaz-login-admin form button:hover {
+    background: #a3e3ff !important;
+    color: #0b2038 !important;
+}
+
+html[data-mpaz-tema="oscuro"]
+.mpaz-login-admin a.enlace-volver-inicio {
+    color: #89dfff !important;
+}
+
+html[data-mpaz-tema="oscuro"]
+.mpaz-login-admin a.enlace-volver-inicio:hover {
+    color: #ffffff !important;
+}
+
+/* Contraste del boton en el login docente */
+html[data-mpaz-tema="oscuro"]
+.pagina-login .boton-principal {
+    background: #75c9ee !important;
+    color: #0b2038 !important;
+    font-weight: 700;
+}
+
+html[data-mpaz-tema="oscuro"]
+.pagina-login .boton-principal:hover {
+    background: #a3e3ff !important;
+    color: #0b2038 !important;
+}
+
+
+/* MPAZ-INDICADORES-MOVILES-741 */
+
+/* Mejor contraste de estadísticas en modo oscuro */
+html[data-mpaz-tema="oscuro"]
+.tarjeta-resumen {
+    background: #1c304b;
+    border-color: #48617c;
+}
+
+html[data-mpaz-tema="oscuro"]
+.tarjeta-resumen .nombre-indicador {
+    color: #e6f1ff !important;
+    font-weight: 600;
+}
+
+html[data-mpaz-tema="oscuro"]
+.tarjeta-resumen .detalle-indicador {
+    color: #c2d8ef !important;
+}
+
+html[data-mpaz-tema="oscuro"]
+.tarjeta-resumen .numero-indicador {
+    color: #ffffff !important;
+}
+
+/* Cuatro indicadores en una cuadrícula 2x2 */
+@media (max-width: 650px) {
+
+    .contenido {
+        gap: 10px;
+    }
+
+    .contenido > .tarjeta-resumen {
+        flex: 0 0 calc(50% - 5px) !important;
+        width: calc(50% - 5px) !important;
+        min-width: 0;
+        padding: 14px 11px;
+        border-radius: 12px;
+    }
+
+    .contenido > .tarjeta-resumen
+    .nombre-indicador {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .contenido > .tarjeta-resumen
+    .numero-indicador {
+        font-size: 27px;
+        margin-top: 8px;
+    }
+
+    .contenido > .tarjeta-resumen
+    .detalle-indicador {
+        font-size: 11px;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+    }
+}
