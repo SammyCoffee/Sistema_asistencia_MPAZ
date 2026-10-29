@@ -700,3 +700,45 @@ html[data-mpaz-tema="oscuro"]
         overflow-wrap: anywhere;
     }
 }
+
+
+/* MPAZ-UX-748: Analisis legible en modo oscuro */
+html[data-mpaz-tema="oscuro"] #analisis .tarjeta-analisis {
+    background: #203954;
+    color: #edf6ff;
+    box-shadow: 0 3px 12px rgba(0,0,0,.18);
+}
+html[data-mpaz-tema="oscuro"] #analisis .tarjeta-analisis h3,
+html[data-mpaz-tema="oscuro"] #analisis .tarjeta-analisis p,
+html[data-mpaz-tema="oscuro"] #analisis .tarjeta-analisis strong {
+    color: #edf6ff;
+}
+html[data-mpaz-tema="oscuro"] #analisis .dato-resumen-titulo {
+    color: #d7e6f8;
+}
+html[data-mpaz-tema="oscuro"] #analisis .dato-resumen strong {
+    color: #ffffff;
+}
+
+/* Nuevas preferencias de accesibilidad */
+html[data-mpaz-lectura="ampliada"] body {
+    font-size: 18px;
+}
+html[data-mpaz-lectura="ampliada"] .mpaz-preferencias small,
+html[data-mpaz-lectura="ampliada"] .mpaz-accesos a small {
+    font-size: 13px;
+}
+html[data-mpaz-lectura="ampliada"] .tarjeta-analisis h3 {
+    font-size: 19px;
+}
+html[data-mpaz-lectura="ampliada"] .tarjeta-analisis p {
+    font-size: 17px;
+}
+html[data-mpaz-movimiento="reducido"],
+html[data-mpaz-movimiento="reducido"] *,
+html[data-mpaz-movimiento="reducido"] *::before,
+html[data-mpaz-movimiento="reducido"] *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+}

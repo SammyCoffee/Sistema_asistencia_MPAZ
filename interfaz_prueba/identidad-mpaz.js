@@ -4,13 +4,21 @@
 
     const KEY = "mpaz:preferencias:visual:v1";
     const raiz = document.documentElement;
-    const defaults = { oscuro: false, compacto: false };
+    const defaults = {
+        oscuro: false,
+        compacto: false,
+        letra_grande: false,
+        reducir_movimiento: false
+    };
     let opciones = { ...defaults };
 
     try {
         const guardadas = JSON.parse(localStorage.getItem(KEY) || "{}");
         opciones.oscuro = guardadas.oscuro === true;
         opciones.compacto = guardadas.compacto === true;
+        opciones.letra_grande = guardadas.letra_grande === true;
+        opciones.reducir_movimiento =
+            guardadas.reducir_movimiento === true;
     } catch (_) {
         // Preferencias del navegador deshabilitadas: usar valores iniciales.
     }
@@ -26,11 +34,26 @@
 
     function aplicar() {
         raiz.dataset.mpazTema = opciones.oscuro ? "oscuro" : "claro";
-        raiz.dataset.mpazDensidad = opciones.compacto ? "compacta" : "normal";
+        raiz.dataset.mpazDensidad =
+            opciones.compacto ? "compacta" : "normal";
+        raiz.dataset.mpazLectura =
+            opciones.letra_grande ? "ampliada" : "normal";
+        raiz.dataset.mpazMovimiento =
+            opciones.reducir_movimiento ? "reducido" : "normal";
         raiz.style.colorScheme = opciones.oscuro ? "dark" : "light";
 
         document.querySelectorAll('[data-mpaz-ajuste="oscuro"]').forEach(function (control) {
             control.checked = opciones.oscuro;
+        });
+        document.querySelectorAll(
+            '[data-mpaz-ajuste="letra_grande"]'
+        ).forEach(function (control) {
+            control.checked = opciones.letra_grande;
+        });
+        document.querySelectorAll(
+            '[data-mpaz-ajuste="reducir_movimiento"]'
+        ).forEach(function (control) {
+            control.checked = opciones.reducir_movimiento;
         });
         document.querySelectorAll('[data-mpaz-ajuste="compacto"]').forEach(function (control) {
             control.checked = opciones.compacto;
@@ -56,7 +79,10 @@
         const control = evento.target.closest("[data-mpaz-ajuste]");
         if (!control) return;
         const clave = control.dataset.mpazAjuste;
-        if (clave !== "oscuro" && clave !== "compacto") return;
+        if (![
+            "oscuro", "compacto",
+            "letra_grande", "reducir_movimiento"
+        ].includes(clave)) return;
         opciones[clave] = control.checked;
         const guardado = guardar();
         aplicar();
