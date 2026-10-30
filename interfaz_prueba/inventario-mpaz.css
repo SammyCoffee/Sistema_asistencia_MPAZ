@@ -1,0 +1,191 @@
+
+/* INVENTARIO ADMINISTRATIVO RFID MPAZ */
+
+.mpaz-resumen-rfid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+    margin: 22px 0;
+}
+
+.mpaz-kpi-rfid {
+    background: #f8fbff;
+    border: 1px solid #dbe5ef;
+    border-top: 4px solid #12a9bd;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.mpaz-kpi-rfid:nth-child(3) {
+    border-top-color: #e3af29;
+}
+
+.mpaz-kpi-rfid:nth-child(n+4) {
+    border-top-color: #d17d52;
+}
+
+.mpaz-kpi-rfid span {
+    display: block;
+    color: #597089;
+    font-size: 13px;
+}
+
+.mpaz-kpi-rfid strong {
+    display: block;
+    margin-top: 8px;
+    color: #102b59;
+    font-size: 30px;
+}
+
+.mpaz-filtros-rfid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.mpaz-filtros-rfid label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-weight: 700;
+    font-size: 13px;
+    color: #263e5f;
+}
+
+.mpaz-filtros-rfid input,
+.mpaz-filtros-rfid select {
+    min-width: 0;
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cad8e6;
+    border-radius: 9px;
+    background: white;
+    color: #243b53;
+}
+
+.mpaz-registro-tarjeta {
+    margin: 22px 0;
+    background: #f8fbff;
+    border: 1px solid #d7e3ef;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.mpaz-registro-tarjeta > summary {
+    padding: 16px;
+    cursor: pointer;
+    font-weight: 700;
+    color: #102b59;
+}
+
+.mpaz-registro-tarjeta > .panel-administracion {
+    margin: 0 16px 16px;
+}
+
+#tarjetas .tabla-lecturas {
+    table-layout: auto;
+}
+
+#tarjetas .tabla-lecturas th {
+    background: #102b59;
+    color: white;
+}
+
+.mpaz-estado-rfid {
+    display: inline-block;
+    padding: 6px 11px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    background: #e9f0f8;
+    color: #163b67;
+}
+
+.mpaz-estado-rfid.activa {
+    background: #dff5e8;
+    color: #196a3d;
+}
+
+.mpaz-estado-rfid.disponible {
+    background: #e4f3fb;
+    color: #0b678a;
+}
+
+.mpaz-estado-rfid.bloqueada,
+.mpaz-estado-rfid.extraviada {
+    background: #fce8e8;
+    color: #9b2828;
+}
+
+.mpaz-paginacion-rfid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    color: #536b80;
+}
+
+.mpaz-paginacion-rfid button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+#tarjetas tr[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 1050px) {
+    .mpaz-resumen-rfid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .mpaz-resumen-rfid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .mpaz-filtros-rfid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* MPAZ-ACCIONES-633 */
+
+#tarjetas .tabla-lecturas td:last-child {
+    min-width: 225px;
+}
+
+#tarjetas .tabla-lecturas td:last-child button {
+    min-width: 0;
+    margin: 3px;
+    padding: 9px 12px;
+    font-size: 12px;
+}
+
+#tarjetas .mpaz-accion-bloquear {
+    background: #b94747;
+    color: #fff;
+}
+
+#tarjetas .mpaz-accion-bloquear:hover {
+    background: #942f2f;
+}
+
+#tarjetas .mpaz-accion-desbloquear {
+    background: #167d55;
+    color: #fff;
+}
+
+#tarjetas .mpaz-accion-desbloquear:hover {
+    background: #106342;
+}
+
+#tarjetas .mpaz-accion-rfid:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}

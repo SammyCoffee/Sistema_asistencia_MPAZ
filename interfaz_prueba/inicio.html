@@ -3,199 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Plataforma de asistencia escolar de la Escuela Escritora Marcela Paz">
-    <title>MPAZ RFID | Acceso institucional</title>
-
-    <style>
-        :root {
-            --azul: #1677b8;
-            --azul-oscuro: #10598b;
-            --fondo: #f1f5f9;
-            --texto: #1e293b;
-            --gris: #64748b;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
-            background: var(--fondo);
-            color: var(--texto);
-            display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            background: #ffffff;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 22px 20px;
-            text-align: center;
-        }
-
-        .institucion {
-            font-size: 14px;
-            color: var(--gris);
-            margin: 0 0 8px;
-        }
-
-        .marca {
-            font-size: 25px;
-            font-weight: 800;
-            color: var(--azul);
-            margin: 0;
-        }
-
-        main {
-            width: min(100%, 980px);
-            margin: auto;
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: clamp(26px, 4vw, 38px);
-            margin: 0 0 14px;
-        }
-
-        .descripcion {
-            max-width: 620px;
-            margin: 0 auto 40px;
-            color: var(--gris);
-            line-height: 1.7;
-        }
-
-        .accesos {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 24px;
-        }
-
-        .tarjeta {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 18px;
-            padding: 35px 28px;
-            box-shadow: 0 10px 25px rgba(15, 23, 42, .05);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .icono {
-            width: 70px;
-            height: 70px;
-            border-radius: 18px;
-            display: grid;
-            place-items: center;
-            background: #e8f3fb;
-            color: var(--azul);
-            font-size: 34px;
-            margin-bottom: 18px;
-        }
-
-        h2 {
-            margin: 0 0 12px;
-            font-size: 23px;
-        }
-
-        .tarjeta p {
-            color: var(--gris);
-            line-height: 1.6;
-            flex-grow: 1;
-        }
-
-        .boton {
-            display: block;
-            width: 100%;
-            margin-top: 20px;
-            padding: 15px 20px;
-            border-radius: 10px;
-            background: var(--azul);
-            color: white;
-            text-decoration: none;
-            font-weight: 700;
-            transition: background .2s ease;
-        }
-
-        .boton:hover,
-        .boton:focus-visible {
-            background: var(--azul-oscuro);
-        }
-
-        footer {
-            text-align: center;
-            padding: 22px;
-            color: var(--gris);
-            font-size: 13px;
-        }
-
-        @media (max-width: 650px) {
-            .accesos {
-                grid-template-columns: 1fr;
-            }
-
-            main {
-                padding: 35px 18px;
-            }
-        }
-    </style>
+    <meta name="description" content="Acceso institucional al Sistema MPAZ RFID de la Escuela Escritora Marcela Paz">
+    <title>MPAZ RFID | Escuela Escritora Marcela Paz</title>
+    <link rel="stylesheet" href="/identidad-mpaz.css?v=3">
 </head>
-
-<body>
-    <header>
-        <p class="institucion">Escuela Escritora Marcela Paz · San Bernardo</p>
-        <p class="marca">MPAZ RFID</p>
+<body class="mpaz-portales">
+    <header class="mpaz-portales-cabecera">
+        <a class="mpaz-identidad-link" href="/inicio.html" aria-label="Inicio de MPAZ RFID">
+            <img class="mpaz-sello mpaz-escudo" src="/escudo-mpaz.webp" width="49" height="49" alt="Escudo de la Escuela Escritora Marcela Paz">
+            <span class="mpaz-identidad-texto">
+                <strong>Escuela Escritora Marcela Paz</strong>
+                <small>San Bernardo · Plataforma institucional</small>
+            </span>
+        </a>
+        <div class="mpaz-portales-herramientas">
+            <span class="mpaz-encabezado-distintivo">SISTEMA MPAZ RFID</span>
+            <button type="button" class="mpaz-tema-rapido" data-mpaz-tema-toggle aria-label="Activar tema oscuro" aria-pressed="false">☾ <span>Modo oscuro</span></button>
+        </div>
     </header>
 
-    <main>
-        <h1>Plataforma Inteligente de Asistencia Escolar</h1>
+    <main class="mpaz-portales-principal">
+        <section class="mpaz-portales-hero" aria-labelledby="mpaz-titulo-hero">
+            <div class="mpaz-portales-presentacion">
+                <span class="mpaz-etiqueta mpaz-etiqueta-hero">TECNOLOGÍA AL SERVICIO DE LA EDUCACIÓN</span>
+                <h1 id="mpaz-titulo-hero">Gestión escolar <span>más conectada.</span></h1>
+                <p>Bienvenido a MPAZ RFID, la plataforma de gestión de asistencia de nuestra comunidad educativa. Selecciona tu espacio de trabajo para continuar.</p>
+                <!-- Accesos a los portales disponibles en la sección inferior -->
+            </div>
+            <div class="mpaz-portales-grafico" aria-hidden="true">
+                <div class="mpaz-orbita mpaz-orbita-uno"></div>
+                <div class="mpaz-orbita mpaz-orbita-dos"></div>
+                <div class="mpaz-grafico-tarjeta">
+                    <span class="mpaz-grafico-mini">ESCUELA ESCRITORA MARCELA PAZ</span>
+                    <img class="mpaz-grafico-sello mpaz-escudo-grafico" src="/escudo-mpaz.webp" width="82" height="82" alt="">
+                    <strong>MPAZ <em>RFID</em></strong>
+                    <small>Asistencia · Comunidad · Innovación</small>
+                </div>
+                <span class="mpaz-grafico-punto mpaz-grafico-punto-uno"></span>
+                <span class="mpaz-grafico-punto mpaz-grafico-punto-dos"></span>
+            </div>
+        </section>
 
-        <p class="descripcion">
-            Bienvenido al sistema institucional de gestión de asistencia.
-            Seleccione su perfil para ingresar de manera segura.
-        </p>
-
-        <section class="accesos" aria-label="Opciones de acceso">
-
-            <article class="tarjeta">
-                <div class="icono" aria-hidden="true">⚙</div>
-
-                <h2>Administración</h2>
-
-                <p>
-                    Gestión de estudiantes, tarjetas RFID, tótems,
-                    registros de asistencia y reportes institucionales.
-                </p>
-
-                <a class="boton" href="/login.html">
-                    Acceso administrativo
-                </a>
-            </article>
-
-            <article class="tarjeta">
-                <div class="icono" aria-hidden="true">▤</div>
-
-                <h2>Portal Docente</h2>
-
-                <p>
-                    Acceso a cursos y asignaturas asignadas.
-                    Herramientas de gestión académica y asistencia.
-                </p>
-
-                <a class="boton" href="/profesor/login.html">
-                    Acceso docente
-                </a>
-            </article>
-
+        <section id="accesos" class="mpaz-portal-accesos" aria-labelledby="mpaz-titulo-accesos">
+            <div class="mpaz-portales-titulos">
+                <div>
+                    <span class="mpaz-etiqueta">ACCESOS INSTITUCIONALES</span>
+                    <h2 id="mpaz-titulo-accesos">¿A qué portal deseas ingresar?</h2>
+                    <p>Dos espacios de trabajo, una misma plataforma escolar.</p>
+                </div>
+            </div>
+            <div class="mpaz-portal-tarjetas">
+                <article class="mpaz-portal-tarjeta mpaz-portal-tarjeta-admin">
+                    <div class="mpaz-portal-tarjeta-arriba">
+                        <span class="mpaz-portal-icono" aria-hidden="true">⚙</span>
+                        <span class="mpaz-portal-numero">01 / GESTIÓN</span>
+                    </div>
+                    <h3>Administración</h3>
+                    <p>Gestiona estudiantes, tarjetas RFID, asistencias, calendario y reportes del establecimiento.</p>
+                    <a class="mpaz-portal-boton" href="/login.html">Ingresar a administración <span aria-hidden="true">↗</span></a>
+                </article>
+                <article class="mpaz-portal-tarjeta mpaz-portal-tarjeta-docente">
+                    <div class="mpaz-portal-tarjeta-arriba">
+                        <span class="mpaz-portal-icono" aria-hidden="true">▤</span>
+                        <span class="mpaz-portal-numero">02 / AULA</span>
+                    </div>
+                    <h3>Portal docente</h3>
+                    <p>Consulta cursos, asignaturas y estudiantes asignados, y gestiona la asistencia de tus clases.</p>
+                    <a class="mpaz-portal-boton" href="/profesor/login.html">Ingresar como docente <span aria-hidden="true">↗</span></a>
+                </article>
+            </div>
         </section>
     </main>
-
-    <footer>
-        Escuela Escritora Marcela Paz · Sistema MPAZ RFID
+    <footer class="mpaz-portales-pie">
+        <span>Escuela Escritora Marcela Paz · San Bernardo</span>
+        <span>MPAZ RFID · Sistema de gestión escolar</span>
     </footer>
+    <script src="/identidad-mpaz.js?v=3"></script>
 </body>
 </html>

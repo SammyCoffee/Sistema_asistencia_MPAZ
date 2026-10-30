@@ -14,7 +14,15 @@
     <title>Panel MPAZ RFID</title>
 
     <link rel="stylesheet" href="styles.css?v=13">
+    <link rel="stylesheet" href="directorio.css?v=1">
+    <link rel="stylesheet" href="panel-mpaz.css?v=3">
+    <link rel="stylesheet" href="inventario-mpaz.css?v=1">
+    <link rel="stylesheet" href="vinculacion-mpaz.css?v=1">
 
+    <link rel="stylesheet" href="asistencias-mpaz.css?v=1">
+    <link rel="stylesheet" href="inasistencias-mpaz.css?v=1">
+    <link rel="stylesheet" href="calendario-mpaz.css?v=1">
+    <link rel="stylesheet" href="identidad-mpaz.css?v=3">
 </head>
 
 
@@ -27,7 +35,7 @@
         <!-- ENCABEZADO -->
         <!-- ===================================== -->
 
-        <header class="encabezado">
+        <header class="encabezado mpaz-cabecera">
 
             <div>
 
@@ -58,22 +66,31 @@
                 ← Volver al inicio
             </a>
 <details class="menu-configuracion">
-    <summary
-        aria-label="Abrir configuración"
-        title="Configuración"
-    >⚙</summary>
-
-    <div class="contenido-configuracion">
-        <h2>Configuración</h2>
-
-        <p>
-            Sistema de Asistencia Escolar MPAZ RFID.
-            Escuela Escritora Marcela Paz.
-        </p>
-
-        <a href="/inicio.html">
-            Seleccionar portal
-        </a>
+    <summary aria-label="Abrir preferencias de visualización" title="Preferencias de visualización">⚙</summary>
+    <div class="contenido-configuracion mpaz-preferencias">
+        <h2>Preferencias</h2>
+        <p class="mpaz-config-ayuda">Personaliza la apariencia de este dispositivo.</p>
+        <label class="mpaz-ajuste">
+            <span><strong>Tema oscuro</strong><small>Usar colores de alto contraste</small></span>
+            <input type="checkbox" data-mpaz-ajuste="oscuro">
+        </label>
+        <label class="mpaz-ajuste">
+            <span><strong>Vista compacta</strong><small>Reducir espacios entre elementos</small></span>
+            <input type="checkbox" data-mpaz-ajuste="compacto">
+        </label>
+        <label class="mpaz-ajuste">
+            <span><strong>Texto ampliado</strong>
+            <small>Facilitar la lectura</small></span>
+            <input type="checkbox" data-mpaz-ajuste="letra_grande">
+        </label>
+        <label class="mpaz-ajuste">
+            <span><strong>Reducir animaciones</strong>
+            <small>Disminuir movimientos visuales</small></span>
+            <input type="checkbox" data-mpaz-ajuste="reducir_movimiento">
+        </label>
+        <button type="button" class="mpaz-restablecer" data-mpaz-restablecer>Restablecer vista</button>
+        <p class="mpaz-ajustes-estado" role="status" aria-live="polite"></p>
+        <a href="/inicio.html" class="mpaz-enlace-portales">Ir a selección de portales ↗</a>
     </div>
 </details>
 <button type="button"
@@ -90,9 +107,37 @@
         <!-- MENÚ PRINCIPAL -->
         <!-- ===================================== -->
 
-        <nav class="menu-principal">
 
-            <a href="#" class="menu-activo">
+<!-- MPAZ-VISTAS-627 -->
+<div class="mpaz-barra">
+
+    <div class="mpaz-barra-identidad">
+        <img class="mpaz-marca mpaz-escudo" src="/escudo-mpaz.webp" width="48" height="48" alt="Escudo de la escuela">
+
+        <div>
+            <strong>Escuela Escritora Marcela Paz</strong>
+            <small>Sistema de gestión escolar RFID</small>
+        </div>
+    </div>
+
+    <div class="mpaz-barra-navegacion">
+
+        <a
+            href="#inicio"
+            id="mpaz-volver-panel"
+            hidden
+        >
+            ← Panel principal
+        </a>
+
+        <div id="mpaz-acciones-admin"></div>
+    </div>
+
+</div>
+
+<nav class="menu-principal">
+
+            <a href="#inicio" class="menu-activo">
                 Panel
             </a>
 
@@ -112,6 +157,10 @@
                 Asistencias
             </a>
 
+            <a href="/seguimiento.html">
+                Seguimiento Escolar
+            </a>
+
             <a href="#inasistencias">
                 Inasistencias
             </a>
@@ -128,6 +177,10 @@
                 Reportes
             </a>
 
+
+            <a href="#calendario">
+                Calendario escolar
+            </a>
         </nav>
 
 
@@ -137,6 +190,95 @@
         <!-- ===================================== -->
 
         <main class="contenido">
+
+    <section id="mpaz-bienvenida" class="mpaz-bienvenida">
+
+        <div class="mpaz-bienvenida-texto">
+
+            <span class="mpaz-distintivo">
+                ESCUELA ESCRITORA MARCELA PAZ
+            </span>
+
+            <h2>Gestión escolar MPAZ</h2>
+
+            <p>
+                Plataforma de administración de estudiantes,
+                tarjetas RFID y asistencia escolar.
+            </p>
+
+            <span id="mpaz-fecha-actual"></span>
+
+        </div>
+
+
+<div class="mpaz-accesos">
+
+    <a href="#estudiantes">
+        <span>👥</span>
+        <strong>Estudiantes</strong>
+        <small>Matrícula y fichas</small>
+    </a>
+
+    <a href="#tarjetas">
+        <span>🪪</span>
+        <strong>Tarjetas RFID</strong>
+        <small>Inventario y estados</small>
+    </a>
+
+    <a href="#vinculacion">
+        <span>🔗</span>
+        <strong>Vinculación</strong>
+        <small>Asignar tarjetas</small>
+    </a>
+
+    <a href="#asistencias">
+        <span>📅</span>
+        <strong>Asistencias</strong>
+        <small>Entradas y salidas</small>
+    </a>
+
+
+    <a href="/seguimiento.html">
+        <span>📝</span>
+        <strong>Seguimiento Escolar</strong>
+        <small>Casos, observaciones e historial</small>
+    </a>
+
+    <a href="#inasistencias">
+        <span>📋</span>
+        <strong>Inasistencias</strong>
+        <small>Seguimiento escolar</small>
+    </a>
+
+    <a href="#atrasos">
+        <span>⏰</span>
+        <strong>Atrasos</strong>
+        <small>Control de llegadas</small>
+    </a>
+
+    <a href="#analisis">
+        <span>📊</span>
+        <strong>Análisis</strong>
+        <small>Estadísticas escolares</small>
+    </a>
+
+    <a href="#calendario">
+        <span aria-hidden="true">🗓️</span>
+        <strong>Calendario escolar</strong>
+        <small>Jornadas y fechas</small>
+    </a>
+
+    <a href="#reportes">
+        <span>📁</span>
+        <strong>Reportes</strong>
+        <small>Exportar información</small>
+    </a>
+
+</div>
+
+
+    </section>
+
 
 
             <!-- TARJETA 1 -->
@@ -191,7 +333,7 @@
                     Asistencias registradas hoy
                 </p>
 
-                <strong 
+                <strong
                 class="numero-indicador"
                 id="total-asistencias-hoy"
                 >
@@ -211,10 +353,10 @@
             <section class="tarjeta-resumen">
 
                 <p class="nombre-indicador">
-                    Alertas de inasistencia
+                    Marcaciones por revisar
                 </p>
 
-                <strong 
+                <strong
                     class="numero-indicador"
                     id="total-alertas-inasistencia"
                 >
@@ -222,7 +364,7 @@
                 </strong>
 
                 <span class="detalle-indicador">
-                    Estudiantes con más de 5 faltas
+                    Revisión preliminar de registros RFID
                 </span>
 
             </section>
@@ -244,6 +386,82 @@
                         de los estudiantes.
                     </p>
 
+
+
+                <!-- MPAZ-ASISTENCIAS-645 -->
+
+                <div class="mpaz-resumen-asistencias">
+
+                    <div class="mpaz-kpi-asistencia">
+                        <span>Registros de ingreso</span>
+                        <strong id="mpaz-asis-ingresos">0</strong>
+                    </div>
+
+                    <div class="mpaz-kpi-asistencia">
+                        <span>Salidas por tótem</span>
+                        <strong id="mpaz-asis-salidas">0</strong>
+                    </div>
+
+                    <div class="mpaz-kpi-asistencia">
+                        <span>Cierres automáticos</span>
+                        <strong id="mpaz-asis-automaticas">0</strong>
+                    </div>
+
+                    <div class="mpaz-kpi-asistencia">
+                        <span>Salidas pendientes</span>
+                        <strong id="mpaz-asis-pendientes">0</strong>
+                    </div>
+
+                </div>
+
+                <div class="mpaz-filtros-asistencias">
+
+                    <label>
+                        Buscar estudiante
+                        <input
+                            type="search"
+                            id="mpaz-asis-buscar"
+                            placeholder="Nombre del estudiante"
+                            autocomplete="off"
+                        >
+                    </label>
+
+                    <label>
+                        Fecha
+                        <input
+                            type="date"
+                            id="mpaz-asis-fecha"
+                        >
+                    </label>
+
+                    <label>
+                        Curso
+                        <select id="mpaz-asis-curso">
+                            <option value="">Todos los cursos</option>
+                        </select>
+                    </label>
+
+                </div>
+
+                <div class="mpaz-ayuda-asistencia">
+                    <span>
+                        Los indicadores corresponden a los registros
+                        que cumplen los filtros seleccionados.
+                    </span>
+
+                    <button
+                        type="button"
+                        id="mpaz-asis-limpiar"
+                    >
+                        Limpiar filtros
+                    </button>
+                </div>
+
+                <p class="mpaz-nota-asistencia">
+                    <strong>Importante:</strong>
+                    el cierre automático de una jornada no acredita
+                    una salida física registrada mediante el tótem.
+                </p>
 
                 <table id="tabla-asistencias" class="tabla-lecturas">
 
@@ -278,6 +496,33 @@
                     </tbody>
                 </table>
 
+                <div class="mpaz-paginacion-asistencias">
+
+                    <span id="mpaz-asis-pagina">
+                        Página 1 de 1
+                    </span>
+
+                    <div>
+                        <button
+                            type="button"
+                            id="mpaz-asis-anterior"
+                        >
+                            Anterior
+                        </button>
+
+                        <button
+                            type="button"
+                            id="mpaz-asis-siguiente"
+                        >
+                            Siguiente
+                        </button>
+                    </div>
+
+                </div>
+
+                <p id="mpaz-asis-mensaje" role="status"></p>
+
+
             </section>
 
             <section id="estudiantes" class="panel-lecturas">
@@ -295,6 +540,13 @@
     <!-- ===================================== -->
     <!-- FORMULARIO DE ESTUDIANTE -->
     <!-- ===================================== -->
+
+
+    <details id="mpaz-formulario-plegable"
+             class="mpaz-formulario-plegable">
+        <summary>
+            ＋ Registrar o editar estudiante
+        </summary>
 
     <div class="panel-administracion">
 
@@ -346,7 +598,7 @@
             </option>
 
             <option value="PK">Pre-Kínder</option>
-            
+
             <option value="K">Kínder</option>
 
             <option value="1A">1° Básico A</option>
@@ -402,11 +654,122 @@
     </div>
 
 
+    </details>
+
     <!-- ===================================== -->
     <!-- BUSCADOR DE ESTUDIANTES -->
     <!-- ===================================== -->
 
-    <div class="buscador-estudiantes">
+
+    <!-- DIRECTORIO GENERAL MPAZ -->
+    <div class="mpaz-directorio" id="directorio-general">
+
+        <div class="mpaz-directorio-cabecera">
+            <div>
+                <span class="mpaz-etiqueta">GESTIÓN ESCOLAR</span>
+                <h3>Directorio de estudiantes</h3>
+                <p>
+                    Consulta la matrícula y el estado de
+                    vinculación RFID.
+                </p>
+            </div>
+
+            <div class="mpaz-contador">
+                <strong id="mpaz-directorio-total">0</strong>
+                <span>Estudiantes encontrados</span>
+            </div>
+        </div>
+
+        <div class="mpaz-filtros">
+            <label>
+                Buscar estudiante
+                <input
+                    id="mpaz-directorio-buscar"
+                    type="search"
+                    placeholder="Nombre o RUT"
+                    autocomplete="off"
+                >
+            </label>
+
+            <label>
+                Curso
+                <select id="mpaz-directorio-curso">
+                    <option value="">Todos</option>
+                </select>
+            </label>
+
+            <label>
+                Estado
+                <select id="mpaz-directorio-estado">
+                    <option value="">Todos</option>
+                    <option value="activo">Activo</option>
+                    <option value="inactivo">Inactivo</option>
+                </select>
+            </label>
+
+            <label>
+                Tarjeta RFID
+                <select id="mpaz-directorio-rfid">
+                    <option value="">Todas</option>
+                    <option value="sin">Sin tarjeta</option>
+                    <option value="activa">Activa</option>
+                    <option value="bloqueada">Bloqueada</option>
+                    <option value="extraviada">Extraviada</option>
+                    <option value="disponible">Disponible</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="mpaz-tabla-contenedor">
+            <table class="mpaz-tabla-directorio">
+                <thead>
+                    <tr>
+                        <th>Estudiante</th>
+                        <th>Curso</th>
+                        <th>Estado</th>
+                        <th>Tarjeta RFID</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+
+                <tbody id="mpaz-directorio-filas">
+                    <tr>
+                        <td colspan="5">
+                            Cargando estudiantes...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mpaz-paginacion">
+            <span id="mpaz-directorio-pagina">
+                Página 1
+            </span>
+
+            <div>
+                <button
+                    type="button"
+                    id="mpaz-directorio-anterior"
+                >
+                    Anterior
+                </button>
+
+                <button
+                    type="button"
+                    id="mpaz-directorio-siguiente"
+                >
+                    Siguiente
+                </button>
+            </div>
+        </div>
+
+        <p id="mpaz-directorio-mensaje" role="status"></p>
+
+    </div>
+    <!-- FIN DIRECTORIO GENERAL -->
+
+    <div class="buscador-estudiantes" hidden>
 
         <label for="buscar-estudiante">
             Buscar estudiante
@@ -434,7 +797,7 @@
 
         <div
             id="resultado-estudiante"
-            class="resultado-estudiante"
+            class="resultado-estudiante" hidden
                 >
 
                     <h3>
@@ -464,6 +827,8 @@
                 <!-- REGISTRAR TARJETA -->
                 <!-- ===================================== -->
 
+                <details class="mpaz-registro-tarjeta">
+                    <summary>＋ Registrar nueva tarjeta RFID</summary>
                 <div class="panel-administracion">
 
                     <h3>
@@ -496,10 +861,72 @@
 
 
                 <!-- ===================================== -->
+                </details>
                 <!-- LISTADO DE TARJETAS -->
                 <!-- ===================================== -->
 
-                <h3>
+
+                <div class="mpaz-resumen-rfid">
+
+                    <div class="mpaz-kpi-rfid">
+                        <span>Total registradas</span>
+                        <strong id="mpaz-rfid-total">0</strong>
+                    </div>
+
+                    <div class="mpaz-kpi-rfid">
+                        <span>Activas</span>
+                        <strong id="mpaz-rfid-activas">0</strong>
+                    </div>
+
+                    <div class="mpaz-kpi-rfid">
+                        <span>Disponibles</span>
+                        <strong id="mpaz-rfid-disponibles">0</strong>
+                    </div>
+
+                    <div class="mpaz-kpi-rfid">
+                        <span>Bloqueadas</span>
+                        <strong id="mpaz-rfid-bloqueadas">0</strong>
+                    </div>
+
+                    <div class="mpaz-kpi-rfid">
+                        <span>Extraviadas</span>
+                        <strong id="mpaz-rfid-extraviadas">0</strong>
+                    </div>
+
+                </div>
+
+                <div class="mpaz-filtros-rfid">
+
+                    <label>
+                        Buscar tarjeta o estudiante
+                        <input
+                            type="search"
+                            id="mpaz-rfid-buscar"
+                            placeholder="UID o nombre"
+                        >
+                    </label>
+
+                    <label>
+                        Estado RFID
+                        <select id="mpaz-rfid-estado">
+                            <option value="">Todos</option>
+                            <option value="activa">Activa</option>
+                            <option value="disponible">Disponible</option>
+                            <option value="bloqueada">Bloqueada</option>
+                            <option value="extraviada">Extraviada</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Curso
+                        <select id="mpaz-rfid-curso">
+                            <option value="">Todos</option>
+                        </select>
+                    </label>
+
+                </div>
+
+<h3>
                     Tarjetas registradas
                 </h3>
 
@@ -521,6 +948,25 @@
 
                 </table>
 
+                <div class="mpaz-paginacion-rfid">
+                    <span id="mpaz-rfid-pagina">Página 1 de 1</span>
+
+                    <div>
+                        <button type="button"
+                                id="mpaz-rfid-anterior">
+                            Anterior
+                        </button>
+
+                        <button type="button"
+                                id="mpaz-rfid-siguiente">
+                            Siguiente
+                        </button>
+                    </div>
+                </div>
+
+                <p id="mpaz-rfid-mensaje" role="status"></p>
+
+
             </section>
 
             <section id="vinculacion" class="panel-lecturas">
@@ -537,6 +983,36 @@
                 <div class="panel-administracion">
 
                     <form id="formulario-vinculacion">
+
+                        <!-- MPAZ-VINCULACION-640 -->
+                        <div class="mpaz-busqueda-vinculacion">
+
+                            <label for="mpaz-buscar-alumno-vincular">
+                                Buscar estudiante por nombre o RUT
+                            </label>
+
+                            <input
+                                type="search"
+                                id="mpaz-buscar-alumno-vincular"
+                                placeholder="Escribe al menos 2 caracteres"
+                                autocomplete="off"
+                            >
+
+                            <small>
+                                Selecciona una coincidencia o utiliza
+                                la lista de estudiantes.
+                            </small>
+
+                        </div>
+
+                        <div
+                            id="mpaz-resultados-vinculacion"
+                            class="mpaz-resultados-vinculacion"
+                            aria-label="Resultados de búsqueda"
+                            hidden
+                        ></div>
+
+
 
                         <label for="vinculacion-estudiante">
                             Estudiante
@@ -566,6 +1042,15 @@
                         </select>
 
 
+
+                        <div
+                            id="mpaz-resumen-vinculacion"
+                            class="mpaz-resumen-vinculacion"
+                            role="status"
+                        >
+                            Selecciona un estudiante y una tarjeta RFID.
+                        </div>
+
                         <button type="submit">
                             Vincular tarjeta
                         </button>
@@ -587,8 +1072,22 @@
 
                 <p>
                     Consulta las inasistencias por día, semana o mes.
-                    Solo se consideran jornadas que poseen registros de asistencia.
+                    Vista preliminar basada en fechas con registros RFID.
                 </p>
+
+
+                <!-- MPAZ-INASISTENCIAS-648 -->
+                <div class="mpaz-aviso-inasistencias">
+                    <strong>Información preliminar</strong>
+                    <p>
+                        Las fechas consideradas se obtienen de las
+                        marcaciones existentes. Todavía no se han
+                        descontado suspensiones, feriados,
+                        justificaciones ni situaciones particulares
+                        de cada curso. Estos resultados no deben
+                        utilizarse como inasistencias oficiales.
+                    </p>
+                </div>
 
                 <div class="filtros-periodo">
 
@@ -623,15 +1122,73 @@
                 <p id="resumen-inasistencias">
                 </p>
 
+                <div class="mpaz-resumen-inasistencias">
+
+                    <div class="mpaz-kpi-inasistencia">
+                        <span>Estudiantes consultados</span>
+                        <strong id="mpaz-ina-estudiantes">0</strong>
+                    </div>
+
+                    <div class="mpaz-kpi-inasistencia">
+                        <span>Fechas con registros</span>
+                        <strong id="mpaz-ina-jornadas">0</strong>
+                    </div>
+
+                    <div class="mpaz-kpi-inasistencia">
+                        <span>Sin marcaciones</span>
+                        <strong id="mpaz-ina-sin-marcaciones">0</strong>
+                    </div>
+
+                    <div class="mpaz-kpi-inasistencia">
+                        <span>Casos por revisar</span>
+                        <strong id="mpaz-ina-revisar">0</strong>
+                    </div>
+
+                </div>
+
+                <div class="mpaz-filtros-inasistencias">
+
+                    <label>
+                        Buscar estudiante
+                        <input
+                            id="mpaz-ina-buscar"
+                            type="search"
+                            placeholder="Nombre del estudiante"
+                            autocomplete="off"
+                        >
+                    </label>
+
+                    <label>
+                        Curso
+                        <select id="mpaz-ina-curso">
+                            <option value="">Todos los cursos</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Situación
+                        <select id="mpaz-ina-estado">
+                            <option value="">Todas</option>
+                            <option value="sin">Sin marcaciones</option>
+                            <option value="parcial">Marcaciones parciales</option>
+                            <option value="completo">Con registros en todas las fechas</option>
+                            <option value="sin_datos">Sin fechas base</option>
+                        </select>
+                    </label>
+
+                </div>
+
+
+
                 <table class="tabla-lecturas">
 
                     <thead>
                         <tr>
                             <th>Estudiante</th>
                             <th>Curso</th>
-                            <th>Inasistencias</th>
-                            <th>Jornadas</th>
-                            <th>Estado</th>
+                            <th>Días sin marcación*</th>
+                            <th>Fechas base</th>
+                            <th>Revisión</th>
                         </tr>
                     </thead>
 
@@ -639,11 +1196,282 @@
                     </tbody>
 
                 </table>
+                <div class="mpaz-paginacion-inasistencias">
+                    <span id="mpaz-ina-pagina">Página 1 de 1</span>
+
+                    <div>
+                        <button type="button" id="mpaz-ina-anterior">
+                            Anterior
+                        </button>
+
+                        <button type="button" id="mpaz-ina-siguiente">
+                            Siguiente
+                        </button>
+                    </div>
+                </div>
+
+                <p class="mpaz-nota-inasistencias">
+                    * Cantidad de fechas con registros generales
+                    en las que no aparece una marcación del estudiante.
+                    No equivale a una inasistencia justificada o
+                    injustificada oficialmente.
+                </p>
+
+                <p id="mpaz-ina-mensaje" role="status"></p>
+
 
             </section>
 
 
-            <section id="atrasos" class="panel-lecturas">
+
+<!-- MPAZ-CALENDARIO-6571 -->
+<section id="calendario" class="panel-lecturas" hidden>
+
+    <div class="mpaz-cal-cabecera">
+        <div>
+            <small>GESTIÓN ACADÉMICA</small>
+            <h2>Calendario escolar</h2>
+            <p>
+                Administración de jornadas, suspensiones,
+                feriados y horarios especiales.
+            </p>
+        </div>
+        <span class="mpaz-cal-etiqueta">Vista preliminar</span>
+    </div>
+
+    <div class="mpaz-cal-aviso">
+        <strong>Consulta de jornadas activa</strong>
+        <p>
+            Este calendario consulta las jornadas y su historial.
+            El registro y la edición requieren autorización,
+            confirmación y un token de seguridad.
+            Por ahora, el guardado solo se habilita
+            en la vista previa local.
+        </p>
+    </div>
+
+    <div class="mpaz-cal-layout">
+
+        <div class="mpaz-cal-tarjeta">
+
+            <div class="mpaz-cal-barra">
+                <div>
+                    <small>CALENDARIO MENSUAL</small>
+                    <h3 id="mpaz-cal-mes">Mes actual</h3>
+                </div>
+
+                <div class="mpaz-cal-controles">
+                    <button
+                        type="button"
+                        id="mpaz-cal-anterior"
+                        aria-label="Mes anterior"
+                    >‹</button>
+
+                    <button
+                        type="button"
+                        id="mpaz-cal-hoy"
+                    >Hoy</button>
+
+                    <button
+                        type="button"
+                        id="mpaz-cal-siguiente"
+                        aria-label="Mes siguiente"
+                    >›</button>
+                </div>
+            </div>
+
+            <label class="mpaz-cal-campo">
+                Curso
+                <select id="mpaz-cal-curso">
+                    <option value="">Toda la escuela</option>
+                </select>
+            </label>
+
+            <div class="mpaz-cal-leyenda">
+                <span>● Hoy</span>
+                <span>● Fecha seleccionada</span>
+                <span>● Sin consulta a la API</span>
+            </div>
+
+            <div class="mpaz-cal-semana">
+                <span>Lun</span><span>Mar</span>
+                <span>Mié</span><span>Jue</span>
+                <span>Vie</span><span>Sáb</span>
+                <span>Dom</span>
+            </div>
+
+            <div
+                class="mpaz-cal-cuadricula"
+                id="mpaz-cal-cuadricula"
+            ></div>
+
+            <p class="mpaz-cal-nota">
+                No se presume que una fecha sea lectiva
+                cuando todavía no existe información
+                del calendario.
+            </p>
+        </div>
+
+        <div class="mpaz-cal-tarjeta">
+
+            <small>CONFIGURACIÓN ADMINISTRATIVA</small>
+            <h3>Detalle de la jornada</h3>
+
+            <div class="mpaz-cal-fecha-resumen">
+                <span>Fecha seleccionada</span>
+                <strong id="mpaz-cal-fecha-texto">—</strong>
+            </div>
+
+
+            <!-- MPAZ-CALENDARIO-660 -->
+            <div
+                id="mpaz-cal-estado-consulta"
+                class="mpaz-cal-estado-consulta"
+                role="status"
+            >
+                Preparando consulta del calendario...
+            </div>
+
+            <div
+                id="mpaz-cal-detalle-jornada"
+                class="mpaz-cal-detalle-jornada"
+                aria-live="polite"
+            >
+                Selecciona una fecha para consultar
+                su configuración.
+            </div>
+
+
+            <!-- MPAZ-CALENDARIO-663 -->
+            <div class="mpaz-cal-edicion-cuadro">
+                <strong>Edición administrativa de prueba</strong>
+                <p>
+                    Selecciona una fecha y un curso.
+                    Prepara la operación antes de guardar.
+                    Las configuraciones generales y
+                    las excepciones de curso se gestionan
+                    de manera independiente.
+                </p>
+
+                <div class="mpaz-cal-edicion-acciones">
+                    <button
+                        type="button"
+                        id="mpaz-cal-preparar"
+                    >
+                        Preparar operación
+                    </button>
+
+                    <button
+                        type="button"
+                        id="mpaz-cal-cancelar"
+                        disabled
+                    >
+                        Cancelar
+                    </button>
+                </div>
+
+                <p id="mpaz-cal-operacion" role="status">
+                    Guardado deshabilitado.
+                </p>
+            </div>
+
+<form id="mpaz-cal-formulario">
+
+                <label class="mpaz-cal-campo">
+                    Fecha
+                    <input
+                        id="mpaz-cal-fecha"
+                        type="date"
+                        required
+                    >
+                </label>
+
+                <label class="mpaz-cal-campo">
+                    Alcance
+                    <select id="mpaz-cal-alcance">
+                        <option value="">Toda la escuela</option>
+                    </select>
+                </label>
+
+                <label class="mpaz-cal-campo">
+                    Condición
+                    <select id="mpaz-cal-condicion">
+                        <option value="lectiva">Lectiva</option>
+                        <option value="suspendida">
+                            Suspensión
+                        </option>
+                        <option value="feriado">Feriado</option>
+                        <option value="reducida">
+                            Jornada reducida
+                        </option>
+                        <option value="horario_especial">
+                            Horario especial
+                        </option>
+                    </select>
+                </label>
+
+                <div class="mpaz-cal-horarios">
+                    <label class="mpaz-cal-campo">
+                        Entrada
+                        <input id="mpaz-cal-entrada" type="time">
+                    </label>
+
+                    <label class="mpaz-cal-campo">
+                        Salida
+                        <input id="mpaz-cal-salida" type="time">
+                    </label>
+                </div>
+
+                <label class="mpaz-cal-campo">
+                    Motivo administrativo
+                    <textarea
+                        id="mpaz-cal-motivo"
+                        rows="4"
+                        maxlength="300"
+                        placeholder="Explica el motivo de la jornada"
+                    ></textarea>
+                </label>
+
+                <button
+                    type="submit"
+                    id="mpaz-cal-guardar"
+                    disabled
+                >
+                    Guardado pendiente de habilitación
+                </button>
+
+                <p id="mpaz-cal-mensaje" role="status">
+                    Esta vista de pruebas puede guardar
+                    modificaciones en la base SQLite aislada.
+                    No utilices información escolar real.
+</p>
+            </form>
+
+            <div class="mpaz-cal-historial">
+                <h3>Historial administrativo</h3>
+
+                <p class="mpaz-cal-nota">
+                    Se muestra el historial del registro que
+                    corresponde a la fecha seleccionada.
+                    El sistema todavía identifica al operador
+                    como panel administrativo, no como una
+                    persona específica.
+                </p>
+
+                <div
+                    id="mpaz-cal-historial-contenido"
+                    aria-live="polite"
+                >
+                    Selecciona una jornada configurada
+                    para consultar su historial.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="atrasos" class="panel-lecturas">
 
                 <h2>
                     Registro de atrasos
@@ -769,14 +1597,14 @@
                 <p>
                     Desde aquí se pueden generar y descargar reportes de asistencias.
                 </p>
-                
+
                    <label for="filtro-curso-reporte">
    			 Curso:
 		</label>
 
 			<select id="filtro-curso-reporte">
     				<option value="">Todos los cursos</option>
-			</select>                 
+			</select>
 
                 <div class="opciones-reportes">
 
@@ -812,8 +1640,18 @@
         ↑
     </button>
 
+    <script src="identidad-mpaz.js?v=3"></script>
     <script src="app.js?v=13"></script>
+    <script src="directorio.js?v=1"></script>
+    <script src="panel-mpaz.js?v=3"></script>
+    <script src="inventario-mpaz.js?v=1"></script>
+    <script src="vinculacion-rapida.js?v=1"></script>
+    <script src="vinculacion-mpaz.js?v=1"></script>
 
+    <script src="asistencias-mpaz.js?v=1"></script>
+    <script src="inasistencias-mpaz.js?v=1"></script>
+    <script src="calendario-mpaz.js?v=1"></script>
+    <script src="calendario-gestion-mpaz.js?v=1"></script>
 </body>
 
 </html>

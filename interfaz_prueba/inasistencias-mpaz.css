@@ -1,0 +1,169 @@
+
+/* MPAZ-INASISTENCIAS-648 */
+
+.mpaz-aviso-inasistencias {
+    margin: 20px 0;
+    padding: 16px 18px;
+    background: #fff8e7;
+    border-left: 4px solid #e3af29;
+    border-radius: 10px;
+    color: #775618;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.mpaz-aviso-inasistencias p {
+    margin: 6px 0 0;
+}
+
+#inasistencias .filtros-periodo {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+#inasistencias .filtros-periodo select,
+#inasistencias .filtros-periodo input {
+    padding: 10px;
+    border: 1px solid #cad8e6;
+    border-radius: 9px;
+    background: white;
+    color: #243b53;
+}
+
+.mpaz-resumen-inasistencias {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 13px;
+    margin: 22px 0;
+}
+
+.mpaz-kpi-inasistencia {
+    padding: 17px;
+    background: #f8fbff;
+    border: 1px solid #dce6ef;
+    border-top: 4px solid #12a9bd;
+    border-radius: 12px;
+}
+
+.mpaz-kpi-inasistencia:nth-child(2) {
+    border-top-color: #e3af29;
+}
+
+.mpaz-kpi-inasistencia:nth-child(n+3) {
+    border-top-color: #d6815f;
+}
+
+.mpaz-kpi-inasistencia span {
+    display: block;
+    color: #597089;
+    font-size: 13px;
+}
+
+.mpaz-kpi-inasistencia strong {
+    display: block;
+    color: #102b59;
+    font-size: 30px;
+    margin-top: 8px;
+}
+
+.mpaz-filtros-inasistencias {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.4fr;
+    gap: 13px;
+    margin: 20px 0;
+}
+
+.mpaz-filtros-inasistencias label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: #102b59;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.mpaz-filtros-inasistencias input,
+.mpaz-filtros-inasistencias select {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #cad8e6;
+    border-radius: 9px;
+    background: #fff;
+}
+
+#inasistencias .tabla-lecturas {
+    table-layout: auto;
+}
+
+#inasistencias .tabla-lecturas th {
+    background: #102b59;
+    color: white;
+}
+
+.mpaz-situacion {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.mpaz-situacion.completo {
+    background: #e1f3e9;
+    color: #17643b;
+}
+
+.mpaz-situacion.parcial {
+    background: #fff0ce;
+    color: #805809;
+}
+
+.mpaz-situacion.sin {
+    background: #fce8e8;
+    color: #982c2c;
+}
+
+.mpaz-situacion.sin_datos {
+    background: #e9eff5;
+    color: #486177;
+}
+
+.mpaz-paginacion-inasistencias {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+    color: #536b80;
+}
+
+.mpaz-paginacion-inasistencias button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.mpaz-nota-inasistencias {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #667c91;
+    line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+    .mpaz-resumen-inasistencias {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .mpaz-filtros-inasistencias {
+        grid-template-columns: 1fr;
+    }
+}

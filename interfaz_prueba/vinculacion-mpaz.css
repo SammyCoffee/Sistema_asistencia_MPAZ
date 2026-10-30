@@ -1,0 +1,170 @@
+
+/* MPAZ-VINCULACION-640 */
+
+#vinculacion > .panel-administracion {
+    width: 100%;
+    max-width: 880px;
+    margin: 24px auto 0;
+    padding: 25px;
+    border: 1px solid #dbe5ef;
+    border-radius: 16px;
+    background: #f8fbff;
+}
+
+#formulario-vinculacion {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    grid-template-areas:
+        "busqueda busqueda"
+        "resultados resultados"
+        "label-alumno label-tarjeta"
+        "select-alumno select-tarjeta"
+        "resumen resumen"
+        "accion accion"
+        "mensaje mensaje";
+
+    gap: 13px 20px;
+    align-items: start;
+}
+
+.mpaz-busqueda-vinculacion {
+    grid-area: busqueda;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.mpaz-busqueda-vinculacion label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #102b59;
+}
+
+.mpaz-busqueda-vinculacion small {
+    color: #637b91;
+    font-size: 12px;
+}
+
+.mpaz-busqueda-vinculacion input,
+#vinculacion #vinculacion-estudiante,
+#vinculacion #vinculacion-tarjeta {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 12px 13px;
+    border: 1px solid #cad8e6;
+    border-radius: 10px;
+    background: white;
+    color: #253b54;
+    font-size: 14px;
+}
+
+.mpaz-resultados-vinculacion {
+    grid-area: resultados;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.mpaz-resultados-vinculacion button {
+    min-width: 0;
+    width: 100%;
+    padding: 11px;
+    background: #e9f4f8;
+    color: #12466b;
+    border: 1px solid #bdd8e9;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.mpaz-resultados-vinculacion button:hover {
+    background: #d7ebf4;
+}
+
+.mpaz-resultados-vinculacion p {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: #5c7084;
+}
+
+#formulario-vinculacion > label[for="vinculacion-estudiante"] {
+    grid-area: label-alumno;
+}
+
+#formulario-vinculacion > label[for="vinculacion-tarjeta"] {
+    grid-area: label-tarjeta;
+}
+
+#vinculacion-estudiante {
+    grid-area: select-alumno;
+}
+
+#vinculacion-tarjeta {
+    grid-area: select-tarjeta;
+}
+
+#formulario-vinculacion > label {
+    color: #102b59;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.mpaz-resumen-vinculacion {
+    grid-area: resumen;
+    padding: 15px;
+    background: #e9f4fa;
+    border-left: 4px solid #12a9bd;
+    border-radius: 9px;
+    color: #194264;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+#formulario-vinculacion > button[type="submit"] {
+    grid-area: accion;
+    justify-self: start;
+    min-width: 185px;
+    background: #102b59;
+    color: white;
+}
+
+#formulario-vinculacion > button[type="submit"]:hover {
+    background: #17437d;
+}
+
+#mensaje-vinculacion {
+    grid-area: mensaje;
+    margin: 0;
+    min-height: 18px;
+}
+
+@media (max-width: 650px) {
+
+    #vinculacion > .panel-administracion {
+        padding: 15px;
+    }
+
+    #formulario-vinculacion {
+        grid-template-columns: 1fr;
+
+        grid-template-areas:
+            "busqueda"
+            "resultados"
+            "label-alumno"
+            "select-alumno"
+            "label-tarjeta"
+            "select-tarjeta"
+            "resumen"
+            "accion"
+            "mensaje";
+    }
+
+    .mpaz-resultados-vinculacion {
+        grid-template-columns: 1fr;
+    }
+}

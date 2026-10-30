@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="same-origin">
+<title>Seguimiento Escolar | MPAZ RFID</title>
+<link rel="stylesheet" href="/seguimiento.css?v=1">
+</head>
+
+<body>
+<header class="cabecera">
+  <a href="/inicio.html" class="marca">
+    <img src="/escudo-mpaz.webp" width="54" height="54"
+         alt="Escudo Escuela Escritora Marcela Paz">
+    <span>
+      <strong>Escuela Escritora Marcela Paz</strong>
+      <small>Sistema MPAZ RFID · Seguimiento Escolar</small>
+    </span>
+  </a>
+  <div class="acciones">
+    <span id="usuario-actual"></span>
+    <button id="cerrar-sesion" type="button" hidden>Cerrar sesión</button>
+  </div>
+</header>
+
+<main class="contenedor">
+
+  <!-- Navegación hacia Administración -->
+  <div style="margin-bottom: 24px;">
+
+    <a
+      id="volver-panel"
+      href="/index.html"
+      style="
+        display: inline-flex;
+        align-items: center;
+        padding: 11px 18px;
+        background: white;
+        color: #102d5b;
+        border: 1px solid #d7e0eb;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+      "
+    >
+      ← Volver al Panel de Administración
+    </a>
+
+  </div>
+
+
+  <section id="acceso" class="tarjeta acceso">
+    <span class="etiqueta">ACCESO INSTITUCIONAL</span>
+    <h1>Seguimiento Escolar</h1>
+    <p>Ingrese con su cuenta individual de Administración o Dirección.</p>
+
+    <form id="form-login">
+      <label for="usuario">Usuario</label>
+      <input id="usuario" name="usuario"
+             autocomplete="username" required maxlength="40">
+
+      <label for="password">Contraseña</label>
+      <input id="password" name="password" type="password"
+             autocomplete="current-password" required>
+
+      <button type="submit">Ingresar al sistema</button>
+    </form>
+  </section>
+
+  <section id="panel-seguimiento" hidden>
+    <div class="titulo-panel">
+      <div>
+        <span class="etiqueta">GESTIÓN Y ACOMPAÑAMIENTO</span>
+        <h1>Seguimiento Escolar</h1>
+        <p>Observaciones docentes, comunicaciones y gestiones familiares.</p>
+      </div>
+      <button id="actualizar-casos" type="button">Actualizar casos</button>
+    </div>
+
+    <div class="resumen">
+      <article class="indicador">
+        <span>Pendientes</span>
+        <strong id="total-pendientes">0</strong>
+      </article>
+      <article class="indicador">
+        <span>En gestión</span>
+        <strong id="total-gestion">0</strong>
+      </article>
+      <article class="indicador">
+        <span>Resueltos</span>
+        <strong id="total-resueltos">0</strong>
+      </article>
+    </div>
+
+    <div class="columnas">
+      <section class="tarjeta bandeja">
+        <h2>Bandeja de casos</h2>
+        <label for="filtro-estado">Filtrar por estado</label>
+        <select id="filtro-estado">
+          <option value="">Todos</option>
+          <option value="pendiente">Pendientes</option>
+          <option value="en_gestion">En gestión</option>
+          <option value="resuelto">Resueltos</option>
+        </select>
+        <div id="lista-casos" aria-live="polite"></div>
+      </section>
+
+      <section class="tarjeta detalle">
+        <h2>Detalle del seguimiento</h2>
+        <div id="detalle-caso">
+          <p>Seleccione un caso para consultar sus antecedentes.</p>
+        </div>
+
+        <div id="gestiones" hidden>
+          <h3>Historial de intervenciones</h3>
+          <div id="historial-intervenciones"></div>
+
+          <form id="form-mensaje">
+            <h3>Agregar observación o respuesta</h3>
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" maxlength="1000"
+                      required rows="3"></textarea>
+            <button type="submit">Registrar mensaje</button>
+          </form>
+
+          <form id="form-contacto">
+            <h3>Contacto con apoderado</h3>
+            <label for="canal">Canal de contacto</label>
+            <select id="canal">
+              <option value="telefonico">Telefónico</option>
+              <option value="presencial">Presencial</option>
+              <option value="otro">Otro</option>
+            </select>
+            <label for="resultado-contacto">Resultado</label>
+            <input id="resultado-contacto" maxlength="400" required>
+            <label for="observacion-contacto">Observación</label>
+            <textarea id="observacion-contacto"
+                      maxlength="500" rows="2"></textarea>
+            <button type="submit">Registrar contacto</button>
+          </form>
+
+          <form id="form-estado">
+            <h3>Estado del caso</h3>
+            <label for="estado-caso">Actualizar estado</label>
+            <select id="estado-caso">
+              <option value="pendiente">Pendiente</option>
+              <option value="en_gestion">En gestión</option>
+              <option value="resuelto">Resuelto</option>
+            </select>
+            <button type="submit">Guardar estado</button>
+          </form>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <p id="mensaje-sistema" role="status" aria-live="polite"></p>
+</main>
+
+<footer>
+  Escuela Escritora Marcela Paz · San Bernardo · MPAZ RFID
+</footer>
+
+<script src="/seguimiento.js?v=1" defer></script>
+</body>
+</html>

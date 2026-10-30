@@ -1,0 +1,744 @@
+/* ================================================================
+   SISTEMA MPAZ RFID · IDENTIDAD INSTITUCIONAL V1
+   Azul marino · dorado · turquesa (referencia de la interfaz actual).
+   Escudo institucional; recurso decorativo optimizado en WebP.
+   Solo presentación; no afecta la API ni los formularios.
+   ================================================================ */
+:root {
+    --mpaz-brand: #102b59;
+    --mpaz-brand-deep: #0b2045;
+    --mpaz-brand-gold: #e3af29;
+    --mpaz-brand-cyan: #0f9aac;
+    --mpaz-brand-sky: #eaf3fb;
+    --mpaz-surface: #ffffff;
+    --mpaz-page: #f1f5f9;
+    --mpaz-text: #183355;
+    --mpaz-muted: #5c718a;
+    --mpaz-line: #d9e4f0;
+    --mpaz-shadow: 0 12px 38px rgba(13, 38, 75, .09);
+    /* Variables del portal docente */
+    --azul: #146da4;
+    --azul-oscuro: #102b59;
+    --azul-hover: #105989;
+    --fondo: #f1f5f9;
+    --blanco: #ffffff;
+    --texto: #183355;
+    --texto-secundario: #5c718a;
+    --borde: #d9e4f0;
+}
+
+*, *::before, *::after {box-sizing: border-box;}
+html {scroll-behavior: smooth;}
+body {background-color: var(--mpaz-page);}
+button, input, select, a {font: inherit;}
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, summary:focus-visible {
+    outline: 3px solid var(--mpaz-brand-cyan);
+    outline-offset: 3px;
+}
+
+/* Elementos visuales reutilizados en inicio, login y docente. */
+.mpaz-sello {
+    display: inline-grid; place-items: center;
+    flex: 0 0 auto; width: 49px; height: 49px;
+    border-radius: 50%; border: 3px solid var(--mpaz-brand-gold);
+    background: var(--mpaz-brand); color: #fff;
+    font: 800 15px/1 Arial, sans-serif;
+    letter-spacing: -.03em;
+    box-shadow: 0 4px 12px rgba(9,33,68,.15);
+}
+.mpaz-etiqueta {
+    display: inline-block;
+    color: #0e7287;
+    font-size: 11px;
+    letter-spacing: .095em;
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+/* ================================================================
+   PORTAL DE ELECCION · /inicio.html
+   ================================================================ */
+body.mpaz-portales {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--mpaz-page);
+    color: var(--mpaz-text);
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+}
+.mpaz-portales-cabecera {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 18px;
+    padding: 17px max(24px, calc((100vw - 1260px) / 2));
+    background: var(--mpaz-surface);
+    border-bottom: 3px solid var(--mpaz-brand-gold);
+    box-shadow: 0 6px 22px rgba(17, 43, 81, .04);
+}
+.mpaz-identidad-link {
+    display: inline-flex; align-items: center; gap: 12px;
+    color: var(--mpaz-text); text-decoration: none;
+}
+.mpaz-identidad-texto strong {display:block; font-size:14px; line-height:1.4;}
+.mpaz-identidad-texto small {display:block; margin-top:3px; color:var(--mpaz-muted); font-size:12px;}
+.mpaz-portales-herramientas {display:flex; align-items:center; gap:16px;}
+.mpaz-encabezado-distintivo {font-size:11px; font-weight:800; letter-spacing:.08em; color:var(--mpaz-muted);}
+.mpaz-tema-rapido {
+    cursor:pointer; display:flex; gap:9px; align-items:center;
+    padding:9px 14px; border:1px solid var(--mpaz-line);
+    border-radius:11px; background:var(--mpaz-surface); color:var(--mpaz-text);
+    font-weight:700; font-size:12px;
+}
+.mpaz-tema-rapido:hover {border-color:var(--mpaz-brand-gold); background:var(--mpaz-brand-sky);}
+.mpaz-portales-principal {flex:1; width:100%; max-width:1312px; margin:0 auto; padding:36px 24px 54px;}
+.mpaz-portales-hero {
+    position:relative; isolation:isolate;
+    min-height:360px; display:grid; grid-template-columns:minmax(0,1.35fr) minmax(270px,.8fr);
+    gap:28px; align-items:center; overflow:hidden;
+    padding:clamp(30px,4.1vw,62px);
+    border-radius:24px;
+    background:linear-gradient(112deg,#0a2149,#102f63 55%,#155b80);
+    box-shadow:0 16px 46px rgba(10,36,76,.17);
+    border-bottom:5px solid var(--mpaz-brand-gold);
+}
+.mpaz-portales-hero::before {
+    content:"";position:absolute;inset:0;z-index:-1;
+    background:radial-gradient(circle at 79% 15%,rgba(16,175,185,.20),transparent 32%),
+        radial-gradient(circle at 4% 100%,rgba(227,175,41,.10),transparent 40%);
+}
+.mpaz-portales-presentacion {position:relative;z-index:1;}
+.mpaz-etiqueta-hero {color:#ffe6a0; background:rgba(232,176,45,.13); padding:8px 13px; border-radius:30px;}
+.mpaz-portales-presentacion h1 {
+    color:#fff; font-size:clamp(34px,4.5vw,59px); line-height:1.09;
+    letter-spacing:-.038em; max-width:660px; margin:22px 0;
+}
+.mpaz-portales-presentacion h1 span {color:#f2c45b;}
+.mpaz-portales-presentacion p {max-width:590px;color:#e2edf8;line-height:1.72;font-size:16px;margin:0 0 28px;}
+.mpaz-boton-hero {
+    display:inline-flex; align-items:center;gap:20px;
+    border-radius:11px; padding:14px 19px; background:var(--mpaz-brand-gold);
+    color:#112949;text-decoration:none;font-weight:800;font-size:14px;
+    transition:transform .2s ease,background .2s ease;
+}
+.mpaz-boton-hero:hover {background:#ffd46c;transform:translateY(-2px);}
+.mpaz-portales-grafico {position:relative;min-height:255px;display:grid;place-items:center;}
+.mpaz-orbita {position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(208,234,254,.18);}
+.mpaz-orbita-uno {width:278px;height:278px;}
+.mpaz-orbita-dos {width:340px;height:340px;}
+.mpaz-grafico-tarjeta {
+    position:relative; width:min(300px,95%);min-height:215px;
+    padding:23px; border-radius:20px;
+    background:linear-gradient(150deg,rgba(255,255,255,.18),rgba(255,255,255,.075));
+    border:1px solid rgba(255,255,255,.31);
+    box-shadow:0 18px 34px rgba(0,0,0,.13);
+    backdrop-filter:blur(12px);
+    display:flex;flex-direction:column;align-items:flex-start;
+}
+.mpaz-grafico-mini {font-size:9px;font-weight:800;letter-spacing:.06em;color:#f3d18b;}
+.mpaz-grafico-sello {
+    display:grid;place-items:center;margin:22px 0 12px;
+    width:63px;height:63px;border:3px solid var(--mpaz-brand-gold);
+    border-radius:50%;background:#0b2148;color:#fff;font-weight:900;
+}
+.mpaz-grafico-tarjeta strong {font-size:23px;color:#fff;letter-spacing:.04em;}
+.mpaz-grafico-tarjeta strong em {color:#f1c65e;font-style:normal;}
+.mpaz-grafico-tarjeta small {font-size:10px;color:#dbe9fa;margin-top:7px;}
+.mpaz-grafico-punto {position:absolute;border-radius:50%;width:15px;height:15px;background:#e9bd52;box-shadow:0 0 0 7px rgba(233,189,82,.12);}
+.mpaz-grafico-punto-uno {top:4px;right:17%;}
+.mpaz-grafico-punto-dos {bottom:3%;left:13%;background:#37c5d1;box-shadow:0 0 0 7px rgba(55,197,209,.11);}
+.mpaz-portal-accesos {padding-top:48px;scroll-margin-top:20px;}
+.mpaz-portales-titulos h2 {font-size:clamp(24px,2.5vw,32px);color:var(--mpaz-brand);margin:7px 0;letter-spacing:-.02em;}
+.mpaz-portales-titulos p {color:var(--mpaz-muted);margin:0 0 24px;line-height:1.6;}
+.mpaz-portal-tarjetas {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;}
+.mpaz-portal-tarjeta {
+    position:relative; display:flex; flex-direction:column;align-items:flex-start;
+    padding:31px; border-radius:19px;
+    background:var(--mpaz-surface);border:1px solid var(--mpaz-line);
+    border-top:4px solid var(--mpaz-brand-cyan);
+    box-shadow:var(--mpaz-shadow);
+    transition:transform .2s ease,box-shadow .2s ease;
+}
+.mpaz-portal-tarjeta:hover {transform:translateY(-3px);box-shadow:0 16px 36px rgba(13,38,75,.13);}
+.mpaz-portal-tarjeta-docente {border-top-color:var(--mpaz-brand-gold);}
+.mpaz-portal-tarjeta-arriba {display:flex;justify-content:space-between;align-items:center;width:100%;gap:12px;margin-bottom:12px;}
+.mpaz-portal-icono {display:grid;place-items:center;width:58px;height:58px;border-radius:15px;background:#e5f4f7;color:#0b7285;font-size:28px;}
+.mpaz-portal-tarjeta-docente .mpaz-portal-icono {background:#fff3d4;color:#866114;}
+.mpaz-portal-numero {color:var(--mpaz-muted);font-weight:800;font-size:11px;letter-spacing:.09em;}
+.mpaz-portal-tarjeta h3 {font-size:23px;color:var(--mpaz-brand);margin:8px 0 0;}
+.mpaz-portal-tarjeta p {color:var(--mpaz-muted);font-size:14px;line-height:1.7;margin:12px 0 24px;flex-grow:1;}
+.mpaz-portal-boton {
+    display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;
+    padding:15px 18px;background:var(--mpaz-brand);color:#fff;
+    border-radius:11px;text-decoration:none;font-weight:800;font-size:14px;
+}
+.mpaz-portal-boton:hover {background:#17658c;}
+.mpaz-portal-boton span {font-size:19px;}
+.mpaz-portales-pie {display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:21px max(24px,calc((100vw - 1260px) / 2));border-top:1px solid var(--mpaz-line);color:var(--mpaz-muted);font-size:12px;}
+
+/* ================================================================
+   TUERCA FUNCIONAL EN AMBOS PANELES
+   ================================================================ */
+.menu-configuracion {position:relative;}
+.menu-configuracion > summary {
+    width:42px;height:42px;display:grid;place-items:center;cursor:pointer;
+    background:var(--mpaz-surface);border:1px solid var(--mpaz-line);
+    color:var(--mpaz-brand);border-radius:11px;font-size:24px;list-style:none;
+}
+.menu-configuracion > summary::-webkit-details-marker {display:none;}
+.menu-configuracion > summary:hover {background:var(--mpaz-brand-sky);}
+.menu-configuracion[open] > summary {border-color:var(--mpaz-brand-gold);}
+.menu-configuracion .contenido-configuracion.mpaz-preferencias {
+    position:absolute;top:calc(100% + 12px);right:0;left:auto;
+    width:320px; max-width:calc(100vw - 36px);
+    padding:20px;z-index:900;display:block;
+    background:var(--mpaz-surface);color:var(--mpaz-text);
+    border:1px solid var(--mpaz-line);border-top:3px solid var(--mpaz-brand-gold);
+    border-radius:14px;box-shadow:0 20px 45px rgba(10,36,75,.19);
+}
+.mpaz-preferencias h2 {font-size:18px;margin:0 0 7px;color:var(--mpaz-brand);}
+.mpaz-preferencias .mpaz-config-ayuda {margin:0 0 15px;color:var(--mpaz-muted);font-size:12px;}
+.mpaz-preferencias .mpaz-ajuste {display:flex;align-items:center;justify-content:space-between;gap:14px;border-top:1px solid var(--mpaz-line);padding:14px 0;cursor:pointer;}
+.mpaz-ajuste > span {display:flex;flex-direction:column;gap:5px;}
+.mpaz-ajuste strong {font-size:13px;color:var(--mpaz-text);}
+.mpaz-ajuste small {font-size:11px;color:var(--mpaz-muted);line-height:1.5;}
+.mpaz-ajuste input {width:19px;height:19px;accent-color:#13778e;flex-shrink:0;cursor:pointer;}
+.mpaz-preferencias button.mpaz-restablecer {
+    display:block;width:100%;margin:4px 0 0;padding:10px 12px;
+    background:var(--mpaz-brand-sky);color:var(--mpaz-brand);
+    border:1px solid var(--mpaz-line);border-radius:9px;font-size:12px;cursor:pointer;
+    font-weight:800;box-shadow:none;min-width:0;
+}
+.mpaz-preferencias button.mpaz-restablecer:hover {background:#dbeef6;transform:none;}
+.mpaz-preferencias .mpaz-ajustes-estado {min-height:14px;margin:9px 0;font-size:11px;color:#107687;}
+.mpaz-preferencias a.mpaz-enlace-portales {display:block;text-align:center;margin-top:4px;background:transparent;border-top:1px solid var(--mpaz-line);padding:12px 8px 2px;color:var(--mpaz-brand);font-size:12px;text-decoration:none;}
+.mpaz-preferencias a.mpaz-enlace-portales:hover {color:#137c91;background:transparent;}
+
+/* ================================================================
+   ADMINISTRACION · estructura que ya usa #hash y panel-mpaz.js
+   ================================================================ */
+.mpaz-barra {position:relative;z-index:50;border-bottom:4px solid var(--mpaz-brand-gold);}
+.mpaz-barra-identidad strong {color:var(--mpaz-brand);}
+.mpaz-marca {background:var(--mpaz-brand);border-color:var(--mpaz-brand-gold);}
+.mpaz-barra-navegacion {display:flex;gap:10px;align-items:center;}
+#mpaz-volver-panel {background:#eaf2f8;color:var(--mpaz-brand);padding:11px 13px;}
+#mpaz-volver-panel[hidden] {display:none !important;}
+#mpaz-acciones-admin .acciones-cabecera {display:flex;align-items:center;flex-wrap:wrap;gap:9px;}
+#mpaz-acciones-admin .menu-configuracion {z-index:200;}
+.mpaz-accesos a {border:1px solid #e4edf5;}
+.mpaz-accesos a[href="#calendario"] {border-left:4px solid var(--mpaz-brand-gold);}
+.mpaz-accesos a:focus-visible {outline-offset:3px;}
+
+/* ================================================================
+   DOCENTE · cabecera, login y tarjetas con misma identidad
+   ================================================================ */
+.pagina-panel {background:var(--mpaz-page);}
+.cabecera-panel {border-bottom:4px solid var(--mpaz-brand-gold);box-shadow:var(--mpaz-shadow);}
+.mpaz-docente-marca {display:flex;align-items:center;gap:15px;min-width:0;}
+.mpaz-docente-marca .informacion-sistema h1 {margin:5px 0;font-size:clamp(22px,2.5vw,29px);color:var(--mpaz-brand);}
+.mpaz-docente-marca .informacion-sistema .nombre-escuela {font-size:13px;font-weight:800;color:var(--mpaz-brand);}
+.mpaz-docente-marca .informacion-sistema .subtitulo-login {color:#0f8494;}
+.cabecera-panel .acciones-cabecera {display:flex;align-items:center;gap:9px;}
+.cabecera-panel .boton-volver-inicio {background:#eaf2f8 !important;color:var(--mpaz-brand) !important;}
+.pagina-panel .bienvenida-panel {
+    padding:30px; border-radius:17px; border-bottom:4px solid var(--mpaz-brand-gold);
+    background:linear-gradient(115deg,var(--mpaz-brand-deep),var(--mpaz-brand) 75%,#14557d);
+    box-shadow:var(--mpaz-shadow);
+}
+.pagina-panel .bienvenida-panel .mpaz-etiqueta {color:#f4d886;background:rgba(232,176,45,.14);padding:6px 11px;border-radius:20px;}
+.pagina-panel .bienvenida-panel h2 {color:white;font-size:clamp(24px,3vw,31px);margin:13px 0 9px;}
+.pagina-panel .bienvenida-panel p {color:#e1f0f9;}
+.pagina-panel .seccion-asignaciones,
+.pagina-panel .seccion-estudiantes,
+.pagina-panel .informacion-panel,
+.pagina-panel .seccion-asistencia {box-shadow:var(--mpaz-shadow);}
+.pagina-login {background:radial-gradient(circle at 88% 8%,rgba(14,155,175,.12),transparent 40%),var(--mpaz-page);}
+.pagina-login .tarjeta-login {border-top:5px solid var(--mpaz-brand-gold);box-shadow:var(--mpaz-shadow);}
+.pagina-login .identidad-icono {border:3px solid var(--mpaz-brand-gold);border-radius:50%;background:var(--mpaz-brand);}
+.pagina-login .encabezado-login h1 {color:var(--mpaz-brand);}
+.pagina-login .subtitulo-login {color:#0d8496;}
+.pagina-login .boton-principal {background:var(--mpaz-brand);}
+.pagina-login .boton-principal:hover {background:#17638c;}
+
+/* Administración /login.html (se conserva el formulario y login.js). */
+.mpaz-login-admin {min-height:100vh;display:grid;place-items:center;padding:24px;
+    font-family:"Segoe UI",Arial,sans-serif;background:radial-gradient(circle at 90% 5%,rgba(20,165,181,.13),transparent 42%),var(--mpaz-page);}
+.mpaz-login-admin main {max-width:440px;width:100%;padding:36px;background:var(--mpaz-surface);border-radius:18px;
+    border:1px solid var(--mpaz-line);border-top:5px solid var(--mpaz-brand-gold);box-shadow:var(--mpaz-shadow);}
+.mpaz-login-admin .mpaz-sello {margin-bottom:15px;}
+.mpaz-login-admin h1 {font-size:27px;color:var(--mpaz-brand);margin:10px 0 7px;}
+.mpaz-login-admin main > p {color:var(--mpaz-muted);line-height:1.5;}
+.mpaz-login-admin form {display:flex;flex-direction:column;gap:10px;margin-top:20px;}
+.mpaz-login-admin form label {color:var(--mpaz-text);font-size:13px;font-weight:700;}
+.mpaz-login-admin input {width:100%;padding:13px;border:1px solid var(--mpaz-line);border-radius:9px;background:var(--mpaz-surface);color:var(--mpaz-text);}
+.mpaz-login-admin form button {width:100%;padding:13px;background:var(--mpaz-brand);color:#fff;border:0;border-radius:9px;cursor:pointer;}
+.mpaz-login-admin a.enlace-volver-inicio {color:#0d758a !important;}
+
+/* ================================================================
+   VISTA COMPACTA EN LOS DOS PANELES
+   ================================================================ */
+html[data-mpaz-densidad="compacta"] .pagina,
+html[data-mpaz-densidad="compacta"] .contenedor-panel {padding:15px;}
+html[data-mpaz-densidad="compacta"] .mpaz-bienvenida,
+html[data-mpaz-densidad="compacta"] .seccion-asignaciones,
+html[data-mpaz-densidad="compacta"] .bienvenida-panel {padding:20px;}
+html[data-mpaz-densidad="compacta"] .mpaz-accesos a {min-height:90px;padding:12px;gap:5px;}
+html[data-mpaz-densidad="compacta"] .mpaz-portal-tarjeta {padding:20px;}
+html[data-mpaz-densidad="compacta"] .mpaz-portales-hero {min-height:280px;padding:28px;}
+
+/* ================================================================
+   TEMA OSCURO, EN TODO EL PORTAL (CLIENTE, SIN CAMBIAR DATOS).
+   ================================================================ */
+html[data-mpaz-tema="oscuro"] {
+    --mpaz-brand: #e3efff;
+    --mpaz-brand-deep: #08162e;
+    --mpaz-brand-sky: #193656;
+    --mpaz-page: #0e1c30;
+    --mpaz-surface: #172940;
+    --mpaz-text: #e8f3ff;
+    --mpaz-muted: #b4c7dc;
+    --mpaz-line: #39506c;
+    --mpaz-shadow: 0 12px 38px rgba(0,0,0,.26);
+    --azul: #58b5da;
+    --azul-oscuro: #e8f3ff;
+    --azul-hover: #3597c3;
+    --fondo: #0e1c30;
+    --blanco: #172940;
+    --texto: #e8f3ff;
+    --texto-secundario: #b4c7dc;
+    --borde: #39506c;
+    color-scheme:dark;
+}
+html[data-mpaz-tema="oscuro"] body {background:var(--mpaz-page);color:var(--mpaz-text);}
+html[data-mpaz-tema="oscuro"] .mpaz-sello,
+html[data-mpaz-tema="oscuro"] .mpaz-marca {background:#102b59;color:#fff;}
+html[data-mpaz-tema="oscuro"] .mpaz-portales-hero,
+html[data-mpaz-tema="oscuro"] .mpaz-bienvenida,
+html[data-mpaz-tema="oscuro"] .pagina-panel .bienvenida-panel {background:linear-gradient(115deg,#08182e,#113560 76%,#114b66);}
+html[data-mpaz-tema="oscuro"] .mpaz-portal-tarjeta,
+html[data-mpaz-tema="oscuro"] .mpaz-portales-cabecera,
+html[data-mpaz-tema="oscuro"] .mpaz-barra,
+html[data-mpaz-tema="oscuro"] .encabezado,
+html[data-mpaz-tema="oscuro"] .panel-lecturas,
+html[data-mpaz-tema="oscuro"] .tarjeta-resumen,
+html[data-mpaz-tema="oscuro"] .panel-administracion,
+html[data-mpaz-tema="oscuro"] .resultado-estudiante,
+html[data-mpaz-tema="oscuro"] .dato-resumen,
+html[data-mpaz-tema="oscuro"] .cabecera-panel,
+html[data-mpaz-tema="oscuro"] .bienvenida-panel:not(.mpaz-bienvenida),
+html[data-mpaz-tema="oscuro"] .seccion-asignaciones,
+html[data-mpaz-tema="oscuro"] .seccion-estudiantes,
+html[data-mpaz-tema="oscuro"] .seccion-asistencia,
+html[data-mpaz-tema="oscuro"] .informacion-panel,
+html[data-mpaz-tema="oscuro"] .tarjeta-login,
+html[data-mpaz-tema="oscuro"] .tarjeta-asignacion,
+html[data-mpaz-tema="oscuro"] .mpaz-formulario-plegable {background:var(--mpaz-surface);color:var(--mpaz-text);border-color:var(--mpaz-line);}
+html[data-mpaz-tema="oscuro"] .mpaz-accesos a {background:#203b56;border-color:var(--mpaz-line);}
+html[data-mpaz-tema="oscuro"] .mpaz-accesos a:hover {background:#2b5067;}
+html[data-mpaz-tema="oscuro"] .mpaz-accesos a strong,
+html[data-mpaz-tema="oscuro"] .mpaz-accesos a small,
+html[data-mpaz-tema="oscuro"] .mpaz-barra-identidad strong,
+html[data-mpaz-tema="oscuro"] .mpaz-barra-identidad small {color:var(--mpaz-text);}
+html[data-mpaz-tema="oscuro"] #mpaz-volver-panel {color:#e8f3ff;background:#24415e;}
+html[data-mpaz-tema="oscuro"] #mpaz-acciones-admin .boton-volver-inicio,
+html[data-mpaz-tema="oscuro"] .cabecera-panel .boton-volver-inicio {background:#24415e !important;color:#e8f3ff !important;}
+html[data-mpaz-tema="oscuro"] .mpaz-portal-tarjeta h3,
+html[data-mpaz-tema="oscuro"] .mpaz-portales-titulos h2,
+html[data-mpaz-tema="oscuro"] .mpaz-preferencias h2,
+html[data-mpaz-tema="oscuro"] .tarjeta-resumen strong,
+html[data-mpaz-tema="oscuro"] .panel-lecturas h2,
+html[data-mpaz-tema="oscuro"] .bienvenida-panel h2:not(.mpaz-etiqueta),
+html[data-mpaz-tema="oscuro"] .titulo-seccion h2,
+html[data-mpaz-tema="oscuro"] .informacion-sistema h1 {color:var(--mpaz-text);}
+html[data-mpaz-tema="oscuro"] .mpaz-portales .mpaz-etiqueta {color:#f3cf80;}
+html[data-mpaz-tema="oscuro"] .mpaz-portal-boton {color:#102b59;background:var(--mpaz-brand-gold);}
+html[data-mpaz-tema="oscuro"] .mpaz-portal-boton:hover {background:#f3c85f;}
+html[data-mpaz-tema="oscuro"] input:not([type="checkbox"]),
+html[data-mpaz-tema="oscuro"] select,
+html[data-mpaz-tema="oscuro"] textarea {background:#0f2239;color:#e9f4ff;border-color:#536a85;}
+html[data-mpaz-tema="oscuro"] .mpaz-preferencias button.mpaz-restablecer {background:#223f5b;color:#e8f3ff;border-color:#536a85;}
+html[data-mpaz-tema="oscuro"] .mpaz-preferencias button.mpaz-restablecer:hover {background:#294d69;}
+html[data-mpaz-tema="oscuro"] .tabla-lecturas th,
+html[data-mpaz-tema="oscuro"] .tabla-lecturas td {background:#192f48;color:#e8f3ff;border-color:#36546d;}
+html[data-mpaz-tema="oscuro"] .mpaz-login-admin main {background:var(--mpaz-surface);}
+
+/* ================================================================
+   RESPONSIVIDAD Y ACCESIBILIDAD
+   ================================================================ */
+@media (max-width:930px) {
+    .mpaz-portales-hero {grid-template-columns:1fr;}
+    .mpaz-portales-grafico {display:none;}
+    .mpaz-portales-herramientas .mpaz-encabezado-distintivo {display:none;}
+    .mpaz-barra {align-items:flex-start;}
+}
+@media (max-width:650px) {
+    .mpaz-portales-cabecera {padding:13px 17px;}
+    .mpaz-portales-principal {padding:20px 14px 34px;}
+    .mpaz-portales-hero {min-height:auto;padding:30px 23px;border-radius:16px;}
+    .mpaz-portales-presentacion h1 {font-size:34px;}
+    .mpaz-portales-presentacion p {font-size:14px;}
+    .mpaz-portal-accesos {padding-top:30px;}
+    .mpaz-portal-tarjetas {grid-template-columns:1fr;gap:15px;}
+    .mpaz-portal-tarjeta {padding:23px;}
+    .mpaz-portales-pie {padding:19px;font-size:11px;}
+    .mpaz-portales-herramientas .mpaz-tema-rapido span {display:none;}
+    .mpaz-barra-navegacion {justify-content:flex-start;}
+    .mpaz-docente-marca {width:100%;}
+    .cabecera-panel .acciones-cabecera {width:100%;justify-content:flex-start;}
+    .menu-configuracion .contenido-configuracion.mpaz-preferencias {width:min(300px,calc(100vw - 26px));}
+}
+@media (prefers-reduced-motion:reduce) {
+    html {scroll-behavior:auto;}
+    .mpaz-portal-tarjeta, .mpaz-boton-hero {transition:none;}
+}
+
+/* Nueve accesos, distribuidos en una grilla equilibrada en escritorio. */
+@media (min-width:951px) {
+    .mpaz-accesos {grid-template-columns:repeat(3,minmax(0,1fr));}
+}
+
+/* Escudo oficial presente en todas las cabeceras y accesos. */
+img.mpaz-escudo, img.mpaz-escudo-grafico {
+    display:block; flex-shrink:0; object-fit:contain;
+    border:0; border-radius:50%; background:transparent; box-shadow:none; padding:0;
+}
+img.mpaz-marca.mpaz-escudo {width:48px;height:48px;}
+img.mpaz-sello.mpaz-escudo {width:49px;height:49px;}
+.mpaz-login-admin img.mpaz-sello.mpaz-escudo {width:64px;height:64px;}
+.identidad img.identidad-icono.mpaz-escudo {width:75px;height:75px;border:0;border-radius:50%;background:transparent;object-fit:contain;}
+img.mpaz-grafico-sello.mpaz-escudo-grafico {width:82px;height:82px;margin:17px 0 8px;}
+
+
+/* MPAZ-MOVIL-OSCURO-738 */
+
+/* Diseño adaptable a celulares */
+@media (max-width: 650px) {
+
+    .mpaz-barra {
+        width: 100%;
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .mpaz-barra-identidad {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .mpaz-barra-identidad > div {
+        min-width: 0;
+    }
+
+    .mpaz-barra-identidad strong,
+    .mpaz-barra-identidad small {
+        overflow-wrap: anywhere;
+    }
+
+    .mpaz-barra-navegacion {
+        width: 100%;
+        min-width: 0;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #mpaz-acciones-admin {
+        width: 100%;
+        min-width: 0;
+    }
+
+    #mpaz-acciones-admin .acciones-cabecera {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        min-width: 0;
+        gap: 8px;
+    }
+
+    #mpaz-acciones-admin .boton-volver-inicio {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    /* Configuracion dentro de la pantalla */
+    .menu-configuracion
+    .contenido-configuracion.mpaz-preferencias {
+        position: fixed;
+        top: 72px;
+        right: 12px;
+        left: auto;
+        width: min(320px, calc(100vw - 24px));
+        max-width: calc(100vw - 24px);
+        max-height: calc(100vh - 84px);
+        max-height: calc(100dvh - 84px);
+        overflow-y: auto;
+        z-index: 2000;
+    }
+
+    /* Dos columnas para las tarjetas del tablero */
+    .mpaz-accesos {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+        gap: 9px;
+    }
+
+    .mpaz-accesos a {
+        min-width: 0;
+        min-height: 103px;
+        padding: 11px;
+        gap: 5px;
+        overflow-wrap: anywhere;
+    }
+
+    .mpaz-accesos a span {
+        font-size: 20px;
+    }
+
+    .mpaz-accesos a strong {
+        font-size: clamp(11px, 3.4vw, 14px);
+        line-height: 1.3;
+    }
+
+    .mpaz-accesos a small {
+        font-size: 11px;
+        line-height: 1.3;
+    }
+
+    .mpaz-accesos a:last-child {
+        grid-column: 1 / -1;
+    }
+
+    /* Formulario de estudiantes en una columna */
+    #mpaz-formulario-plegable > summary {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        line-height: 1.5;
+        font-size: 14px;
+        padding: 13px;
+    }
+
+    #mpaz-formulario-plegable > .panel-administracion {
+        margin: 0 9px 10px;
+    }
+
+    #formulario-estudiante {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 9px;
+    }
+
+    #formulario-estudiante > label,
+    #formulario-estudiante > input:not([type="hidden"]),
+    #formulario-estudiante > select {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    #formulario-estudiante .acciones-formulario {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 9px;
+        margin-top: 14px;
+    }
+
+    #formulario-estudiante .acciones-formulario button {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+/* Mejorar contraste del modo oscuro */
+html[data-mpaz-tema="oscuro"] .panel-lecturas,
+html[data-mpaz-tema="oscuro"] .panel-administracion,
+html[data-mpaz-tema="oscuro"] .mpaz-sesion-tarjeta,
+html[data-mpaz-tema="oscuro"] .resumen-asistencia p,
+html[data-mpaz-tema="oscuro"] .fila-asistencia-estudiante,
+html[data-mpaz-tema="oscuro"] .fila-solo-lectura {
+    background: #1c304b;
+    color: #f1f7ff;
+    border-color: #48617c;
+}
+
+html[data-mpaz-tema="oscuro"] .resumen-asistencia strong,
+html[data-mpaz-tema="oscuro"] .nombre-estudiante-asistencia,
+html[data-mpaz-tema="oscuro"] .mpaz-sesion-tarjeta strong {
+    color: #ffffff;
+}
+
+html[data-mpaz-tema="oscuro"] .seleccion-estudiante-fila:hover,
+html[data-mpaz-tema="oscuro"]
+.fila-asistencia-estudiante.fila-seleccionada,
+html[data-mpaz-tema="oscuro"]
+.fila-seleccionada .seleccion-estudiante-fila:hover {
+    background: #28476a;
+}
+
+html[data-mpaz-tema="oscuro"]
+#detalle-sesion-clase[data-estado="confirmada"]
+#estado-sesion-clase {
+    background: #123c33;
+    color: #dcffe9;
+    border-color: #34a474;
+}
+
+html[data-mpaz-tema="oscuro"]
+#detalle-sesion-clase[data-estado="borrador"]
+#estado-sesion-clase {
+    background: #403317;
+    color: #fff3c2;
+    border-color: #d4a42d;
+}
+
+html[data-mpaz-tema="oscuro"]
+.mpaz-sesion-tarjeta button.mpaz-sesion-boton {
+    color: #112942;
+    background: #a6ddf4;
+}
+
+
+/* MPAZ-CONTRASTE-LOGIN-739 */
+
+/* Boton administrativo legible en modo oscuro */
+html[data-mpaz-tema="oscuro"]
+.mpaz-login-admin form button {
+    background: #75c9ee !important;
+    color: #0b2038 !important;
+    font-weight: 700;
+}
+
+html[data-mpaz-tema="oscuro"]
+.mpaz-login-admin form button:hover {
+    background: #a3e3ff !important;
+    color: #0b2038 !important;
+}
+
+html[data-mpaz-tema="oscuro"]
+.mpaz-login-admin a.enlace-volver-inicio {
+    color: #89dfff !important;
+}
+
+html[data-mpaz-tema="oscuro"]
+.mpaz-login-admin a.enlace-volver-inicio:hover {
+    color: #ffffff !important;
+}
+
+/* Contraste del boton en el login docente */
+html[data-mpaz-tema="oscuro"]
+.pagina-login .boton-principal {
+    background: #75c9ee !important;
+    color: #0b2038 !important;
+    font-weight: 700;
+}
+
+html[data-mpaz-tema="oscuro"]
+.pagina-login .boton-principal:hover {
+    background: #a3e3ff !important;
+    color: #0b2038 !important;
+}
+
+
+/* MPAZ-INDICADORES-MOVILES-741 */
+
+/* Mejor contraste de estadísticas en modo oscuro */
+html[data-mpaz-tema="oscuro"]
+.tarjeta-resumen {
+    background: #1c304b;
+    border-color: #48617c;
+}
+
+html[data-mpaz-tema="oscuro"]
+.tarjeta-resumen .nombre-indicador {
+    color: #e6f1ff !important;
+    font-weight: 600;
+}
+
+html[data-mpaz-tema="oscuro"]
+.tarjeta-resumen .detalle-indicador {
+    color: #c2d8ef !important;
+}
+
+html[data-mpaz-tema="oscuro"]
+.tarjeta-resumen .numero-indicador {
+    color: #ffffff !important;
+}
+
+/* Cuatro indicadores en una cuadrícula 2x2 */
+@media (max-width: 650px) {
+
+    .contenido {
+        gap: 10px;
+    }
+
+    .contenido > .tarjeta-resumen {
+        flex: 0 0 calc(50% - 5px) !important;
+        width: calc(50% - 5px) !important;
+        min-width: 0;
+        padding: 14px 11px;
+        border-radius: 12px;
+    }
+
+    .contenido > .tarjeta-resumen
+    .nombre-indicador {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .contenido > .tarjeta-resumen
+    .numero-indicador {
+        font-size: 27px;
+        margin-top: 8px;
+    }
+
+    .contenido > .tarjeta-resumen
+    .detalle-indicador {
+        font-size: 11px;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+    }
+}
+
+
+/* MPAZ-UX-748: Analisis legible en modo oscuro */
+html[data-mpaz-tema="oscuro"] #analisis .tarjeta-analisis {
+    background: #203954;
+    color: #edf6ff;
+    box-shadow: 0 3px 12px rgba(0,0,0,.18);
+}
+html[data-mpaz-tema="oscuro"] #analisis .tarjeta-analisis h3,
+html[data-mpaz-tema="oscuro"] #analisis .tarjeta-analisis p,
+html[data-mpaz-tema="oscuro"] #analisis .tarjeta-analisis strong {
+    color: #edf6ff;
+}
+html[data-mpaz-tema="oscuro"] #analisis .dato-resumen-titulo {
+    color: #d7e6f8;
+}
+html[data-mpaz-tema="oscuro"] #analisis .dato-resumen strong {
+    color: #ffffff;
+}
+
+/* Nuevas preferencias de accesibilidad */
+html[data-mpaz-lectura="ampliada"] body {
+    font-size: 18px;
+}
+html[data-mpaz-lectura="ampliada"] .mpaz-preferencias small,
+html[data-mpaz-lectura="ampliada"] .mpaz-accesos a small {
+    font-size: 13px;
+}
+html[data-mpaz-lectura="ampliada"] .tarjeta-analisis h3 {
+    font-size: 19px;
+}
+html[data-mpaz-lectura="ampliada"] .tarjeta-analisis p {
+    font-size: 17px;
+}
+html[data-mpaz-movimiento="reducido"],
+html[data-mpaz-movimiento="reducido"] *,
+html[data-mpaz-movimiento="reducido"] *::before,
+html[data-mpaz-movimiento="reducido"] *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+}

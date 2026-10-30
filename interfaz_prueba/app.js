@@ -1,3 +1,110 @@
+// MPAZ-CSRF-687
+// Incorporar token CSRF solo a las escrituras administrativas.
+// No modifica /lectura, login, logout ni el calendario.
+
+(() => {
+    "use strict";
+
+    const fetchOriginal = window.fetch.bind(window);
+
+    const rutasProtegidas = new Set([
+        "/panel/totems/registrar",
+        "/panel/totems/estado",
+        "/panel/alumnos/registrar",
+        "/panel/alumnos/editar",
+        "/panel/alumnos/estado",
+        "/panel/tarjetas/registrar",
+        "/panel/tarjetas/vincular",
+        "/panel/tarjetas/extraviada",
+        "/panel/tarjetas/asignar",
+        "/panel/tarjetas/bloquear",
+        "/panel/tarjetas/desbloquear"
+    ]);
+
+    let solicitudToken = null;
+
+    async function obtenerTokenAdministrativo() {
+        if (!solicitudToken) {
+            solicitudToken = (async () => {
+                const respuesta = await fetchOriginal(
+                    "/panel/csrf-token",
+                    {
+                        credentials: "same-origin",
+                        cache: "no-store"
+                    }
+                );
+
+                if (!respuesta.ok) {
+                    throw new Error(
+                        "No se pudo verificar la sesión administrativa."
+                    );
+                }
+
+                const datos = await respuesta.json();
+
+                if (
+                    typeof datos.csrf_token !== "string" ||
+                    !datos.csrf_token
+                ) {
+                    throw new Error(
+                        "Token de seguridad administrativo inválido."
+                    );
+                }
+
+                return datos.csrf_token;
+            })();
+        }
+
+        try {
+            return await solicitudToken;
+        } catch (error) {
+            solicitudToken = null;
+            throw error;
+        }
+    }
+
+    window.fetch = async function(recurso, opciones) {
+        const configuracion = opciones || {};
+
+        const metodo = String(
+            configuracion.method ||
+            (recurso instanceof Request ? recurso.method : "GET")
+        ).toUpperCase();
+
+        if (metodo !== "POST") {
+            return fetchOriginal(recurso, opciones);
+        }
+
+        const destino = recurso instanceof Request
+            ? recurso.url
+            : String(recurso);
+
+        const url = new URL(destino, window.location.href);
+
+        if (
+            url.origin !== window.location.origin ||
+            !rutasProtegidas.has(url.pathname)
+        ) {
+            return fetchOriginal(recurso, opciones);
+        }
+
+        const token = await obtenerTokenAdministrativo();
+
+        const encabezados = new Headers(
+            configuracion.headers ||
+            (recurso instanceof Request ? recurso.headers : undefined)
+        );
+
+        encabezados.set("X-CSRF-Token", token);
+
+        return fetchOriginal(recurso, {
+            ...configuracion,
+            credentials: "same-origin",
+            headers: encabezados
+        });
+    };
+})();
+
 
 
 
@@ -205,6 +312,10 @@ const cursos = [
 
     totalTarjetasActivas.textContent =
         tarjetasActivas;
+
+    if (typeof window.actualizarDirectorioMPAZ === "function") {
+        await window.actualizarDirectorioMPAZ();
+    }
 }
 
 
@@ -292,76 +403,6 @@ totalAsistenciasHoy.textContent =
 
 cargarAsistencias();
 
-function obtenerEstadoInasistencia(cantidad, periodo) {
-
-    if (periodo === "diario") {
-
-        if (cantidad >= 1) {
-            return {
-                texto: "Inasistente",
-                clase: "inasistencias-rojo",
-                alerta: true
-            };
-        }
-
-        return {
-            texto: "Normal",
-            clase: "inasistencias-verde",
-            alerta: false
-        };
-    }
-
-
-    if (periodo === "semanal") {
-
-        if (cantidad >= 3) {
-            return {
-                texto: "Alerta",
-                clase: "inasistencias-rojo",
-                alerta: true
-            };
-        }
-
-        if (cantidad >= 1) {
-            return {
-                texto: "Observación",
-                clase: "inasistencias-amarillo",
-                alerta: false
-            };
-        }
-
-        return {
-            texto: "Normal",
-            clase: "inasistencias-verde",
-            alerta: false
-        };
-    }
-
-
-    if (cantidad >= 13) {
-        return {
-            texto: "Crítico",
-            clase: "inasistencias-rojo",
-            alerta: true
-        };
-    }
-
-    if (cantidad >= 6) {
-        return {
-            texto: "Alerta",
-            clase: "inasistencias-amarillo",
-            alerta: true
-        };
-    }
-
-    return {
-        texto: "Normal",
-        clase: "inasistencias-verde",
-        alerta: false
-    };
-}
-
-
 function obtenerFechaActual() {
 
     const ahora = new Date();
@@ -413,13 +454,11 @@ fechaAtrasos.value =
     obtenerFechaActual();
 
 
+
 async function cargarInasistencias() {
 
-    const periodo =
-        periodoInasistencias.value;
-
-    const fecha =
-        fechaInasistencias.value;
+    const periodo = periodoInasistencias.value;
+    const fecha = fechaInasistencias.value;
 
     let url =
         `/inasistencias?periodo=${encodeURIComponent(periodo)}`;
@@ -428,66 +467,41 @@ async function cargarInasistencias() {
         url += `&fecha=${encodeURIComponent(fecha)}`;
     }
 
-    const respuesta = await fetch(url);
+    try {
+        const respuesta = await fetch(url, {
+            credentials: "same-origin",
+            cache: "no-store"
+        });
 
-    if (!respuesta.ok) {
-        console.error(
-            "No se pudieron cargar las inasistencias"
-        );
-        return;
-    }
-
-    const datos = await respuesta.json();
-
-    tablaInasistencias.innerHTML = "";
-
-    let cantidadAlertas = 0;
-
-    let jornadasPeriodo = 0;
-
-    if (datos.inasistencias.length > 0) {
-        jornadasPeriodo =
-            datos.inasistencias[0].jornadas_periodo;
-    }
-
-    datos.inasistencias.forEach(function (alumno) {
-
-        const cantidad =
-            alumno.inasistencias;
-
-        const estado =
-            obtenerEstadoInasistencia(
-                cantidad,
-                periodo
-            );
-
-        if (estado.alerta) {
-            cantidadAlertas++;
+        if (!respuesta.ok) {
+            throw new Error("HTTP " + respuesta.status);
         }
 
-        const fila =
-            document.createElement("tr");
+        const datos = await respuesta.json();
 
-        fila.innerHTML = `
-            <td>${alumno.nombre}</td>
-            <td>${alumno.curso}</td>
-            <td>${cantidad}</td>
-            <td>${alumno.jornadas_periodo}</td>
-            <td>
-                <span class="${estado.clase}">
-                    ${estado.texto}
-                </span>
-            </td>
-        `;
+        if (
+            typeof window.mpazRenderInasistencias
+            !== "function"
+        ) {
+            resumenInasistencias.textContent =
+                "Vista de revisión no disponible.";
+            tablaInasistencias.replaceChildren();
+            return;
+        }
 
-        tablaInasistencias.appendChild(fila);
-    });
+        window.mpazRenderInasistencias(datos);
 
-    resumenInasistencias.textContent =
-        `Jornadas consideradas: ${jornadasPeriodo}`;
+    } catch (error) {
+        console.error(
+            "Error consultando marcaciones:",
+            error
+        );
 
-    totalAlertasInasistencia.textContent =
-        cantidadAlertas;
+        resumenInasistencias.textContent =
+            "No fue posible consultar los registros.";
+
+        tablaInasistencias.replaceChildren();
+    }
 }
 
 
@@ -876,6 +890,10 @@ async function cargarTarjetas() {
             </tr>
         `;
 
+        if (typeof window.actualizarInventarioMPAZ === "function") {
+            window.actualizarInventarioMPAZ([]);
+        }
+
         return;
     }
 
@@ -958,6 +976,10 @@ async function cargarTarjetas() {
 
         tablaTarjetas.appendChild(fila);
     });
+
+    if (typeof window.actualizarInventarioMPAZ === "function") {
+        window.actualizarInventarioMPAZ(datos.tarjetas);
+    }
 }
 async function cargarOpcionesVinculacion() {
 
@@ -1570,7 +1592,7 @@ function mostrarFichaEstudiante(alumnoSeleccionado) {
                 type="button"
                 class="boton-volver-resultados"
             >
-                Volver a resultados
+                Volver al directorio
             </button>        
 
          </div>
@@ -1648,9 +1670,10 @@ resultadoEstudiante.addEventListener("click", async function (evento) {
         "Editando estudiante seleccionado.";
 
     document
-        .getElementById("estudiantes")
+        .getElementById("mpaz-formulario-plegable")
         .scrollIntoView({
-            behavior: "smooth"
+            behavior: "smooth",
+            block: "start"
         });
 
     return;}
@@ -1782,32 +1805,17 @@ resultadoEstudiante.addEventListener("click", async function (evento) {
 }
     if (evento.target.classList.contains("boton-volver-resultados")) {
 
-        const listaResultados = alumnosEncontrados.map(function (alumno) {
+        // MPAZ-FICHA-642
+        resultadoEstudiante.hidden = true;
 
-            return `
-                <div>
-                    <p>
-                        <strong>${alumno.nombre}</strong>
-                        - ${alumno.curso}
-                    </p>
-
-                    <button
-                        type="button"
-                        class="boton-ver-alumno"
-                        data-id="${alumno.id}"
-                    >
-                        Ver ficha
-                    </button>
-                </div>
-            `;
-
-        }).join("");
-
-        resultadoEstudiante.innerHTML = listaResultados;
+        document.getElementById("directorio-general")
+            .scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
 
         return;
     }
-
 
         if (evento.target.classList.contains("boton-desbloquear-tarjeta-real")) {
 
