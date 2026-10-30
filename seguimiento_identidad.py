@@ -19,7 +19,7 @@ def crear_operador(nombre, usuario, contrasena, rol):
 
     if (not 5 <= len(nombre) <= 100
         or not re.fullmatch(r"[a-z0-9._-]{4,40}", usuario)
-        or not 12 <= len(contrasena) <= 128
+        or not 9 <= len(contrasena) <= 128
         or rol not in ROLES):
         return {"resultado": "datos_invalidos"}
 
