@@ -7,7 +7,8 @@
 
     <title>Panel Docente | MPAZ RFID</title>
 
-    <link rel="stylesheet" href="/profesor/profesor.css">
+    <link rel="stylesheet" href="/profesor/profesor.css?v=2">
+    <link rel="stylesheet" href="/identidad-mpaz.css?v=2">
 </head>
 
 <body class="pagina-panel">
@@ -16,7 +17,9 @@
 
         <header class="cabecera-panel">
 
-            <div class="informacion-sistema">
+            <div class="mpaz-docente-marca">
+                <img class="mpaz-sello mpaz-escudo" src="/escudo-mpaz.webp" width="49" height="49" alt="Escudo de la escuela">
+                <div class="informacion-sistema">
                 <p class="nombre-escuela">
                     Escuela Escritora Marcela Paz
                 </p>
@@ -26,6 +29,7 @@
                 <p class="subtitulo-login">
                     Sistema MPAZ RFID
                 </p>
+            </div>
             </div>
 
             <div class="acciones-cabecera">
@@ -40,22 +44,21 @@
                 ← Volver al inicio
             </a>
 <details class="menu-configuracion">
-    <summary
-        aria-label="Abrir configuración"
-        title="Configuración"
-    >⚙</summary>
-
-    <div class="contenido-configuracion">
-        <h2>Configuración</h2>
-
-        <p>
-            Sistema de Asistencia Escolar MPAZ RFID.
-            Escuela Escritora Marcela Paz.
-        </p>
-
-        <a href="/inicio.html">
-            Seleccionar portal
-        </a>
+    <summary aria-label="Abrir preferencias de visualización" title="Preferencias de visualización">⚙</summary>
+    <div class="contenido-configuracion mpaz-preferencias">
+        <h2>Preferencias</h2>
+        <p class="mpaz-config-ayuda">Personaliza la apariencia de este dispositivo.</p>
+        <label class="mpaz-ajuste">
+            <span><strong>Tema oscuro</strong><small>Usar colores de alto contraste</small></span>
+            <input type="checkbox" data-mpaz-ajuste="oscuro">
+        </label>
+        <label class="mpaz-ajuste">
+            <span><strong>Vista compacta</strong><small>Reducir espacios entre elementos</small></span>
+            <input type="checkbox" data-mpaz-ajuste="compacto">
+        </label>
+        <button type="button" class="mpaz-restablecer" data-mpaz-restablecer>Restablecer vista</button>
+        <p class="mpaz-ajustes-estado" role="status" aria-live="polite"></p>
+        <a href="/inicio.html" class="mpaz-enlace-portales">Ir a selección de portales ↗</a>
     </div>
 </details>
 <button
@@ -73,6 +76,7 @@
 
             <section class="bienvenida-panel">
 
+                <span class="mpaz-etiqueta">ESPACIO DOCENTE</span>
                 <h2>Bienvenido/a</h2>
 
                 <p id="nombre-profesor">
@@ -548,6 +552,7 @@
 
     </div>
 
+    <script src="/identidad-mpaz.js?v=2"></script>
     <script src="/profesor/profesor.js"></script>
 
 </body>
