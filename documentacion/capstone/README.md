@@ -27,3 +27,8 @@ Disponibles los borradores Word 2.1 y 2.4, dos materiales de apoyo 2.2 y los dia
 ## Actualización de evidencias 2.4
 
 [Nueva guía 2.4 y seis imágenes técnicas](Fase_2/Evidencias_Proyecto/README_EVIDENCIAS_2.4.md) disponibles con respaldo de SQLite, comunicación ESP32–servidor y prevención de evento repetido. Pendientes de revisión docente; no se certifica piloto, exportación ni implementación completa. El Word anterior se conserva como borrador.
+
+
+## Organización Duoc UC — 04-11-2026
+
+[Fase 3](Fase_3/README.md) incorporada con pendientes; [Fichas de Iteración 01–06](Fase_2/Evidencias_Proyecto/Fichas_de_Iteracion/README.md) como índice de referencia. [Informe de conformidad y pendientes](INFORME_CONFORMIDAD_DUOC_2026-11-04.md). Sección 003D; grupo y nombre académico por confirmar.

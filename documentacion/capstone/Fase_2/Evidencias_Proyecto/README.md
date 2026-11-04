@@ -28,3 +28,8 @@ Los cuatro archivos originales están subidos con sus nombres conservados:
 La [Ficha 05 anterior](https://github.com/SammyCoffee/Sistema_asistencia_MPAZ/blob/capstone/organizacion-evidencias/documentacion/capstone/Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Ficha_Avance_05_MPAZ_RFID_003D_PARA_REVISION.docx) se conserva sin cambios como **borrador histórico**. El Word actualizado es la versión preparada para entrega; revisión y aprobación docente pendientes. Las capturas respaldan sesiones del panel docente, registro parcial 2 de 5 y sesión confirmada. No acreditan por sí solas login, persistencia tras recarga, exportación, piloto ni integración física completa.
 
 El TXT original de terminal y su informe técnico se conservan en sus rutas existentes, sin duplicarlos. Se mantiene la distinción entre simulación API/SQLite y validación física ESP32/PN532; no se recalcula el porcentaje histórico de la Ficha 04.
+
+
+## Índice actualizado — 04-11-2026
+
+[Fichas de Iteración](Fichas_de_Iteracion/README.md): copias 02–05 conservando originales y borrador 05; Word 06 y anexo Excel disponibles. Ficha 01 pendiente de ubicar. Anexos técnicos 05 conservados en sus rutas, sin duplicación.

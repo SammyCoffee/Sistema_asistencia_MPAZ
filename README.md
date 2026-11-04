@@ -15,3 +15,8 @@ Proyecto Capstone APT122 de Ingeniería en Informática, Duoc UC. Plataforma par
 - [Instrucciones de instalación](README_INSTALACION.md)
 
 > Los datos personales del alumnado, claves, tokens y respaldos reales de bases de datos no deben compartirse en repositorios públicos. Usar datos ficticios o anonimizados para las evidencias.
+
+
+## Evidencias Capstone — sección 003D
+
+[Índice de fichas 01–06](documentacion/capstone/Fase_2/Evidencias_Proyecto/Fichas_de_Iteracion/README.md) · [Conformidad Duoc y pendientes](documentacion/capstone/INFORME_CONFORMIDAD_DUOC_2026-11-04.md).
