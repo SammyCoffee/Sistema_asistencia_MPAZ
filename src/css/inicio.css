@@ -1,0 +1,693 @@
+/* ==========================================================================
+   ESTILO INSTITUCIONAL OFICIAL PULIDO
+   ESCUELA ESCRITORA MARCELA PAZ
+   ========================================================================== */
+
+:root {
+  --ref-blue-dark: #07192f;
+  --ref-blue-primary: #0e2a4a;
+  --ref-blue-light: #183b65;
+  --ref-yellow: #f59e0b;
+  --ref-yellow-hover: #d97706;
+  --ref-bg: #f8fafc;
+  --ref-surface: #ffffff;
+  --ref-text: #1e293b;
+  --ref-text-muted: #64748b;
+  --ref-border: #e2e8f0;
+}
+
+/* BASE */
+
+.mpaz-portal-ref {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--ref-bg);
+  color: var(--ref-text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+.mpaz-portal-ref.oscuro {
+  --ref-bg: #090d16;
+  --ref-surface: #111827;
+  --ref-text: #f8fafc;
+  --ref-text-muted: #94a3b8;
+  --ref-border: #1f2937;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.mpaz-ref-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* 1. TOPBAR */
+
+.mpaz-ref-topbar {
+  background-color: var(--ref-blue-dark);
+  color: #cbd5e1;
+  font-size: 0.78rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mpaz-ref-topbar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.mpaz-ref-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.mpaz-ref-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mpaz-ref-theme-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #ffffff;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.mpaz-ref-portal-link {
+  color: var(--ref-yellow);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* 2. NAVBAR */
+
+.mpaz-ref-navbar {
+  background-color: var(--ref-surface);
+  border-bottom: 1px solid var(--ref-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+.mpaz-ref-navbar-inner {
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.mpaz-ref-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: var(--ref-text);
+  flex-shrink: 0;
+}
+
+.mpaz-ref-escudo {
+  border-radius: 8px;
+  object-fit: contain;
+  background: var(--ref-surface);
+}
+
+.mpaz-ref-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.mpaz-ref-brand-sub {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ref-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mpaz-ref-brand-text strong {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--ref-blue-primary);
+}
+
+.oscuro .mpaz-ref-brand-text strong {
+  color: #60a5fa;
+}
+
+.mpaz-ref-nav-links {
+  display: none;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 900px) {
+  .mpaz-ref-nav-links {
+    display: flex;
+  }
+}
+
+.mpaz-ref-nav-links a,
+.mpaz-ref-nav-links span {
+  text-decoration: none;
+  color: var(--ref-text);
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: color 0.15s;
+}
+
+.mpaz-ref-nav-links a:hover,
+.mpaz-ref-nav-links a.activo {
+  color: var(--ref-yellow);
+}
+
+/* 3. HERO */
+
+.mpaz-ref-hero {
+  position: relative;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--ref-blue-primary);
+}
+
+.mpaz-ref-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.mpaz-ref-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7);
+}
+
+.mpaz-ref-hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(14, 42, 74, 0.92) 0%,
+    rgba(14, 42, 74, 0.75) 50%,
+    rgba(14, 42, 74, 0.4) 100%
+  );
+}
+
+.mpaz-ref-hero-content {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  padding: 4rem 1.5rem;
+  max-width: 700px;
+  margin-left: max(1.5rem, calc((100vw - 1200px) / 2));
+}
+
+.mpaz-ref-hero-kicker {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--ref-yellow);
+  margin-bottom: 1rem;
+}
+
+.mpaz-ref-hero-content h1 {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+
+.mpaz-ref-hero-content h1 span {
+  color: var(--ref-yellow);
+}
+
+.mpaz-ref-hero-content p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #e2e8f0;
+  margin-bottom: 2rem;
+}
+
+.mpaz-ref-hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.mpaz-ref-btn-yellow {
+  background-color: var(--ref-yellow);
+  color: #000000;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.15s;
+}
+
+.mpaz-ref-btn-yellow:hover {
+  background-color: var(--ref-yellow-hover);
+}
+
+.mpaz-ref-btn-outline-white {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: background 0.15s;
+}
+
+.mpaz-ref-btn-outline-white:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* 4. ACCESOS RAPIDOS */
+
+.mpaz-ref-quick-bar {
+  background-color: var(--ref-surface);
+  border-bottom: 1px solid var(--ref-border);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  position: relative;
+  z-index: 10;
+}
+
+.mpaz-ref-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.mpaz-ref-quick-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  text-decoration: none;
+  color: var(--ref-text);
+  font-weight: 700;
+  font-size: 0.92rem;
+  border-right: 1px solid var(--ref-border);
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.mpaz-ref-quick-item:hover {
+  background-color: rgba(245, 158, 11, 0.08);
+  color: var(--ref-yellow);
+}
+
+.mpaz-ref-quick-item .arrow {
+  color: var(--ref-text-muted);
+}
+
+/* 5. CONTENIDO PRINCIPAL */
+
+.mpaz-ref-main-content {
+  padding: 3.5rem 0;
+}
+
+.mpaz-ref-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 992px) {
+  .mpaz-ref-grid-layout {
+    grid-template-columns: 1fr 360px;
+  }
+}
+
+.mpaz-ref-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.75rem;
+}
+
+.mpaz-ref-section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.dot-yellow {
+  width: 10px;
+  height: 10px;
+  background-color: var(--ref-yellow);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.mpaz-ref-ver-todas {
+  color: var(--ref-blue-primary);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.oscuro .mpaz-ref-ver-todas {
+  color: #60a5fa;
+}
+
+/* NOTICIAS */
+
+.mpaz-ref-news-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .mpaz-ref-news-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.mpaz-ref-news-card {
+  background-color: var(--ref-surface);
+  border: 1px solid var(--ref-border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.mpaz-ref-news-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -12px rgba(7, 25, 47, 0.14);
+}
+
+.mpaz-ref-news-img {
+  position: relative;
+  height: 160px;
+}
+
+.mpaz-ref-news-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mpaz-ref-badge-libros {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: rgba(14, 42, 74, 0.85);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+}
+
+.mpaz-ref-news-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.mpaz-ref-date {
+  font-size: 0.75rem;
+  color: var(--ref-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.mpaz-ref-news-body h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.35;
+}
+
+.mpaz-ref-news-body p {
+  font-size: 0.86rem;
+  color: var(--ref-text-muted);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  flex: 1;
+}
+
+.mpaz-ref-leer-mas {
+  color: var(--ref-blue-primary);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.oscuro .mpaz-ref-leer-mas {
+  color: #60a5fa;
+}
+
+/* 6. SIDEBAR */
+
+.mpaz-ref-sidebar-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.mpaz-ref-school-card {
+  background-color: var(--ref-surface);
+  border: 1px solid var(--ref-border);
+  border-radius: 12px;
+  padding: 1.75rem;
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.mpaz-ref-school-card h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.mpaz-ref-school-card p {
+  font-size: 0.9rem;
+  color: var(--ref-text-muted);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.mpaz-ref-btn-yellow-outline {
+  display: block;
+  text-align: center;
+  background-color: rgba(245, 158, 11, 0.1);
+  color: var(--ref-yellow);
+  border: 1px solid var(--ref-yellow);
+  padding: 0.7rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: background-color 0.15s;
+}
+
+.mpaz-ref-btn-yellow-outline:hover {
+  background-color: var(--ref-yellow);
+  color: #000000;
+}
+
+/* SERVICIOS */
+
+.mpaz-ref-services-box {
+  background-color: var(--ref-surface);
+  border: 1px solid var(--ref-border);
+  border-radius: 12px;
+  padding: 1.75rem;
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.mpaz-ref-services-box h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.mpaz-ref-services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.mpaz-ref-service-item {
+  background-color: var(--ref-bg);
+  border: 1px solid var(--ref-border);
+  border-radius: 10px;
+  padding: 1.15rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  color: var(--ref-text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.mpaz-ref-service-item:hover {
+  border-color: var(--ref-yellow);
+  transform: translateY(-2px);
+}
+
+.mpaz-ref-service-item .icon {
+  font-size: 1.6rem;
+}
+
+.mpaz-ref-service-item span {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* 7. FOOTER */
+
+.mpaz-ref-footer {
+  background-color: var(--ref-blue-dark);
+  color: #ffffff;
+  margin-top: auto;
+  padding-top: 3rem;
+}
+
+.mpaz-ref-footer-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.mpaz-ref-footer h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.mpaz-ref-footer p {
+  color: #94a3b8;
+  font-size: 0.88rem;
+}
+
+.mpaz-ref-footer .links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.mpaz-ref-footer .links a,
+.mpaz-ref-footer .links span {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.88rem;
+}
+
+.mpaz-ref-footer .links a:hover {
+  color: var(--ref-yellow);
+}
+
+.mpaz-ref-footer-bottom {
+  padding: 1.25rem 0;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-align: center;
+}
+
+/* 8. AJUSTES RESPONSIVE */
+
+@media (max-width: 899px) {
+  .mpaz-ref-navbar-inner {
+    min-height: 80px;
+    height: auto;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+  }
+
+  .mpaz-ref-nav-links {
+    display: none;
+  }
+
+  .mpaz-ref-hero {
+    min-height: 420px;
+  }
+
+  .mpaz-ref-hero-content {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .mpaz-ref-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .mpaz-ref-topbar-inner,
+  .mpaz-ref-topbar-left {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .mpaz-ref-navbar-inner {
+    justify-content: center;
+  }
+
+  .mpaz-ref-hero-content {
+    padding: 3rem 1rem;
+  }
+
+  .mpaz-ref-hero-buttons {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .mpaz-ref-btn-yellow,
+  .mpaz-ref-btn-outline-white {
+    justify-content: center;
+  }
+
+  .mpaz-ref-footer-grid {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
