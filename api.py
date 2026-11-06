@@ -81,17 +81,12 @@ if not app.secret_key:
     )
 
 API_KEY = os.getenv("MPAZ_API_KEY")
-PANEL_PASSWORD = os.getenv("MPAZ_PANEL_PASSWORD")
 
 if not API_KEY:
     raise RuntimeError(
         "No se encontro la variable de entorno MPAZ_API_KEY" 
     )
 
-if not PANEL_PASSWORD:
-    raise RuntimeError(
-        "No se encontro la variable de entorno MPAZ_PANEL_PASSWORD"
-    )
 
 
 # MPAZ-CSRF-687
@@ -171,41 +166,6 @@ def obtener_token_administrativo():
 
     return respuesta, 200
 
-
-@app.post("/panel/login")
-def iniciar_sesion_panel():
-    datos = request.get_json(silent=True) or {}
-
-    password = datos.get("password", "")
-
-    if not isinstance(password, str):
-        return jsonify(
-            {
-            "resultado": "datos_invalidos",
-            "mensaje": "La contraseña no es valida"
-            }        
-        ), 400
-    
-    if not secrets.compare_digest(password, PANEL_PASSWORD):
-        return jsonify(
-            {
-                "resultado": "no_autorizado",
-                "mensaje": "Contraseña incorrecta"
-            }
-        ), 401
-
-    # Evitar heredar identidades individuales anteriores.
-    session.clear()
-
-    session["panel_autorizado"] = True
-    session["panel_csrf"] = secrets.token_urlsafe(32)
-
-    return jsonify(
-        {
-            "resultado": "ok",
-            "mensaje": "Sesion iniciada correctamente"
-        }
-    ), 200    
 
 @app.post("/panel/login-individual")
 def iniciar_sesion_panel_individual():
