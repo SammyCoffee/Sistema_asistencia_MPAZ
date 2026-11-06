@@ -19,6 +19,43 @@
     </span>
   </a>
   <div class="acciones">
+
+    <details class="menu-configuracion seguimiento-config">
+      <summary aria-label="Abrir preferencias visuales"
+               title="Preferencias visuales">⚙</summary>
+
+      <div class="seguimiento-config-panel">
+        <h2>Preferencias</h2>
+        <p>Personaliza la apariencia del sistema.</p>
+
+        <label>
+          <span>Modo oscuro</span>
+          <input type="checkbox" data-mpaz-ajuste="oscuro">
+        </label>
+
+        <label>
+          <span>Vista compacta</span>
+          <input type="checkbox" data-mpaz-ajuste="compacto">
+        </label>
+
+        <label>
+          <span>Texto ampliado</span>
+          <input type="checkbox" data-mpaz-ajuste="letra_grande">
+        </label>
+
+        <label>
+          <span>Reducir animaciones</span>
+          <input type="checkbox" data-mpaz-ajuste="reducir_movimiento">
+        </label>
+
+        <button type="button" data-mpaz-restablecer>
+          Restablecer vista
+        </button>
+
+        <p class="mpaz-ajustes-estado" role="status"></p>
+      </div>
+    </details>
+
     <span id="usuario-actual"></span>
     <button id="cerrar-sesion" type="button" hidden>Cerrar sesión</button>
   </div>
@@ -163,6 +200,7 @@
   Escuela Escritora Marcela Paz · San Bernardo · MPAZ RFID
 </footer>
 
+<script src="/identidad-mpaz.js?v=3" defer></script>
 <script src="/seguimiento.js?v=1" defer></script>
 </body>
 </html>
