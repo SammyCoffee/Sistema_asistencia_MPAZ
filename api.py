@@ -109,6 +109,25 @@ RUTAS_ADMIN_CSRF = frozenset({
 
 
 @app.before_request
+def validar_identidad_administrativa():
+    """Revoca sesiones administrativas sin identidad individual vigente."""
+
+    if session.get("panel_autorizado") is not True:
+        return None
+
+    from seguimiento_sesiones import operador_actual
+
+    operador = operador_actual()
+
+    if operador is None or operador.get("rol") != "administracion":
+        session.pop("panel_autorizado", None)
+        session.pop("panel_csrf", None)
+        session.pop("calendario_csrf", None)
+
+    return None
+
+
+@app.before_request
 def proteger_escrituras_administrativas_csrf():
 
     if (
