@@ -288,3 +288,220 @@ footer {
     scroll-behavior: auto !important;
   }
 }
+
+/* MPAZ-SEGUIMIENTO-PREFERENCIAS-V1 */
+
+/* ========================================
+   MENÚ DE CONFIGURACIÓN
+======================================== */
+
+.seguimiento-config {
+    position: relative;
+    z-index: 100;
+}
+
+.seguimiento-config > summary {
+    display: grid;
+    place-items: center;
+    width: 43px;
+    height: 43px;
+    background: #24476d;
+    border: 1px solid #56718d;
+    border-radius: 10px;
+    color: white;
+    font-size: 23px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.seguimiento-config > summary::-webkit-details-marker {
+    display: none;
+}
+
+.seguimiento-config > summary:hover {
+    background: #32618b;
+}
+
+.seguimiento-config > summary:focus-visible {
+    outline: 3px solid var(--dorado);
+    outline-offset: 3px;
+}
+
+.seguimiento-config-panel {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    width: min(320px, calc(100vw - 24px));
+    padding: 23px;
+    background: var(--blanco);
+    color: var(--texto);
+    border: 1px solid var(--borde);
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .24);
+}
+
+.seguimiento-config-panel h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+}
+
+.seguimiento-config-panel p {
+    margin: 0 0 12px;
+    font-size: 13px;
+}
+
+.seguimiento-config-panel label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--borde);
+    cursor: pointer;
+}
+
+.seguimiento-config-panel input[type="checkbox"] {
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+    accent-color: #177b99;
+    cursor: pointer;
+}
+
+.seguimiento-config-panel button {
+    width: 100%;
+    margin-top: 17px;
+    background: var(--azul-claro);
+}
+
+.seguimiento-config-panel .mpaz-ajustes-estado {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--gris);
+}
+
+/* ========================================
+   MODO OSCURO
+======================================== */
+
+html[data-mpaz-tema="oscuro"] {
+    --fondo: #0e1c30;
+    --blanco: #172c44;
+    --texto: #e8f3ff;
+    --gris: #bacbdf;
+    --borde: #3a536e;
+    --sombra: 0 8px 28px rgba(0, 0, 0, .25);
+}
+
+html[data-mpaz-tema="oscuro"] h1,
+html[data-mpaz-tema="oscuro"] h2,
+html[data-mpaz-tema="oscuro"] h3 {
+    color: var(--texto);
+}
+
+html[data-mpaz-tema="oscuro"] .etiqueta {
+    color: #78dce7;
+}
+
+html[data-mpaz-tema="oscuro"] input,
+html[data-mpaz-tema="oscuro"] select,
+html[data-mpaz-tema="oscuro"] textarea {
+    background: #102239;
+    color: #e8f3ff;
+    border-color: #536b86;
+}
+
+html[data-mpaz-tema="oscuro"] input::placeholder,
+html[data-mpaz-tema="oscuro"] textarea::placeholder {
+    color: #b6c8dc;
+}
+
+html[data-mpaz-tema="oscuro"] .caso-item {
+    background: #203750;
+    color: #e8f3ff;
+}
+
+html[data-mpaz-tema="oscuro"] .caso-item:hover,
+html[data-mpaz-tema="oscuro"] .caso-item.activo {
+    background: #294a65;
+}
+
+html[data-mpaz-tema="oscuro"] .intervencion {
+    background: #203750;
+}
+
+html[data-mpaz-tema="oscuro"] .indicador strong {
+    color: #e8f3ff;
+}
+
+html[data-mpaz-tema="oscuro"] #volver-panel {
+    background: #24415e !important;
+    color: #e8f3ff !important;
+    border-color: #536b86 !important;
+}
+
+html[data-mpaz-tema="oscuro"] #mensaje-sistema.error {
+    color: #ffaaa5;
+}
+
+html[data-mpaz-tema="oscuro"] #mensaje-sistema.exito {
+    color: #88e2b8;
+}
+
+/* ========================================
+   VISTA COMPACTA
+======================================== */
+
+html[data-mpaz-densidad="compacta"] .tarjeta {
+    padding: 17px;
+}
+
+html[data-mpaz-densidad="compacta"] .indicador {
+    padding: 14px;
+}
+
+html[data-mpaz-densidad="compacta"] .columnas,
+html[data-mpaz-densidad="compacta"] .resumen {
+    gap: 12px;
+}
+
+/* ========================================
+   TEXTO AMPLIADO
+======================================== */
+
+html[data-mpaz-lectura="ampliada"] body {
+    font-size: 18px;
+}
+
+html[data-mpaz-lectura="ampliada"] label {
+    font-size: 16px;
+}
+
+html[data-mpaz-lectura="ampliada"] .caso-meta,
+html[data-mpaz-lectura="ampliada"] footer {
+    font-size: 15px;
+}
+
+/* ========================================
+   REDUCIR MOVIMIENTOS
+======================================== */
+
+html[data-mpaz-movimiento="reducido"] *,
+html[data-mpaz-movimiento="reducido"] *::before,
+html[data-mpaz-movimiento="reducido"] *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+}
+
+/* ========================================
+   ADAPTACIÓN MÓVIL
+======================================== */
+
+@media (max-width: 600px) {
+    .seguimiento-config-panel {
+        left: 0;
+        right: auto;
+        padding: 17px;
+    }
+}
