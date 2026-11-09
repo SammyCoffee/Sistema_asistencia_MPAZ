@@ -7,7 +7,7 @@ Los documentos se guardarán directamente aquí, de acuerdo con la tabla oficial
 | `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` — Español | [Borrador disponible](2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx); borrador histórico; nueva versión con anexos disponible, pendiente de revisión docente |
 | `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` — Inglés | **Optativo**, pendiente si se decide hacer |
 | `PLANILLA DE EVALUACIÓN AVANCE FASE 2.xlsx` | Pendiente |
-| `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` — Español | Pendiente |
+| `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` — Español | Borrador disponible; cotejo oficial y revisión pendientes |
 | `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` — Inglés | **Optativo**, pendiente si se decide hacer |
 | `PLANILLA DE EVALUACIÓN FINAL FASE 2.xlsx` | Pendiente |
 
@@ -38,3 +38,17 @@ El Word 2.4 se conserva con `BORRADOR` en su nombre. Su disponibilidad no implic
 - [Seis imágenes originales y límites de las pruebas](../Evidencias_Proyecto/README_EVIDENCIAS_2.4.md).
 
 Se documentan tablas y consulta SQLite, comunicación ESP32–API y rechazo de evento repetido sin aumentar registros. No se acredita una inserción nueva desde el tótem ni el piloto completo, exportación, HTTPS o roles docentes.
+
+
+## Estado vigente del 09-11-2026
+
+| Documento | Original conservado | Versión corregida | Estado |
+|---|---|---|---|
+| Vista Lógica | [Abrir archivo](../Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Logica_003D_PARA_REVISION.docx) | [Revisión 09-11-2026](../Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Logica_003D_REVISION_2026-11-09.docx) | Para revisión académica |
+| Vista de Desarrollo | [Abrir archivo](../Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Desarrollo_003D_PARA_REVISION.docx) | [Revisión 09-11-2026](../Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Desarrollo_003D_REVISION_2026-11-09.docx) | Para revisión académica |
+| Informe Final 2.6 | [Abrir archivo](2.6_Informe_Final_Fase2_MPAZ_RFID_003D_BORRADOR_PARA_REVISION.docx) | [Revisión 09-11-2026](2.6_Informe_Final_Fase2_MPAZ_RFID_003D_BORRADOR_REVISION_2026-11-09.docx) | Para revisión académica |
+| Presentación Fase 2 | [Abrir archivo](../Evidencias_Proyecto/Presentacion_Proyecto/MPAZ_Fase2_Presentacion.pptx) | Original sin cambios | Para revisión académica |
+| Diario 3.1 de Samantha | [Abrir archivo](../../Fase_3/Evidencias_Individuales/MPAZ_RFID_Diario_Reflexion_3_1_Samantha_Tapia_PARA_REVISION.docx) | Original sin cambios | Para revisión académica |
+| Presentación Final Capstone | [Abrir archivo](../../Fase_3/Evidencias_Grupales/MPAZ_RFID_Presentacion_Final_Capstone_003D_PARA_REVISION.pptx) | Original sin cambios | Para revisión académica |
+
+[Revisión completa y pendientes vigentes](../../REVISION_ACADEMICA_2026-11-09.md). Los apartados anteriores registran antecedentes; 2.6 y presentaciones ya están disponibles como borradores. No se consideran aprobados.

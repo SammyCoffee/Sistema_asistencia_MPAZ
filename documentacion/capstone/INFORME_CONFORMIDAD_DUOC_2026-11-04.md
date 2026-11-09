@@ -39,3 +39,8 @@ Resultados técnicos respaldados por transcripción del equipo del 25-10-2026: G
 ## Alcance de la revisión
 
 Solo documentación: copias binarias, nuevos adjuntos, README e índices/controles. Sin modificar código, eliminar evidencia, fusionar ramas ni actualizar main. La revisión no certifica firmas, calificaciones ni aprobación docente.
+
+
+## Seguimiento del 09-11-2026
+
+[Revisión y carga de seis documentos](REVISION_ACADEMICA_2026-11-09.md): formularios 4+1, borrador 2.6, presentación Fase 2, diario de Samantha y presentación final disponibles para revisión. El cuadro anterior conserva el estado histórico del 04-11; las nuevas disponibilidades no implican aprobación. Ficha 01 y cotejo de formatos oficiales continúan pendientes.

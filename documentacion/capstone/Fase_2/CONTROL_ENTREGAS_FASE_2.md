@@ -22,7 +22,7 @@
 | `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` (Español) | **Nueva versión con anexos verificables disponible; pendiente de revisión docente. Borrador anterior conservado** | Contiene resumen, monitoreo, evidencias y ajustes |
 | Versión 2.4 en inglés | **Optativa — no incorporada** | Solo si el equipo decide realizarla |
 | `PLANILLA DE EVALUACIÓN AVANCE FASE 2.xlsx` | **Pendiente** | No inventar valoraciones ni aprobación docente |
-| `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` (Español) | **Pendiente** | Informe final del proyecto |
+| `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` (Español) | **Borrador disponible; cotejo oficial y revisión pendientes** | Informe final del proyecto |
 | Versión 2.6 en inglés | **Optativa — no incorporada** | Solo si el equipo decide realizarla |
 | `PLANILLA DE EVALUACIÓN FINAL FASE 2.xlsx` | **Pendiente** | No alterar puntuaciones oficiales |
 
@@ -34,7 +34,7 @@
 
 | Categoría solicitada | Estado | Ubicación |
 |---|---|---|
-| Presentación del proyecto | **Pendiente** | [Presentacion_Proyecto/](Evidencias_Proyecto/Presentacion_Proyecto/) |
+| Presentación del proyecto | **Disponible para revisión; 15 diapositivas** | [Presentacion_Proyecto/](Evidencias_Proyecto/Presentacion_Proyecto/) |
 | Evidencias de documentación | **Tres fichas de avance, dos PDF y siete PNG de apoyo disponibles**; revisión final pendiente | [Evidencias_Documentacion/](Evidencias_Proyecto/Evidencias_Documentacion/) |
 | Evidencias de sistema/aplicación | **Comunicación ESP32–API, evento repetido y montaje documentados; resto de pruebas pendiente** | [Evidencias_Sistema_Aplicacion/](Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/) |
 | Base de datos | **Tablas y consulta SQLite demo documentadas; esquema e integridad pendientes** | [Base_de_Datos/](Evidencias_Proyecto/Base_de_Datos/) |
@@ -125,3 +125,17 @@ El TXT original de terminal y su informe técnico se conservan en sus rutas exis
 ## Control vigente — 04-11-2026
 
 Este inventario actualiza las cantidades históricas anteriores: [Fichas de Iteración](Evidencias_Proyecto/Fichas_de_Iteracion/README.md), fichas 02–06 disponibles, 01 pendiente. 05 actualizada de referencia y borrador conservado; 06 para revisión, con Excel original. [Informe Duoc](../INFORME_CONFORMIDAD_DUOC_2026-11-04.md). Costos estimados y VAN/TIR económicos ilustrativos no constituyen flujos reales; pruebas F05 simuladas no acreditan integración física. Fase 3 creada con README de pendientes.
+
+
+## Estado vigente del 09-11-2026
+
+| Documento | Original conservado | Versión corregida | Estado |
+|---|---|---|---|
+| Vista Lógica | [Abrir archivo](Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Logica_003D_PARA_REVISION.docx) | [Revisión 09-11-2026](Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Logica_003D_REVISION_2026-11-09.docx) | Para revisión académica |
+| Vista de Desarrollo | [Abrir archivo](Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Desarrollo_003D_PARA_REVISION.docx) | [Revisión 09-11-2026](Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Desarrollo_003D_REVISION_2026-11-09.docx) | Para revisión académica |
+| Informe Final 2.6 | [Abrir archivo](Evidencias_Grupales/2.6_Informe_Final_Fase2_MPAZ_RFID_003D_BORRADOR_PARA_REVISION.docx) | [Revisión 09-11-2026](Evidencias_Grupales/2.6_Informe_Final_Fase2_MPAZ_RFID_003D_BORRADOR_REVISION_2026-11-09.docx) | Para revisión académica |
+| Presentación Fase 2 | [Abrir archivo](Evidencias_Proyecto/Presentacion_Proyecto/MPAZ_Fase2_Presentacion.pptx) | Original sin cambios | Para revisión académica |
+| Diario 3.1 de Samantha | [Abrir archivo](../Fase_3/Evidencias_Individuales/MPAZ_RFID_Diario_Reflexion_3_1_Samantha_Tapia_PARA_REVISION.docx) | Original sin cambios | Para revisión académica |
+| Presentación Final Capstone | [Abrir archivo](../Fase_3/Evidencias_Grupales/MPAZ_RFID_Presentacion_Final_Capstone_003D_PARA_REVISION.pptx) | Original sin cambios | Para revisión académica |
+
+[Revisión completa y pendientes vigentes](../REVISION_ACADEMICA_2026-11-09.md). Los apartados anteriores registran antecedentes; 2.6 y presentaciones ya están disponibles como borradores. No se consideran aprobados.

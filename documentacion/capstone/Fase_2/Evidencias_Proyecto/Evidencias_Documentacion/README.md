@@ -44,3 +44,17 @@ El TXT original de terminal y su informe técnico se conservan en sus rutas exis
 ## Índice actualizado — 04-11-2026
 
 [Fichas de Iteración](../Fichas_de_Iteracion/README.md): copias 02–05 conservando originales y borrador 05; Word 06 y anexo Excel disponibles. Ficha 01 pendiente de ubicar. Anexos técnicos 05 conservados en sus rutas, sin duplicación.
+
+
+## Carga documental del 09-11-2026
+
+| Documento | Original conservado | Versión corregida | Estado |
+|---|---|---|---|
+| Vista Lógica | [Abrir archivo](Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Logica_003D_PARA_REVISION.docx) | [Revisión 09-11-2026](Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Logica_003D_REVISION_2026-11-09.docx) | Para revisión académica |
+| Vista de Desarrollo | [Abrir archivo](Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Desarrollo_003D_PARA_REVISION.docx) | [Revisión 09-11-2026](Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Desarrollo_003D_REVISION_2026-11-09.docx) | Para revisión académica |
+| Informe Final 2.6 | [Abrir archivo](../../Evidencias_Grupales/2.6_Informe_Final_Fase2_MPAZ_RFID_003D_BORRADOR_PARA_REVISION.docx) | [Revisión 09-11-2026](../../Evidencias_Grupales/2.6_Informe_Final_Fase2_MPAZ_RFID_003D_BORRADOR_REVISION_2026-11-09.docx) | Para revisión académica |
+| Presentación Fase 2 | [Abrir archivo](../Presentacion_Proyecto/MPAZ_Fase2_Presentacion.pptx) | Original sin cambios | Para revisión académica |
+| Diario 3.1 de Samantha | [Abrir archivo](../../../Fase_3/Evidencias_Individuales/MPAZ_RFID_Diario_Reflexion_3_1_Samantha_Tapia_PARA_REVISION.docx) | Original sin cambios | Para revisión académica |
+| Presentación Final Capstone | [Abrir archivo](../../../Fase_3/Evidencias_Grupales/MPAZ_RFID_Presentacion_Final_Capstone_003D_PARA_REVISION.pptx) | Original sin cambios | Para revisión académica |
+
+[Revisión académica, correcciones y pendientes](../../../REVISION_ACADEMICA_2026-11-09.md) — Disponible para revisión; no implica aprobación docente.
