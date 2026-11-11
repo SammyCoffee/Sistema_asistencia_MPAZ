@@ -1,25 +1,23 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Inicio from './pages/inicio';
 import Login from './pages/login';
-import Home from './pages/home';
-import ProfesorLogin from './pages/profesorLogin';
+import NuestraEscuela from './pages/nuestra-escuela';
+import Comunidad from './pages/comunidad';
+import Servicios from './pages/servicios';
+import Noticias from './pages/noticias';
+import Contacto from './pages/contacto';
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* Ruta principal (Portal de bienvenida) */}
         <Route path="/" element={<Inicio />} />
-
-        {/* Ruta de inicio de sesión administrativo */}
         <Route path="/login" element={<Login />} />
-
-        {/* Ruta del panel principal de gestión RFID */}
-        <Route path="/panel" element={<Home />} />
-
-        {/* Ruta del portal docente */}
-        <Route path="/profesor/login" element={<ProfesorLogin />} />
+        <Route path="/nuestra-escuela" element={<NuestraEscuela />} />
+        <Route path="/comunidad" element={<Comunidad />} />
+        <Route path="/servicios" element={<Servicios />} />
+        <Route path="/noticias" element={<Noticias />} />
+        <Route path="/contacto" element={<Contacto />} />
       </Routes>
     </Router>
   );
