@@ -1,6 +1,6 @@
 // MPAZ-CSRF-687
 // Incorporar token CSRF solo a las escrituras administrativas.
-// No modifica /lectura, login, logout ni el calendario.
+// Incluye logout; no modifica /lectura, login ni el calendario.
 
 (() => {
     "use strict";
@@ -8,6 +8,7 @@
     const fetchOriginal = window.fetch.bind(window);
 
     const rutasProtegidas = new Set([
+        "/panel/logout",
         "/panel/totems/registrar",
         "/panel/totems/estado",
         "/panel/alumnos/registrar",
@@ -1502,6 +1503,14 @@ resultadoEstudiante.innerHTML = listaResultados;
 // FICHA ADMINISTRATIVA DEL ESTUDIANTE
 // ==========================================
 function mostrarFichaEstudiante(alumnoSeleccionado) {
+    // La ficha contiene HTML fijo; los campos de SQLite siempre son texto.
+    const escapar = (valor) => String(valor).replace(/[&<>"']/g, (caracter) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    })[caracter]);
+    alumnoSeleccionado = Object.fromEntries(
+        Object.entries(alumnoSeleccionado).map(([clave, valor]) =>
+            [clave, typeof valor === "string" ? escapar(valor) : valor])
+    );
     resultadoEstudiante.innerHTML = `
             <div class="ficha-estudiante">
 

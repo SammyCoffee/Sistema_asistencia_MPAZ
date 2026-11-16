@@ -5,7 +5,7 @@ from urllib.error import HTTPError, URLError
 
 from cola_pendientes import (
     cargar_pendientes,
-    guardar_pendiente
+    eliminar_pendiente
 )
 
 API_KEY = os.getenv("MPAZ_API_KEY")
@@ -90,6 +90,7 @@ if __name__ == "__main__":
             )
 
             if procesada:
+                eliminar_pendiente(pendiente.get("evento_id"))
                 print("Lectura retirada la cola")
 
             else:
@@ -101,9 +102,8 @@ if __name__ == "__main__":
                     "La lectura continua pendiente"
                 )
 
-        guardar_pendiente(
-            pendientes_restantes
-        )        
+        # No sobrescribir una instantánea: pueden haber llegado eventos nuevos.
+        pendientes_restantes = cargar_pendientes()
 
         print("-----------------------------")
         print(

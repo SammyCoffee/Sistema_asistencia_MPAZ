@@ -184,3 +184,16 @@ lecturas_pendientes.json
 datos_privados/
 reportes/
 respaldos/
+
+# Datos privados y archivos auxiliares de SQLite en cualquier carpeta.
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+.env.*
+!.env.example
+
+lecturas_pendientes.json.lock
+lecturas_pendientes.json.*.tmp

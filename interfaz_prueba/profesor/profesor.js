@@ -1809,9 +1809,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         botonCerrarSesion.disabled = true;
 
         try {
-            await solicitarJSON("/profesor/logout", {
-                method: "POST"
+            const { respuesta } = await solicitarJSON("/profesor/logout", {
+                method: "POST",
+                headers: { "X-CSRF-Token": tokenCSRFProfesor }
             });
+            if (!respuesta.ok) {
+                throw new Error("No se pudo cerrar la sesión.");
+            }
 
             redirigirLogin();
 

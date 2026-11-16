@@ -1,11 +1,22 @@
 import csv
 from datetime import date, datetime, timedelta
 from pathlib import Path
+from uuid import uuid4
 
 from base_datos import obtener_conexion
 
 
 CARPETA_REPORTES = Path("reportes")
+
+
+def celda_csv_segura(valor):
+    """Evita interpretar datos exportados como fórmulas de una planilla."""
+    if isinstance(valor, str) and (
+        valor.startswith(("\t", "\r", "\n"))
+        or valor.lstrip().startswith(("=", "+", "-", "@"))
+    ):
+        return "'" + valor
+    return valor
 
 
 def obtener_rango_fechas(periodo):
@@ -45,7 +56,7 @@ def exportar_asistencias(periodo="diario", curso=None):
 
     ruta_reporte = (
         CARPETA_REPORTES
-        / f"asistencias_{periodo}_{marca_tiempo}.csv"
+        / f"asistencias_{periodo}_{marca_tiempo}_{uuid4().hex}.csv"
     )
 
     conexion = obtener_conexion()
@@ -131,7 +142,7 @@ def exportar_asistencias(periodo="diario", curso=None):
 
         for registro in registros:
             escritor.writerow(
-                [
+                [celda_csv_segura(valor) for valor in [
                     registro[0],
                     registro[1],
                     registro[2],
@@ -144,7 +155,7 @@ def exportar_asistencias(periodo="diario", curso=None):
                     registro[9] or "Sin tótem",
                     registro[10] or "Sin evento",
                     registro[11] or "Sin evento"
-                ]
+                ]]
             )
 
     return ruta_reporte, len(registros)

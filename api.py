@@ -1,11 +1,13 @@
 from base_datos import obtener_detalle_sesion_clase_profesor
 import os
 import secrets
+import sqlite3
 
 from flask import (Flask,jsonify,request,session,redirect,send_file)
 from consultar_alumnos import obtener_alumnos, buscar_alumnos
 from procesar_lectura_totem import procesar_lectura_totem
 from base_datos import (
+    obtener_conexion,
     autenticar_usuario,
     obtener_asignaciones_profesor,
     obtener_alumnos_curso_profesor,
@@ -35,6 +37,30 @@ app = Flask(
     static_folder="interfaz_prueba",
     static_url_path=""
     )
+
+# HTTPS en producción; desactivar Secure solo en desarrollo HTTP local.
+app.config.update(
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE="Lax",
+    SESSION_COOKIE_SECURE=os.getenv("MPAZ_COOKIE_SECURE", "1") != "0",
+)
+
+
+@app.errorhandler(sqlite3.OperationalError)
+def base_datos_no_disponible(error):
+    """Falla cerrada sin revelar rutas, SQL ni datos de la excepción."""
+    return jsonify({"resultado": "base_datos_no_disponible"}), 503
+
+
+@app.after_request
+def proteger_respuestas(respuesta):
+    respuesta.headers.setdefault("X-Content-Type-Options", "nosniff")
+    respuesta.headers.setdefault("X-Frame-Options", "SAMEORIGIN")
+    respuesta.headers.setdefault("Referrer-Policy", "same-origin")
+    if request.endpoint != "static":
+        respuesta.headers["Cache-Control"] = "no-store"
+    return respuesta
+
 
 @app.get("/")
 def mostrar_inicio():
@@ -94,6 +120,7 @@ if not API_KEY:
 # No interviene en /lectura ni en el portal docente.
 
 RUTAS_ADMIN_CSRF = frozenset({
+    "/panel/logout",
     "/panel/totems/registrar",
     "/panel/totems/estado",
     "/panel/alumnos/registrar",
@@ -124,6 +151,30 @@ def validar_identidad_administrativa():
         session.pop("panel_csrf", None)
         session.pop("calendario_csrf", None)
 
+    return None
+
+
+@app.before_request
+def validar_identidad_docente():
+    """Revalida las sesiones docentes contra la cuenta vigente en SQLite."""
+    profesor_id = session.get("profesor_id")
+    if profesor_id is None:
+        return None
+
+    con = obtener_conexion()
+    try:
+        vigente = con.execute(
+            "SELECT id FROM usuarios WHERE id = ? "
+            "AND rol = 'profesor' AND estado = 'activo'",
+            (profesor_id if type(profesor_id) is int else None,)
+        ).fetchone()
+    finally:
+        con.close()
+
+    if vigente is None or session.get("profesor_rol") != "profesor":
+        for clave in ("profesor_id", "profesor_usuario", "profesor_nombre",
+                      "profesor_rol", "profesor_csrf"):
+            session.pop(clave, None)
     return None
 
 
@@ -394,6 +445,9 @@ def cerrar_sesion_profesor():
             "resultado": "no_autorizado",
             "mensaje": "No existe una sesion docente activa"
         }), 401
+
+    if not validar_csrf_profesor():
+        return jsonify({"resultado": "csrf_invalido"}), 403
 
     session.pop("profesor_id", None)
     session.pop("profesor_usuario", None)
@@ -883,7 +937,7 @@ def registrar_totem_panel():
 
     datos = request.get_json(silent=True)
 
-    if not datos:
+    if not isinstance(datos, dict) or not datos:
         return jsonify(
             {
                 "resultado": "solicitud_invalida",
@@ -952,7 +1006,7 @@ def cambiar_estado_totem_panel():
 
     datos = request.get_json(silent=True)
 
-    if not datos:
+    if not isinstance(datos, dict) or not datos:
         return jsonify(
             {
                 "resultado": "solicitud_invalida",
@@ -1018,7 +1072,7 @@ def registrar_alumno_panel():
 
     datos = request.get_json(silent=True)
 
-    if not datos:
+    if not isinstance(datos, dict) or not datos:
         return jsonify(
             {
                 "resultado": "solicitud_invalida",
@@ -1099,7 +1153,7 @@ def editar_alumno_panel():
 
     datos = request.get_json(silent=True)
 
-    if not datos:
+    if not isinstance(datos, dict) or not datos:
         return jsonify(
             {
                 "resultado": "solicitud_invalida",
@@ -1193,7 +1247,7 @@ def cambiar_estado_alumno_panel():
 
     datos = request.get_json(silent=True)
 
-    if not datos:
+    if not isinstance(datos, dict) or not datos:
         return jsonify(
             {
                 "resultado": "solicitud_invalida",
@@ -1554,7 +1608,7 @@ def registrar_tarjeta_panel():
 
     datos = request.get_json(silent=True)
 
-    if not datos:
+    if not isinstance(datos, dict) or not datos:
         return jsonify(
             {
                 "resultado": "solicitud_invalida",
@@ -1616,7 +1670,7 @@ def vincular_tarjeta_panel():
 
     datos = request.get_json(silent=True)
 
-    if not datos:
+    if not isinstance(datos, dict) or not datos:
         return jsonify(
             {
                 "resultado": "solicitud_invalida",
@@ -1697,7 +1751,7 @@ def marcar_tarjeta_extraviada_panel():
 
     datos = request.get_json(silent=True)
 
-    if not datos:
+    if not isinstance(datos, dict) or not datos:
         return jsonify(
             {
                 "resultado": "solicitud_invalida",
@@ -1759,7 +1813,7 @@ def asignar_tarjeta_panel():
 
     datos = request.get_json(silent=True)
 
-    if not datos:
+    if not isinstance(datos, dict) or not datos:
         return jsonify(
             {
                 "resultado": "solicitud_invalida",
@@ -1825,7 +1879,7 @@ def bloquear_tarjeta_panel():
 
     datos = request.get_json(silent=True)
 
-    if not datos:
+    if not isinstance(datos, dict) or not datos:
         return jsonify(
             {
                 "resultado": "solicitud_invalida",
@@ -1939,7 +1993,7 @@ def recibir_lectura():
 
     datos = request.get_json(silent=True)
 
-    if not datos:
+    if not isinstance(datos, dict) or not datos:
         return jsonify(
             {
                 "resultado": "solicitud_invalida",
