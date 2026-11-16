@@ -185,8 +185,7 @@ class SistemaTest(unittest.TestCase):
     def test_cierre_automatico_y_cambio_dia(self):
         bd.guardar_asistencia(1, '2026-11-15', '08:00:00', 1, 'ayer')
         bd.guardar_asistencia(1, '2026-11-16', '08:00:00', 1, 'hoy')
-        with patch.object(bd, 'datetime', wraps=datetime) as reloj:
-            reloj.now.return_value = datetime(2026, 11, 16, 17, 0)
+        with patch.object(bd, 'ahora_chile', return_value=datetime(2026, 11, 16, 17, 0)):
             bd.cerrar_jornadas_pendientes()
         self.assertEqual(self.con.execute("SELECT count(*) FROM asistencias WHERE hora_salida='17:00:00' AND tipo_salida='automatica'").fetchone()[0], 2)
 
@@ -204,8 +203,7 @@ class SistemaTest(unittest.TestCase):
         self.assertEqual(self.client.post('/profesor/logout', headers={'X-CSRF-Token': token}).status_code, 200)
 
     def test_exportacion_nombre_unico(self):
-        with patch.object(exportaciones, 'CARPETA_REPORTES', Path(self.tmp.name)), patch.object(exportaciones, 'datetime', wraps=datetime) as reloj:
-            reloj.now.return_value = datetime(2026, 11, 16, 12, 0)
+        with patch.object(exportaciones, 'CARPETA_REPORTES', Path(self.tmp.name)), patch.object(exportaciones, 'ahora_chile', return_value=datetime(2026, 11, 16, 12, 0)):
             una, _ = exportaciones.exportar_asistencias()
             otra, _ = exportaciones.exportar_asistencias()
         self.assertNotEqual(una, otra)
@@ -213,7 +211,7 @@ class SistemaTest(unittest.TestCase):
     def test_exportacion_formula_y_nombres_unicos(self):
         self.con.execute("UPDATE alumnos SET nombre_completo='=1+1' WHERE id=1")
         self.con.commit()
-        bd.guardar_asistencia(1, datetime.now().strftime('%Y-%m-%d'), '08:00:00', 1, '=1+1')
+        bd.guardar_asistencia(1, exportaciones.hoy_chile().strftime('%Y-%m-%d'), '08:00:00', 1, '=1+1')
         with patch.object(exportaciones, 'CARPETA_REPORTES', Path(self.tmp.name)):
             ruta, cantidad = exportaciones.exportar_asistencias()
             otra, _ = exportaciones.exportar_asistencias()
@@ -234,7 +232,9 @@ class SistemaTest(unittest.TestCase):
         self.assertTrue(bd.bloquear_tarjeta('11223344'))
         self.assertEqual(bd.activar_tarjeta('11223344'), 'activada')
         self.assertFalse(bd.validar_rut_chileno('DEMO-NO-RUT'))
-        self.assertEqual(self.client.post('/panel/alumnos/registrar', json={'rut': 'DEMO-NO-RUT', 'nombre_completo': 'Estudiante Ficticio', 'curso': '1A'}, headers=cabecera).status_code, 400)
+        respuesta = self.client.post('/panel/alumnos/registrar', json={'rut': 'DEMO-NO-RUT', 'nombre': 'Estudiante Ficticio', 'curso': '1A'}, headers=cabecera)
+        self.assertEqual(respuesta.status_code, 400)
+        self.assertEqual(respuesta.json['resultado'], 'rut_invalido')
 
     def test_docente_seguimiento_gestion_historial(self):
         self.con.execute("INSERT INTO sesiones_clase (id,asignacion_id,fecha,hora_inicio) VALUES (1,1,'2026-11-16','08:00')")

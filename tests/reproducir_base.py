@@ -1,10 +1,10 @@
-"""Compara las regresiones actuales con d0d2c80 sin copiar bases ni secretos.
+"""Compara las 29 regresiones de 20e404c con d0d2c80 sin copiar bases ni secretos.
 
 Ejecutar desde la raíz con .venv/bin/python tests/reproducir_base.py.
 Los fallos en la referencia son esperados: este comando no es la suite de CI.
 """
 from pathlib import Path
-import shutil
+import sys
 import subprocess
 import tempfile
 repo=Path.cwd()
@@ -17,8 +17,10 @@ with tempfile.TemporaryDirectory() as carpeta:
         archivo=dest/nombre
         archivo.parent.mkdir(parents=True,exist_ok=True)
         archivo.write_bytes(subprocess.check_output(['git','show',f'd0d2c80:{nombre}']))
-    shutil.copytree(repo/'tests',dest/'tests',ignore=shutil.ignore_patterns('__pycache__'))
-    for etiqueta,cmd in [('python',[str(repo/'.venv/bin/python'),'-m','unittest','discover','-s','tests','-v']),('js',['node','tests/test_interfaz.cjs'])]:
+    (dest/'tests').mkdir()
+    for nombre in ('test_auditoria.py', 'test_cola.py', 'test_interfaz.cjs'):
+        (dest/'tests'/nombre).write_bytes(subprocess.check_output(['git','show',f'20e404c:tests/{nombre}']))
+    for etiqueta,cmd in [('python',[sys.executable,'-m','unittest','discover','-s','tests','-v']),('js',['node','tests/test_interfaz.cjs'])]:
         resultado=subprocess.run(cmd,cwd=dest,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
         Path(f'/tmp/mpaz-baseline-final-{etiqueta}.log').write_text(resultado.stdout)
         print(etiqueta, 'salida',resultado.returncode)

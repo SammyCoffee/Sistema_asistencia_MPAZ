@@ -1,3 +1,4 @@
+from reloj_escolar import hoy_chile
 from datetime import date, datetime, timedelta
 import math
 
@@ -17,7 +18,7 @@ def obtener_rango_periodo(
             "%Y-%m-%d"
         ).date()
     else:
-        referencia = date.today()
+        referencia = hoy_chile()
 
     if periodo == "diario":
         inicio = referencia

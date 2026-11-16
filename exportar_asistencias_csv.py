@@ -1,3 +1,5 @@
+from reloj_escolar import hoy_chile
+from reloj_escolar import ahora_chile
 import csv
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -20,7 +22,7 @@ def celda_csv_segura(valor):
 
 
 def obtener_rango_fechas(periodo):
-    hoy = date.today()
+    hoy = hoy_chile()
 
     if periodo == "diario":
         fecha_desde = hoy
@@ -52,7 +54,7 @@ def exportar_asistencias(periodo="diario", curso=None):
 
     fecha_desde, fecha_hasta = obtener_rango_fechas(periodo)
 
-    marca_tiempo = datetime.now().strftime("%Y%m%d_%H%M%S")
+    marca_tiempo = ahora_chile().strftime("%Y%m%d_%H%M%S")
 
     ruta_reporte = (
         CARPETA_REPORTES

@@ -71,3 +71,14 @@ class ColaTest(unittest.TestCase):
         for proceso in procesos:
             self.assertEqual(proceso.wait(timeout=10), 0)
         self.assertEqual(len(cola.cargar_pendientes()), 30)
+
+    def test_timeout_de_reenvio_conserva_evento(self):
+        with patch.dict(os.environ, {'MPAZ_API_KEY':'solo-ficticia'}):
+            import reenviar_pendientes
+        cola.agregar_pendiente({'evento_id':'timeout-ficticio'})
+        with patch.object(reenviar_pendientes.request,'urlopen',side_effect=TimeoutError('Simulado')) as solicitud:
+            procesado,respuesta=reenviar_pendientes.enviar_pendiente({'evento_id':'timeout-ficticio'})
+        self.assertFalse(procesado)
+        self.assertEqual(respuesta['resultado'],'sin_conexion')
+        self.assertEqual(solicitud.call_args.kwargs['timeout'],10)
+        self.assertEqual(len(cola.cargar_pendientes()),1)

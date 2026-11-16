@@ -1,3 +1,4 @@
+from reloj_escolar import ahora_chile
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
@@ -133,7 +134,7 @@ def guardar_informe(
             exist_ok=True
         )
 
-        marca_tiempo = datetime.now().strftime(
+        marca_tiempo = ahora_chile().strftime(
             "%Y%m%d-%H%M%S"
         )
 

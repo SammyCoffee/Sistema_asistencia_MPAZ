@@ -1,3 +1,4 @@
+from reloj_escolar import ahora_chile
 import sqlite3
 from datetime import datetime
 import os
@@ -102,7 +103,7 @@ def guardar_alumno(
     curso = curso.strip().upper()
     uid = uid.strip().replace(" ", "").upper()
 
-    fecha_actual = datetime.now().strftime(
+    fecha_actual = ahora_chile().strftime(
         "%Y-%m-%d"
     )
 
@@ -365,7 +366,7 @@ def cambiar_estado_alumno(
             }
 
         if nuevo_estado == "inactivo":
-            fecha_baja = datetime.now().strftime(
+            fecha_baja = ahora_chile().strftime(
                 "%Y-%m-%d"
             )
         else:
@@ -467,7 +468,7 @@ def registrar_tarjeta(
             "resultado": "datos_incompletos"
         }
 
-    fecha_registro = datetime.now().strftime(
+    fecha_registro = ahora_chile().strftime(
         "%Y-%m-%d"
     )
 
@@ -530,7 +531,7 @@ def vincular_tarjeta(
 ):
     uid = uid.strip().replace(" ", "").upper()
 
-    fecha_asignacion = datetime.now().strftime(
+    fecha_asignacion = ahora_chile().strftime(
         "%Y-%m-%d"
     )
 
@@ -670,7 +671,7 @@ def marcar_tarjeta_extraviada(
 ):
     uid = uid.strip().replace(" ", "").upper()
 
-    fecha_extravio = datetime.now().strftime(
+    fecha_extravio = ahora_chile().strftime(
         "%Y-%m-%d"
     )
 
@@ -733,7 +734,7 @@ def marcar_tarjeta_extraviada(
 def bloquear_tarjeta(uid):
     uid = uid.strip().replace(" ", "").upper()
 
-    fecha_bloqueo = datetime.now().strftime("%Y-%m-%d")
+    fecha_bloqueo = ahora_chile().strftime("%Y-%m-%d")
 
     conexion = obtener_conexion()
     cursor = conexion.cursor()
@@ -850,7 +851,7 @@ def asignar_tarjeta_por_rut(rut,uid):
     uid = uid.strip().replace(" ","").upper()
 
 
-    fecha_asignacion = datetime.now().strftime("%Y-%m-%d")
+    fecha_asignacion = ahora_chile().strftime("%Y-%m-%d")
 
 
     conexion = obtener_conexion()
@@ -1136,7 +1137,7 @@ def guardar_asistencia(
 
 
 def cerrar_jornadas_pendientes():
-    momento_actual = datetime.now()
+    momento_actual = ahora_chile()
 
     fecha_hoy = momento_actual.strftime("%Y-%m-%d")
     hora_actual = momento_actual.strftime("%H:%M:%S")
@@ -1212,7 +1213,7 @@ def guardar_totem(codigo, nombre, ubicacion):
     nombre = nombre.strip()
     ubicacion = ubicacion.strip()
 
-    fecha_registro = datetime.now().strftime("%Y-%m-%d")
+    fecha_registro = ahora_chile().strftime("%Y-%m-%d")
 
     conexion = obtener_conexion()
     cursor = conexion.cursor()
@@ -1317,7 +1318,7 @@ def cambiar_estado_totem(codigo, nuevo_estado):
 def validar_totem(codigo):
     codigo = codigo.strip().upper()
 
-    momento_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    momento_actual = ahora_chile().strftime("%Y-%m-%d %H:%M:%S")
 
     conexion = obtener_conexion()
     cursor = conexion.cursor()
@@ -1455,7 +1456,7 @@ def registrar_usuario(nombre_completo, usuario, password, rol):
 
     password_hash = generate_password_hash(password)
 
-    fecha_creacion = datetime.now().strftime(
+    fecha_creacion = ahora_chile().strftime(
         "%Y-%m-%d %H:%M:%S"
     )
 

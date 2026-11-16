@@ -27,7 +27,7 @@
 
     if (fecha) {
         fecha.textContent = new Intl.DateTimeFormat("es-CL", {
-            dateStyle: "full"
+            dateStyle: "full", timeZone: "America/Santiago"
         }).format(new Date());
     }
 

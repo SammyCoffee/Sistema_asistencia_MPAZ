@@ -1,3 +1,4 @@
+from reloj_escolar import ahora_chile
 from datetime import datetime
 from pathlib import Path
 import os
@@ -25,7 +26,7 @@ def respaldar_base_datos():
         exist_ok=True
     )
 
-    marca_tiempo = datetime.now().strftime(
+    marca_tiempo = ahora_chile().strftime(
         "%Y%m%d_%H%M%S"
     )
 

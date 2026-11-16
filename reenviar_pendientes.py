@@ -35,7 +35,7 @@ def enviar_pendiente(datos):
     )
 
     try:
-        with request.urlopen(solicitud) as respuesta:
+        with request.urlopen(solicitud, timeout=10) as respuesta:
             contenido = respuesta.read().decode("utf-8")
 
             return True, json.loads(contenido)
@@ -54,10 +54,10 @@ def enviar_pendiente(datos):
             }
         return False, respuesta_error
     
-    except URLError as error:
+    except (URLError, TimeoutError) as error:
         return False, {
             "resultado": "sin_conexion",
-            "mensaje": str(error.reason)
+            "mensaje": "No fue posible completar el envío; se conserva el evento"
         }
 if __name__ == "__main__":
     pendientes = cargar_pendientes()    

@@ -335,18 +335,9 @@ async function cargarAsistencias() {
 
     const datos = await respuesta.json();
 
-    console.log(
-        "Asistencias recibidas:",
-        datos.asistencias
-    );
 
-    const ahora = new Date();
 
-const fechaHoy = [
-    ahora.getFullYear(),
-    String(ahora.getMonth() + 1).padStart(2, "0"),
-    String(ahora.getDate()).padStart(2, "0")
-].join("-");
+const fechaHoy = obtenerFechaActual();
 
 const cantidadAsistenciasHoy =
     datos.asistencias.filter(function (asistencia) {
@@ -388,14 +379,10 @@ totalAsistenciasHoy.textContent =
         const horaSalida =
             asistencia.hora_salida ?? "Pendiente";
 
-        fila.innerHTML = `
-            <td>${asistencia.fecha}</td>
-            <td>${asistencia.nombre}</td>
-            <td>${asistencia.curso}</td>
-            <td>${asistencia.hora_entrada ?? "--"}</td>
-            <td>${horaSalida}</td>
-            <td>${tipoSalida}</td>
-        `;
+        window.MPAZDom.celdas(fila, [
+            asistencia.fecha, asistencia.nombre, asistencia.curso,
+            asistencia.hora_entrada ?? "--", horaSalida, tipoSalida
+        ]);
 
         cuerpoAsistencias.appendChild(fila);
     });
@@ -405,14 +392,7 @@ totalAsistenciasHoy.textContent =
 cargarAsistencias();
 
 function obtenerFechaActual() {
-
-    const ahora = new Date();
-
-    return [
-        ahora.getFullYear(),
-        String(ahora.getMonth() + 1).padStart(2, "0"),
-        String(ahora.getDate()).padStart(2, "0")
-    ].join("-");
+    return window.MPAZTiempo.fecha();
 }
 
 
@@ -556,13 +536,10 @@ async function cargarAtrasos() {
         const fila =
             document.createElement("tr");
 
-        fila.innerHTML = `
-            <td>${atraso.fecha}</td>
-            <td>${atraso.nombre}</td>
-            <td>${atraso.curso}</td>
-            <td>${atraso.hora_entrada}</td>
-            <td>${atraso.minutos_atraso} min</td>
-        `;
+        window.MPAZDom.celdas(fila, [
+            atraso.fecha, atraso.nombre, atraso.curso,
+            atraso.hora_entrada, String(atraso.minutos_atraso) + " min"
+        ]);
 
         tablaAtrasos.appendChild(fila);
     });
@@ -1473,28 +1450,9 @@ botonBuscar.addEventListener("click", async function () {
         return;
     }
 
-const listaResultados = alumnosReales.map(function (alumno) {
-
-    return `
-        <div>
-            <p>
-                <strong>${alumno.nombre}</strong>
-                - ${alumno.curso}
-            </p>
-
-            <button
-                type="button"
-                class="boton-ver-alumno"
-                data-id="${alumno.id}"
-            >
-                Ver ficha
-            </button>
-        </div>
-    `;
-
-}).join("");
-
-resultadoEstudiante.innerHTML = listaResultados;
+resultadoEstudiante.replaceChildren(
+    ...alumnosReales.map(alumno => window.MPAZDom.resultadoAlumno(alumno))
+);
 
 });
 
@@ -1628,7 +1586,7 @@ resultadoEstudiante.addEventListener("click", async function (evento) {
             Boolean(alumnoSeleccionado)
         );
 
-        console.log("Datos completos del alumno:", alumnoSeleccionado);
+
 
         if (alumnoSeleccionado) {
 
@@ -2238,22 +2196,9 @@ async function cargarAnalisisAsistencia() {
             tarjeta.className =
                 `tarjeta-analisis ${claseEstado}`;
 
-            tarjeta.innerHTML = `
-                <h3>${nombreCurso}</h3>
-
-                <p class="porcentaje-asistencia">
-                    ${porcentaje}%
-                </p>
-
-                <p>
-                    ${totalPresentes} de
-                    ${totalAlumnos} estudiantes presentes
-                </p>
-
-                <strong>
-                    ${textoEstado}
-                </strong>
-            `;
+            window.MPAZDom.resumenCurso(
+                tarjeta, nombreCurso, porcentaje, totalPresentes, totalAlumnos, textoEstado
+            );
 
             contenedorAnalisis.appendChild(
                 tarjeta

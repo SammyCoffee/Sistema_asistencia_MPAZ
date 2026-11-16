@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("cuerpo-tabla-asistencia").replaceChildren();
 
         if (!fechaAsistencia.value) {
-            fechaAsistencia.value = new Date().toLocaleDateString("en-CA");
+            fechaAsistencia.value = window.MPAZTiempo.fecha();
         }
     }
 
@@ -548,16 +548,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (!fechaSesionClase.value) {
             fechaSesionClase.value =
-                new Date().toLocaleDateString("en-CA");
+                window.MPAZTiempo.fecha();
         }
 
         if (!horaSesionClase.value) {
-            const ahora = new Date();
-
-            horaSesionClase.value =
-                String(ahora.getHours()).padStart(2, "0")
-                + ":"
-                + String(ahora.getMinutes()).padStart(2, "0");
+            horaSesionClase.value = window.MPAZTiempo.hora();
         }
 
         mostrarMensajeGestionClase(

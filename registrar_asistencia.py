@@ -1,3 +1,4 @@
+from reloj_escolar import ahora_chile
 from base_datos import (
     buscar_alumno_por_uid,
     guardar_asistencia,
@@ -35,7 +36,7 @@ def procesar_asistencia(uid, totem_id=None, evento_id=None):
         "uid": uid
         }
 
-    momento_actual = datetime.now()
+    momento_actual = ahora_chile()
 
     fecha = momento_actual.strftime("%Y-%m-%d")
     hora = momento_actual.strftime("%H:%M:%S")

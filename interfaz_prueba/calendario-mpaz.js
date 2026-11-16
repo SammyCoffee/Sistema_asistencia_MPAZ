@@ -54,9 +54,9 @@
         }
     });
 
-    const hoy = new Date();
-    let anio = hoy.getFullYear();
-    let mes = hoy.getMonth();
+    const hoy = window.MPAZTiempo.fecha().split("-").map(Number);
+    let anio = hoy[0];
+    let mes = hoy[1] - 1;
 
     const fechaISO = function (a, m, d) {
         return [
