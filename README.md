@@ -23,16 +23,22 @@ El frontend está en `interfaz_prueba/` (el nombre es histórico: también se si
 Consulta [instalación de desarrollo](README_INSTALACION.md) antes de ejecutar scripts. No necesitas bases ni credenciales escolares.
 
 ```bash
-python -m venv .venv
+python3.12 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 .venv/bin/python -m unittest discover -s tests -v
 node tests/test_interfaz.cjs
+node tests/test_dom_seguro.cjs
+node tests/test_tiempo_escolar.cjs
 ```
 
-Las pruebas usan bases temporales vacías, cuentas ficticias y migraciones SQL 001–004. No ejecutar por descubrimiento los scripts históricos `probar_*.py`: algunos escriben datos al importarse o consultan un servidor configurable.
+Las pruebas usan bases temporales vacías, cuentas ficticias y migraciones SQL 001–005. No ejecutar por descubrimiento los scripts históricos `probar_*.py`: algunos escriben datos al importarse o consultan un servidor configurable.
 
 ## Documentación técnica
 
+- [Continuación: correcciones, Python 3.12 y pendientes](documentacion/tecnica/AUDITORIA_CONTINUACION_20261116.md).
+- [Seguridad persistente y permisos](documentacion/tecnica/SEGURIDAD_WEB.md).
+- [Calendario: decisiones institucionales pendientes](documentacion/tecnica/CALENDARIO_DECISIONES.md).
+- [Comprobación visual manual](documentacion/tecnica/QA_MANUAL.md).
 - [Auditoría, evidencias y pendientes](documentacion/tecnica/AUDITORIA_20261116.md).
 - [Arquitectura y matriz de permisos](documentacion/tecnica/ARQUITECTURA.md).
 - [Inventario de archivos y funciones Python](documentacion/tecnica/INVENTARIO_CODIGO.md).
@@ -46,6 +52,10 @@ Las pruebas usan bases temporales vacías, cuentas ficticias y migraciones SQL 0
 
 ## Datos privados
 
-No añadir `.env`, credenciales, bases, reportes ni datos personales a Git. Se detectaron seis respaldos `.db` que **ya estaban versionados** en la referencia: `.gitignore` no los retira del historial. No se abrieron ni eliminaron durante esta auditoría. Su revisión privada y eventual saneamiento requieren un procedimiento acordado antes de publicar nuevas copias.
+No añadir `.env`, credenciales, bases, reportes ni datos personales a Git. Se detectaron seis respaldos `.db` que **ya estaban versionados** en la referencia: `.gitignore` no los retira del historial. En la continuación se inspeccionaron localmente en modo de solo lectura, sin mostrar datos personales: son respaldos históricos pequeños, pero no se certificó que todo su contenido sea ficticio. No se eliminaron; confirmar la clasificación antes de publicar.
 
 Ninguna corrección de esta rama se considera desplegada por aparecer en Git. No ejecutar migraciones ni reiniciar producción sin autorización.
+
+## Estado de la siguiente versión
+
+La rama de auditoría requiere migración **005** para límites de login y sesiones persistentes. No desplegar solo el código: revisar y autorizar migración/release según OPERACION.md. Cookies antiguas exigirán login nuevo. Las reglas de calendario tienen defectos reproducidos pendientes de decisión; una suite aprobada no convierte esas reglas en cálculos institucionales correctos.

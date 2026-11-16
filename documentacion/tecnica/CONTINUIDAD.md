@@ -34,3 +34,7 @@ Plan por puertas de validación:
 6. Solo tras autorización: plan privado de traslado de datos, ventana, responsables, respaldo verificado, reconciliación final y criterio de abortar. Mantener SQLite preservado durante la ventana de reversión.
 
 No se instalaron drivers ni servicios PostgreSQL, ni se copiaron datos de producción.
+
+## Estado actualizado de la continuación
+
+Se implementaron y probaron límites persistentes de login, sesiones revocables, principales sumideros HTML dinámicos y reloj Chile explícito. Python 3.12 ya fue validado. No repetir esas tareas como pendientes de implementación; quedan revisión operativa/carga, QA visual y despliegue autorizado. Las reglas del calendario permanecen sin cambiar: ver CALENDARIO_DECISIONES.md. Incorporar las tablas de seguridad 005 al alcance de una futura migración PostgreSQL. La clasificación personal de respaldos antiguos continúa pendiente, sin bloquear desarrollo aislado.

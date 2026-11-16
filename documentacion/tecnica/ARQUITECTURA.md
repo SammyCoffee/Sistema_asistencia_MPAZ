@@ -4,7 +4,7 @@
 
 - Raíz: backend Flask, acceso SQLite, utilitarios CLI, simuladores y migradores históricos.
 - `interfaz_prueba/`: portada, administración, hojas de estilo y scripts por módulo; subcarpeta `profesor/` para portal docente.
-- `migraciones/`: cuatro migraciones SQL, calendario (001), auditoría (002), seguimiento (003), operadores (004).
+- `migraciones/`: cinco migraciones SQL, calendario (001), auditoría (002), seguimiento (003), operadores (004), seguridad web (005).
 - `data/`: ubicación histórica de SQLite y seis respaldos ya rastreados; no utilizar para pruebas.
 - `documentacion/capstone/`: evidencias académicas; no modificadas.
 - `tests/`: pruebas nuevas con unittest y prueba JavaScript aislada.
@@ -37,7 +37,7 @@
 
 Las identidades administrativas se almacenan en `seguimiento_operadores`. El rol `administrador` de la tabla histórica `usuarios` no equivale a `administracion` y no habilita el login individual del panel.
 
-Se revalida la cuenta administrativa activa y, en esta rama, la cuenta docente activa. Las cookies Flask son firmadas, no un almacén central de sesiones: logout elimina la cookie del cliente, pero no revoca una copia robada de esa cookie. Revocación por dispositivo/contraseña requiere diseño adicional.
+Se revalida la cuenta administrativa activa y, en esta rama, la cuenta docente activa. La continuación incorpora registro de sesiones en SQLite, revocación de cookies copiadas tras logout, comprobación de credencial vigente, límite absoluto e inactividad. Ver SEGURIDAD_WEB.md; requiere la migración 005 antes de desplegar.
 
 Las páginas estáticas no son una frontera de datos: algunos HTML docentes pueden descargarse sin sesión, pero las API deben proteger cada dato. `/index.html` y `/seguimiento.html` tienen control explícito. No se comprobó exhaustivamente cada variante de ruta estática.
 
@@ -46,7 +46,7 @@ Las páginas estáticas no son una frontera de datos: algunos HTML docentes pued
 - Antirrebote: menos de 30 segundos desde la entrada; a los 30 segundos permite salida.
 - Una entrada y una salida por alumno y fecha.
 - Cierre automático de pendientes a las 17:00, incluidos días anteriores.
-- El código usa `datetime.now()`/`date.today()` sin `ZoneInfo`: depende de la zona del proceso. No se validó horario de verano de Chile.
+- Los flujos activos nuevos usan `reloj_escolar` con America/Santiago; se probaron DST 2026 y cambio de fecha desde UTC. Los históricos permanecen intactos y los campos sin offset siguen siendo ambiguos en horas repetidas. Los migradores históricos no se reformularon.
 - Primera lectura después de las 17:00 puede crear entrada posterior a la hora que utilizará un cierre ulterior; requiere decisión institucional antes de cambiar la regla.
 - Calendario resuelve prioridad curso → general, pero las inasistencias se calculan a partir de fechas con registros RFID y los atrasos usan 08:20 fijo. No hay integración completa entre ambas reglas.
 

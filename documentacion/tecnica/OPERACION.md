@@ -34,15 +34,29 @@ No se proporcionan comandos de sobrescritura automática. Un rollback de código
 
 ## Integración y despliegue propuesto
 
-1. Revisar commits de `audit/seguridad-continuidad-20261116`, ejecutar pruebas en Python 3.12 y resolver el tratamiento de bases ya rastreadas antes de cualquier publicación. No fusionar automáticamente.
-2. Revisar aprobación institucional de reglas pendientes: calendario, cierre fuera de horario y sesiones. Esta rama no modifica esas reglas.
+1. Revisar commits de `audit/seguridad-continuidad-20261116`, revisar las pruebas ya ejecutadas en Python 3.12 y resolver el tratamiento de bases ya rastreadas antes de cualquier publicación. No fusionar automáticamente.
+2. Revisar aprobación institucional de calendario, cierre fuera de horario y plazos de sesión. La continuación propone plazos de sesión; no cambia las reglas de asistencia.
 3. Preparar una nueva carpeta de release desde el commit aprobado. No editar release activa ni repositorio principal del servidor.
 4. Reutilizar configuración privada del servidor sin imprimirla ni trasladarla. Verificar que `MPAZ_COOKIE_SECURE` permanezca activado para HTTPS. Probar el login local HTTP solo con `MPAZ_COOKIE_SECURE=0` en desarrollo.
-5. No requiere cambios de esquema esta corrección. No ejecutar migraciones históricas. Revisar nuevas dependencias si se añaden en otra versión.
+5. La primera corrección 20e404c no requería esquema nuevo; la continuación sí requiere la migración aditiva 005. No ejecutar migraciones históricas ni el bucle completo sobre producción. Ver procedimiento siguiente.
 6. Comprobar respaldo reciente con prueba de recuperación y obtener autorización expresa antes de cambiar el drop-in de systemd, hacer daemon-reload o reiniciar Gunicorn.
 7. Al desplegar, publicar juntos backend y JS: el cierre de sesión ahora exige CSRF. Verificar que el navegador reciba las versiones nuevas; un cliente antiguo podría no poder cerrar sesión desde su botón.
 8. Tras autorización y despliegue, verificar estado, login/roles, sesión, assets y errores con cuentas institucionales de prueba aprobadas. No registrar lecturas ficticias contra datos escolares.
 
 ## Reversión
 
-Conservar carpeta y configuración anterior, y anotar HEAD antes del cambio. Si falla la validación, revertir únicamente la referencia de release a la versión aprobada anterior, tras autorización para systemd/reinicio. Estas correcciones no tienen migraciones y no exigen restaurar SQLite. Volver a una versión anterior también reintroduce sus vulnerabilidades; evaluar el riesgo antes de hacerlo.
+Conservar carpeta y configuración anterior, y anotar HEAD antes del cambio. Si falla la validación, revertir únicamente la referencia de release a la versión aprobada anterior, tras autorización para systemd/reinicio. La primera entrega no tenía migración; la continuación añade tablas de seguridad que pueden conservarse sin uso al revertir código. No exige restaurar ni eliminar SQLite. Volver a una versión anterior también reintroduce sus vulnerabilidades; evaluar el riesgo antes de hacerlo.
+
+## Continuación: puerta de despliegue de seguridad persistente
+
+**Requiere autorización; no ejecutado en el servidor.** El acceso a producción no se repitió en esta continuación; las rutas/estado anteriores son antecedentes, no una certificación actual.
+
+1. Revisar `migraciones/005_seguridad_web.sql` y el diff de seguridad. La migración tiene BEGIN IMMEDIATE/COMMIT, CREATE IF NOT EXISTS e índices; dos ejecuciones sobre la base ficticia conservan alumnos y estructura. No hay DROP/ALTER/UPDATE de tablas escolares.
+2. Antes de autorizar aplicación, comprobar de forma privada ruta real, esquema previo, espacio, permisos y respaldo/restauración verificados. No copiar datos escolares al notebook.
+3. Aplicar **solo 005**, mediante procedimiento autorizado y sobre la base correcta. No ejecutar 004 otra vez. Conservar resultado de integridad y esquema sin imprimir registros ni credenciales. No se crea estructura automáticamente desde Flask.
+4. Revisar `MPAZ_SESION_MAX_SEGUNDOS` (28800) y `MPAZ_SESION_INACTIVIDAD_SEGUNDOS` (1800), expiración y uso de polling. Confirmar la cadena proxy; el límite IP usa remote_addr y puede agrupar usuarios si todas las conexiones provienen de Nginx. No activar confianza en cabeceras sin revisión.
+5. Medir carga con múltiples workers y datos ficticios: autenticación/actividad añaden escrituras SQLite. Verificar 429 y recuperación automática, cookies copiadas tras logout, cambio de contraseña y cuentas inactivas. No se actualiza Gunicorn ni se cambia journal/firewall/Tailscale como parte de esta entrega.
+6. Publicar juntos backend, dom-seguro.js, tiempo-escolar.js y HTML/JS con versiones nuevas. Verificar Python 3.12 y disponibilidad de ZoneInfo America/Santiago. Los usuarios deberán reautenticarse: cookies anteriores no tienen registro de servidor.
+7. Para revertir código, preservar las tablas nuevas y la base. La versión anterior no aplicará revocación persistente y reintroducirá sus limitaciones; registrar ese riesgo. No borrar tablas ni restaurar una base como efecto automático de rollback.
+
+Pruebas ejecutadas en desarrollo: 61 métodos Python en 3.12.16/3.14.8, tres programas JS; cinco métodos describen defectos de calendario aún pendientes. Ver informe complementario y QA_MANUAL.md antes de autorizar una release.

@@ -1,5 +1,20 @@
 # Registro de cambios
 
+## Continuación de auditoría — 16 de noviembre de 2026
+
+Implementado y probado localmente; no desplegado:
+
+- Limitación persistente de login entre workers, compartida para Administración/Dirección/Seguimiento, y ámbito docente; 429 y recuperación temporal.
+- Sesiones registradas y revocables con duración absoluta/inactividad, detección de cambio de credencial/rol y revalidación al emitir sesión. Migración aditiva 005, aplicada solo en pruebas.
+- Construcción segura de tablas/resultados/resúmenes dinámicos; HTML constante y escape de ficha conservados.
+- Tokens Unicode y JSON anidado incorrectos rechazados sin errores internos.
+- Reloj America/Santiago para flujos activos, fechas/horas del frontend y pruebas DST. Históricos intactos.
+- Actor individual en auditoría de calendario, timeout de reenvío y vista previa ficticia para QA manual.
+- Batería ampliada a 61 métodos Python y tres programas JS, verificada en Python 3.12.16 y 3.14.8. Cinco métodos caracterizan defectos de calendario pendientes, sin aprobarlos como reglas correctas.
+- Revisión privada de estructura/procedencia de seis respaldos históricos: autenticidad de todos sus datos todavía sin certificar. No se eliminaron ni publicaron.
+
+Requiere revisión/autorización: reglas del calendario, parámetros operativos de sesiones/proxy, migración y despliegue de producción. QA visual no ejecutada por navegador inaccesible.
+
 ## Auditoría de desarrollo — 16 de noviembre de 2026
 
 Referencia inicial: `d0d2c80`, rama estable `integration/seguridad-seguimiento`. Cambios realizados únicamente en `audit/seguridad-continuidad-20261116`; pendientes de revisión e integración.

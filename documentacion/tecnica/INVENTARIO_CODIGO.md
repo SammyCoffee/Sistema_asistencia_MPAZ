@@ -1,6 +1,6 @@
 # Inventario de código Python
 
-Archivo y funciones de nivel superior; generado con AST, sin ejecutar scripts históricos.
+Actualizado en la continuación del 16-11-2026 mediante AST, sin ejecutar scripts históricos. Funciones de nivel superior de los módulos raíz.
 
 - `agregar_alumno.py`: script sin funciones de nivel superior.
 - `agregar_estado_totem.py`: script sin funciones de nivel superior.
@@ -38,6 +38,7 @@ Archivo y funciones de nivel superior; generado con AST, sin ejecutar scripts hi
 - `reenviar_pendientes.py`: `enviar_pendiente`.
 - `registrar_asistencia.py`: `procesar_asistencia`.
 - `registrar_totem.py`: script sin funciones de nivel superior.
+- `reloj_escolar.py`: `ahora_chile`, `hoy_chile`.
 - `respaldar_base_datos.py`: `respaldar_base_datos`.
 - `revisar_excel_estudiantes.py`: `limpiar_texto`, `normalizar_rut`, `rut_es_valido`, `revisar_excel`.
 - `seguimiento_administracion.py`: `_id_valido`, `_rol_operador`, `_caso`, `_avisar_docente`, `listar_casos_administracion`, `responder_caso_administracion`, `registrar_contacto_administracion`, `cambiar_estado_caso_administracion`, `consultar_historial_docente`.
@@ -47,6 +48,9 @@ Archivo y funciones de nivel superior; generado con AST, sin ejecutar scripts hi
 - `seguimiento_historial.py`: `consultar_historial_operador`, `_consultar_historial_conexion`, `consultar_historial_panel`.
 - `seguimiento_identidad.py`: `crear_operador`, `autenticar_operador`.
 - `seguimiento_sesiones.py`: `operador_actual`, `csrf_operador_valido`, `sin_cache`, `iniciar_sesion_operador`, `consultar_sesion_operador`, `cerrar_sesion_operador`.
+- `seguridad_web.py`: `comparar_tokens`, `_firma`, `limitar_login`, `_cuenta`, `revocar`, `crear_sesion_web`, `validar_sesion_web`, `instalar_seguridad`.
 - `simulador_totem.py`: `crear_evento_id`, `enviar_lectura`.
 - `simular_importacion_estudiantes.py`: `obtener_ruts_existentes`, `leer_estudiantes_excel`, `simular_importacion`.
 - `verificar_tarjetas.py`: `verificar_tarjetas`.
+
+Vista ficticia para QA: `herramientas/vista_previa_auditoria.py`. Pruebas nuevas y estado de cada área en el informe complementario.

@@ -72,3 +72,9 @@ Inventario generado desde `app.url_map` en la auditoría del 16-11-2026. No cons
 - `/asistencias/exportar/<periodo>`: sesión administrativa; periodos diario, semanal, mensual, anual; CSV UTF-8 BOM, separador punto y coma. No existe exportador PDF/XLSX en esta API.
 
 El esquema completo de entradas y errores de cada endpoint aún requiere formalización; consultar validaciones del código y pruebas. No se declara un contrato OpenAPI completo.
+
+## Cambios de la continuación
+
+Los tres logins pueden responder **429** con Retry-After; límites en SEGURIDAD_WEB.md. Las sesiones requieren registro SQLite vigente, expiran por inactividad/límite absoluto y se revocan al cerrar sesión o cambiar credencial/rol. Cookies antiguas requieren nuevo login. Falta de tablas de seguridad o error operativo: 503 sin detalles internos. Los permisos y rutas del inventario se conservan.
+
+El calendario ahora registra el actor del servidor como `operador:<id>`; no acepta un actor suministrado por el cliente. Los tokens Unicode inválidos se rechazan sin excepción y canal/estado JSON de tipo incorrecto devuelve 400.

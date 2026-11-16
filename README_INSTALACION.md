@@ -4,17 +4,19 @@
 
 Python 3.12 (versión objetivo del servidor), Git y las dependencias fijadas en `requirements.txt`. Node permite ejecutar la prueba JavaScript, pero no es dependencia de producción. Gunicorn es parte del despliegue existente; no está fijado en `requirements.txt`, pendiente de inventariar y fijar por separado.
 
-La auditoría se ejecutó en Python 3.14.8 y Node 26.12.0; queda pendiente repetirla en Python 3.12. No se instalaron dependencias en el servidor.
+La continuación se verificó en Python 3.12.16 y 3.14.8, y Node 26.12.0. Las 61 pruebas incluyen cinco caracterizaciones de defectos pendientes. No se instalaron dependencias en el servidor.
 
 ```bash
 git clone --branch integration/seguridad-seguimiento https://github.com/SammyCoffee/Sistema_asistencia_MPAZ.git
 cd Sistema_asistencia_MPAZ
 git status --short --branch
 git switch -c desarrollo/nombre-del-cambio
-python -m venv .venv
+python3.12 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 .venv/bin/python -m unittest discover -s tests -v
 node tests/test_interfaz.cjs
+node tests/test_dom_seguro.cjs
+node tests/test_tiempo_escolar.cjs
 ```
 
 No copiar la base de producción ni abrir respaldos versionados. Las pruebas crean y eliminan únicamente sus carpetas temporales.
@@ -28,6 +30,8 @@ No copiar la base de producción ni abrir respaldos versionados. Las pruebas cre
 | `MPAZ_DB_PATH` | Ruta SQLite | Usar ruta absoluta a base vacía fuera del repositorio |
 | `MPAZ_COOKIE_SECURE` | Atributo Secure de cookie | Por defecto `1`; `0` únicamente para HTTP en localhost |
 | `MPAZ_CALENDARIO_ESCRITURA_HABILITADA` | Habilita escrituras de jornadas | Deshabilitada por defecto; `si` solo en prueba aislada o mediante decisión institucional |
+| `MPAZ_SESION_MAX_SEGUNDOS` | Duración absoluta de sesión | 28800 por defecto; revisar antes de producción |
+| `MPAZ_SESION_INACTIVIDAD_SEGUNDOS` | Inactividad máxima HTTP | 1800 por defecto; revisar antes de producción |
 | `MPAZ_BACKUP_DIR` | Destino de copias verificadas | Ruta privada de pruebas; producción conserva destino `/srv/mpaz-data/backups/rfid` |
 | `MPAZ_API_URL` | Clientes de simulación/reenvío | Consultar cada script: unos esperan base URL, otros URL completa `/lectura` |
 
@@ -65,8 +69,12 @@ Este procedimiento crea estructura, no estudiantes ni operadores. Las cuentas fi
 ```bash
 .venv/bin/python -m unittest discover -s tests -v
 node tests/test_interfaz.cjs
+node tests/test_dom_seguro.cjs
+node tests/test_tiempo_escolar.cjs
 .venv/bin/python -m compileall -q -x '/(\.venv|\.git)/' .
 git diff --check
 ```
 
 La prueba JavaScript usa un DOM mínimo: no acredita contraste, diseño adaptable, navegación de teclado ni funcionamiento completo del navegador.
+
+Para la comprobación visual usar la [vista ficticia y matriz manual](documentacion/tecnica/QA_MANUAL.md). La migración 005 se aplica por el bucle únicamente a la base **nueva** de este ejemplo; no ejecutar el bucle 001–005 sobre una base existente, porque 004 no es repetible. En una actualización aprobada corresponde revisar y aplicar solo 005.

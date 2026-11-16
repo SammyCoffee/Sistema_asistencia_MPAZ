@@ -1,5 +1,7 @@
 # Auditoría técnica MPAZ RFID — 16-11-2026
 
+> Este informe conserva los resultados de la primera entrega. La [continuación del mismo día](AUDITORIA_CONTINUACION_20261116.md) actualiza seguridad, revisión privada de respaldos y compatibilidad Python 3.12; no reinterpretar pendientes históricos como estado actual.
+
 ## A. Resumen ejecutivo y alcance real
 
 Revisión inicial de arquitectura, rutas, permisos, persistencia, scripts, frontend y operación. Se añadieron correcciones locales verificadas; **no es una certificación de seguridad ni cierre total de las fases A–H**. La matriz indica qué se probó y qué sigue pendiente.

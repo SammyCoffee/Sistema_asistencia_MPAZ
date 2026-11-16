@@ -517,3 +517,9 @@ CREATE INDEX indice_sesiones_clase_fecha
 - Las migraciones 001–003 usan CREATE IF NOT EXISTS; 004 contiene CREATE y ALTER no repetibles. No hay tabla de versiones ni ejecutor transaccional central.
 - Los scripts históricos `migrar_*.py`/`agregar_*.py` no equivalen a un historial automático: algunos modifican estructura o ejecutan acciones al importarse. No importarlos en pruebas ni aplicarlos indiscriminadamente.
 - `migrar_alumnos_sin_uid.py` reconstruye una tabla: exige revisión y autorización fuera del entorno de pruebas.
+
+## Continuación: migración 005 (solo desarrollo hasta autorización)
+
+Añade `web_login_intentos` (clave HMAC primaria, cantidad, expira) y `web_sesiones` (HMAC de token primaria, tipo, identidad_id, firma de credencial/rol, creada, actividad, expira), con índices por expiración. DDL exacto en `migraciones/005_seguridad_web.sql`; transaccional y repetible. No hay modificación de tablas anteriores ni de registros escolares.
+
+La identidad es polimórfica (operador o docente); se valida contra la tabla y rol correspondientes en código, no mediante una llave foránea única. La falta de tablas se rechaza; no hay creación automática ni fallback inseguro. El registro de migraciones general sigue pendiente. Los tiempos de estas dos tablas son epoch UTC y no horas civiles escolares.
