@@ -5,8 +5,8 @@ MPAZ RFID - Administracion de jornadas escolares.
 Recibe una conexion SQLite explicita.
 Registra cambios y auditoria en una misma transaccion.
 
-La identidad individual del administrador no esta
-disponible con el sistema actual de login compartido.
+La API suministra la identidad individual del operador autenticado.
+Las llamadas internas históricas conservan un actor genérico explícito.
 """
 
 import json
@@ -51,7 +51,8 @@ def guardar_jornada_escolar(
     condicion,
     motivo,
     hora_entrada=None,
-    hora_salida=None
+    hora_salida=None,
+    actor="panel_administrativo"
 ):
     """
     Crea o edita una configuracion de jornada.
@@ -59,6 +60,9 @@ def guardar_jornada_escolar(
     La funcion no crea tablas ni abre otra conexion.
     La auditoria se guarda junto con la operacion.
     """
+
+    if not isinstance(actor, str) or not re.fullmatch(r"(?:panel_administrativo|operador:[1-9][0-9]*)", actor):
+        raise ValueError("actor_invalido")
 
     if accion not in ("crear", "editar"):
         raise ValueError("accion_invalida")
@@ -211,7 +215,7 @@ def guardar_jornada_escolar(
                     else None
                 ),
                 json.dumps(nuevo, ensure_ascii=False),
-                "panel_administrativo"
+                actor
             )
         )
 

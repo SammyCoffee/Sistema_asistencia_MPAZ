@@ -5,6 +5,8 @@ Etapa inicial: solicitudes docentes y consulta administrativa.
 No habilita aun escritura administrativa sin identidad individual.
 """
 
+from seguridad_web import comparar_tokens
+
 import sqlite3
 import secrets
 
@@ -61,7 +63,7 @@ def proteger_seguimiento():
                 not isinstance(esperado, str)
                 or not isinstance(recibido, str)
                 or not esperado
-                or not secrets.compare_digest(esperado, recibido)
+                or not comparar_tokens(esperado, recibido)
             ):
                 return _respuesta({"resultado": "csrf_invalido"}, 403)
 

@@ -115,6 +115,10 @@ if not API_KEY:
 
 
 
+from seguridad_web import instalar_seguridad, crear_sesion_web, comparar_tokens
+instalar_seguridad(app)
+
+
 # MPAZ-CSRF-687
 # Proteccion centralizada de operaciones administrativas.
 # No interviene en /lectura ni en el portal docente.
@@ -201,7 +205,7 @@ def proteger_escrituras_administrativas_csrf():
         or not isinstance(token_recibido, str)
         or not token_sesion
         or not token_recibido
-        or not secrets.compare_digest(
+        or not comparar_tokens(
             token_sesion, token_recibido
         )
     ):
@@ -283,6 +287,8 @@ def iniciar_sesion_panel_individual():
 
     session["seguimiento_operador_id"] = resultado["id"]
     session["seguimiento_csrf"] = secrets.token_urlsafe(32)
+    if not crear_sesion_web("operador", resultado["id"], password):
+        return jsonify({"resultado": "credenciales_invalidas"}), 401
 
     return jsonify({
         "resultado": "ok",
@@ -349,7 +355,7 @@ def validar_csrf_profesor():
     ):
         return False
 
-    return secrets.compare_digest(
+    return comparar_tokens(
         token_sesion,
         token_peticion
     )
@@ -396,6 +402,8 @@ def iniciar_sesion_profesor():
     session["profesor_nombre"] = resultado["nombre_completo"]
     session["profesor_rol"] = resultado["rol"]
     session["profesor_csrf"] = secrets.token_urlsafe(32)
+    if not crear_sesion_web("docente", resultado["id"], password):
+        return jsonify({"resultado": "credenciales_invalidas"}), 401
 
     return jsonify({
         "resultado": "ok",
@@ -1982,7 +1990,7 @@ def recibir_lectura():
     clave_recibida = request.headers.get("X-API-KEY", "")
     
     
-    if not secrets.compare_digest(clave_recibida, API_KEY):
+    if not comparar_tokens(clave_recibida, API_KEY):
         return jsonify(
             {
             "resultado": "no_autorizado",
@@ -2264,7 +2272,7 @@ def procesar_jornada_calendario_panel(accion):
         not isinstance(token_sesion, str)
         or not isinstance(token_recibido, str)
         or not token_sesion
-        or not secrets.compare_digest(
+        or not comparar_tokens(
             token_sesion, token_recibido
         )
     ):
@@ -2304,7 +2312,8 @@ def procesar_jornada_calendario_panel(accion):
             condicion=datos.get("condicion"),
             motivo=datos.get("motivo"),
             hora_entrada=datos.get("hora_entrada"),
-            hora_salida=datos.get("hora_salida")
+            hora_salida=datos.get("hora_salida"),
+            actor=f"operador:{session['seguimiento_operador_id']}"
         )
 
     except ValueError as error:

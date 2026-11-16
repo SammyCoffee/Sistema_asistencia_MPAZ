@@ -1,6 +1,8 @@
 
 """Autenticacion web individual para Seguimiento Escolar."""
 
+from seguridad_web import comparar_tokens
+
 import secrets
 
 from flask import Blueprint, jsonify, request, session
@@ -53,7 +55,7 @@ def csrf_operador_valido():
         isinstance(esperado, str)
         and isinstance(recibido, str)
         and bool(esperado)
-        and secrets.compare_digest(esperado, recibido)
+        and comparar_tokens(esperado, recibido)
     )
 
 
@@ -102,6 +104,9 @@ def iniciar_sesion_operador():
 
     session["seguimiento_operador_id"] = resultado["id"]
     session["seguimiento_csrf"] = secrets.token_urlsafe(32)
+    from seguridad_web import crear_sesion_web
+    if not crear_sesion_web("operador", resultado["id"], password):
+        return jsonify({"resultado": "credenciales_invalidas"}), 401
 
     return jsonify({
         "resultado": "ok",

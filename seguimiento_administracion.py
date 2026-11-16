@@ -149,7 +149,7 @@ def registrar_contacto_administracion(
     if not _id_valido(caso_id):
         return {"resultado": "datos_invalidos"}
 
-    if canal not in CANALES:
+    if not isinstance(canal, str) or canal not in CANALES:
         return {"resultado": "canal_invalido"}
 
     if not isinstance(resultado, str):
@@ -213,7 +213,7 @@ def cambiar_estado_caso_administracion(caso_id, estado, *, operador_id):
     if not _id_valido(caso_id):
         return {"resultado": "datos_invalidos"}
 
-    if estado not in ESTADOS:
+    if not isinstance(estado, str) or estado not in ESTADOS:
         return {"resultado": "estado_invalido"}
 
     con = obtener_conexion()
