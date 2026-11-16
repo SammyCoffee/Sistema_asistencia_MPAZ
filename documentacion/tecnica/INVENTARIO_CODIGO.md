@@ -1,0 +1,52 @@
+# Inventario de código Python
+
+Archivo y funciones de nivel superior; generado con AST, sin ejecutar scripts históricos.
+
+- `agregar_alumno.py`: script sin funciones de nivel superior.
+- `agregar_estado_totem.py`: script sin funciones de nivel superior.
+- `agregar_evento_id_asistencias.py`: script sin funciones de nivel superior.
+- `agregar_totem_id_asistencia.py`: script sin funciones de nivel superior.
+- `api.py`: `base_datos_no_disponible`, `proteger_respuestas`, `mostrar_inicio`, `mostrar_seguimiento_administrativo`, `mostrar_panel`, `validar_identidad_administrativa`, `validar_identidad_docente`, `proteger_escrituras_administrativas_csrf`, `obtener_token_administrativo`, `iniciar_sesion_panel_individual`, `consultar_sesion_panel`, `cerrar_sesion_panel`, `validar_csrf_profesor`, `iniciar_sesion_profesor`, `consultar_sesion_profesor`, `cerrar_sesion_profesor`, `crear_sesion_clase_api`, `registrar_asistencia_clase_api`, `confirmar_sesion_clase_api`, `consultar_sesiones_clase_api`, `consultar_detalle_sesion_clase_api`, `consultar_asignaciones_profesor`, `consultar_alumnos_curso_profesor`, `consultar_estado`, `consultar_totems_panel`, `registrar_totem_panel`, `cambiar_estado_totem_panel`, `registrar_alumno_panel`, `editar_alumno_panel`, `cambiar_estado_alumno_panel`, `consultar_alumnos_api`, `consultar_asistencias_api`, `consultar_inasistencias_api`, `consultar_atrasos_api`, `exportar_asistencias_api`, `consultar_tarjetas_panel`, `registrar_tarjeta_panel`, `vincular_tarjeta_panel`, `marcar_tarjeta_extraviada_panel`, `asignar_tarjeta_panel`, `bloquear_tarjeta_panel`, `desbloquear_tarjeta_panel`, `recibir_lectura`, `consultar_asistencia_curso_profesor`, `consultar_jornada_escolar_panel`, `obtener_token_calendario_panel`, `procesar_jornada_calendario_panel`, `registrar_jornada_calendario_panel`, `editar_jornada_calendario_panel`, `consultar_calendario_mensual_panel`, `consultar_historial_calendario_panel`.
+- `asignar_tarjeta.py`: `main`.
+- `base_datos.py`: `validar_rut_chileno`, `validar_nombre_estudiante`, `obtener_conexion`, `guardar_alumno`, `registrar_alumno`, `editar_alumno`, `cambiar_estado_alumno`, `obtener_tarjetas`, `registrar_tarjeta`, `vincular_tarjeta`, `marcar_tarjeta_extraviada`, `bloquear_tarjeta`, `activar_tarjeta`, `asignar_tarjeta_por_rut`, `buscar_alumno_por_uid`, `guardar_asistencia`, `cerrar_jornadas_pendientes`, `guardar_totem`, `cambiar_estado_totem`, `validar_totem`, `obtener_totems`, `registrar_usuario`, `autenticar_usuario`, `asignar_profesor_curso`, `obtener_asignaciones_profesor`, `crear_tablas`, `crear_sesion_clase_profesor`, `registrar_asistencia_clase_profesor`, `confirmar_sesion_clase_profesor`, `obtener_sesiones_clase_profesor`, `obtener_detalle_sesion_clase_profesor`, `obtener_alumnos_curso_profesor`, `obtener_asistencia_curso_profesor`.
+- `bloquear_tarjeta.py`: script sin funciones de nivel superior.
+- `buscar_alumno_uid.py`: `buscar_alumno_por_uid`.
+- `calendario_administracion.py`: `validar_hora_escolar`, `guardar_jornada_escolar`.
+- `calendario_escolar.py`: `validar_fecha_escolar`, `validar_curso_escolar`, `resolver_jornada_escolar`.
+- `cerrar_jornadas_automaticamente.py`: `main`.
+- `cola_pendientes.py`: `_bloquear`, `_validar`, `_leer`, `_guardar`, `cargar_pendientes`, `guardar_pendiente`, `agregar_pendiente`, `eliminar_pendiente`.
+- `consultar_alumnos.py`: `obtener_alumnos`, `buscar_alumnos`.
+- `consultar_asistencia.py`: `obtener_rango_periodo`, `obtener_asistencias`, `obtener_inasistencias`, `obtener_atrasos`.
+- `crear_base_demostracion.py`: `crear_base_demostracion`.
+- `exportar_asistencias_csv.py`: `celda_csv_segura`, `obtener_rango_fechas`, `exportar_asistencias`.
+- `importar_estudiantes.py`: `existe_respaldo`, `obtener_ruts_existentes`, `clasificar_estudiantes`, `guardar_informe`, `importar_estudiantes`.
+- `lector_nfc.py`: `obtener_uid`.
+- `limpiar_datos_pruebas.py`: `tabla_existe`, `contar_registros`, `limpiar_datos_prueba`.
+- `limpiar_duplicados.py`: script sin funciones de nivel superior.
+- `main.py`: script sin funciones de nivel superior.
+- `migrar_admin_estudiantes_tarjetas.py`: `columna_existe`, `migrar`.
+- `migrar_alumnos_sin_uid.py`: script sin funciones de nivel superior.
+- `migrar_asistencias_entrada_salida.py`: `obtener_columnas`, `migrar_asistencias`.
+- `migrar_tarjetas.py`: script sin funciones de nivel superior.
+- `probar_api_automaticamente.py`: `enviar_peticion`, `convertir_respuesta`, `comprobar_prueba`, `ejecutar_pruebas`.
+- `probar_api_lectura.py`: script sin funciones de nivel superior.
+- `probar_busqueda_uid.py`: script sin funciones de nivel superior.
+- `probar_lectura_totem.py`: `crear_evento_id`, `main`.
+- `probar_procesar_asistencia.py`: script sin funciones de nivel superior.
+- `probar_totem.py`: script sin funciones de nivel superior.
+- `procesar_lectura_totem.py`: `procesar_lectura_totem`.
+- `reenviar_pendientes.py`: `enviar_pendiente`.
+- `registrar_asistencia.py`: `procesar_asistencia`.
+- `registrar_totem.py`: script sin funciones de nivel superior.
+- `respaldar_base_datos.py`: `respaldar_base_datos`.
+- `revisar_excel_estudiantes.py`: `limpiar_texto`, `normalizar_rut`, `rut_es_valido`, `revisar_excel`.
+- `seguimiento_administracion.py`: `_id_valido`, `_rol_operador`, `_caso`, `_avisar_docente`, `listar_casos_administracion`, `responder_caso_administracion`, `registrar_contacto_administracion`, `cambiar_estado_caso_administracion`, `consultar_historial_docente`.
+- `seguimiento_api.py`: `_id_valido`, `_json_valido`, `_respuesta`, `proteger_seguimiento`, `evitar_cache`, `error_base_datos`, `crear_caso_profesor_api`, `listar_casos_profesor_api`, `historial_profesor_api`, `listar_casos_panel_api`, `historial_administrativo_api`.
+- `seguimiento_escolar.py`: `_id_valido`, `crear_caso_docente`, `listar_casos_docente`.
+- `seguimiento_gestiones_api.py`: `responder`, `proteger_gestiones`, `evitar_cache`, `error_sqlite`, `datos_json`, `resultado_http`, `registrar_mensaje`, `registrar_contacto`, `actualizar_estado`.
+- `seguimiento_historial.py`: `consultar_historial_operador`, `_consultar_historial_conexion`, `consultar_historial_panel`.
+- `seguimiento_identidad.py`: `crear_operador`, `autenticar_operador`.
+- `seguimiento_sesiones.py`: `operador_actual`, `csrf_operador_valido`, `sin_cache`, `iniciar_sesion_operador`, `consultar_sesion_operador`, `cerrar_sesion_operador`.
+- `simulador_totem.py`: `crear_evento_id`, `enviar_lectura`.
+- `simular_importacion_estudiantes.py`: `obtener_ruts_existentes`, `leer_estudiantes_excel`, `simular_importacion`.
+- `verificar_tarjetas.py`: `verificar_tarjetas`.
