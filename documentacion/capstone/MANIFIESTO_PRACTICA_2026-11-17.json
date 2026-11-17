@@ -1,0 +1,164 @@
+{
+  "base_commit": "48f4a4b3290bfb085e999908f6c4189eb7a97213",
+  "branch": "capstone/organizacion-evidencias",
+  "zip_name": "MPAZ_Evidencias_Practica_para_Codex_2026-11-17.zip",
+  "zip_sha256": "163805c9f3b1d8c5b4aae4735d9f75d2625844380e28997c634634c370484d26",
+  "private_source_hashes": {
+    "INDICE_TRAZABILIDAD_EVIDENCIAS_PRACTICA.md": "cabe1fd5cc367c9af5959cb9d4c7f169a98a83f77e1c3feb726e43c45fd26656",
+    "PROMPT_PARA_CODEX.md": "46891260f7fb170b7c46f2bed5e2b8184e1d2f18d87e3477ec64bd8f2b70fe07",
+    "00_Fuente_Original/Sumativa3_Final_Duoc.docx": "9ed75b697a9898a141909006163137dde4f5184ecbb0f3695b33cc87ea5fb30b",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_11.png": "c6c2ddebad339a4981df68ca0193be85fca1cb7847fa540580a5bf0043cde511",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_12.png": "587c4634a4c71af60088f824ed1296da13579d37b3ed6ac17592ece67513ee63",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_17.png": "11c638310309975af96eda119e601822db535d2cf11fdb5f3e396cdedc0bb710",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_08.png": "8f765944980fdd596a206c3552c5f3b4a8379f7b3d01594dfad78cff79420354",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_13.png": "c2bbb4c5460072b7403be8927a66f876873b802e48d5ba78570fb67246353812",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_21.png": "30bed19dd351f9924b7509b898ebf9a11e2537caecd4f1f3ecb693ee9a0afd85",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_10.png": "9ec6e854672519c2b611d902faaf9f875be36e733bf6d197d686cfb07671097c",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_18.png": "8ac1e97f814152f5c793b1ba51a0110e420581809ea1defb55ac6e3c28d46bd6",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_06.png": "f8ff8d562f4654cdd349b4cb4cb25a6cac96a1e97b97a01fc9e6463b7990d811",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_26.png": "ec2c996065988b14777967c7481bbb9a2c6dba93d60ee800ddb45a3b8639d15f",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_05.png": "34334c37505401c1d9df6229f1f277969772ce9757a803270981a0714c0ddfe1",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_23.png": "957827f8d02536e474e27ac7dac8df47309394627d76fbb593446045ce92ad96",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_04.png": "4d08a50f50908c285cf1b91d60c7f198a15520b9e56ed2c8a8365d4e8ba7714e",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_02.jpg": "d11c7e854a50be989d05294239a772d80c7a360ed4012fb34e06ac8a4c278b90",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_15.png": "9a8af5730ecaae3dc585bfa625a30ccfeac8bf19fca90c0a628fdad26d85b827",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_28.png": "057b28f9c8f9d3e457233ab4b1294eb588484601b5e1ed51fb0a914baf9029ac",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_07.png": "fd4ff7b457def934077ecac2b4dc56a7eb5099fccffb1b3227b840fe3837a8e2",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_24.png": "c8c1e336277ecbbebd8fd2da3f5ffec27b9ac0aabdf283405c82717e4ac265b3",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_16.png": "ab9a35ff3d5188830fe6b1259350e5731f0ce4899e9c4e6642cc77598ab80967",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_03.png": "fbb3a8719a9ad0bb9fabc1299fb17cb19cdefcf8ab2a269fad9eb8238ce9637e",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_01.jpg": "d7796de21931ef133613a87595a55d61cc09f312df289855be01776d14a0b3aa",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_19.png": "093b3cf37c95fb58e8b3a8dc09eab577162ba7902ff046172016fc3ccca568fd",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_22.png": "ae54ffb04d1d18fbd0c16865cbd70e507f0ef6dc25315dca92035bc140e81123",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_20.png": "7f6ada58548d616f646e6cc930819095883212982d952e7d51dc79450d1bf00b",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_09.png": "c1e2a32c28a975d4cf35176f917206aa6384c582529b8ffadd0ca85cf2e10ce8",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_27.png": "3c773c47f1bd0e4921eeddeefda1553c4bd3f1d6bef4e8719013c2cb0c36ba79",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_29.png": "7f9ffcf682e54d74b4e847cceb9dd198dfee81ef4c88db6b8a1ecf896b500f17",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_14.png": "f837ca75bada5f5038a86764260e498ad78f72d3d5318d9d4c62986404a80650",
+    "01_Figuras_Originales_REVISION_PRIVACIDAD/Figura_25.png": "9a51988daa0d04976dfadac6468832e55a330c8ec62cc7c1d93f492e670bbf4e"
+  },
+  "source_manifest_sha256": "3d823dfbe6fc30b57d54fa98764855db76db5084963b2f0000f2fb10f54eaf8c",
+  "versions": {
+    "Fase_2/Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_2026-11-17.docx": "Fase_2/Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_PRACTICA_REVISION_2026-11-17.docx",
+    "Fase_2/Evidencias_Grupales/MPAZ_RFID_Informe_Extenso_20_Apartados_003D_2026-11-17.docx": "Fase_2/Evidencias_Grupales/MPAZ_RFID_Informe_Extenso_20_Apartados_003D_PRACTICA_REVISION_2026-11-17.docx",
+    "Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Desarrollo_003D_ACTUALIZADA_2026-11-17.docx": "Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Desarrollo_003D_ACTUALIZADA_PRACTICA_REVISION_2026-11-17.docx",
+    "Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Escenarios_003D_2026-11-17.docx": "Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Escenarios_003D_PRACTICA_REVISION_2026-11-17.docx",
+    "Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Fisica_003D_2026-11-17.docx": "Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Fisica_003D_PRACTICA_REVISION_2026-11-17.docx",
+    "Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Logica_003D_ACTUALIZADA_2026-11-17.docx": "Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Logica_003D_ACTUALIZADA_PRACTICA_REVISION_2026-11-17.docx",
+    "Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Procesos_003D_2026-11-17.docx": "Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Procesos_003D_PRACTICA_REVISION_2026-11-17.docx",
+    "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Bitacora_Semana_15_MPAZ_RFID_003D_2026-11-17.docx": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Bitacora_Semana_15_MPAZ_RFID_003D_PRACTICA_REVISION_2026-11-17.docx",
+    "Fase_3/Evidencias_Grupales/MPAZ_RFID_Presentacion_Final_Capstone_003D_2026-11-17.pptx": "Fase_3/Evidencias_Grupales/MPAZ_RFID_Presentacion_Final_Capstone_003D_PRACTICA_REVISION_2026-11-17.pptx"
+  },
+  "prepared_office_sha256": {
+    "Fase_2/Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_PRACTICA_REVISION_2026-11-17.docx": "bd0eb34579885f744c17ca5323f68d402d969f2d3d92a09de3da361cd6b50e39",
+    "Fase_2/Evidencias_Grupales/MPAZ_RFID_Informe_Extenso_20_Apartados_003D_PRACTICA_REVISION_2026-11-17.docx": "205e4b3d9cc920b671c6c6cff51707e6c8e3eb52fa06cf6b1ba8bd3f4129b42c",
+    "Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Desarrollo_003D_ACTUALIZADA_PRACTICA_REVISION_2026-11-17.docx": "a001b158e4128eef2626d1705bd43a1cd014ea6c1609fd3f4795f9a4e4e15abb",
+    "Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Escenarios_003D_PRACTICA_REVISION_2026-11-17.docx": "2a4926707afd5ce980a2b43970d24c3cb049ab0b6f9ebe40224d9edb9fc3447f",
+    "Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Fisica_003D_PRACTICA_REVISION_2026-11-17.docx": "4be9c66b0e1115f7a335fb971c8a7fc29d0762e570ceb274e2ae1bcf41e26761",
+    "Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Logica_003D_ACTUALIZADA_PRACTICA_REVISION_2026-11-17.docx": "dff6d23115cb5c5cada48fa081b29a5ccadd1ef4f41a661c14f13498883f376d",
+    "Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Procesos_003D_PRACTICA_REVISION_2026-11-17.docx": "1430bdd26704f867d1d7b3e895f1510db5d0ac619a16664400b65190511fe7c0",
+    "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Bitacora_Semana_15_MPAZ_RFID_003D_PRACTICA_REVISION_2026-11-17.docx": "c70fd7db7c2bc901cff6a9980fdd17ef3a64aa0f45f964b554ccd32dc216d9f6",
+    "Fase_3/Evidencias_Grupales/MPAZ_RFID_Presentacion_Final_Capstone_003D_PRACTICA_REVISION_2026-11-17.pptx": "0009b33c84d358c2158c1351d8ba2786238eab50e30c1101c79473785f8e08f5"
+  },
+  "figures": {
+    "F01": {
+      "path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/HARDWARE_02_Tarjeta_Prueba_PN532.jpeg",
+      "sha256": "d7796de21931ef133613a87595a55d61cc09f312df289855be01776d14a0b3aa",
+      "action": "reuse_existing"
+    },
+    "F06": {
+      "path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F06_REVISADA_2026-11-17.png",
+      "sha256": "f8ff8d562f4654cdd349b4cb4cb25a6cac96a1e97b97a01fc9e6463b7990d811",
+      "action": "reviewed_source_copy"
+    },
+    "F07": {
+      "path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F07_REVISADA_2026-11-17.png",
+      "sha256": "fd4ff7b457def934077ecac2b4dc56a7eb5099fccffb1b3227b840fe3837a8e2",
+      "action": "reviewed_source_copy"
+    },
+    "F08": {
+      "path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F08_REVISADA_2026-11-17.png",
+      "sha256": "8f765944980fdd596a206c3552c5f3b4a8379f7b3d01594dfad78cff79420354",
+      "action": "reviewed_source_copy"
+    },
+    "F09": {
+      "path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F09_REVISADA_2026-11-17.png",
+      "sha256": "c1e2a32c28a975d4cf35176f917206aa6384c582529b8ffadd0ca85cf2e10ce8",
+      "action": "reviewed_source_copy"
+    },
+    "F14": {
+      "path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F14_REVISADA_2026-11-17.png",
+      "sha256": "f837ca75bada5f5038a86764260e498ad78f72d3d5318d9d4c62986404a80650",
+      "action": "reviewed_source_copy"
+    },
+    "F22": {
+      "path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F22_REVISADA_2026-11-17.png",
+      "sha256": "ae54ffb04d1d18fbd0c16865cbd70e507f0ef6dc25315dca92035bc140e81123",
+      "action": "reviewed_source_copy"
+    },
+    "F24": {
+      "path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F24_REVISADA_2026-11-17.png",
+      "sha256": "c8c1e336277ecbbebd8fd2da3f5ffec27b9ac0aabdf283405c82717e4ac265b3",
+      "action": "reviewed_source_copy"
+    },
+    "F26": {
+      "path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F26_REVISADA_2026-11-17.png",
+      "sha256": "ec2c996065988b14777967c7481bbb9a2c6dba93d60ee800ddb45a3b8639d15f",
+      "action": "reviewed_source_copy"
+    },
+    "F27": {
+      "path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F27_REVISADA_2026-11-17.png",
+      "sha256": "3c773c47f1bd0e4921eeddeefda1553c4bd3f1d6bef4e8719013c2cb0c36ba79",
+      "action": "reviewed_source_copy"
+    },
+    "F28": {
+      "path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F28_REVISADA_2026-11-17.png",
+      "sha256": "057b28f9c8f9d3e457233ab4b1294eb588484601b5e1ed51fb0a914baf9029ac",
+      "action": "reviewed_source_copy"
+    },
+    "F03": {
+      "path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F03_SANITIZADA_2026-11-17.png",
+      "sha256": "88f4d27083bfe80cd80cada6fce95786fad4b370eed5de689e978f8575549267",
+      "action": "sanitized_pixel_mask"
+    },
+    "F11": {
+      "path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F11_SANITIZADA_2026-11-17.png",
+      "sha256": "4aa4844eac9d28cbf6c9cb2b92b77ef6ed9eedc0ed53d7af4f11fc17494c9297",
+      "action": "sanitized_pixel_mask"
+    },
+    "F20": {
+      "path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F20_SANITIZADA_2026-11-17.png",
+      "sha256": "8678c5b97ccae91aa981db2e192a0ddb4b6338ad9ae28ff866f3c2c48902a611",
+      "action": "sanitized_pixel_mask"
+    },
+    "F21": {
+      "path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F21_SANITIZADA_2026-11-17.png",
+      "sha256": "a0bf4c8e8c300c3aaaaa782ec031743277dad184520e27b36e459c059ab85927",
+      "action": "sanitized_pixel_mask"
+    }
+  },
+  "excluded_for_privacy": [
+    "F02",
+    "F03",
+    "F04",
+    "F05",
+    "F11",
+    "F18",
+    "F20",
+    "F21"
+  ],
+  "source_word_in_repository": false,
+  "commits_or_push_authorized": false,
+  "excluded_for_privacy_note": "Original images excluded; sanitized derivatives F03/F11/F20/F21 are selected. F02/F04/F05/F18 derivatives stay private due to duplication/redundancy.",
+  "sanitized_count": 8,
+  "sanitized_selected": [
+    "F03",
+    "F11",
+    "F20",
+    "F21"
+  ],
+  "sanitization_registry": "REGISTRO_SANITIZACION_PRACTICA_2026-11-17.json",
+  "historical_risk_report": "RECOMENDACION_HISTORICOS_PRIVACIDAD_2026-11-17.md",
+  "pixel_edit_authorized": true,
+  "generative_editing_used": false
+}
