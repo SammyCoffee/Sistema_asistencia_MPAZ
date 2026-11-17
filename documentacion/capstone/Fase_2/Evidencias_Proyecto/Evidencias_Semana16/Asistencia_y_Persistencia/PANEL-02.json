@@ -1,0 +1,148 @@
+{
+  "creacion": {
+    "asignatura": "Demo",
+    "curso": "1A",
+    "estado": "borrador",
+    "resultado": "sesion_creada",
+    "sesion_id": 1
+  },
+  "parcial": {
+    "alumno_id": 1,
+    "estado": "presente",
+    "resultado": "asistencia_guardada",
+    "sesion_id": 1
+  },
+  "consulta_previa": {
+    "alumnos": [
+      {
+        "alumno_id": 1,
+        "curso": "1A",
+        "estado": "presente",
+        "fecha_registro": "2026-11-17 20:13:47",
+        "nombre": "Estudiante Ficticio",
+        "observacion": "Demostración ficticia Semana 16"
+      },
+      {
+        "alumno_id": 3,
+        "curso": "1A",
+        "estado": "sin_verificar",
+        "fecha_registro": null,
+        "nombre": "Estudiante Simulado",
+        "observacion": null
+      }
+    ],
+    "resultado": "ok",
+    "sesion": {
+      "asignacion_id": 1,
+      "asignatura": "Demo",
+      "curso": "1A",
+      "estado": "borrador",
+      "fecha": "2026-11-17",
+      "fecha_confirmacion": null,
+      "fecha_creacion": "2026-11-17 20:13:47",
+      "hora_inicio": "08:00",
+      "modalidad": "por_clase",
+      "pendientes": 1,
+      "registrados": 1,
+      "sesion_id": 1,
+      "total_alumnos": 2
+    }
+  },
+  "confirmacion_incompleta": {
+    "http": 409,
+    "respuesta": {
+      "pendientes": 1,
+      "registrados": 1,
+      "resultado": "asistencia_incompleta",
+      "total_alumnos": 2
+    }
+  },
+  "completar_asistencia": {
+    "alumno_id": 3,
+    "estado": "no_presente",
+    "resultado": "asistencia_guardada",
+    "sesion_id": 1
+  },
+  "confirmacion": {
+    "pendientes": 0,
+    "registrados": 2,
+    "resultado": "sesion_confirmada",
+    "sesion_id": 1,
+    "total_alumnos": 2
+  },
+  "consulta_posterior": {
+    "alumnos": [
+      {
+        "alumno_id": 1,
+        "curso": "1A",
+        "estado": "presente",
+        "fecha_registro": "2026-11-17 20:13:47",
+        "nombre": "Estudiante Ficticio",
+        "observacion": "Demostración ficticia Semana 16"
+      },
+      {
+        "alumno_id": 3,
+        "curso": "1A",
+        "estado": "no_presente",
+        "fecha_registro": "2026-11-17 20:13:47",
+        "nombre": "Estudiante Simulado",
+        "observacion": "Segundo estudiante ficticio"
+      }
+    ],
+    "resultado": "ok",
+    "sesion": {
+      "asignacion_id": 1,
+      "asignatura": "Demo",
+      "curso": "1A",
+      "estado": "confirmada",
+      "fecha": "2026-11-17",
+      "fecha_confirmacion": "2026-11-17 20:13:47",
+      "fecha_creacion": "2026-11-17 20:13:47",
+      "hora_inicio": "08:00",
+      "modalidad": "por_clase",
+      "pendientes": 0,
+      "registrados": 2,
+      "sesion_id": 1,
+      "total_alumnos": 2
+    }
+  },
+  "edicion_postconfirmacion": {
+    "http": 409,
+    "respuesta": {
+      "mensaje": "La sesion ya no permite modificaciones",
+      "resultado": "sesion_no_editable"
+    }
+  },
+  "sqlite_conexion_nueva": {
+    "sesion": [
+      [
+        1,
+        1,
+        "2026-11-17",
+        "08:00",
+        "por_clase",
+        "confirmada",
+        "2026-11-17 20:13:47",
+        "2026-11-17 20:13:47"
+      ]
+    ],
+    "asistencias_clase": [
+      [
+        1,
+        1,
+        1,
+        "presente",
+        "Demostración ficticia Semana 16",
+        "2026-11-17 20:13:47"
+      ],
+      [
+        2,
+        1,
+        3,
+        "no_presente",
+        "Segundo estudiante ficticio",
+        "2026-11-17 20:13:47"
+      ]
+    ]
+  }
+}

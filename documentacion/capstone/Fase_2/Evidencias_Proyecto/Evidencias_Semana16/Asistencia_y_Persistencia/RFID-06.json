@@ -1,0 +1,41 @@
+{
+  "entrada": {
+    "codigo_totem": "DEMO",
+    "uid": "AABBCCDD",
+    "evento_id": "s16-e6"
+  },
+  "origen_uid": "Literal ficticio del fixture, sin vínculo a tarjeta física",
+  "reloj_inyectado": "2026-11-17T08:00:50-03:00",
+  "http": 200,
+  "respuesta": {
+    "buzzer": "un_pitido_largo",
+    "led": "rojo",
+    "mensaje": "El alumno se encuentra inactivo",
+    "resultado": "alumno_inactivo",
+    "totem": "DEMO"
+  },
+  "sqlite_antes": [
+    [
+      1,
+      "2026-11-17",
+      "08:00:00",
+      "08:00:30",
+      "totem",
+      "s16-e1",
+      "s16-e3"
+    ]
+  ],
+  "sqlite_despues": [
+    [
+      1,
+      "2026-11-17",
+      "08:00:00",
+      "08:00:30",
+      "totem",
+      "s16-e1",
+      "s16-e3"
+    ]
+  ],
+  "sin_cambios": true,
+  "verificacion": true
+}

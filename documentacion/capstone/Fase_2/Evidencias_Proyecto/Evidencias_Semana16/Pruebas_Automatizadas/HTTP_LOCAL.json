@@ -1,0 +1,128 @@
+{
+  "bind": "127.0.0.1",
+  "puerto": "efímero asignado por sistema",
+  "navegador": false,
+  "casos": [
+    {
+      "prueba": "Estado",
+      "ruta": "/estado",
+      "esperado_http": 200,
+      "observado_http": 200,
+      "respuesta": {
+        "estado": "activo",
+        "mensaje": "API funcionando correctamente",
+        "sistema": "MPAZ RFID"
+      },
+      "conforme": true
+    },
+    {
+      "prueba": "Sin sesión",
+      "ruta": "/alumnos",
+      "esperado_http": 401,
+      "observado_http": 401,
+      "respuesta": {
+        "mensaje": "Debes iniciar sesion en el panel",
+        "resultado": "no_autorizado"
+      },
+      "conforme": true
+    },
+    {
+      "prueba": "Login administrador",
+      "ruta": "/panel/login-individual",
+      "esperado_http": 200,
+      "observado_http": 200,
+      "respuesta": {
+        "mensaje": "Sesion individual iniciada",
+        "operador": {
+          "nombre": "Operador Ficticio",
+          "rol": "administracion"
+        },
+        "resultado": "ok"
+      },
+      "conforme": true
+    },
+    {
+      "prueba": "Consulta administrador",
+      "ruta": "/alumnos",
+      "esperado_http": 200,
+      "observado_http": 200,
+      "respuesta": {
+        "alumnos": [
+          {
+            "curso": "1A",
+            "estado_alumno": "activo",
+            "estado_tarjeta": "activa",
+            "fecha_baja": null,
+            "id": 1,
+            "nombre": "Estudiante Ficticio",
+            "rut": "DEMO-NO-RUT-1",
+            "uid": "AABBCCDD"
+          },
+          {
+            "curso": "2A",
+            "estado_alumno": "activo",
+            "estado_tarjeta": null,
+            "fecha_baja": null,
+            "id": 2,
+            "nombre": "Estudiante Ficticio",
+            "rut": "DEMO-NO-RUT-2",
+            "uid": null
+          }
+        ],
+        "resultado": "ok",
+        "total": 2
+      },
+      "conforme": true
+    },
+    {
+      "prueba": "Login docente",
+      "ruta": "/profesor/login",
+      "esperado_http": 200,
+      "observado_http": 200,
+      "respuesta": {
+        "mensaje": "Sesion docente iniciada correctamente",
+        "profesor": {
+          "id": 1,
+          "nombre": "Docente Ficticio",
+          "rol": "profesor",
+          "usuario": "profe1"
+        },
+        "resultado": "ok"
+      },
+      "conforme": true
+    },
+    {
+      "prueba": "Curso propio",
+      "ruta": "/profesor/cursos/1A/alumnos",
+      "esperado_http": 200,
+      "observado_http": 200,
+      "respuesta": {
+        "alumnos": [
+          {
+            "curso": "1A",
+            "id": 1,
+            "nombre": "Estudiante Ficticio"
+          }
+        ],
+        "curso": "1A",
+        "resultado": "ok",
+        "total": 1
+      },
+      "conforme": true
+    },
+    {
+      "prueba": "Curso ajeno",
+      "ruta": "/profesor/cursos/2A/alumnos",
+      "esperado_http": 403,
+      "observado_http": 403,
+      "respuesta": {
+        "mensaje": "No tiene autorizacion para consultar este curso",
+        "resultado": "acceso_denegado"
+      },
+      "conforme": true
+    }
+  ],
+  "conforme": true,
+  "sqlite_temporal_eliminada": true,
+  "servidor_detenido": true
+}

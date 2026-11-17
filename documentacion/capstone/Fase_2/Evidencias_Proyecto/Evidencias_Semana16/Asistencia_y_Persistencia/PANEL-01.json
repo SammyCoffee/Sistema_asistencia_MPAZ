@@ -1,0 +1,52 @@
+{
+  "entrada": {
+    "uid": "DE001616",
+    "origen": "sintético, no tarjeta física"
+  },
+  "alta": {
+    "http": 201,
+    "respuesta": {
+      "estado": "disponible",
+      "fecha_registro": "2026-11-17",
+      "id": 2,
+      "resultado": "registrada",
+      "uid": "DE001616"
+    }
+  },
+  "consulta": {
+    "http": 200,
+    "respuesta": {
+      "resultado": "ok",
+      "tarjetas": [
+        {
+          "alumno": "Estudiante Ficticio",
+          "alumno_id": 1,
+          "curso": "1A",
+          "estado": "activa",
+          "fecha_asignacion": null,
+          "fecha_bloqueo": null,
+          "fecha_extravio": null,
+          "fecha_registro": "2026-01-01",
+          "id": 1,
+          "uid": "AABBCCDD"
+        },
+        {
+          "alumno": null,
+          "alumno_id": null,
+          "curso": null,
+          "estado": "disponible",
+          "fecha_asignacion": null,
+          "fecha_bloqueo": null,
+          "fecha_extravio": null,
+          "fecha_registro": "2026-11-17",
+          "id": 2,
+          "uid": "DE001616"
+        }
+      ],
+      "total": 2
+    }
+  },
+  "sqlite_conexion_nueva": [
+    "disponible"
+  ]
+}

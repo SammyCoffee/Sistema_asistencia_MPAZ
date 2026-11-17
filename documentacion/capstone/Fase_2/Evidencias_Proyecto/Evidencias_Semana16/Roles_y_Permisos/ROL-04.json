@@ -1,0 +1,169 @@
+{
+  "consulta": {
+    "http": 403,
+    "respuesta": {
+      "mensaje": "No tiene autorizacion para consultar este curso",
+      "resultado": "acceso_denegado"
+    }
+  },
+  "escritura": {
+    "http": 403,
+    "respuesta": {
+      "mensaje": "No tiene autorizacion para esta asignacion",
+      "resultado": "acceso_denegado"
+    }
+  },
+  "tablas_escolares_antes": {
+    "alumnos": [
+      [
+        1,
+        "DEMO-NO-RUT-1",
+        "Estudiante Ficticio",
+        "1A",
+        "activo",
+        null
+      ],
+      [
+        2,
+        "DEMO-NO-RUT-2",
+        "Estudiante Ficticio",
+        "2A",
+        "activo",
+        null
+      ],
+      [
+        3,
+        "DEMO-NO-RUT-3",
+        "Estudiante Simulado",
+        "1A",
+        "activo",
+        null
+      ]
+    ],
+    "tarjetas": [
+      [
+        1,
+        1,
+        "AABBCCDD",
+        "activa",
+        "2026-01-01",
+        null,
+        null,
+        null
+      ],
+      [
+        2,
+        null,
+        "DE001616",
+        "disponible",
+        "2026-11-17",
+        null,
+        null,
+        null
+      ]
+    ],
+    "asignaturas": [
+      [
+        1,
+        "Demo",
+        "activo"
+      ]
+    ],
+    "profesores_cursos": [
+      [
+        1,
+        1,
+        "1A",
+        1,
+        "activo"
+      ],
+      [
+        2,
+        2,
+        "2A",
+        1,
+        "activo"
+      ]
+    ],
+    "sesiones_clase": [],
+    "asistencias_clase": [],
+    "asistencias": []
+  },
+  "tablas_escolares_despues": {
+    "alumnos": [
+      [
+        1,
+        "DEMO-NO-RUT-1",
+        "Estudiante Ficticio",
+        "1A",
+        "activo",
+        null
+      ],
+      [
+        2,
+        "DEMO-NO-RUT-2",
+        "Estudiante Ficticio",
+        "2A",
+        "activo",
+        null
+      ],
+      [
+        3,
+        "DEMO-NO-RUT-3",
+        "Estudiante Simulado",
+        "1A",
+        "activo",
+        null
+      ]
+    ],
+    "tarjetas": [
+      [
+        1,
+        1,
+        "AABBCCDD",
+        "activa",
+        "2026-01-01",
+        null,
+        null,
+        null
+      ],
+      [
+        2,
+        null,
+        "DE001616",
+        "disponible",
+        "2026-11-17",
+        null,
+        null,
+        null
+      ]
+    ],
+    "asignaturas": [
+      [
+        1,
+        "Demo",
+        "activo"
+      ]
+    ],
+    "profesores_cursos": [
+      [
+        1,
+        1,
+        "1A",
+        1,
+        "activo"
+      ],
+      [
+        2,
+        2,
+        "2A",
+        1,
+        "activo"
+      ]
+    ],
+    "sesiones_clase": [],
+    "asistencias_clase": [],
+    "asistencias": []
+  },
+  "exclusion": "Las tablas de sesiones web y actividad de autenticación no son contenido escolar y pueden registrar actividad legítima."
+}
