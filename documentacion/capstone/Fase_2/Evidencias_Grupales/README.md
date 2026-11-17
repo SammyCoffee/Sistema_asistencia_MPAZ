@@ -52,3 +52,10 @@ Se documentan tablas y consulta SQLite, comunicación ESP32–API y rechazo de e
 | Presentación Final Capstone | [Abrir archivo](../../Fase_3/Evidencias_Grupales/MPAZ_RFID_Presentacion_Final_Capstone_003D_PARA_REVISION.pptx) | Original sin cambios | Para revisión académica |
 
 [Revisión completa y pendientes vigentes](../../REVISION_ACADEMICA_2026-11-09.md). Los apartados anteriores registran antecedentes; 2.6 y presentaciones ya están disponibles como borradores. No se consideran aprobados.
+
+## Informes vigentes para revisión 17-11-2026
+
+- [Informe Final 2.6 en plantilla oficial](2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_2026-11-17.docx): seis apartados; pendientes competencias, áreas de desempeño, grupo y reflexión personal del apartado 6.
+- [Informe extenso APT](MPAZ_RFID_Informe_Extenso_20_Apartados_003D_2026-11-17.docx): documento adicional de 20 apartados; pendientes académicos en 14, 15 y 18; portada y referencias corregidas. No sustituye al 2.6.
+
+Los borradores 2.6 anteriores se conservan íntegros. [Revisión del paquete y límites de validación](../../REVISION_INTEGRACION_2026-11-17.md).

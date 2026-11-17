@@ -58,3 +58,7 @@ El TXT original de terminal y su informe técnico se conservan en sus rutas exis
 | Presentación Final Capstone | [Abrir archivo](../../../Fase_3/Evidencias_Grupales/MPAZ_RFID_Presentacion_Final_Capstone_003D_PARA_REVISION.pptx) | Original sin cambios | Para revisión académica |
 
 [Revisión académica, correcciones y pendientes](../../../REVISION_ACADEMICA_2026-11-09.md) — Disponible para revisión; no implica aprobación docente.
+
+## Entrega de arquitectura 17-11-2026
+
+[Cinco formularios 4+1 y diez diagramas](Vistas_4mas1/README.md) disponibles para revisión; se conservan los diagramas y fichas anteriores.

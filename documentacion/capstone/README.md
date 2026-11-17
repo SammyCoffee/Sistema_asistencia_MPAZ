@@ -46,3 +46,15 @@ Disponibles los borradores Word 2.1 y 2.4, dos materiales de apoyo 2.2 y los dia
 | Presentación Final Capstone | [Abrir archivo](Fase_3/Evidencias_Grupales/MPAZ_RFID_Presentacion_Final_Capstone_003D_PARA_REVISION.pptx) | Original sin cambios | Para revisión académica |
 
 [Revisión académica, correcciones y pendientes](REVISION_ACADEMICA_2026-11-09.md) — Disponible para revisión; no implica aprobación docente.
+
+## Entrega consolidada vigente para revisión 17-11-2026
+
+Versiones recibidas el 17-11-2026 para revisión académica. Se conservan todos los originales y borradores anteriores. «OFICIAL» identifica la plantilla del Informe 2.6; sus campos pendientes y la aprobación docente siguen abiertos.
+
+[Índice de los 23 archivos y resultado de revisión](REVISION_INTEGRACION_2026-11-17.md) · [Manifiesto vigente](MANIFIESTO_ENTREGA.md) · [Control de entrega actualizado](CONTROL_ENTREGA.md) · [Huellas de los 23 archivos](SHA256_ENTREGA_2026-11-17.txt).
+
+Los apartados fechados 09-11-2026 y anteriores registran antecedentes históricos. Las versiones preferentes para revisión están en el índice del 17-11-2026. El Informe Final 2.6 y el informe extenso APT de 20 apartados son documentos distintos.
+
+La evidencia 61 métodos Python + tres scripts JavaScript corresponde a `audit/seguridad-continuidad-20261116`, commit `4268d50`, en entornos aislados; incluye cinco caracterizaciones de defectos abiertos. No acredita fusión en `main`, despliegue escolar, prueba física integral ESP32/PN532 ni QA visual del sistema.
+
+Pendientes: competencias y áreas de desempeño oficiales, grupo, reflexiones individuales, calendario de 18 semanas, autorías históricas y revisión docente. La portada y las referencias del informe extenso fueron corregidas; se mantienen los marcadores académicos pendientes. Ver validación final en el índice.

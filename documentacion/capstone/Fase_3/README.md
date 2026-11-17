@@ -13,3 +13,9 @@
 | Presentación Final Capstone | [Abrir archivo](Evidencias_Grupales/MPAZ_RFID_Presentacion_Final_Capstone_003D_PARA_REVISION.pptx) | Original sin cambios | Para revisión académica |
 
 [Control académico vigente](../REVISION_ACADEMICA_2026-11-09.md); pautas oficiales y aprobación pendientes.
+
+## Actualización consolidada 17-11-2026
+
+Versiones recibidas el 17-11-2026 para revisión académica. Se conservan todos los originales y borradores anteriores. «OFICIAL» identifica la plantilla del Informe 2.6; sus campos pendientes y la aprobación docente siguen abiertos.
+
+[Entregables vigentes, versiones anteriores y observaciones](../REVISION_INTEGRACION_2026-11-17.md). Los estados de fechas anteriores se conservan como historial.
