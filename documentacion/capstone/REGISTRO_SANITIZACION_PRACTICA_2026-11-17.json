@@ -1,0 +1,328 @@
+{
+  "authorization": "Mascaras opacas Pillow/ImageMagick autorizadas por el usuario; sin edicion generativa",
+  "created_count": 8,
+  "selected_count": 4,
+  "private_only_count": 4,
+  "records": [
+    {
+      "figure": "F02",
+      "source_sha256": "d11c7e854a50be989d05294239a772d80c7a360ed4012fb34e06ac8a4c278b90",
+      "sanitized_sha256": "944bd18c3d0eb611b87394859e1a0142cdf51dd4d3f11860680ed96c9bea9bed",
+      "size": [
+        720,
+        1280
+      ],
+      "rectangles_half_open": [
+        [
+          224,
+          866,
+          344,
+          944
+        ],
+        [
+          96,
+          714,
+          296,
+          810
+        ],
+        [
+          280,
+          88,
+          323,
+          182
+        ]
+      ],
+      "reason": "Anotaciones visibles y tenues de la tarjeta; etiqueta identificadora de componente del fondo.",
+      "outside_mask_pixels_changed": 0,
+      "metadata_fields": [],
+      "selected": false,
+      "source_file": "Figura_02.jpg",
+      "storage": "revision privada externa al repositorio",
+      "method": "Pillow, black opaque rectangles, flattened lossless PNG",
+      "original_unchanged": true,
+      "pixel_comparison": "exact equality outside union of rectangles"
+    },
+    {
+      "figure": "F03",
+      "source_sha256": "fbb3a8719a9ad0bb9fabc1299fb17cb19cdefcf8ab2a269fad9eb8238ce9637e",
+      "sanitized_sha256": "88f4d27083bfe80cd80cada6fce95786fad4b370eed5de689e978f8575549267",
+      "size": [
+        1210,
+        295
+      ],
+      "rectangles_half_open": [
+        [
+          49,
+          37,
+          117,
+          51
+        ],
+        [
+          96,
+          73,
+          375,
+          87
+        ],
+        [
+          143,
+          163,
+          266,
+          180
+        ],
+        [
+          330,
+          163,
+          398,
+          180
+        ],
+        [
+          509,
+          163,
+          789,
+          180
+        ]
+      ],
+      "reason": "UID, identificador del evento y valores identificadores del tótem/UID/evento en el JSON enviado. HTTP 200 y respuesta no sensible conservados.",
+      "outside_mask_pixels_changed": 0,
+      "metadata_fields": [],
+      "selected": true,
+      "repository_path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F03_SANITIZADA_2026-11-17.png",
+      "source_file": "Figura_03.png",
+      "storage": "documentacion/capstone/",
+      "method": "Pillow, black opaque rectangles, flattened lossless PNG",
+      "original_unchanged": true,
+      "pixel_comparison": "exact equality outside union of rectangles"
+    },
+    {
+      "figure": "F04",
+      "source_sha256": "4d08a50f50908c285cf1b91d60c7f198a15520b9e56ed2c8a8365d4e8ba7714e",
+      "sanitized_sha256": "c2f71cc884ac63c693cca378b4c6cc8eeb8bbc573b38b3125f26d169d8319528",
+      "size": [
+        1310,
+        435
+      ],
+      "rectangles_half_open": [
+        [
+          8,
+          12,
+          483,
+          33
+        ],
+        [
+          8,
+          407,
+          483,
+          433
+        ]
+      ],
+      "reason": "Usuario/host del prompt de terminal; consulta SQL, rutas públicas y resultado intactos.",
+      "outside_mask_pixels_changed": 0,
+      "metadata_fields": [],
+      "selected": false,
+      "source_file": "Figura_04.png",
+      "storage": "revision privada externa al repositorio",
+      "method": "Pillow, black opaque rectangles, flattened lossless PNG",
+      "original_unchanged": true,
+      "pixel_comparison": "exact equality outside union of rectangles"
+    },
+    {
+      "figure": "F05",
+      "source_sha256": "34334c37505401c1d9df6229f1f277969772ce9757a803270981a0714c0ddfe1",
+      "sanitized_sha256": "e3182de6805a29a52746c6e65bfb675a2a9ef2f446b2757c4958c0615e6d73db",
+      "size": [
+        1310,
+        182
+      ],
+      "rectangles_half_open": [
+        [
+          8,
+          155,
+          483,
+          176
+        ]
+      ],
+      "reason": "Usuario/host del prompt de terminal; resultado y conteos intactos.",
+      "outside_mask_pixels_changed": 0,
+      "metadata_fields": [],
+      "selected": false,
+      "source_file": "Figura_05.png",
+      "storage": "revision privada externa al repositorio",
+      "method": "Pillow, black opaque rectangles, flattened lossless PNG",
+      "original_unchanged": true,
+      "pixel_comparison": "exact equality outside union of rectangles"
+    },
+    {
+      "figure": "F11",
+      "source_sha256": "c6c2ddebad339a4981df68ca0193be85fca1cb7847fa540580a5bf0043cde511",
+      "sanitized_sha256": "4aa4844eac9d28cbf6c9cb2b92b77ef6ed9eedc0ed53d7af4f11fc17494c9297",
+      "size": [
+        1110,
+        204
+      ],
+      "rectangles_half_open": [
+        [
+          693,
+          25,
+          816,
+          43
+        ],
+        [
+          892,
+          25,
+          1044,
+          43
+        ],
+        [
+          656,
+          44,
+          1044,
+          62
+        ],
+        [
+          633,
+          63,
+          1044,
+          81
+        ],
+        [
+          724,
+          82,
+          1044,
+          100
+        ],
+        [
+          656,
+          101,
+          1044,
+          119
+        ],
+        [
+          633,
+          120,
+          1044,
+          138
+        ],
+        [
+          656,
+          139,
+          1044,
+          157
+        ],
+        [
+          671,
+          158,
+          792,
+          177
+        ],
+        [
+          868,
+          158,
+          1044,
+          177
+        ],
+        [
+          1044,
+          0,
+          1110,
+          178
+        ],
+        [
+          82,
+          163,
+          410,
+          178
+        ]
+      ],
+      "reason": "Valores de tótem/eventos por fila, remanente de campos personales ya ocultos y minimapa que reproduce esos datos. Fechas/horas/tipo de salida conservados.",
+      "outside_mask_pixels_changed": 0,
+      "metadata_fields": [],
+      "selected": true,
+      "repository_path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F11_SANITIZADA_2026-11-17.png",
+      "source_file": "Figura_11.png",
+      "storage": "documentacion/capstone/",
+      "method": "Pillow, black opaque rectangles, flattened lossless PNG",
+      "original_unchanged": true,
+      "pixel_comparison": "exact equality outside union of rectangles"
+    },
+    {
+      "figure": "F18",
+      "source_sha256": "8ac1e97f814152f5c793b1ba51a0110e420581809ea1defb55ac6e3c28d46bd6",
+      "sanitized_sha256": "eb2daf4f3b8eda1808471cd4a4fcdb9da36b87f11b077587f6f7a3ce71231fd3",
+      "size": [
+        1024,
+        396
+      ],
+      "rectangles_half_open": [
+        [
+          164,
+          247,
+          249,
+          266
+        ]
+      ],
+      "reason": "Valor UID de la ficha; nombre explícito de prueba y estado de tarjeta conservados.",
+      "outside_mask_pixels_changed": 0,
+      "metadata_fields": [],
+      "selected": false,
+      "source_file": "Figura_18.png",
+      "storage": "revision privada externa al repositorio",
+      "method": "Pillow, black opaque rectangles, flattened lossless PNG",
+      "original_unchanged": true,
+      "pixel_comparison": "exact equality outside union of rectangles"
+    },
+    {
+      "figure": "F20",
+      "source_sha256": "7f6ada58548d616f646e6cc930819095883212982d952e7d51dc79450d1bf00b",
+      "sanitized_sha256": "8678c5b97ccae91aa981db2e192a0ddb4b6338ad9ae28ff866f3c2c48902a611",
+      "size": [
+        852,
+        346
+      ],
+      "rectangles_half_open": [
+        [
+          144,
+          178,
+          252,
+          197
+        ]
+      ],
+      "reason": "Valor del identificador RFID de prueba; estado estudiante/tarjeta conservado.",
+      "outside_mask_pixels_changed": 0,
+      "metadata_fields": [],
+      "selected": true,
+      "repository_path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F20_SANITIZADA_2026-11-17.png",
+      "source_file": "Figura_20.png",
+      "storage": "documentacion/capstone/",
+      "method": "Pillow, black opaque rectangles, flattened lossless PNG",
+      "original_unchanged": true,
+      "pixel_comparison": "exact equality outside union of rectangles"
+    },
+    {
+      "figure": "F21",
+      "source_sha256": "30bed19dd351f9924b7509b898ebf9a11e2537caecd4f1f3ecb693ee9a0afd85",
+      "sanitized_sha256": "a0bf4c8e8c300c3aaaaa782ec031743277dad184520e27b36e459c059ab85927",
+      "size": [
+        852,
+        346
+      ],
+      "rectangles_half_open": [
+        [
+          144,
+          178,
+          252,
+          197
+        ]
+      ],
+      "reason": "Valor del identificador RFID de prueba; estado estudiante/tarjeta conservado.",
+      "outside_mask_pixels_changed": 0,
+      "metadata_fields": [],
+      "selected": true,
+      "repository_path": "Fase_2/Evidencias_Proyecto/Evidencias_Sistema_Aplicacion/Practica_2026-11-17/PRACTICA_F21_SANITIZADA_2026-11-17.png",
+      "source_file": "Figura_21.png",
+      "storage": "documentacion/capstone/",
+      "method": "Pillow, black opaque rectangles, flattened lossless PNG",
+      "original_unchanged": true,
+      "pixel_comparison": "exact equality outside union of rectangles"
+    }
+  ]
+}

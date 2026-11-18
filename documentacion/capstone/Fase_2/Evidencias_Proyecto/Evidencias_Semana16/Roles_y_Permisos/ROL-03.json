@@ -1,0 +1,8 @@
+{
+  "ruta": "/alumnos",
+  "http": 401,
+  "respuesta": {
+    "mensaje": "Debes iniciar sesion en el panel",
+    "resultado": "no_autorizado"
+  }
+}

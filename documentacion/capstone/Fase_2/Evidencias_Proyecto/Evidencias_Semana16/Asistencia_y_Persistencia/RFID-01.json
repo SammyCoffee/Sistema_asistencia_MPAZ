@@ -1,0 +1,36 @@
+{
+  "entrada": {
+    "codigo_totem": "DEMO",
+    "uid": "AABBCCDD",
+    "evento_id": "s16-e1"
+  },
+  "origen_uid": "Literal ficticio del fixture, sin vínculo a tarjeta física",
+  "reloj_inyectado": "2026-11-17T08:00:00-03:00",
+  "http": 200,
+  "respuesta": {
+    "alumno": "Estudiante Ficticio",
+    "buzzer": "un_pitido_corto",
+    "curso": "1A",
+    "fecha": "2026-11-17",
+    "hora": "08:00:00",
+    "hora_entrada": "08:00:00",
+    "led": "verde",
+    "mensaje": "Entrada registrada correctamente",
+    "resultado": "entrada_registrada",
+    "totem": "DEMO"
+  },
+  "sqlite_antes": [],
+  "sqlite_despues": [
+    [
+      1,
+      "2026-11-17",
+      "08:00:00",
+      null,
+      null,
+      "s16-e1",
+      null
+    ]
+  ],
+  "sin_cambios": false,
+  "verificacion": true
+}

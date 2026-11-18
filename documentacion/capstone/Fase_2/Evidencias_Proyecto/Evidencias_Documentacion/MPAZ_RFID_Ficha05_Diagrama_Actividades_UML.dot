@@ -1,0 +1,45 @@
+digraph MPAZ_RFID_Actividad {
+  graph [label="MPAZ RFID · Vista de procesos (4+1) · CU-01 Registrar asistencia con tarjeta", labelloc=t,
+         fontname="DejaVu Sans", fontsize=21, fontcolor="#17365c", bgcolor="white", pad=0.35,
+         rankdir=TB, splines=polyline, nodesep=0.3, ranksep=0.34, compound=true];
+  node [fontname="DejaVu Sans", fontsize=12.8, color="#3b5d78", fontcolor="#122d45",
+        style="rounded,filled", fillcolor="#eaf3f8", penwidth=1.3, margin="0.16,0.10"];
+  edge [fontname="DejaVu Sans", fontsize=10.5, color="#416076", arrowsize=.75, penwidth=1.2];
+  inicio [label="", shape=circle, width=.16, height=.16, fixedsize=true, style=filled, fillcolor="#1c3551"];
+  a01 [label="A01 · Estudiante\nAcerca tarjeta de prueba\nal lector PN532", shape=box, fillcolor="#e1edf9"];
+  a02 [label="A02 · Tótem ESP32/PN532\nLee UID de tarjeta", shape=box, fillcolor="#e4f4ea"];
+  a03 [label="A03 · Tótem ESP32\nGenera evento_id único", shape=box, fillcolor="#e4f4ea"];
+  a04 [label="A04 · Tótem → API\nPOST /lectura: código, UID,\nevento_id + X-API-KEY", shape=box, fillcolor="#e4f4ea"];
+  d01 [label="¿Clave y datos\nválidos?", shape=diamond, fillcolor="#fff0cf", style=filled];
+  a05 [label="A05 · API Flask\nValida credenciales y campos", shape=box, fillcolor="#e4f4ea"];
+  d02 [label="¿Tótem autorizado\ny activo?", shape=diamond, fillcolor="#fff0cf", style=filled];
+  a06 [label="A06 · Backend\nValida tótem", shape=box, fillcolor="#e4f4ea"];
+  d03 [label="¿Tarjeta y alumno\nautorizados?", shape=diamond, fillcolor="#fff0cf", style=filled];
+  a07 [label="A07 · Backend\nConsulta tarjeta y alumno", shape=box, fillcolor="#e4f4ea"];
+  a08 [label="A08 · Backend\nComprueba evento_id repetido", shape=box, fillcolor="#e4f4ea"];
+  d04 [label="¿Evento_id ya\nprocesado?", shape=diamond, fillcolor="#fff0cf", style=filled];
+  a09 [label="A09 · Backend\nDetermina entrada/salida\ny reglas de jornada", shape=box, fillcolor="#e4f4ea"];
+  a10 [label="A10 · SQLite\nRegistra la asistencia\n(según reglas)", shape=box, fillcolor="#fef4dd"];
+  a11 [label="A11 · API Flask\nResponde JSON: estado y hora", shape=box, fillcolor="#e4f4ea"];
+  a12 [label="A12 · Tótem ESP32\nEmite señal sonora\ny espera otra tarjeta", shape=box, fillcolor="#e4f4ea"];
+  rechazo [label="A13 · API\nRechaza la lectura y devuelve\nun código/mensaje sin registrar", shape=box, fillcolor="#fce7e8", color="#b0474e"];
+  duplicado [label="A14 · API\nDevuelve evento_repetido\nsin insertar otro registro", shape=box, fillcolor="#fce7e8", color="#b0474e"];
+  fin [label="", shape=doublecircle, width=.18, height=.18, fixedsize=true, style=filled, fillcolor="#1c3551"];
+  inicio -> a01 -> a02 -> a03 -> a04 -> a05 -> d01;
+  d01 -> a06 [label="Sí"];
+  a06 -> d02;
+  d02 -> a07 [label="Sí"];
+  a07 -> d03;
+  d03 -> a08 [label="Sí"];
+  a08 -> d04;
+  d04 -> a09 [label="No"];
+  a09 -> a10 -> a11 -> a12 -> fin;
+  d01 -> rechazo [label="No", constraint=false, color="#b0474e"];
+  d02 -> rechazo [label="No", constraint=false, color="#b0474e"];
+  d03 -> rechazo [label="No", constraint=false, color="#b0474e"];
+  d04 -> duplicado [label="Sí", constraint=false, color="#b0474e"];
+  rechazo -> fin [constraint=false, style=dashed, color="#b0474e"];
+  duplicado -> fin [constraint=false, style=dashed, color="#b0474e"];
+  {rank=same; d01; rechazo}
+  {rank=same; d04; duplicado}
+}
