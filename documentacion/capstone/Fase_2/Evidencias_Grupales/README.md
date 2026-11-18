@@ -2,7 +2,7 @@
 
 ## Documentos principales de Fase 2
 
-1. [Informe Final 2.6 de Semana 16](2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_SEMANA16_REVISION_2026-11-17.docx) · **Para revisión académica**. [Índice de evidencias de Semana 16](../Evidencias_Proyecto/Evidencias_Semana16/README.md).
+1. Informe Final 2.6 del 18-11-2026 · [Word](2.6_Informe_Final_MPAZ_RFID_003D_REVISION_ACADEMICA_2026-11-18.docx) · [PDF](2.6_Informe_Final_MPAZ_RFID_003D_REVISION_ACADEMICA_2026-11-18.pdf) · **Para revisión académica**. [Índice de evidencias de Semana 16](../Evidencias_Proyecto/Evidencias_Semana16/README.md).
 2. [Guía de desarrollo 2.4 con anexos verificables](2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_ANEXOS_VERIFICABLES_REVISION.docx) · **Para revisión académica**.
 
 [Historial de borradores](Historial_Borradores/README.md) · [Material de apoyo](Material_de_Apoyo/README.md) · [Mapa de rutas y verificación](../../MANIFIESTO_REORGANIZACION_FASE_2.md).
@@ -16,7 +16,7 @@ Los documentos se guardarán directamente aquí, de acuerdo con la tabla oficial
 | `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` — Español | [Borrador disponible](Historial_Borradores/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx); borrador histórico; nueva versión con anexos disponible, pendiente de revisión docente |
 | `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` — Inglés | **Optativo**, pendiente si se decide hacer |
 | `PLANILLA DE EVALUACIÓN AVANCE FASE 2.xlsx` | Pendiente |
-| `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` — Español | Consultar la versión principal de Semana 16 al inicio de esta página |
+| `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` — Español | Consultar la versión principal del 18-11-2026 al inicio de esta página |
 | `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` — Inglés | **Optativo**, pendiente si se decide hacer |
 | `PLANILLA DE EVALUACIÓN FINAL FASE 2.xlsx` | Pendiente |
 

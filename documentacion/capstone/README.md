@@ -2,7 +2,7 @@
 
 ## Documentos principales de Fase 2
 
-1. [Informe Final 2.6 de Semana 16](Fase_2/Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_SEMANA16_REVISION_2026-11-17.docx) · **Para revisión académica**. [Índice de evidencias de Semana 16](Fase_2/Evidencias_Proyecto/Evidencias_Semana16/README.md).
+1. Informe Final 2.6 del 18-11-2026 · [Word](Fase_2/Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_REVISION_ACADEMICA_2026-11-18.docx) · [PDF](Fase_2/Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_REVISION_ACADEMICA_2026-11-18.pdf) · **Para revisión académica**. [Índice de evidencias de Semana 16](Fase_2/Evidencias_Proyecto/Evidencias_Semana16/README.md).
 2. [Guía de desarrollo 2.4 con anexos verificables](Fase_2/Evidencias_Grupales/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_ANEXOS_VERIFICABLES_REVISION.docx) · **Para revisión académica**.
 
 [Historial de borradores](Fase_2/Evidencias_Grupales/Historial_Borradores/README.md) · [Material de apoyo](Fase_2/Evidencias_Grupales/Material_de_Apoyo/README.md) · [Mapa de rutas y verificación](MANIFIESTO_REORGANIZACION_FASE_2.md).

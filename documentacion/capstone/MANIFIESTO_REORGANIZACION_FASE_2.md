@@ -2,7 +2,18 @@
 
 Base anterior a los movimientos: `8b08317b263f4415ccb7e4df0195b592f7a1af9d`, rama `capstone/organizacion-evidencias`. Los hashes SHA-256 se registraron antes del traslado y se verificaron en la nueva ruta.
 
-[Informe Final 2.6 de Semana 16](Fase_2/Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_SEMANA16_REVISION_2026-11-17.docx) y [Guía de desarrollo 2.4 con anexos](Fase_2/Evidencias_Grupales/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_ANEXOS_VERIFICABLES_REVISION.docx) permanecen en Evidencias Grupales para revisión académica.
+El Informe Final 2.6 del 18-11-2026 y la [Guía de desarrollo 2.4 con anexos](Fase_2/Evidencias_Grupales/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_ANEXOS_VERIFICABLES_REVISION.docx) permanecen en Evidencias Grupales para revisión académica.
+
+## Informe Final 2.6 vigente
+
+Estado académico: **Para revisión académica**.
+
+| Formato | Archivo | SHA-256 |
+| --- | --- | --- |
+| Word | [Informe Final 2.6](Fase_2/Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_REVISION_ACADEMICA_2026-11-18.docx) | `36a03bc444d89824c6c1ac397592757229ab2edaca8c7b6e509e35585182224e` |
+| PDF | [Informe Final 2.6](Fase_2/Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_REVISION_ACADEMICA_2026-11-18.pdf) | `8cf98af8e6cc4b90c9b642e3c908e0d9195e44c00347cf1ea2c71d8ef340a807` |
+
+[Evidencias de Semana 16](Fase_2/Evidencias_Proyecto/Evidencias_Semana16/README.md). Los hipervínculos a evidencias del Word y del PDF remiten al commit `2738be570539f2cf72a025ba7b9016814d53a2b6`.
 
 ## Mapa de rutas
 
@@ -17,6 +28,7 @@ Rutas relativas a `documentacion/capstone/`.
 | `Fase_2/Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_PRACTICA_REVISION_2026-11-17.docx` | [Fase_2/Evidencias_Grupales/Historial_Borradores/2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_PRACTICA_REVISION_2026-11-17.docx](Fase_2/Evidencias_Grupales/Historial_Borradores/2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_PRACTICA_REVISION_2026-11-17.docx) | `bd0eb34579885f744c17ca5323f68d402d969f2d3d92a09de3da361cd6b50e39` |
 | `Fase_2/Evidencias_Grupales/MPAZ_RFID_Informe_Extenso_20_Apartados_003D_2026-11-17.docx` | [Fase_2/Evidencias_Grupales/Material_de_Apoyo/MPAZ_RFID_Informe_Extenso_20_Apartados_003D_2026-11-17.docx](Fase_2/Evidencias_Grupales/Material_de_Apoyo/MPAZ_RFID_Informe_Extenso_20_Apartados_003D_2026-11-17.docx) | `35c751ee08a3d60ceb0e0d15f8a9ce9f7e1e7c59ff5ec13312d959fe3a988f78` |
 | `Fase_2/Evidencias_Grupales/MPAZ_RFID_Informe_Extenso_20_Apartados_003D_PRACTICA_REVISION_2026-11-17.docx` | [Fase_2/Evidencias_Grupales/Material_de_Apoyo/MPAZ_RFID_Informe_Extenso_20_Apartados_003D_PRACTICA_REVISION_2026-11-17.docx](Fase_2/Evidencias_Grupales/Material_de_Apoyo/MPAZ_RFID_Informe_Extenso_20_Apartados_003D_PRACTICA_REVISION_2026-11-17.docx) | `205e4b3d9cc920b671c6c6cff51707e6c8e3eb52fa06cf6b1ba8bd3f4129b42c` |
+| `Fase_2/Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_SEMANA16_REVISION_2026-11-17.docx` | [Archivo anterior](Fase_2/Evidencias_Grupales/Historial_Borradores/2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_SEMANA16_REVISION_2026-11-17.docx) | `6cee869ccb1539ee824fabbba0925c1b26d02ce8a9d2d12c99bdd02821afeff0` |
 
 ## Registros históricos
 

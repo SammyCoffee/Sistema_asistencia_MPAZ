@@ -22,7 +22,7 @@
 | `2.4_GuiaEstudiante_Fase_2_DesarrolloProyectoAPT.docx` (Español) | **Nueva versión con anexos verificables disponible; pendiente de revisión docente. Borrador anterior conservado** | Contiene resumen, monitoreo, evidencias y ajustes |
 | Versión 2.4 en inglés | **Optativa — no incorporada** | Solo si el equipo decide realizarla |
 | `PLANILLA DE EVALUACIÓN AVANCE FASE 2.xlsx` | **Pendiente** | No inventar valoraciones ni aprobación docente |
-| `2.6_GuiaEstudiante_Fase_2_Informe Final Proyecto APT.docx` (Español) | **Borrador disponible; cotejo oficial y revisión pendientes** | Informe final del proyecto |
+| Informe Final 2.6 (Español) | **Para revisión académica** | [Word](Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_REVISION_ACADEMICA_2026-11-18.docx) · [PDF](Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_REVISION_ACADEMICA_2026-11-18.pdf) |
 | Versión 2.6 en inglés | **Optativa — no incorporada** | Solo si el equipo decide realizarla |
 | `PLANILLA DE EVALUACIÓN FINAL FASE 2.xlsx` | **Pendiente** | No alterar puntuaciones oficiales |
 
@@ -64,7 +64,7 @@ No alterar los archivos originales de seguimiento para imponer una narrativa nue
 - [x] Preparar el Word **2.4 con anexos A1–A3 y B1–B3**, incorporando los diagramas y las seis imágenes disponibles. Las demás capturas siguen pendientes.
 - [ ] Confirmar responsables y cronograma con Samantha, Lucas y docente; revisar la versión 2.4 con anexos ya disponible.
 - [ ] Obtener la **2.3** evaluada realmente por el docente y la planilla de evaluación de avance.
-- [ ] Preparar la guía **2.6** y la planilla final cuando corresponda.
+- [ ] Revisar académicamente el Informe Final **2.6** y preparar la planilla final cuando corresponda.
 - [ ] Revisar la presentación final del proyecto.
 - [ ] Completar capturas de interfaz, exportación, nueva asistencia correlacionada, piloto y validación técnica final.
 

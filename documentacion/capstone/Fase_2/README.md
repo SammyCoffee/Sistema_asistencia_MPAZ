@@ -2,7 +2,7 @@
 
 ## Documentos principales de Fase 2
 
-1. [Informe Final 2.6 de Semana 16](Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_SEMANA16_REVISION_2026-11-17.docx) · **Para revisión académica**. [Índice de evidencias de Semana 16](Evidencias_Proyecto/Evidencias_Semana16/README.md).
+1. Informe Final 2.6 del 18-11-2026 · [Word](Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_REVISION_ACADEMICA_2026-11-18.docx) · [PDF](Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_REVISION_ACADEMICA_2026-11-18.pdf) · **Para revisión académica**. [Índice de evidencias de Semana 16](Evidencias_Proyecto/Evidencias_Semana16/README.md).
 2. [Guía de desarrollo 2.4 con anexos verificables](Evidencias_Grupales/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_ANEXOS_VERIFICABLES_REVISION.docx) · **Para revisión académica**.
 
 [Historial de borradores](Evidencias_Grupales/Historial_Borradores/README.md) · [Material de apoyo](Evidencias_Grupales/Material_de_Apoyo/README.md) · [Mapa de rutas y verificación](../MANIFIESTO_REORGANIZACION_FASE_2.md).
@@ -39,7 +39,7 @@ Los diagramas explican el diseño y el proceso; no acreditan por sí solos prueb
 - Autoevaluaciones oficiales 2.2 de cada integrante.
 - Pauta 2.3 con evaluación real del docente; no incluida en el ZIP.
 - Planilla de evaluación de avance.
-- Revisión académica del Informe 2.6 de Semana 16 y planilla de evaluación final.
+- Revisión académica del Informe 2.6 del 18-11-2026 y planilla de evaluación final.
 - Versiones inglesas de 2.4 y 2.6, optativas si el equipo decide realizarlas.
 
 Las plantillas oficiales recibidas no se dan por entregas completadas. Se mantienen los nombres `BORRADOR`, `HOJA_DE_APOYO` y `PARA_REVISION` del paquete.
