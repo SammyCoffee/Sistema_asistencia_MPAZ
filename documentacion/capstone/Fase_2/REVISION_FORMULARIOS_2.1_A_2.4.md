@@ -57,7 +57,7 @@ Se generó `2.2_APT122_AutoevaluacionAvance_Fase2_Tapia_Samantha_HOJA_DE_APOYO.d
 
 ## Versión 2.4 con anexos verificables
 
-[Nuevo Word 2.4 para revisión](Evidencias_Grupales/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_ANEXOS_VERIFICABLES_REVISION.docx) disponible con anexos A1–A3 de diseño y B1–B3 de ejecución. **Pendiente de revisión docente y validación de responsables.** El [Word anterior](Evidencias_Grupales/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx) se conserva como borrador histórico.
+[Nuevo Word 2.4 para revisión](Evidencias_Grupales/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_ANEXOS_VERIFICABLES_REVISION.docx) disponible con anexos A1–A3 de diseño y B1–B3 de ejecución. **Pendiente de revisión docente y validación de responsables.** El [Word anterior](Evidencias_Grupales/Historial_Borradores/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx) se conserva como borrador histórico.
 
 [Inventario de las seis imágenes y alcance](Evidencias_Proyecto/README_EVIDENCIAS_2.4.md): tablas y consulta SQLite de demostración, comunicación ESP32–API con HTTP 200, evento repetido rechazado en copia de pruebas (7 registros antes y después) y fotografías ESP32/PN532. HTTP 200 no acredita una asistencia nueva; la consulta SQL no está correlacionada con esa solicitud.
 

@@ -30,8 +30,8 @@ Los ocho Word incluyen una nota común que distingue todos estos niveles. La pre
 
 | Archivo nuevo para revisión | Páginas/diapositivas PDF |
 |---|---|
-| [2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_PRACTICA_REVISION_2026-11-17.docx](Fase_2/Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_PRACTICA_REVISION_2026-11-17.docx) | 9 |
-| [MPAZ_RFID_Informe_Extenso_20_Apartados_003D_PRACTICA_REVISION_2026-11-17.docx](Fase_2/Evidencias_Grupales/MPAZ_RFID_Informe_Extenso_20_Apartados_003D_PRACTICA_REVISION_2026-11-17.docx) | 14 |
+| [2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_PRACTICA_REVISION_2026-11-17.docx](Fase_2/Evidencias_Grupales/Historial_Borradores/2.6_Informe_Final_MPAZ_RFID_003D_OFICIAL_PRACTICA_REVISION_2026-11-17.docx) | 9 |
+| [MPAZ_RFID_Informe_Extenso_20_Apartados_003D_PRACTICA_REVISION_2026-11-17.docx](Fase_2/Evidencias_Grupales/Material_de_Apoyo/MPAZ_RFID_Informe_Extenso_20_Apartados_003D_PRACTICA_REVISION_2026-11-17.docx) | 14 |
 | [MPAZ_RFID_Vista_Desarrollo_003D_ACTUALIZADA_PRACTICA_REVISION_2026-11-17.docx](Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Desarrollo_003D_ACTUALIZADA_PRACTICA_REVISION_2026-11-17.docx) | 3 |
 | [MPAZ_RFID_Vista_Escenarios_003D_PRACTICA_REVISION_2026-11-17.docx](Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Escenarios_003D_PRACTICA_REVISION_2026-11-17.docx) | 3 |
 | [MPAZ_RFID_Vista_Fisica_003D_PRACTICA_REVISION_2026-11-17.docx](Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Vista_Fisica_003D_PRACTICA_REVISION_2026-11-17.docx) | 5 |

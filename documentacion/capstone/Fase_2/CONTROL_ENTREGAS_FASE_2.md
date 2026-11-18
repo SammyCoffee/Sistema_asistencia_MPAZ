@@ -86,7 +86,7 @@ Al recibir las cuatro plantillas se confirmó que **2.1 se responde grupalmente*
 
 ## Versión 2.4 con anexos verificables
 
-[Nuevo Word 2.4 para revisión](Evidencias_Grupales/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_ANEXOS_VERIFICABLES_REVISION.docx) disponible con anexos A1–A3 de diseño y B1–B3 de ejecución. **Pendiente de revisión docente y validación de responsables.** El [Word anterior](Evidencias_Grupales/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx) se conserva como borrador histórico.
+[Nuevo Word 2.4 para revisión](Evidencias_Grupales/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_ANEXOS_VERIFICABLES_REVISION.docx) disponible con anexos A1–A3 de diseño y B1–B3 de ejecución. **Pendiente de revisión docente y validación de responsables.** El [Word anterior](Evidencias_Grupales/Historial_Borradores/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_BORRADOR.docx) se conserva como borrador histórico.
 
 [Inventario de las seis imágenes y alcance](Evidencias_Proyecto/README_EVIDENCIAS_2.4.md): tablas y consulta SQLite de demostración, comunicación ESP32–API con HTTP 200, evento repetido rechazado en copia de pruebas (7 registros antes y después) y fotografías ESP32/PN532. HTTP 200 no acredita una asistencia nueva; la consulta SQL no está correlacionada con esa solicitud.
 
@@ -133,7 +133,7 @@ Este inventario actualiza las cantidades históricas anteriores: [Fichas de Iter
 |---|---|---|---|
 | Vista Lógica | [Abrir archivo](Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Logica_003D_PARA_REVISION.docx) | [Revisión 09-11-2026](Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Logica_003D_REVISION_2026-11-09.docx) | Para revisión académica |
 | Vista de Desarrollo | [Abrir archivo](Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Desarrollo_003D_PARA_REVISION.docx) | [Revisión 09-11-2026](Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Desarrollo_003D_REVISION_2026-11-09.docx) | Para revisión académica |
-| Informe Final 2.6 | [Abrir archivo](Evidencias_Grupales/2.6_Informe_Final_Fase2_MPAZ_RFID_003D_BORRADOR_PARA_REVISION.docx) | [Revisión 09-11-2026](Evidencias_Grupales/2.6_Informe_Final_Fase2_MPAZ_RFID_003D_BORRADOR_REVISION_2026-11-09.docx) | Para revisión académica |
+| Informe Final 2.6 | [Abrir archivo](Evidencias_Grupales/Historial_Borradores/2.6_Informe_Final_Fase2_MPAZ_RFID_003D_BORRADOR_PARA_REVISION.docx) | [Revisión 09-11-2026](Evidencias_Grupales/Historial_Borradores/2.6_Informe_Final_Fase2_MPAZ_RFID_003D_BORRADOR_REVISION_2026-11-09.docx) | Para revisión académica |
 | Presentación Fase 2 | [Abrir archivo](Evidencias_Proyecto/Presentacion_Proyecto/MPAZ_Fase2_Presentacion.pptx) | Original sin cambios | Para revisión académica |
 | Diario 3.1 de Samantha | [Abrir archivo](../Fase_3/Evidencias_Individuales/MPAZ_RFID_Diario_Reflexion_3_1_Samantha_Tapia_PARA_REVISION.docx) | Original sin cambios | Para revisión académica |
 | Presentación Final Capstone | [Abrir archivo](../Fase_3/Evidencias_Grupales/MPAZ_RFID_Presentacion_Final_Capstone_003D_PARA_REVISION.pptx) | Original sin cambios | Para revisión académica |
