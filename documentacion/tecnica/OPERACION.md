@@ -67,3 +67,10 @@ Pruebas ejecutadas en desarrollo: 61 métodos Python en 3.12.16/3.14.8, tres pro
 Ver [informe y reproducción](MIGRACION_005_VERIFICACION_20261119.md). Se verificaron conservación exacta de datos ficticios sobre el esquema d0d2c80, repetición, errores/rollback, sesiones y Gunicorn local con dos workers y tres con preload. Las 71 pruebas pasaron tras corregir una carrera de actividad de sesión en `seguridad_web.py`; esa corrección debe acompañar al backend de la release. El SQL 005 no cambió.
 
 Antes de una futura aplicación, confirmar ausencia o estructura exacta de objetos homónimos: IF NOT EXISTS no valida compatibilidad. El ejecutor debe abortar y hacer rollback ante cualquier error, sin continuar hasta COMMIT. La reversión a d0d2c80 conserva compatibilidad estructural, pero reintroduce la reutilización de cookies tras logout. No hubo acceso a producción; permanecen las condiciones de autorización, respaldo/restauración y validación operativa de este documento.
+
+
+## Carga RFID local en Caldero — 19-11-2026
+
+Ver [resultados y reproducción](CARGA_RFID_20261119.md). Se verificaron ráfagas de 10, 50 y 100 lecturas, cinco repeticiones con 1/2/3 workers sync, sobre SQLite ficticio en tmpfs y Btrfs. Se conciliaron API, registros y cola, con duplicados, antirrebote, rechazos, bloqueo, pérdida de respuesta y reenvíos simultáneos. El máximo ensayado es 100 emisores en ráfaga; no acredita capacidad sostenida ni resultados del servidor escolar.
+
+El reenvío ahora requiere un resultado funcional confirmado, conserva rechazos/errores ambiguos y controla respuestas cortadas o inválidas. Lectura repetida y jornada completa siguen siendo resultados terminales de las reglas actuales, sin promesa de nueva fila. Los rechazos retenidos necesitan tratamiento operativo; el instante original de eventos offline sigue pendiente. Batería posterior: 75 pruebas Python aprobadas y los tres programas JS aprobados. No se modificaron 005, reglas escolares ni configuración de producción.

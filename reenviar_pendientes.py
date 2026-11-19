@@ -1,5 +1,6 @@
 import json
 import os
+from http.client import HTTPException
 from urllib import request
 from urllib.error import HTTPError, URLError
 
@@ -38,10 +39,20 @@ def enviar_pendiente(datos):
         with request.urlopen(solicitud, timeout=10) as respuesta:
             contenido = respuesta.read().decode("utf-8")
 
-            return True, json.loads(contenido)
+            datos_respuesta = json.loads(contenido)
+            if (not isinstance(datos_respuesta, dict)
+                or not isinstance(datos_respuesta.get("resultado"), str)):
+                return False, {"resultado": "respuesta_invalida"}
+            # HTTP 200 también transporta rechazos de negocio. Solo retirar
+            # eventos registrados o atendidos por las reglas vigentes.
+            confirmados = {
+                "entrada_registrada", "salida_registrada", "evento_repetido",
+                "lectura_repetida", "jornada_completa"
+            }
+            return datos_respuesta["resultado"] in confirmados, datos_respuesta
     
     except HTTPError as error:
-        contenido = error.read().decode("utf-8")
+        contenido = error.read().decode("utf-8", errors="replace")
 
         try:
             respuesta_error = json.loads(contenido)
@@ -54,7 +65,9 @@ def enviar_pendiente(datos):
             }
         return False, respuesta_error
     
-    except (URLError, TimeoutError) as error:
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        return False, {"resultado": "respuesta_invalida"}
+    except (URLError, TimeoutError, ConnectionError, HTTPException):
         return False, {
             "resultado": "sin_conexion",
             "mensaje": "No fue posible completar el envío; se conserva el evento"
