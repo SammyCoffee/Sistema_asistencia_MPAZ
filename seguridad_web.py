@@ -104,11 +104,13 @@ def validar_sesion_web():
     if not isinstance(token, str) or len(token) > 100:
         session.clear()
         return
-    ahora = time.time()
     huella = _firma('sid:' + token)
     with closing(obtener_conexion()) as con:
         try:
             con.execute('BEGIN IMMEDIATE')
+            # Medir tras adquirir el lock: otro worker pudo actualizar actividad
+            # mientras esta solicitud esperaba, incluso después de su hora inicial.
+            ahora = time.time()
             fila = con.execute('SELECT tipo,identidad_id,credencial_firma,actividad,expira FROM web_sesiones WHERE token_hash=?', (huella,)).fetchone()
             cuenta = _cuenta(con, fila[0], fila[1]) if fila else None
             ident_cookie = session.get('profesor_id') if fila and fila[0] == 'docente' else session.get('seguimiento_operador_id')

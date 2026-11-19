@@ -60,3 +60,10 @@ Conservar carpeta y configuración anterior, y anotar HEAD antes del cambio. Si 
 7. Para revertir código, preservar las tablas nuevas y la base. La versión anterior no aplicará revocación persistente y reintroducirá sus limitaciones; registrar ese riesgo. No borrar tablas ni restaurar una base como efecto automático de rollback.
 
 Pruebas ejecutadas en desarrollo: 61 métodos Python en 3.12.16/3.14.8, tres programas JS; cinco métodos describen defectos de calendario aún pendientes. Ver informe complementario y QA_MANUAL.md antes de autorizar una release.
+
+
+## Verificación local de la migración 005 en Caldero — 19-11-2026
+
+Ver [informe y reproducción](MIGRACION_005_VERIFICACION_20261119.md). Se verificaron conservación exacta de datos ficticios sobre el esquema d0d2c80, repetición, errores/rollback, sesiones y Gunicorn local con dos workers y tres con preload. Las 71 pruebas pasaron tras corregir una carrera de actividad de sesión en `seguridad_web.py`; esa corrección debe acompañar al backend de la release. El SQL 005 no cambió.
+
+Antes de una futura aplicación, confirmar ausencia o estructura exacta de objetos homónimos: IF NOT EXISTS no valida compatibilidad. El ejecutor debe abortar y hacer rollback ante cualquier error, sin continuar hasta COMMIT. La reversión a d0d2c80 conserva compatibilidad estructural, pero reintroduce la reutilización de cookies tras logout. No hubo acceso a producción; permanecen las condiciones de autorización, respaldo/restauración y validación operativa de este documento.
