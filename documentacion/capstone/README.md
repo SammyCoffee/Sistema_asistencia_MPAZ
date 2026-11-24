@@ -2,7 +2,7 @@
 
 ## Documentos principales de Fase 2
 
-1. Informe Final 2.6 del 18-11-2026 · [Word](Fase_2/Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_REVISION_ACADEMICA_2026-11-18.docx) · [PDF](Fase_2/Evidencias_Grupales/2.6_Informe_Final_MPAZ_RFID_003D_REVISION_ACADEMICA_2026-11-18.pdf) · **Para revisión académica**. [Índice de evidencias de Semana 16](Fase_2/Evidencias_Proyecto/Evidencias_Semana16/README.md).
+1. [Informe Final 2.6 — versión corregida del 24 de noviembre de 2026](Fase_2/Evidencias_Grupales/MPAZ_RFID_Informe_2_6_CORREGIDO_FINAL_2026-11-24.docx) · [Versiones anteriores](Fase_2/Evidencias_Grupales/Historial_Borradores/README.md). [Índice de evidencias de Semana 16](Fase_2/Evidencias_Proyecto/Evidencias_Semana16/README.md).
 2. [Guía de desarrollo 2.4 con anexos verificables](Fase_2/Evidencias_Grupales/2.4_GuiaEstudiante_Fase_2_DesarrolloProyecto_APT_MPAZ_RFID_ANEXOS_VERIFICABLES_REVISION.docx) · **Para revisión académica**.
 
 [Historial de borradores](Fase_2/Evidencias_Grupales/Historial_Borradores/README.md) · [Material de apoyo](Fase_2/Evidencias_Grupales/Material_de_Apoyo/README.md) · [Mapa de rutas y verificación](MANIFIESTO_REORGANIZACION_FASE_2.md).
@@ -50,10 +50,10 @@ Disponibles los borradores Word 2.1 y 2.4, dos materiales de apoyo 2.2 y los dia
 |---|---|---|---|
 | Vista Lógica | [Abrir archivo](Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Logica_003D_PARA_REVISION.docx) | [Revisión 09-11-2026](Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Logica_003D_REVISION_2026-11-09.docx) | Para revisión académica |
 | Vista de Desarrollo | [Abrir archivo](Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Desarrollo_003D_PARA_REVISION.docx) | [Revisión 09-11-2026](Fase_2/Evidencias_Proyecto/Evidencias_Documentacion/Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Desarrollo_003D_REVISION_2026-11-09.docx) | Para revisión académica |
-| Informe Final 2.6 | [Abrir archivo](Fase_2/Evidencias_Grupales/Historial_Borradores/2.6_Informe_Final_Fase2_MPAZ_RFID_003D_BORRADOR_PARA_REVISION.docx) | [Revisión 09-11-2026](Fase_2/Evidencias_Grupales/Historial_Borradores/2.6_Informe_Final_Fase2_MPAZ_RFID_003D_BORRADOR_REVISION_2026-11-09.docx) | Para revisión académica |
+| Informe Final 2.6 | [Versiones anteriores](Fase_2/Evidencias_Grupales/Historial_Borradores/README.md) | [Informe Final 2.6 — versión corregida del 24 de noviembre de 2026](Fase_2/Evidencias_Grupales/MPAZ_RFID_Informe_2_6_CORREGIDO_FINAL_2026-11-24.docx) | Vigente |
 | Presentación Fase 2 | [Abrir archivo](Fase_2/Evidencias_Proyecto/Presentacion_Proyecto/MPAZ_Fase2_Presentacion.pptx) | Original sin cambios | Para revisión académica |
 | Diario 3.1 de Samantha | [Abrir archivo](Fase_3/Evidencias_Individuales/MPAZ_RFID_Diario_Reflexion_3_1_Samantha_Tapia_PARA_REVISION.docx) | Original sin cambios | Para revisión académica |
-| Presentación Final Capstone | [Abrir archivo](Fase_3/Evidencias_Grupales/MPAZ_RFID_Presentacion_Final_Capstone_003D_PARA_REVISION.pptx) | Original sin cambios | Para revisión académica |
+| Presentación Final Capstone | [Versiones anteriores](Fase_3/Evidencias_Grupales/Historial_Borradores) | [Presentación Final — enfoque docente para la defensa del 25 de noviembre de 2026](Fase_3/Evidencias_Grupales/MPAZ_RFID_Grupo6_Presentacion_FINAL_ENFOQUE_DOCENTE_2026-11-25.pptx) | Vigente |
 
 [Revisión académica, correcciones y pendientes](REVISION_ACADEMICA_2026-11-09.md) — Disponible para revisión; no implica aprobación docente.
 

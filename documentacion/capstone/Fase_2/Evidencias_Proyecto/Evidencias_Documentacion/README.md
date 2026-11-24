@@ -52,10 +52,10 @@ El TXT original de terminal y su informe técnico se conservan en sus rutas exis
 |---|---|---|---|
 | Vista Lógica | [Abrir archivo](Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Logica_003D_PARA_REVISION.docx) | [Revisión 09-11-2026](Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Logica_003D_REVISION_2026-11-09.docx) | Para revisión académica |
 | Vista de Desarrollo | [Abrir archivo](Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Desarrollo_003D_PARA_REVISION.docx) | [Revisión 09-11-2026](Vistas_4mas1/MPAZ_RFID_Formulario_Vista_Desarrollo_003D_REVISION_2026-11-09.docx) | Para revisión académica |
-| Informe Final 2.6 | [Abrir archivo](../../Evidencias_Grupales/Historial_Borradores/2.6_Informe_Final_Fase2_MPAZ_RFID_003D_BORRADOR_PARA_REVISION.docx) | [Revisión 09-11-2026](../../Evidencias_Grupales/Historial_Borradores/2.6_Informe_Final_Fase2_MPAZ_RFID_003D_BORRADOR_REVISION_2026-11-09.docx) | Para revisión académica |
+| Informe Final 2.6 | [Versiones anteriores](../../Evidencias_Grupales/Historial_Borradores/README.md) | [Informe Final 2.6 — versión corregida del 24 de noviembre de 2026](../../Evidencias_Grupales/MPAZ_RFID_Informe_2_6_CORREGIDO_FINAL_2026-11-24.docx) | Vigente |
 | Presentación Fase 2 | [Abrir archivo](../Presentacion_Proyecto/MPAZ_Fase2_Presentacion.pptx) | Original sin cambios | Para revisión académica |
 | Diario 3.1 de Samantha | [Abrir archivo](../../../Fase_3/Evidencias_Individuales/MPAZ_RFID_Diario_Reflexion_3_1_Samantha_Tapia_PARA_REVISION.docx) | Original sin cambios | Para revisión académica |
-| Presentación Final Capstone | [Abrir archivo](../../../Fase_3/Evidencias_Grupales/MPAZ_RFID_Presentacion_Final_Capstone_003D_PARA_REVISION.pptx) | Original sin cambios | Para revisión académica |
+| Presentación Final Capstone | [Versiones anteriores](../../../Fase_3/Evidencias_Grupales/Historial_Borradores) | [Presentación Final — enfoque docente para la defensa del 25 de noviembre de 2026](../../../Fase_3/Evidencias_Grupales/MPAZ_RFID_Grupo6_Presentacion_FINAL_ENFOQUE_DOCENTE_2026-11-25.pptx) | Vigente |
 
 [Revisión académica, correcciones y pendientes](../../../REVISION_ACADEMICA_2026-11-09.md) — Disponible para revisión; no implica aprobación docente.
 
