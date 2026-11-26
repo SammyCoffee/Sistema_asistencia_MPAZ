@@ -1,6 +1,6 @@
 # Sistema MPAZ RFID
 
-Plataforma de asistencia escolar de la Escuela Escritora Marcela Paz, San Bernardo, Chile. El sistema existente registra entradas y salidas mediante tarjetas RFID, administra estudiantes, tarjetas y tótems, y ofrece portal docente, calendario y Seguimiento Escolar.
+Plataforma de asistencia escolar de la Escuela Escritora Marcela Paz, San Bernardo, Chile. El sistema registra entradas y salidas mediante tarjetas RFID, administra estudiantes, tarjetas y tótems, y ofrece portal docente, sesiones de asistencia de aula, consulta administrativa de sesiones, calendario y Seguimiento Escolar.
 
 ## Arquitectura actual
 
@@ -44,6 +44,7 @@ Las pruebas usan bases temporales vacías, cuentas ficticias y migraciones SQL 0
 - [Inventario de archivos y funciones Python](documentacion/tecnica/INVENTARIO_CODIGO.md).
 - [Tablas, relaciones e índices](documentacion/tecnica/BASE_DATOS.md).
 - [Rutas API y contratos principales](documentacion/tecnica/API.md).
+- [Flujo de sesiones docentes y consulta administrativa](documentacion/tecnica/SESIONES_DOCENTES.md).
 - [Respaldos, recuperación, despliegue y reversión](documentacion/tecnica/OPERACION.md).
 - [Propuesta PostgreSQL y siguientes versiones](documentacion/tecnica/CONTINUIDAD.md).
 - [Registro de cambios de esta auditoría](CHANGELOG.md).
@@ -52,7 +53,7 @@ Las pruebas usan bases temporales vacías, cuentas ficticias y migraciones SQL 0
 
 ## Datos privados
 
-No añadir `.env`, credenciales, bases, reportes ni datos personales a Git. Se detectaron seis respaldos `.db` que **ya estaban versionados** en la referencia: `.gitignore` no los retira del historial. En la continuación se inspeccionaron localmente en modo de solo lectura, sin mostrar datos personales: son respaldos históricos pequeños, pero no se certificó que todo su contenido sea ficticio. No se eliminaron; confirmar la clasificación antes de publicar.
+No añadir `.env`, credenciales, bases, reportes ni datos personales a Git. Los seis archivos SQLite históricos que ya estaban versionados en esta rama se clasifican como **bases ficticias de prueba**, según confirmación expresa del responsable del proyecto. Por esa razón no se eliminan en este saneamiento. Esta clasificación procede de dicha confirmación; no equivale a una auditoría forense independiente. `.gitignore` evita incorporar nuevos archivos coincidentes, pero no deja de rastrear archivos que ya están versionados ni los borra del historial. No agregar nuevas bases ni copiar estos fixtures al servidor escolar.
 
 Ninguna corrección de esta rama se considera desplegada por aparecer en Git. No ejecutar migraciones ni reiniciar producción sin autorización.
 
