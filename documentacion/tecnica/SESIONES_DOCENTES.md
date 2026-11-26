@@ -23,7 +23,7 @@ Las funciones de sesión docente declaran que no modifican las asistencias RFID.
    - \`presente\`
    - \`atrasado\`
    - \`no_presente\`
-   
+
    La observación es opcional y admite hasta 500 caracteres. Una persona sin marca se presenta como \`sin_verificar\`; no se convierte automáticamente en ausente.
 6. **Revisar pendientes:** la pantalla informa cuántos estudiantes siguen sin estado registrado. La API también valida la integridad de la nómina y la asignación antes de guardar.
 7. **Confirmar:** \`POST /profesor/sesiones/{sesion_id}/confirmar\` confirma la sesión solo cuando todos los estudiantes activos del curso tienen una marca. Si falta alguna, responde \`409 asistencia_incompleta\`; si el curso no tiene estudiantes activos, responde \`409 curso_sin_alumnos\`.
