@@ -1,5 +1,17 @@
 # Registro de cambios
 
+## Saneamiento documental de sesiones docentes — 26 de noviembre de 2026
+
+Cambios documentales en `feature/paso68h-sesiones-docentes-admin`; no se modificó código de aplicación ni se desplegó:
+
+- Añadido `documentacion/tecnica/SESIONES_DOCENTES.md` con flujo docente, estados, permisos, separación RFID/aula, rutas, consulta administrativa y límites.
+- Actualizado `API.md` con las rutas `/panel/sesiones-docentes` y `/panel/sesiones-docentes/<int:sesion_id>`, además de contratos de las operaciones docentes.
+- Clasificados los seis SQLite históricos ya versionados como fixtures ficticios según confirmación expresa del responsable del proyecto. Se conservan; no se incorporaron bases nuevas ni se alteró el historial.
+- Actualizados README e instrucciones de instalación para señalar la rama de trabajo y el estado real de la evidencia de pruebas.
+- Documentada la automatización disponible `tests/navegador_paso65.py`; no se marcó como ejecutada ni aprobada.
+- Conteo estático de la rama: 78 métodos `test_*` en 10 módulos Python. El último resultado documentado anterior a la integración es de 75 pruebas Python y tres programas JS aprobados el 19-11-2026. No se encontró ejecución posterior al commit de integración ni workflow de GitHub Actions asociado.
+- No se modificaron `main`, bases de datos, credenciales, configuración, servidor escolar ni infraestructura.
+
 ## Continuación de auditoría — 16 de noviembre de 2026
 
 Implementado y probado localmente; no desplegado:
