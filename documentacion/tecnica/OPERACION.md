@@ -34,7 +34,7 @@ No se proporcionan comandos de sobrescritura automática. Un rollback de código
 
 ## Integración y despliegue propuesto
 
-1. Revisar commits de `audit/seguridad-continuidad-20261116`, revisar las pruebas ya ejecutadas en Python 3.12 y resolver el tratamiento de bases ya rastreadas antes de cualquier publicación. No fusionar automáticamente.
+1. Revisar el diff de `feature/paso68h-sesiones-docentes-admin` frente a su commit padre y validar la documentación de sesiones docentes. Mantener la revisión separada de `main`; no fusionar automáticamente. Los seis SQLite versionados se clasifican como ficticios según confirmación del responsable del proyecto, pero `.gitignore` no los elimina del historial.
 2. Revisar aprobación institucional de calendario, cierre fuera de horario y plazos de sesión. La continuación propone plazos de sesión; no cambia las reglas de asistencia.
 3. Preparar una nueva carpeta de release desde el commit aprobado. No editar release activa ni repositorio principal del servidor.
 4. Reutilizar configuración privada del servidor sin imprimirla ni trasladarla. Verificar que `MPAZ_COOKIE_SECURE` permanezca activado para HTTPS. Probar el login local HTTP solo con `MPAZ_COOKIE_SECURE=0` en desarrollo.
@@ -42,6 +42,21 @@ No se proporcionan comandos de sobrescritura automática. Un rollback de código
 6. Comprobar respaldo reciente con prueba de recuperación y obtener autorización expresa antes de cambiar el drop-in de systemd, hacer daemon-reload o reiniciar Gunicorn.
 7. Al desplegar, publicar juntos backend y JS: el cierre de sesión ahora exige CSRF. Verificar que el navegador reciba las versiones nuevas; un cliente antiguo podría no poder cerrar sesión desde su botón.
 8. Tras autorización y despliegue, verificar estado, login/roles, sesión, assets y errores con cuentas institucionales de prueba aprobadas. No registrar lecturas ficticias contra datos escolares.
+
+## Sesiones docentes y consulta administrativa
+
+La rama incorpora el módulo de sesiones docentes y el blueprint de consulta administrativa. El detalle funcional y los contratos están en [SESIONES_DOCENTES.md](SESIONES_DOCENTES.md) y [API.md](API.md).
+
+Antes de desplegarlo:
+
+1. Confirmar que el esquema existente incluya las tablas de la migración 004 (`sesiones_clase` y `asistencias_clase`) y que la migración 005 de seguridad web se haya aplicado mediante el procedimiento autorizado descrito arriba.
+2. Validar cuentas y asignaciones de docentes con usuarios de prueba institucionales autorizados; no usar datos reales en la vista ficticia.
+3. Verificar que un docente solo consulte y gestione sus propias asignaciones, sesiones y estudiantes del curso autorizado.
+4. Verificar que Administración pueda consultar el resumen y que Dirección no acceda al blueprint administrativo de sesiones.
+5. Confirmar que las marcas de aula no alteren la tabla `asistencias` de RFID y que los estudiantes sin marca no se clasifiquen automáticamente como ausentes.
+6. Publicar backend y assets del portal docente/administrativo como una misma release, después de pruebas y autorización.
+
+La automatización Chromium `tests/navegador_paso65.py` está disponible, pero su existencia no acredita ejecución. Ver requisitos, comando y límites en [QA_MANUAL.md](QA_MANUAL.md). La revisión documental de esta rama no ejecutó navegador, migraciones ni operaciones en producción.
 
 ## Reversión
 
@@ -59,7 +74,7 @@ Conservar carpeta y configuración anterior, y anotar HEAD antes del cambio. Si 
 6. Publicar juntos backend, dom-seguro.js, tiempo-escolar.js y HTML/JS con versiones nuevas. Verificar Python 3.12 y disponibilidad de ZoneInfo America/Santiago. Los usuarios deberán reautenticarse: cookies anteriores no tienen registro de servidor.
 7. Para revertir código, preservar las tablas nuevas y la base. La versión anterior no aplicará revocación persistente y reintroducirá sus limitaciones; registrar ese riesgo. No borrar tablas ni restaurar una base como efecto automático de rollback.
 
-Pruebas ejecutadas en desarrollo: 61 métodos Python en 3.12.16/3.14.8, tres programas JS; cinco métodos describen defectos de calendario aún pendientes. Ver informe complementario y QA_MANUAL.md antes de autorizar una release.
+Estado de pruebas al revisar la rama el 26-11-2026: el árbol contiene estáticamente 78 métodos `test_*` en 10 módulos Python. El último resultado de ejecución documentado es de 75 pruebas Python aprobadas y tres programas JS aprobados el 19-11-2026, antes del commit de integración `054075b05fe192d4dcda6ee6a993d067d381a1fe`. No se encontró una ejecución posterior para ese commit ni ejecuciones de GitHub Actions asociadas. Por tanto, ejecutar de nuevo la batería completa en un entorno ficticio antes de aprobar una release. Cinco métodos de caracterización siguen describiendo defectos de calendario pendientes; no los convierten en reglas institucionales aprobadas.
 
 
 ## Verificación local de la migración 005 en Caldero — 19-11-2026
