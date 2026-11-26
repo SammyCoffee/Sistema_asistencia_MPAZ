@@ -516,3 +516,51 @@ body {
 #mpaz-formulario-plegable {
     scroll-margin-top: 24px;
 }
+
+#filtros-sesiones-docentes {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+    align-items: end;
+}
+
+#paginacion-sesiones-docentes {
+    margin-top: 12px;
+}
+
+#sesiones-docentes button:disabled {
+    opacity: 0.55;
+}
+
+#detalle-sesion-docente {
+    margin-top: 20px;
+    padding: 16px;
+    border: 1px solid var(--mpaz-line, #cad8e6);
+    border-radius: 12px;
+}
+
+#detalle-sesion-docente h3 {
+    margin: 0 0 14px;
+    width: fit-content;
+}
+
+#datos-detalle-docente {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px 18px;
+    margin: 0;
+}
+
+#datos-detalle-docente dt {
+    font-size: 0.85rem;
+}
+
+#datos-detalle-docente dd {
+    font-weight: 600;
+    margin: 2px 0 0;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 780px) {
+    #filtros-sesiones-docentes {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

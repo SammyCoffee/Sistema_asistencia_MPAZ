@@ -257,19 +257,52 @@ print(json.dumps(resultados))
     def test_gunicorn_workers_y_preload(self):
         self.con.executescript(SQL)
         self.entorno['PYTHONPATH'] = os.environ['MPAZ_TEST_GUNICORN_PATH']
-        # Wrapper solo temporal: permite identificar el PID que realmente atendió.
-        (Path(self.tmp.name)/'mpaz_worker.py').write_text('''from api import app
+        directorio = Path(self.tmp.name)
+        # Cada worker anuncia que terminó la inicialización, también con --preload.
+        configuracion = directorio / 'gunicorn_prueba.py'
+        configuracion.write_text('''from pathlib import Path
 import os
+
+def post_worker_init(worker):
+    Path(os.environ['MPAZ_GUNICORN_TEST_SYNC'], f'listo-{worker.pid}').touch()
+''')
+        # Cada worker sync queda ocupado hasta que todos hayan aceptado una conexión.
+        # La barrera precede a Flask, incluso para solicitudes que terminarán con 401.
+        (directorio / 'mpaz_worker.py').write_text('''from pathlib import Path
+import os
+import time
+
+from api import app
+
+original = app.wsgi_app
+
+def sincronizar(environ, start_response):
+    grupo = environ.get('HTTP_X_MPAZ_TEST_GROUP')
+    if grupo:
+        raiz = Path(os.environ['MPAZ_GUNICORN_TEST_SYNC'])
+        carpeta = raiz / grupo
+        (carpeta / str(os.getpid())).touch()
+        limite = time.monotonic() + 8
+        while len(list(carpeta.iterdir())) < int(os.environ['MPAZ_GUNICORN_TEST_WORKERS']):
+            if time.monotonic() >= limite:
+                start_response('503 Service Unavailable', [('Content-Type', 'application/json')])
+                return [b'{"error":"workers no alcanzaron la barrera"}']
+            time.sleep(0.01)
+    return original(environ, start_response)
+
+app.wsgi_app = sincronizar
+
 @app.after_request
 def pid_prueba(respuesta):
-    respuesta.headers['X-MPAZ-Test-Pid']=str(os.getpid())
+    respuesta.headers['X-MPAZ-Test-Pid'] = str(os.getpid())
     return respuesta
 ''')
         self.entorno['PYTHONPATH'] += os.pathsep + self.tmp.name + os.pathsep + str(ROOT)
-        def http(puerto, ruta, datos=None, cookie=None, csrf=None):
+        def http(puerto, ruta, datos=None, cookie=None, csrf=None, grupo=None):
             cab = {'Content-Type':'application/json'}
             if cookie: cab['Cookie']=cookie
             if csrf: cab['X-CSRF-Token']=csrf
+            if grupo: cab['X-MPAZ-Test-Group']=grupo
             req=request.Request(f'http://127.0.0.1:{puerto}'+ruta,
                                 data=json.dumps(datos).encode() if datos is not None else None,headers=cab)
             try:
@@ -283,19 +316,39 @@ def pid_prueba(respuesta):
                 self.con.execute('DELETE FROM web_login_intentos'); self.con.execute('DELETE FROM web_sesiones'); self.con.commit()
                 with socket.socket() as sock:
                     sock.bind(('127.0.0.1',0)); puerto=sock.getsockname()[1]
-                cmd=[sys.executable,'-m','gunicorn','--bind',f'127.0.0.1:{puerto}','--workers',str(workers),'--worker-class','sync','--timeout','30','mpaz_worker:app']
+                sincronizacion = directorio / f'workers-{workers}'
+                sincronizacion.mkdir()
+                entorno = dict(self.entorno, MPAZ_GUNICORN_TEST_SYNC=str(sincronizacion),
+                               MPAZ_GUNICORN_TEST_WORKERS=str(workers))
+                cmd=[sys.executable,'-m','gunicorn','--config',str(configuracion),'--bind',f'127.0.0.1:{puerto}','--workers',str(workers),'--worker-class','sync','--timeout','30','mpaz_worker:app']
                 if preload: cmd.append('--preload')
                 with tempfile.TemporaryFile(mode='w+') as log:
-                    proceso=subprocess.Popen(cmd,cwd=ROOT,env=self.entorno,stdout=log,stderr=log)
+                    proceso=subprocess.Popen(cmd,cwd=ROOT,env=entorno,stdout=log,stderr=log)
                     try:
-                        limite=time.monotonic()+15
+                        limite = time.monotonic() + 15
                         while True:
-                            try:
-                                self.assertEqual(http(puerto,'/estado')[0],200); break
-                            except (OSError, error.URLError):
-                                if proceso.poll() is not None or time.monotonic()>limite:
-                                    log.seek(0); self.fail(log.read())
-                                time.sleep(0.05)
+                            listos = {marca.name.removeprefix('listo-')
+                                      for marca in sincronizacion.glob('listo-*')}
+                            if len(listos) == workers:
+                                break
+                            if proceso.poll() is not None or time.monotonic() > limite:
+                                log.seek(0)
+                                self.fail(f'Workers inicializados: {sorted(listos)}\n{log.read()}')
+                            time.sleep(0.05)
+                        for pid in listos:
+                            os.kill(int(pid), 0)
+
+                        def verificar_todos(ruta, grupo, esperado, cookie=None):
+                            (sincronizacion / grupo).mkdir()
+                            with ThreadPoolExecutor(max_workers=workers) as pool:
+                                respuestas = list(pool.map(
+                                    lambda _: http(puerto, ruta, cookie=cookie, grupo=grupo),
+                                    range(workers)))
+                            self.assertEqual({r[0] for r in respuestas}, {esperado}, respuestas)
+                            self.assertEqual({r[1]['X-MPAZ-Test-Pid'] for r in respuestas}, listos)
+
+                        verificar_todos('/estado', 'salud', 200)
+                        print(f'Gunicorn: {workers} workers inicializados y activos: {sorted(listos)}')
                         for usuario,login,privada,logout in [
                             ('demo1','/panel/login-individual','/panel/sesion','/panel/logout'),
                             ('profe1','/profesor/login','/profesor/sesion','/profesor/logout')]:
@@ -305,14 +358,14 @@ def pid_prueba(respuesta):
                             with ThreadPoolExecutor(max_workers=workers*2) as pool:
                                 respuestas=list(pool.map(lambda _:http(puerto,privada,cookie=cookie),range(36)))
                             self.assertEqual({r[0] for r in respuestas},{200})
-                            pids={r[1]['X-MPAZ-Test-Pid'] for r in respuestas}
-                            self.assertEqual(len(pids),workers)
+                            verificar_todos(privada, f'{usuario}-activa', 200, cookie)
                             token=http(puerto,'/panel/csrf-token' if usuario=='demo1' else privada,cookie=cookie)[2]['csrf_token']
                             self.assertEqual(http(puerto,logout,{},cookie,token)[0],200)
                             with ThreadPoolExecutor(max_workers=workers*2) as pool:
                                 rechazadas=list(pool.map(lambda _:http(puerto,privada,cookie=cookie),range(18)))
                             self.assertEqual({r[0] for r in rechazadas},{401})
-                            print(f'Gunicorn: workers={workers}, preload={preload}, {usuario}: 36 accesos OK en {len(pids)} PIDs; 18 replays rechazados')
+                            verificar_todos(privada, f'{usuario}-revocada', 401, cookie)
+                            print(f'Gunicorn: workers={workers}, preload={preload}, {usuario}: sesión válida y revocada en todos los PIDs; 36 accesos y 18 replays adicionales verificados')
                         self.con.execute('DELETE FROM web_login_intentos'); self.con.commit()
                         with ThreadPoolExecutor(max_workers=workers*2) as pool:
                             intentos=list(pool.map(lambda _:http(puerto,'/profesor/login',{'usuario':'profe1','password':'incorrecta'}),range(18)))

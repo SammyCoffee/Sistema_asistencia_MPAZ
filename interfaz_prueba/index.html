@@ -15,7 +15,7 @@
 
     <link rel="stylesheet" href="styles.css?v=13">
     <link rel="stylesheet" href="directorio.css?v=1">
-    <link rel="stylesheet" href="panel-mpaz.css?v=3">
+    <link rel="stylesheet" href="panel-mpaz.css?v=65">
     <link rel="stylesheet" href="inventario-mpaz.css?v=1">
     <link rel="stylesheet" href="vinculacion-mpaz.css?v=1">
 
@@ -157,6 +157,8 @@
                 Asistencias
             </a>
 
+            <a href="#sesiones-docentes">Sesiones docentes</a>
+
             <a href="/seguimiento.html">
                 Seguimiento Escolar
             </a>
@@ -237,6 +239,12 @@
         <small>Entradas y salidas</small>
     </a>
 
+
+    <a href="#sesiones-docentes">
+        <span aria-hidden="true">📚</span>
+        <strong>Sesiones docentes</strong>
+        <small>Asistencia de clase</small>
+    </a>
 
     <a href="/seguimiento.html">
         <span>📝</span>
@@ -1064,6 +1072,47 @@
 
             </section>
 
+            <section id="sesiones-docentes" class="panel-lecturas" hidden>
+                <h2>Sesiones docentes</h2>
+                <form id="filtros-sesiones-docentes" class="mpaz-filtros-asistencias">
+                    <label>Fecha <input type="date" name="fecha"></label>
+                    <label>Curso <input name="curso" maxlength="20"></label>
+                    <label>Asignatura <input name="asignatura" maxlength="100"></label>
+                    <label>Estado
+                        <select name="estado">
+                            <option value="">Todos</option>
+                            <option value="borrador">Borrador</option>
+                            <option value="confirmada">Confirmada</option>
+                            <option value="anulada">Anulada</option>
+                        </select>
+                    </label>
+                    <button type="submit">Consultar</button>
+                </form>
+                <p id="mensaje-sesiones-docentes" role="status"></p>
+                <div id="resultados-sesiones-docentes" hidden>
+                    <table class="tabla-lecturas" aria-label="Sesiones docentes">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th><th>Hora</th><th>Curso</th><th>Asignatura</th>
+                                <th>Docente</th><th>Estado</th><th>Presentes</th>
+                                <th>Atrasados</th><th>No presentes</th><th>Pendientes</th>
+                                <th>Detalle</th>
+                            </tr>
+                        </thead>
+                        <tbody id="filas-sesiones-docentes"></tbody>
+                    </table>
+                    <div id="paginacion-sesiones-docentes" hidden>
+                        <button type="button" id="sesiones-docentes-anterior">Anterior</button>
+                        <button type="button" id="sesiones-docentes-siguiente">Siguiente</button>
+                    </div>
+                </div>
+                <p id="mensaje-detalle-docente" role="status"></p>
+                <article id="detalle-sesion-docente" hidden>
+                    <h3 id="titulo-detalle-docente" tabindex="-1">Detalle de la sesión</h3>
+                    <dl id="datos-detalle-docente"></dl>
+                </article>
+            </section>
+
             <section id="inasistencias" class="panel-lecturas">
 
                 <h2>
@@ -1652,6 +1701,7 @@
 
     <script src="asistencias-mpaz.js?v=1"></script>
     <script src="inasistencias-mpaz.js?v=1"></script>
+    <script src="sesiones-docentes.js?v=65"></script>
     <script src="calendario-mpaz.js?v=2"></script>
     <script src="calendario-gestion-mpaz.js?v=1"></script>
 </body>

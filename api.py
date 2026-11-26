@@ -2648,6 +2648,10 @@ app.register_blueprint(gestiones_bp)
 
 
 
+from sesiones_administracion import sesiones_clase_admin_bp
+app.register_blueprint(sesiones_clase_admin_bp)
+
+
 if __name__ == "__main__":
 
     app.run(

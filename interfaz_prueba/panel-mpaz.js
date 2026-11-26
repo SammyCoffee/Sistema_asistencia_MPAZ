@@ -16,6 +16,7 @@
         "tarjetas",
         "vinculacion",
         "asistencias",
+        "sesiones-docentes",
         "inasistencias",
         "atrasos",
         "analisis",
@@ -141,7 +142,7 @@
     function actualizarVolver() {
         const vista = decodeURIComponent(location.hash.slice(1));
         const valido = ["estudiantes", "tarjetas", "vinculacion", "asistencias",
-            "inasistencias", "atrasos", "analisis", "calendario", "reportes"];
+            "sesiones-docentes", "inasistencias", "atrasos", "analisis", "calendario", "reportes"];
         volver.hidden = !valido.includes(vista);
     }
 

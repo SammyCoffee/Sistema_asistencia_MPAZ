@@ -1728,7 +1728,7 @@ def obtener_asignaciones_profesor(profesor_id):
             """
             SELECT
                 pc.id,
-                pc.curso,
+                UPPER(TRIM(pc.curso)),
                 a.id,
                 a.nombre
             FROM profesores_cursos pc
@@ -1737,7 +1737,7 @@ def obtener_asignaciones_profesor(profesor_id):
             WHERE pc.profesor_id = ?
               AND pc.estado = 'activo'
               AND a.estado = 'activo'
-            ORDER BY pc.curso, a.nombre
+            ORDER BY UPPER(TRIM(pc.curso)), a.nombre
             """,
             (profesor_id,)
         )
@@ -2114,7 +2114,7 @@ def crear_sesion_clase_profesor(
             """
             SELECT
                 pc.id,
-                pc.curso,
+                UPPER(TRIM(pc.curso)),
                 a.nombre
             FROM profesores_cursos pc
             INNER JOIN usuarios u
@@ -2290,7 +2290,7 @@ def registrar_asistencia_clase_profesor(
             SELECT
                 sc.id,
                 sc.estado,
-                pc.curso
+                UPPER(TRIM(pc.curso))
             FROM sesiones_clase sc
             INNER JOIN profesores_cursos pc
                 ON pc.id = sc.asignacion_id
@@ -2327,7 +2327,7 @@ def registrar_asistencia_clase_profesor(
             SELECT id
             FROM alumnos
             WHERE id = ?
-              AND curso = ?
+              AND UPPER(TRIM(curso)) = ?
               AND estado = 'activo'
             LIMIT 1
             """,
@@ -2351,6 +2351,8 @@ def registrar_asistencia_clase_profesor(
                 estado = excluded.estado,
                 observacion = excluded.observacion,
                 fecha_registro = datetime('now')
+            WHERE asistencias_clase.estado IS NOT excluded.estado
+               OR asistencias_clase.observacion IS NOT excluded.observacion
             """,
             (
                 sesion_id,
@@ -2407,7 +2409,7 @@ def confirmar_sesion_clase_profesor(profesor_id, sesion_id):
             """
             SELECT
                 sc.estado,
-                pc.curso
+                UPPER(TRIM(pc.curso))
             FROM sesiones_clase sc
             INNER JOIN profesores_cursos pc
                 ON pc.id = sc.asignacion_id
@@ -2444,7 +2446,7 @@ def confirmar_sesion_clase_profesor(profesor_id, sesion_id):
             """
             SELECT COUNT(*)
             FROM alumnos
-            WHERE curso = ?
+            WHERE UPPER(TRIM(curso)) = ?
               AND estado = 'activo'
             """,
             (curso,)
@@ -2463,7 +2465,7 @@ def confirmar_sesion_clase_profesor(profesor_id, sesion_id):
             INNER JOIN alumnos al
                 ON al.id = ac.alumno_id
             WHERE ac.sesion_clase_id = ?
-              AND al.curso = ?
+              AND UPPER(TRIM(al.curso)) = ?
               AND al.estado = 'activo'
             """,
             (sesion_id, curso)
@@ -2549,7 +2551,7 @@ def obtener_sesiones_clase_profesor(profesor_id, asignacion_id):
         cursor.execute(
             """
             SELECT
-                pc.curso,
+                UPPER(TRIM(pc.curso)),
                 a.nombre
             FROM profesores_cursos pc
             INNER JOIN usuarios u
@@ -2582,7 +2584,7 @@ def obtener_sesiones_clase_profesor(profesor_id, asignacion_id):
             """
             SELECT COUNT(*)
             FROM alumnos
-            WHERE curso = ?
+            WHERE UPPER(TRIM(curso)) = ?
               AND estado = 'activo'
             """,
             (curso,)
@@ -2607,8 +2609,8 @@ def obtener_sesiones_clase_profesor(profesor_id, asignacion_id):
                     INNER JOIN alumnos al
                         ON al.id = ac.alumno_id
                     WHERE ac.sesion_clase_id = sc.id
-                      AND al.curso = ?
-                      AND al.estado = 'activo'
+                      AND (sc.estado = 'confirmada'
+                           OR (UPPER(TRIM(al.curso)) = ? AND al.estado = 'activo'))
                 ) AS registrados
             FROM sesiones_clase sc
             WHERE sc.asignacion_id = ?
@@ -2624,6 +2626,7 @@ def obtener_sesiones_clase_profesor(profesor_id, asignacion_id):
 
         for fila in cursor.fetchall():
             registrados = fila[7]
+            total_sesion = registrados if fila[4] == "confirmada" else total_alumnos
 
             sesiones.append({
                 "sesion_id": fila[0],
@@ -2636,10 +2639,10 @@ def obtener_sesiones_clase_profesor(profesor_id, asignacion_id):
                 "estado": fila[4],
                 "fecha_creacion": fila[5],
                 "fecha_confirmacion": fila[6],
-                "total_alumnos": total_alumnos,
+                "total_alumnos": total_sesion,
                 "registrados": registrados,
                 "pendientes": max(
-                    total_alumnos - registrados,
+                    total_sesion - registrados,
                     0
                 )
             })
@@ -2692,7 +2695,7 @@ def obtener_detalle_sesion_clase_profesor(profesor_id, sesion_id):
             SELECT
                 sc.id,
                 sc.asignacion_id,
-                pc.curso,
+                UPPER(TRIM(pc.curso)),
                 a.nombre,
                 sc.fecha,
                 sc.hora_inicio,
@@ -2742,13 +2745,13 @@ def obtener_detalle_sesion_clase_profesor(profesor_id, sesion_id):
             LEFT JOIN asistencias_clase ac
                 ON ac.alumno_id = al.id
                AND ac.sesion_clase_id = ?
-            WHERE al.curso = ?
-              AND al.estado = 'activo'
+            WHERE CASE WHEN ? = 'confirmada' THEN ac.alumno_id IS NOT NULL
+                       ELSE UPPER(TRIM(al.curso)) = ? AND al.estado = 'activo' END
             ORDER BY
                 al.nombre_completo ASC,
                 al.id ASC
             """,
-            (sesion_id, curso)
+            (sesion_id, sesion[7], curso)
         )
 
         alumnos = []
@@ -2855,7 +2858,7 @@ def obtener_alumnos_curso_profesor(profesor_id, curso):
             INNER JOIN asignaturas a
                 ON a.id = pc.asignatura_id
             WHERE pc.profesor_id = ?
-              AND pc.curso = ?
+              AND UPPER(TRIM(pc.curso)) = ?
               AND pc.estado = 'activo'
               AND a.estado = 'activo'
             LIMIT 1
@@ -2877,7 +2880,7 @@ def obtener_alumnos_curso_profesor(profesor_id, curso):
                 nombre_completo,
                 curso
             FROM alumnos
-            WHERE curso = ?
+            WHERE UPPER(TRIM(curso)) = ?
               AND estado = 'activo'
             ORDER BY nombre_completo ASC
             """,

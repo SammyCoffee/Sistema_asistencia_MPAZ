@@ -23,6 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
         mensajeLogin.className = "mensaje-login " + tipo;
     }
 
+    if (new URLSearchParams(window.location.search).get("expirada") === "1") {
+        mostrarMensaje("La sesión docente expiró. Vuelva a iniciar sesión y consulte las marcas guardadas.");
+    }
+
     formulario.addEventListener("submit", async (event) => {
 
         event.preventDefault();
@@ -169,8 +173,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         mensajePanel.className = "mensaje-panel " + tipo;
     }
 
-    function redirigirLogin() {
-        window.location.replace("/profesor/login.html");
+    function redirigirLogin(expirada = true) {
+        window.location.replace("/profesor/login.html" + (expirada ? "?expirada=1" : ""));
     }
 
     async function solicitarJSON(ruta, opciones = {}) {
@@ -180,9 +184,31 @@ document.addEventListener("DOMContentLoaded", async () => {
             ...opciones
         });
 
-        const datos = await respuesta.json();
-
+        let datos;
+        try {
+            datos = await respuesta.json();
+        } catch {
+            datos = {};
+        }
         return { respuesta, datos };
+    }
+
+    function mensajeErrorEscritura(respuesta, datos, accion) {
+        if (datos.resultado === "csrf_invalido") {
+            return "La validación de seguridad venció. Recargue el panel o vuelva a iniciar sesión.";
+        }
+        if (respuesta.status === 403) {
+            return "Su cuenta no tiene permiso para " + accion + ".";
+        }
+        const mensajes = {
+            fecha_invalida: "Revise la fecha de la clase.",
+            hora_invalida: "Ingrese una hora de inicio válida.",
+            asistencia_incompleta: "Quedan " + datos.pendientes + " estudiantes pendientes.",
+            sesion_no_editable: "La sesión ya no permite cambios. Revise su estado.",
+            curso_sin_alumnos: "Este curso no tiene estudiantes activos.",
+            sesion_no_confirmable: "La sesión ya no está en borrador. Revise su estado.",
+        };
+        return mensajes[datos.resultado] || datos.mensaje || "No fue posible " + accion + ".";
     }
 
     let tokenCSRFProfesor = null;
@@ -651,13 +677,16 @@ document.addEventListener("DOMContentLoaded", async () => {
                 !respuesta.ok
                 || datos.resultado !== "sesion_confirmada"
             ) {
-                mostrarMensajeGestionClase(
-                    datos.mensaje
-                    || "No fue posible confirmar la asistencia.",
-                    "error"
-                );
-
-                await abrirDetalleSesionClase(sesionId);
+                const mensaje = mensajeErrorEscritura(respuesta, datos, "confirmar la asistencia");
+                if (respuesta.status === 409) {
+                    const actualizado = await abrirDetalleSesionClase(sesionId);
+                    mostrarMensajeGestionClase(
+                        mensaje + (actualizado ? "" : " No se pudo actualizar el detalle."),
+                        "error"
+                    );
+                } else {
+                    mostrarMensajeGestionClase(mensaje, "error");
+                }
                 return;
             }
 
@@ -767,7 +796,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let consultaDetalleClaseActual = 0;
 
-    async function abrirDetalleSesionClase(sesionId) {
+    async function abrirDetalleSesionClase(sesionId, reintento = null) {
         const numeroConsulta = ++consultaDetalleClaseActual;
 
         const detalle = document.getElementById(
@@ -870,7 +899,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     presente: "Presente",
                     atrasado: "Atrasado",
                     no_presente: "No presente",
-                    sin_verificar: "Sin verificar"
+                    sin_verificar: "Pendiente de marcar"
                 };
 
                 const nombre = document.createElement("span");
@@ -891,6 +920,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                     casilla.type = "checkbox";
                     casilla.className = "casilla-asistencia-masiva";
                     casilla.value = String(alumno.alumno_id);
+                    casilla.checked = Boolean(
+                        reintento?.ids.has(Number(alumno.alumno_id))
+                        && estadoVisual !== reintento.estado
+                    );
+                    fila.classList.toggle("fila-seleccionada", casilla.checked);
 
                     casilla.setAttribute(
                         "aria-label",
@@ -979,6 +1013,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             seleccionarTodos.onchange = () => {
                 for (const casilla of casillas) {
                     casilla.checked = seleccionarTodos.checked;
+                    casilla.closest(".fila-asistencia-estudiante").classList.toggle(
+                        "fila-seleccionada", casilla.checked
+                    );
                 }
 
                 actualizarSeleccionAsistencia();
@@ -1198,104 +1235,84 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         let guardados = 0;
-        let fallidos = 0;
-        let sesionExpirada = false;
+        let errorAcceso = "";
+        const pendientes = new Set(alumnosIds);
+        const sinRespuesta = new Set();
 
         try {
             for (const alumnoId of alumnosIds) {
-                if (Number(sesionClaseAbiertaId) !== Number(sesionId)) {
-                    fallidos += alumnosIds.length - guardados - fallidos;
-                    break;
-                }
-
                 mostrarMensajeGestionClase(
-                    "Registrando asistencias: "
-                    + (guardados + fallidos + 1)
-                    + " de "
-                    + alumnosIds.length
+                    "Registrando asistencias. Confirmadas por el servidor: "
+                    + guardados + " de " + alumnosIds.length + "."
                 );
 
                 try {
                     const { respuesta, datos } = await solicitarJSON(
-                        "/profesor/sesiones/"
-                        + encodeURIComponent(sesionId)
-                        + "/asistencia",
+                        "/profesor/sesiones/" + encodeURIComponent(sesionId) + "/asistencia",
                         {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
                                 "X-CSRF-Token": tokenCSRFProfesor
                             },
-                            body: JSON.stringify({
-                                alumno_id: alumnoId,
-                                estado: estado
-                            })
+                            body: JSON.stringify({ alumno_id: alumnoId, estado })
                         }
                     );
 
                     if (respuesta.status === 401) {
-                        sesionExpirada = true;
+                        redirigirLogin();
+                        return;
+                    }
+                    if (respuesta.status === 403 || datos.resultado === "sesion_no_editable") {
+                        errorAcceso = mensajeErrorEscritura(respuesta, datos, "guardar la asistencia");
                         break;
                     }
-
-                    if (
-                        respuesta.ok
-                        && datos.resultado === "asistencia_guardada"
-                    ) {
+                    if (respuesta.ok && datos.resultado === "asistencia_guardada") {
+                        pendientes.delete(alumnoId);
                         guardados++;
-                    } else {
-                        fallidos++;
+                    } else if (respuesta.status >= 500 || respuesta.ok) {
+                        sinRespuesta.add(alumnoId);
                     }
-                } catch (error) {
-                    fallidos++;
+                } catch {
+                    sinRespuesta.add(alumnoId);
                 }
             }
 
-            if (sesionExpirada) {
-                redirigirLogin();
-                return;
+            const detalleActualizado = await abrirDetalleSesionClase(sesionId, {
+                ids: pendientes, estado
+            });
+            const historialActualizado = await consultarSesionesClase();
+            const seleccionados = document.querySelectorAll(
+                "#lista-asistencia-clase .casilla-asistencia-masiva:checked"
+            ).length;
+            const resumen = [
+                "Guardados con confirmación del servidor: " + guardados + " de " + alumnosIds.length + "."
+            ];
+            if (sinRespuesta.size) {
+                resumen.push("Respuesta incierta para " + sinRespuesta.size + " marcas.");
             }
-
-            if (Number(sesionClaseAbiertaId) === Number(sesionId)) {
-                await abrirDetalleSesionClase(sesionId);
-
-                mostrarMensajeGestionClase(
-                    "Registro masivo finalizado. "
-                    + "Guardados: " + guardados
-                    + ". Fallidos: " + fallidos + ".",
-                    fallidos > 0 ? "error" : ""
+            if (errorAcceso) resumen.push(errorAcceso);
+            if (detalleActualizado && seleccionados) {
+                resumen.push(
+                    (seleccionados === 1 ? "Quedó 1 marca seleccionada" : "Quedaron " + seleccionados + " marcas seleccionadas")
+                    + " para revisar y reintentar con el mismo botón."
                 );
+            } else if (pendientes.size && detalleActualizado) {
+                resumen.push("Revise el detalle actualizado antes de volver a marcar.");
             }
+            if (!detalleActualizado) {
+                resumen.push("No se pudo recargar el detalle. Consulte la sesión antes de reintentar.");
+            }
+            if (!historialActualizado) {
+                resumen.push("No se pudo actualizar el historial.");
+            }
+            mostrarMensajeGestionClase(
+                resumen.join(" "),
+                pendientes.size || !detalleActualizado || !historialActualizado ? "error" : ""
+            );
         } finally {
             asistenciaMasivaEnCurso = false;
             recuperarControlesAsistenciaClase();
-        }
-
-        /* MPAZ-ACTUALIZAR-HISTORIAL-V1 */
-
-        if (
-            guardados > 0
-            && Number(sesionClaseAbiertaId) === Number(sesionId)
-        ) {
-            try {
-                const historialActualizado =
-                    await consultarSesionesClase();
-
-                if (historialActualizado) {
-                    mostrarMensajeGestionClase(
-                        "Registro masivo finalizado. "
-                        + "Guardados: " + guardados
-                        + ". Fallidos: " + fallidos + ".",
-                        fallidos > 0 ? "error" : ""
-                    );
-                }
-            } catch (error) {
-                mostrarMensajeGestionClase(
-                    "La asistencia fue registrada, "
-                    + "pero no se pudo actualizar el historial.",
-                    "error"
-                );
-            }
         }
     }
 
@@ -1518,42 +1535,47 @@ document.addEventListener("DOMContentLoaded", async () => {
                 return;
             }
 
-            if (respuesta.status === 403) {
-                mostrarMensajeGestionClase(
-                    "No tiene autorización para crear "
-                    + "sesiones en esta asignatura.",
-                    "error"
-                );
-                return;
-            }
-
             if (!respuesta.ok) {
                 mostrarMensajeGestionClase(
-                    datos.mensaje
-                    || "No fue posible crear la sesión.",
+                    mensajeErrorEscritura(respuesta, datos, "crear la sesión"),
                     "error"
                 );
                 return;
             }
+            if (!["sesion_creada", "sesion_existente"].includes(datos.resultado)) {
+                throw new Error("Respuesta de creación inesperada");
+            }
 
-            const mensajeCreacion =
-                datos.resultado === "sesion_existente"
-                    ? "La sesión ya estaba registrada."
-                    : "Sesión de clase creada correctamente.";
+            const mensajeCreacion = datos.estado === "confirmada"
+                ? "La sesión ya estaba confirmada."
+                : datos.estado === "anulada"
+                    ? "Ya existe una sesión anulada para esa fecha y hora."
+                    : datos.resultado === "sesion_existente"
+                        ? "Se recuperó el borrador existente. Revise las marcas pendientes."
+                        : "Borrador creado. Registre y confirme la asistencia.";
 
-            await consultarSesionesClase();
-
-            mostrarMensajeGestionClase(mensajeCreacion);
-
-        } catch (error) {
+            const detalleActualizado = await abrirDetalleSesionClase(datos.sesion_id);
+            const historialActualizado = await consultarSesionesClase();
+            const avisos = [
+                mensajeCreacion,
+                detalleActualizado ? "" : "No se pudo abrir el detalle.",
+                historialActualizado ? "" : "No se pudo actualizar el historial."
+            ];
             mostrarMensajeGestionClase(
-                "No fue posible conectar con el servidor.",
+                avisos.filter(Boolean).join(" "),
+                detalleActualizado && historialActualizado ? "" : "error"
+            );
+
+        } catch {
+            mostrarMensajeGestionClase(
+                "No se recibió confirmación de creación. Consulte el historial o reintente con la misma fecha y hora.",
                 "error"
             );
         } finally {
             creacionSesionEnCurso = false;
             botonCrearSesionClase.disabled =
                 !asignacionClaseSeleccionada;
+            recuperarControlesAsistenciaClase();
         }
     }
 
