@@ -1,6 +1,6 @@
 # Comprobación visual reproducible con datos ficticios
 
-Estado: **pendiente de ejecutar en un navegador**. Se volvió a intentar el 16-11-2026: la herramienta informó `The browser access host is unavailable`; no hubo pantallas verificadas ni capturas.
+Estado: **la validación visual sigue pendiente**. El intento del 16-11-2026 no pudo acceder al navegador. La rama contiene además una automatización Chromium para el flujo docente/administrativo; no se encontró evidencia de que se haya ejecutado después del commit de integración `054075b05fe192d4dcda6ee6a993d067d381a1fe`. No marcarla como aprobada hasta guardar el resultado y las capturas.
 
 ## Preparación local
 
@@ -15,6 +15,29 @@ python3.12 -m venv /tmp/mpaz-venv312
 Abrir http://127.0.0.1:8765. El script usa el fixture de pruebas, crea estructura y datos temporales, y fuerza cookie sin Secure únicamente en esa vista HTTP local. No ejecuta migraciones sobre archivos existentes ni utiliza el servidor escolar.
 
 Cuentas ficticias: `demo1` (Administración), `demo2` (Dirección), `profe1`/`profe2` (docentes de cursos distintos). La contraseña ficticia común está definida como `PASSWORD` en `tests/test_auditoria.py`. No introducir contraseñas institucionales. Al finalizar, Ctrl+C; el fixture cierra conexiones y elimina solo su directorio temporal.
+
+## Automatización Chromium disponible
+
+Archivo: `tests/navegador_paso65.py`. Este script levanta Flask con el fixture temporal de `tests/test_sesiones_docentes.py`, inicia Chromium en modo headless y usa exclusivamente cuentas y datos ficticios. No utiliza la base del servidor escolar ni la URL de producción.
+
+Requisitos:
+
+- Python 3.12 y dependencias de `requirements.txt` instaladas en `.venv`.
+- Chromium disponible en `/usr/bin/chromium`.
+- `chromedriver` disponible en PATH y compatible con Chromium.
+- Puerto local 9515 libre.
+- Carpeta de salida nueva para las capturas.
+
+Ejecución desde la raíz del repositorio:
+
+```bash
+mkdir -p /tmp/mpaz-capturas-sesiones
+.venv/bin/python tests/navegador_paso65.py /tmp/mpaz-capturas-sesiones
+```
+
+El recorrido automatizado comprueba, entre otros puntos, el inicio de sesión docente, selección de asignación, creación/recuperación de borrador, pendientes, reintento tras fallo de red, guardado de marcas, confirmación, consulta administrativa, filtros, detalle sin nombres de estudiantes, respuesta 503, expiración de sesión y acceso de un segundo profesor a sus propias asignaciones. Al final compara la tabla RFID `asistencias` con su contenido inicial para verificar que el flujo de aula no la haya modificado.
+
+El script está configurado para escritorio (ventana 1440×1100). **No sustituye** las pruebas manuales de tablet/móvil, teclado, foco, contraste ni lector de pantalla. La existencia del archivo tampoco acredita que se haya ejecutado: conservar la salida de consola y las capturas, registrar navegador/versión y fecha, y solo entonces marcar los puntos correspondientes.
 
 ## Matriz manual
 
