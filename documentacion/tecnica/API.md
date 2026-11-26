@@ -1,6 +1,6 @@
 # API existente
 
-Inventario generado desde `app.url_map` en la auditoría del 16-11-2026. No constituye prueba de autorización de cada ruta.
+Inventario de rutas consultadas en `api.py` y `sesiones_administracion.py` en la rama `feature/paso68h-sesiones-docentes-admin` (26-11-2026). No es una salida runtime de `app.url_map` ni sustituye las pruebas de autorización.
 
 | Métodos | Ruta | Función |
 |---|---|---|
@@ -32,6 +32,8 @@ Inventario generado desde `app.url_map` en la auditoría del 16-11-2026. No cons
 | GET | `/panel/seguimiento/casos/<int:caso_id>/historial` | `seguimiento.historial_administrativo_api` |
 | POST | `/panel/seguimiento/casos/<int:caso_id>/mensajes` | `seguimiento_gestiones.registrar_mensaje` |
 | GET | `/panel/sesion` | `consultar_sesion_panel` |
+| GET | `/panel/sesiones-docentes` | `sesiones_administracion.listar_sesiones` |
+| GET | `/panel/sesiones-docentes/<int:sesion_id>` | `sesiones_administracion.detalle_sesion` |
 | GET | `/panel/tarjetas` | `consultar_tarjetas_panel` |
 | POST | `/panel/tarjetas/asignar` | `asignar_tarjeta_panel` |
 | POST | `/panel/tarjetas/bloquear` | `bloquear_tarjeta_panel` |
@@ -70,6 +72,30 @@ Inventario generado desde `app.url_map` en la auditoría del 16-11-2026. No cons
 - Sesiones mediante cookies firmadas. Las escrituras requieren `X-CSRF-Token` según dominio: panel, profesor, calendario o seguimiento. Consultar token en el endpoint correspondiente; no son intercambiables.
 - `/panel/calendario/jornadas/*`: escritura deshabilitada salvo `MPAZ_CALENDARIO_ESCRITURA_HABILITADA=si`; además exige sesión administrativa y token de calendario.
 - `/asistencias/exportar/<periodo>`: sesión administrativa; periodos diario, semanal, mensual, anual; CSV UTF-8 BOM, separador punto y coma. No existe exportador PDF/XLSX en esta API.
+
+## Sesiones docentes y consulta administrativa
+
+La asistencia de aula se guarda en `sesiones_clase` y `asistencias_clase`; es independiente de la tabla `asistencias` usada por el flujo RFID. Las operaciones de sesión docente no modifican las marcas RFID.
+
+### Docencia
+
+- `GET /profesor/asignaciones`: devuelve asignaciones activas del profesor autenticado.
+- `GET /profesor/asignaciones/<int:asignacion_id>/sesiones`: lista sesiones de una asignación autorizada.
+- `POST /profesor/sesiones`: JSON con `asignacion_id`, `fecha` y `hora_inicio`. Devuelve 201 al crear y 200 si recupera una sesión existente con la misma clave única.
+- `GET /profesor/sesiones/<int:sesion_id>`: devuelve sesión y marcas. En borrador incluye la nómina activa del curso; los estudiantes sin marca aparecen como `sin_verificar`.
+- `POST /profesor/sesiones/<int:sesion_id>/asistencia`: JSON con `alumno_id`, `estado` (`presente`, `atrasado`, `no_presente`) y `observacion` opcional de hasta 500 caracteres.
+- `POST /profesor/sesiones/<int:sesion_id>/confirmar`: confirma únicamente cuando todos los estudiantes activos del curso tienen marca.
+
+Las rutas POST docentes requieren sesión de profesor y `X-CSRF-Token` docente. La API comprueba en el servidor la asignación, sesión y pertenencia del estudiante al curso. Entre las respuestas de negocio se encuentran 401 (sin sesión), 403 (sin permiso/CSRF), 400 (datos inválidos), 409 (sesión incompleta o no editable) y 500 (error no recuperable). La creación existente responde 200; la nueva, 201.
+
+### Administración: consulta de sesiones
+
+- `GET /panel/sesiones-docentes`: exige operador activo de rol `administracion` y panel autorizado. Admite `fecha`, `curso`, `asignatura`, `estado` y `pagina`; la página contiene hasta 50 filas.
+- `GET /panel/sesiones-docentes/<int:sesion_id>`: devuelve el resumen de una sesión o 404 si no existe.
+
+Los estados de filtro son `borrador`, `confirmada` y `anulada`. El listado devuelve conteos de presentes, atrasados, no presentes y pendientes. Los pendientes se calculan para borradores; una sesión confirmada devuelve cero. La consulta no devuelve nombres ni observaciones individuales y ejecuta SQLite en modo `query_only`. Dirección no tiene permiso para este blueprint. Las respuestas llevan `Cache-Control: no-store`.
+
+El detalle de flujo, permisos, estados, límites y pruebas está en [SESIONES_DOCENTES.md](SESIONES_DOCENTES.md). No existe una ruta API de anulación en esta rama y no se declara una especificación OpenAPI completa.
 
 El esquema completo de entradas y errores de cada endpoint aún requiere formalización; consultar validaciones del código y pruebas. No se declara un contrato OpenAPI completo.
 
