@@ -4,10 +4,10 @@
 
 Python 3.12 (versión objetivo del servidor), Git y las dependencias fijadas en `requirements.txt`. Node permite ejecutar la prueba JavaScript, pero no es dependencia de producción. Gunicorn es parte del despliegue existente; no está fijado en `requirements.txt`, pendiente de inventariar y fijar por separado.
 
-La continuación se verificó en Python 3.12.16 y 3.14.8, y Node 26.12.0. Las 61 pruebas incluyen cinco caracterizaciones de defectos pendientes. No se instalaron dependencias en el servidor.
+El último resultado de ejecución documentado antes de la integración de sesiones docentes corresponde al 19-11-2026: 75 pruebas Python aprobadas y tres programas JavaScript aprobados en el entorno de auditoría. En el árbol actual de esta rama se cuentan estáticamente 78 métodos `test_*` distribuidos en 10 módulos Python. Ese conteo no significa que los 78 estén aprobados: no se encontró una ejecución posterior al commit de integración `054075b05fe192d4dcda6ee6a993d067d381a1fe`. No se instalaron dependencias en el servidor.
 
 ```bash
-git clone --branch integration/seguridad-seguimiento https://github.com/SammyCoffee/Sistema_asistencia_MPAZ.git
+git clone --branch feature/paso68h-sesiones-docentes-admin https://github.com/SammyCoffee/Sistema_asistencia_MPAZ.git
 cd Sistema_asistencia_MPAZ
 git status --short --branch
 git switch -c desarrollo/nombre-del-cambio
