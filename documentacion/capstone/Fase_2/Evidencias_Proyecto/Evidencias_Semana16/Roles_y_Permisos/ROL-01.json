@@ -1,0 +1,40 @@
+{
+  "ruta": "/alumnos",
+  "http": 200,
+  "respuesta": {
+    "alumnos": [
+      {
+        "curso": "1A",
+        "estado_alumno": "activo",
+        "estado_tarjeta": "activa",
+        "fecha_baja": null,
+        "id": 1,
+        "nombre": "Estudiante Ficticio",
+        "rut": "DEMO-NO-RUT-1",
+        "uid": "AABBCCDD"
+      },
+      {
+        "curso": "1A",
+        "estado_alumno": "activo",
+        "estado_tarjeta": null,
+        "fecha_baja": null,
+        "id": 3,
+        "nombre": "Estudiante Simulado",
+        "rut": "DEMO-NO-RUT-3",
+        "uid": null
+      },
+      {
+        "curso": "2A",
+        "estado_alumno": "activo",
+        "estado_tarjeta": null,
+        "fecha_baja": null,
+        "id": 2,
+        "nombre": "Estudiante Ficticio",
+        "rut": "DEMO-NO-RUT-2",
+        "uid": null
+      }
+    ],
+    "resultado": "ok",
+    "total": 3
+  }
+}

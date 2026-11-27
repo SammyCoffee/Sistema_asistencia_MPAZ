@@ -1,0 +1,32 @@
+{
+  "login_http": 200,
+  "curso": {
+    "alumnos": [
+      {
+        "curso": "1A",
+        "id": 1,
+        "nombre": "Estudiante Ficticio"
+      },
+      {
+        "curso": "1A",
+        "id": 3,
+        "nombre": "Estudiante Simulado"
+      }
+    ],
+    "curso": "1A",
+    "resultado": "ok",
+    "total": 2
+  },
+  "asignaciones": {
+    "asignaciones": [
+      {
+        "asignacion_id": 1,
+        "asignatura": "Demo",
+        "asignatura_id": 1,
+        "curso": "1A"
+      }
+    ],
+    "resultado": "ok"
+  },
+  "nota": "Asignaciones precargadas en fixture; no acredita CRUD administrativo de asignaciones."
+}

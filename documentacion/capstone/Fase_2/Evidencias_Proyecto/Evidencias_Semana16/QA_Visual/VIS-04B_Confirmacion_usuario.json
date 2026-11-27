@@ -1,0 +1,8 @@
+{
+  "ID": "VIS-04B",
+  "Prueba": "HTTP del rechazo de curso ajeno en navegador",
+  "Resultado esperado": "HTTP 403 para consulta a 2A, distinto de límite 429",
+  "Resultado observado": "Usuario confirma textualmente: 403 salio, tras inspeccionar Red/Network según instrucciones. Confirma HTTP 403 en consulta a /profesor/cursos/2A/alumnos; cuerpo acceso_denegado documentado en VIS-04A. Sin nueva captura de Red, sin escritura manual ni snapshot SQLite en esta ejecución.",
+  "Evidencia": "04_Paneles/VIS-04B_Confirmacion_usuario.json; 04_Paneles/VIS-04A_Curso_ajeno_rechazado.png",
+  "Estado": "Conforme"
+}

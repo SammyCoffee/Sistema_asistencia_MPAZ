@@ -1,0 +1,7 @@
+{
+  "http": 200,
+  "mimetype": "text/csv",
+  "filas_datos": 1,
+  "archivo": "asistencias_demo_1A.csv",
+  "periodo": "diario; reloj de exportación fijado al 17-11-2026, no acredita regla semanal"
+}
