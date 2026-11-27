@@ -49,7 +49,7 @@ La rama incorpora el módulo de sesiones docentes y el blueprint de consulta adm
 
 Antes de desplegarlo:
 
-1. Confirmar que el esquema existente incluya las tablas de la migración 004 (`sesiones_clase` y `asistencias_clase`) y que la migración 005 de seguridad web se haya aplicado mediante el procedimiento autorizado descrito arriba.
+1. Comprobar por separado que el esquema institucional efectivo contenga las tablas docentes `profesores_cursos`, `sesiones_clase` y `asistencias_clase`, compatibles con el candidato. Estas tablas se definen en `base_datos.crear_tablas()` y **no** son creadas por la migración 004, que corresponde a operadores de Seguimiento Escolar. Verificar asimismo la presencia/compatibilidad de `web_login_intentos` y `web_sesiones`, que pertenecen a la migración 005. Si faltan tablas docentes, detener el despliegue y diseñar una regularización separada con autorización y respaldo; **no** ejecutar `crear_tablas()` ni reaplicar 004 automáticamente en producción. Aplicar 005 solo tras autorización específica.
 2. Validar cuentas y asignaciones de docentes con usuarios de prueba institucionales autorizados; no usar datos reales en la vista ficticia.
 3. Verificar que un docente solo consulte y gestione sus propias asignaciones, sesiones y estudiantes del curso autorizado.
 4. Verificar que Administración pueda consultar el resumen y que Dirección no acceda al blueprint administrativo de sesiones.
