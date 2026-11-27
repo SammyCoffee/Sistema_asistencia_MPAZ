@@ -65,6 +65,7 @@
 
                 return {
                     fila: fila,
+                    esPrueba: fila.dataset.esPrueba === "true",
                     fecha: celdas[0].textContent.trim(),
                     estudiante: celdas[1].textContent.trim(),
                     curso: celdas[2].textContent.trim(),
@@ -75,14 +76,11 @@
             });
     }
 
-    function actualizarCursos(datos) {
+    function actualizarCursos() {
         const seleccionado = curso.value;
 
-        const cursos = [...new Set(
-            datos.map(d => d.curso).filter(Boolean)
-        )].sort(
-            new Intl.Collator("es-CL", {numeric: true}).compare
-        );
+        const catalogo = JSON.parse(cuerpo.dataset.cursosMatricula || "[]");
+        const cursos = catalogo.sort(new Intl.Collator("es-CL", {numeric: true}).compare);
 
         curso.replaceChildren(
             new Option("Todos los cursos", "")
@@ -92,7 +90,9 @@
             curso.add(new Option(nombre, nombre));
         });
 
-        if (cursos.includes(seleccionado)) {
+        curso.add(new Option("Pruebas RFID (ADMIN)", "ADMIN"));
+
+        if (cursos.includes(seleccionado) || seleccionado === "ADMIN") {
             curso.value = seleccionado;
         }
     }
@@ -107,7 +107,7 @@
         ).length;
 
         const salidasAutomaticas = datos.filter(
-            d => d.tipo === "Automática"
+            d => d.tipo === "Cierre administrativo"
         ).length;
 
         const salidasPendientes = datos.filter(
@@ -132,6 +132,10 @@
         const texto = normalizar(buscar.value);
 
         const filtrados = datos.filter(function (d) {
+            if (d.esPrueba !== (curso.value === "ADMIN")) {
+                return false;
+            }
+
             if (texto && !normalizar(d.estudiante).includes(texto)) {
                 return false;
             }
@@ -140,14 +144,15 @@
                 return false;
             }
 
-            if (curso.value && d.curso !== curso.value) {
+            if (curso.value && !d.esPrueba && d.curso !== curso.value) {
                 return false;
             }
 
             return true;
         });
 
-        actualizarIndicadores(filtrados);
+        document.querySelector("#asistencias .mpaz-resumen-asistencias").hidden = curso.value === "ADMIN";
+        actualizarIndicadores(filtrados.filter(d => !d.esPrueba));
 
         const totalPaginas = Math.max(
             1,
@@ -174,14 +179,15 @@
         anterior.disabled = pagina <= 1;
         siguiente.disabled = pagina >= totalPaginas;
 
-        mensaje.textContent = filtrados.length
-            ? ""
-            : "No se encontraron registros de asistencia " +
-              "para los filtros seleccionados.";
+        const sinMarcaciones = curso.value && curso.value !== "ADMIN"
+            && !datos.some(d => !d.esPrueba && d.curso === curso.value);
+        mensaje.textContent = filtrados.length ? ""
+            : sinMarcaciones ? "Este curso aún no tiene marcaciones de acceso RFID."
+                : "No hay jornadas RFID para los filtros seleccionados.";
     }
 
     function actualizar() {
-        actualizarCursos(registros());
+        actualizarCursos();
         mostrar();
     }
 
@@ -218,7 +224,8 @@
     const observador = new MutationObserver(actualizar);
 
     observador.observe(cuerpo, {
-        childList: true
+        childList: true,
+        attributeFilter: ["data-cursos-matricula"]
     });
 
     actualizar();

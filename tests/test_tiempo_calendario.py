@@ -63,12 +63,14 @@ class TiempoCalendarioTest(unittest.TestCase):
         fixtures.bd.guardar_asistencia(1,'2026-11-16','09:00:00',1,'especial')
         self.assertEqual(len(obtener_atrasos('diario','2026-11-16')),1)  # Aplica 08:20 fijo, no las 10:00.
 
-    def test_caracteriza_cierre_entrada_despues_17(self):
+    def test_cierre_administrativo_entrada_despues_17(self):
         fixtures.bd.guardar_asistencia(1,'2026-11-16','18:00:00',1,'tarde')
         with patch.object(fixtures.bd,'ahora_chile',return_value=ahora_chile(datetime(2026,11,16,22,tzinfo=timezone.utc))):
             fixtures.bd.cerrar_jornadas_pendientes()
-        entrada,salida=self.con.execute('SELECT hora_entrada,hora_salida FROM asistencias').fetchone()
-        self.assertLess(salida,entrada)  # Defecto de regla existente, no resultado correcto para asistencia.
+        entrada, salida, tipo = self.con.execute(
+            "SELECT hora_entrada, hora_salida, tipo_salida FROM asistencias"
+        ).fetchone()
+        self.assertEqual((entrada, salida, tipo), ("18:00:00", "18:00:00", "automatica"))
 
     def test_caracteriza_periodo_semanal_consulta_exportacion(self):
         import exportar_asistencias_csv

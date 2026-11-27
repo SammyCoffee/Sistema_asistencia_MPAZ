@@ -5,7 +5,7 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 from uuid import uuid4
 
-from base_datos import obtener_conexion
+from base_datos import CURSO_RFID_PRUEBAS, obtener_conexion
 
 
 CARPETA_REPORTES = Path("reportes")
@@ -95,6 +95,7 @@ def exportar_asistencias(periodo="diario", curso=None):
                 totem_salida.id
 
             WHERE asistencias.fecha BETWEEN ? AND ?
+            AND UPPER(TRIM(alumnos.curso)) <> ?
             AND (? IS NULL OR alumnos.curso = ?)
 
             ORDER BY
@@ -104,6 +105,7 @@ def exportar_asistencias(periodo="diario", curso=None):
             (
                 fecha_desde,
                 fecha_hasta,
+                CURSO_RFID_PRUEBAS,
                 curso,
                 curso
             )

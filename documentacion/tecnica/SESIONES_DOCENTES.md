@@ -25,7 +25,7 @@ Las funciones de sesión docente declaran que no modifican las asistencias RFID.
    - `no_presente`
 
    La observación es opcional y admite hasta 500 caracteres. Una persona sin marca se presenta como `sin_verificar`; no se convierte automáticamente en ausente.
-6. **Revisar pendientes:** la pantalla informa cuántos estudiantes siguen sin estado registrado. La API también valida la integridad de la nómina y la asignación antes de guardar.
+6. **Completar pendientes:** el botón «Marcar pendientes como no presentes» pide confirmar el número que muestra el detalle. La API comprueba la asignación activa y compara los identificadores confirmados con los pendientes actuales dentro de la transacción. Si quedan pendientes y la lista cambió, el docente debe revisar el detalle y volver a confirmar la acción. Un reenvío con el borrador ya completo devuelve cero marcas nuevas.
 7. **Confirmar:** `POST /profesor/sesiones/{sesion_id}/confirmar` confirma la sesión solo cuando todos los estudiantes activos del curso tienen una marca. Si falta alguna, responde `409 asistencia_incompleta`; si el curso no tiene estudiantes activos, responde `409 curso_sin_alumnos`.
 8. **Historial:** la sesión confirmada queda bloqueada para modificaciones ordinarias. El detalle histórico conserva las marcas guardadas, incluso si posteriormente un estudiante cambia de curso o la asignación deja de estar activa.
 
@@ -54,6 +54,7 @@ Las rutas docentes requieren una sesión de profesor activa. Las operaciones POS
 | POST | `/profesor/sesiones` | Crear o recuperar una sesión. |
 | GET | `/profesor/sesiones/{sesion_id}` | Consultar sesión y marcas de aula. |
 | POST | `/profesor/sesiones/{sesion_id}/asistencia` | Registrar o corregir una marca mientras está en borrador. |
+| POST | `/profesor/sesiones/{sesion_id}/completar-pendientes` | Guardar `no_presente` para los pendientes confirmados en `alumnos_pendientes`. |
 | POST | `/profesor/sesiones/{sesion_id}/confirmar` | Confirmar la sesión cuando no quedan pendientes. |
 
 La API verifica en el servidor que la asignación, sesión y estudiante pertenezcan al ámbito autorizado del profesor. Cambiar identificadores en una petición no amplía los permisos.
@@ -75,7 +76,13 @@ Filtros admitidos en el listado:
 - `estado`: `borrador`, `confirmada` o `anulada`.
 - `pagina`: entero entre 1 y 1.000.000.
 
-La paginación devuelve hasta 50 sesiones por página. La respuesta administrativa resume curso, asignatura, docente, fecha, estado y cantidades de presentes, atrasados, no presentes y pendientes. El detalle administrativo no devuelve nombres de estudiantes ni observaciones individuales. Las consultas activan `PRAGMA query_only = ON` y las respuestas llevan `Cache-Control: no-store`.
+«Actualizar listado» vuelve a consultar con los filtros visibles. La paginación devuelve hasta 50 sesiones por página. La respuesta administrativa resume curso, asignatura, docente, fecha, estado y cantidades de presentes, atrasados, no presentes y pendientes. El detalle administrativo no devuelve nombres de estudiantes ni observaciones individuales. Las consultas activan `PRAGMA query_only = ON` y las respuestas llevan `Cache-Control: no-store`.
+
+## Jornadas RFID
+
+El filtro usa el catálogo de cursos válidos de matrícula. El filtro «Pruebas RFID (ADMIN)» muestra las jornadas asociadas al curso ADMIN. Los indicadores y reportes estudiantiles omiten esas pruebas y se conservan sus filas originales. La clasificación usa el curso actual del titular. Si los titulares de prueba pueden cambiar de curso, una mejora posterior sería fijar una marca persistente por jornada y clasificar el histórico mediante una revisión auditable de identificadores.
+
+El cierre administrativo guarda la mayor entre las 17:00 y la hora de entrada, con `tipo_salida = 'automatica'`. Una salida registrada en el tótem tiene `tipo_salida = 'totem'`. El cierre procesa jornadas abiertas con una hora de entrada interpretable y conserva las jornadas ya cerradas, incluidas las que requieran revisión histórica.
 
 ## Tablas y relaciones
 
@@ -90,6 +97,7 @@ La estructura de estas tablas está documentada en [BASE_DATOS.md](BASE_DATOS.md
 
 - `tests/test_sesiones_docentes.py`: tres métodos de prueba para permisos, creación, marcas, confirmación, historial y consulta administrativa, usando fixtures ficticios.
 - `tests/test_permisos_crud.py`: incluye pruebas de acceso indebido a asignaciones, sesiones y estudiantes de otros cursos.
+- `tests/test_paso68ak.py` y `tests/navegador_paso68ak.py` cubren la acción de pendientes, la actualización administrativa y las jornadas RFID con SQLite ficticia.
 - `tests/navegador_paso65.py`: automatización Chromium disponible para recorrer el flujo docente y administrativo, fallos de red/reintentos, filtros y detalle, expiración de sesión y conservación de la tabla RFID.
 
 La automatización Chromium requiere `/usr/bin/chromium`, `chromedriver` disponible en PATH y el puerto local 9515 libre. Se ejecuta con una carpeta de salida nueva:

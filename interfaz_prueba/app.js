@@ -224,7 +224,8 @@ async function cargarResumenEstudiantes() {
 
     const datos = await respuesta.json();
 
-    const alumnosActivos = datos.alumnos.filter(
+    const alumnosOficiales = datos.alumnos.filter(alumno => !alumno.es_prueba);
+    const alumnosActivos = alumnosOficiales.filter(
         function (alumno) {
             return alumno.estado_alumno === "activo";
         }
@@ -301,10 +302,10 @@ const cursos = [
     });
 
     totalEstudiantes.textContent =
-        datos.total;
+        alumnosOficiales.length;
 
     const tarjetasActivas =
-        datos.alumnos.filter(function(alumno) {
+        alumnosOficiales.filter(function(alumno) {
             return (
                 alumno.uid !== null &&
                 alumno.estado_tarjeta === "activa"
@@ -334,37 +335,20 @@ async function cargarAsistencias() {
     }
 
     const datos = await respuesta.json();
+    const fechaHoy = obtenerFechaActual();
+    totalAsistenciasHoy.textContent = datos.asistencias.filter(
+        asistencia => !asistencia.es_prueba && asistencia.fecha === fechaHoy
+    ).length;
 
-
-
-const fechaHoy = obtenerFechaActual();
-
-const cantidadAsistenciasHoy =
-    datos.asistencias.filter(function (asistencia) {
-        return asistencia.fecha === fechaHoy;
-    }).length;
-
-totalAsistenciasHoy.textContent =
-    cantidadAsistenciasHoy;    
-
-    cuerpoAsistencias.innerHTML = "";
-
-    if (datos.asistencias.length === 0) {
-
-        cuerpoAsistencias.innerHTML = `
-            <tr>
-                <td colspan="6">
-                    No hay asistencias registradas.
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
+    cuerpoAsistencias.dataset.cursosMatricula = JSON.stringify(datos.cursos_matricula);
+    cuerpoAsistencias.replaceChildren();
 
     datos.asistencias.forEach(function (asistencia) {
 
         const fila = document.createElement("tr");
+
+        fila.dataset.esPrueba = String(asistencia.es_prueba);
+        fila.hidden = asistencia.es_prueba;
 
         let tipoSalida = "Pendiente";
 
@@ -373,14 +357,15 @@ totalAsistenciasHoy.textContent =
         }
 
         if (asistencia.tipo_salida === "automatica") {
-            tipoSalida = "Automática";
+            tipoSalida = "Cierre administrativo";
         }
 
         const horaSalida =
             asistencia.hora_salida ?? "Pendiente";
 
         window.MPAZDom.celdas(fila, [
-            asistencia.fecha, asistencia.nombre, asistencia.curso,
+            asistencia.fecha, asistencia.nombre,
+            asistencia.es_prueba ? "ADMIN · Prueba RFID" : String(asistencia.curso || "").trim().toUpperCase(),
             asistencia.hora_entrada ?? "--", horaSalida, tipoSalida
         ]);
 
@@ -1995,20 +1980,15 @@ async function cargarAnalisisAsistencia() {
         const fechaHoy =
             obtenerFechaActual();
 
-        const alumnosActivos =
-                    datosAlumnos.alumnos.filter(
-                        function (alumno) {
-                            return (
-                                alumno.estado_alumno === "activo"
-                            );
-                        }
-                    );
-                    const asistenciasHoy =
-            datosAsistencias.asistencias.filter(
-                function (asistencia) {
-                    return asistencia.fecha === fechaHoy;
-                }
-            );
+        const normalizarCurso = curso => String(curso || "").trim().toUpperCase();
+        const alumnosActivos = datosAlumnos.alumnos.filter(
+            alumno => alumno.estado_alumno === "activo" && !alumno.es_prueba
+        );
+        const rutActivos = new Set(alumnosActivos.map(alumno => alumno.rut));
+        const asistenciasHoy = datosAsistencias.asistencias.filter(
+            asistencia => !asistencia.es_prueba && asistencia.fecha === fechaHoy
+                && rutActivos.has(asistencia.rut)
+        );
 
         const totalEstudiantesActivos =
             alumnosActivos.length;
@@ -2076,7 +2056,7 @@ async function cargarAnalisisAsistencia() {
             ...new Set(
                 alumnosActivos.map(
                     function (alumno) {
-                        return alumno.curso;
+                        return normalizarCurso(alumno.curso);
                     }
                 )
             )
@@ -2113,19 +2093,13 @@ async function cargarAnalisisAsistencia() {
             const alumnosCurso =
                 alumnosActivos.filter(
                     function (alumno) {
-                        return alumno.curso === curso;
+                        return normalizarCurso(alumno.curso) === curso;
                     }
                 );
 
-            const asistenciasCurso =
-                datosAsistencias.asistencias.filter(
-                    function (asistencia) {
-                        return (
-                            asistencia.curso === curso &&
-                            asistencia.fecha === fechaHoy
-                        );
-                    }
-                );
+            const asistenciasCurso = asistenciasHoy.filter(
+                asistencia => normalizarCurso(asistencia.curso) === curso
+            );
 
             const totalAlumnos =
                 alumnosCurso.length;
@@ -2148,14 +2122,14 @@ async function cargarAnalisisAsistencia() {
                 "estado-asistencia-alta";
 
             let textoEstado =
-                "Asistencia alta";
+                "Ingresos altos";
 
             if (porcentaje < 85) {
                 claseEstado =
                     "estado-asistencia-baja";
 
                 textoEstado =
-                    "Asistencia baja";
+                    "Ingresos bajos";
 
             } else if (porcentaje < 90) {
 
@@ -2163,7 +2137,7 @@ async function cargarAnalisisAsistencia() {
                     "estado-asistencia-media";
 
                 textoEstado =
-                    "Asistencia media";
+                    "Ingresos medios";
             }
 
               const nombresCursos = {

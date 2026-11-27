@@ -7,6 +7,9 @@ from flask import (Flask,jsonify,request,session,redirect,send_file)
 from consultar_alumnos import obtener_alumnos, buscar_alumnos
 from procesar_lectura_totem import procesar_lectura_totem
 from base_datos import (
+    CURSOS_VALIDOS,
+    CURSO_RFID_PRUEBAS,
+    completar_pendientes_clase_profesor,
     obtener_conexion,
     autenticar_usuario,
     obtener_asignaciones_profesor,
@@ -664,6 +667,36 @@ def registrar_asistencia_clase_api(sesion_id):
         "mensaje": "No fue posible registrar la asistencia"
     }), 500
 
+
+
+@app.post("/profesor/sesiones/<int:sesion_id>/completar-pendientes")
+def completar_pendientes_clase_api(sesion_id):
+    profesor_id = session.get("profesor_id")
+    if type(profesor_id) is not int or profesor_id <= 0 or session.get("profesor_rol") != "profesor":
+        return jsonify(resultado="no_autorizado"), 401
+    if not validar_csrf_profesor():
+        return jsonify(resultado="csrf_invalido"), 403
+
+    datos = request.get_json(silent=True)
+    alumnos = datos.get("alumnos_pendientes") if isinstance(datos, dict) else None
+    if (
+        not 1 <= sesion_id <= 2**63 - 1
+        or not isinstance(alumnos, list)
+        or not alumnos
+        or any(type(alumno) is not int or not 1 <= alumno <= 2**63 - 1 for alumno in alumnos)
+        or len(set(alumnos)) != len(alumnos)
+    ):
+        return jsonify(resultado="datos_invalidos"), 400
+
+    resultado = completar_pendientes_clase_profesor(profesor_id, sesion_id, set(alumnos))
+    estados_http = {
+        "pendientes_completados": 200,
+        "sesion_no_autorizada": 403,
+        "sesion_no_editable": 409,
+        "pendientes_cambiaron": 409,
+        "error_integridad": 409,
+    }
+    return jsonify(resultado), estados_http[resultado["resultado"]]
 
 
 @app.post("/profesor/sesiones/<int:sesion_id>/confirmar")
@@ -1341,6 +1374,7 @@ def consultar_alumnos_api():
             "rut": alumno[1],
             "nombre": alumno[2],
             "curso": alumno[3],
+            "es_prueba": (alumno[3] or "").strip().upper() == CURSO_RFID_PRUEBAS,
             "estado_alumno": alumno[4],
             "fecha_baja": alumno[5],
             "uid": alumno[6],
@@ -1377,6 +1411,7 @@ def consultar_asistencias_api():
                 "nombre": registro[1],
                 "rut": registro[2],
                 "curso": registro[3],
+                "es_prueba": (registro[3] or "").strip().upper() == CURSO_RFID_PRUEBAS,
                 "fecha": registro[4],
                 "hora_entrada": registro[5],
                 "hora_salida": registro[6],
@@ -1391,7 +1426,8 @@ def consultar_asistencias_api():
         {
             "resultado": "ok",
             "total": len(asistencias_json),
-            "asistencias": asistencias_json
+            "asistencias": asistencias_json,
+            "cursos_matricula": sorted(CURSOS_VALIDOS)
         }
     ), 200
 

@@ -4,6 +4,8 @@ from datetime import datetime
 import os
 import re
 
+CURSO_RFID_PRUEBAS = "ADMIN"
+
 CURSOS_VALIDOS = {
     "PK",
     "K",
@@ -1137,6 +1139,7 @@ def guardar_asistencia(
 
 
 def cerrar_jornadas_pendientes():
+    """Cierra administrativamente a las 17:00 o a la hora de ingreso si es posterior."""
     momento_actual = ahora_chile()
 
     fecha_hoy = momento_actual.strftime("%Y-%m-%d")
@@ -1148,47 +1151,24 @@ def cerrar_jornadas_pendientes():
     try:
         conexion.execute("BEGIN IMMEDIATE")
 
-        # ==========================================
-        # 1. CERRAR JORNADAS DE DIAS ANTERIORES
-        # ==========================================
-
-        cursor.execute(
-            """
+        cerrar = """
             UPDATE asistencias
-            SET
-                hora_salida = '17:00:00',
+            SET hora_salida = MAX('17:00:00', time(TRIM(hora_entrada))),
                 tipo_salida = 'automatica'
-            WHERE fecha < ?
-              AND hora_entrada IS NOT NULL
-              AND hora_salida IS NULL
-            """,
-            (fecha_hoy,)
-        )
-
+            WHERE hora_salida IS NULL
+              AND time(TRIM(hora_entrada)) IN (
+                  TRIM(hora_entrada), TRIM(hora_entrada) || ':00'
+              )
+        """
+        cursor.execute(cerrar + " AND fecha < ?", (fecha_hoy,))
         jornadas_anteriores = cursor.rowcount
 
         jornadas_hoy = 0
-
-        # ==========================================
-        # 2. SI YA SON LAS 17:00,
-        #    CERRAR JORNADAS DEL DIA ACTUAL
-        # ==========================================
-
         if hora_actual >= "17:00:00":
-
             cursor.execute(
-                """
-                UPDATE asistencias
-                SET
-                    hora_salida = '17:00:00',
-                    tipo_salida = 'automatica'
-                WHERE fecha = ?
-                  AND hora_entrada IS NOT NULL
-                  AND hora_salida IS NULL
-                """,
-                (fecha_hoy,)
+                cerrar + " AND fecha = ? AND time(TRIM(hora_entrada)) <= ?",
+                (fecha_hoy, hora_actual),
             )
-
             jornadas_hoy = cursor.rowcount
 
         conexion.commit()
@@ -2285,42 +2265,18 @@ def registrar_asistencia_clase_profesor(
         # Bloquear escrituras concurrentes durante la validación.
         cursor.execute("BEGIN IMMEDIATE")
 
-        cursor.execute(
-            """
-            SELECT
-                sc.id,
-                sc.estado,
-                UPPER(TRIM(pc.curso))
-            FROM sesiones_clase sc
-            INNER JOIN profesores_cursos pc
-                ON pc.id = sc.asignacion_id
-            INNER JOIN usuarios u
-                ON u.id = pc.profesor_id
-            INNER JOIN asignaturas a
-                ON a.id = pc.asignatura_id
-            WHERE sc.id = ?
-              AND pc.profesor_id = ?
-              AND pc.estado = 'activo'
-              AND u.rol = 'profesor'
-              AND u.estado = 'activo'
-              AND a.estado = 'activo'
-            LIMIT 1
-            """,
-            (sesion_id, profesor_id)
-        )
-
-        sesion = cursor.fetchone()
+        sesion = consultar_sesion_docente_autorizada(cursor, profesor_id, sesion_id)
 
         if sesion is None:
             return {"resultado": "sesion_no_autorizada"}
 
-        if sesion[1] != "borrador":
+        estado_sesion, curso = sesion
+
+        if estado_sesion != "borrador":
             return {
                 "resultado": "sesion_no_editable",
-                "estado_sesion": sesion[1]
+                "estado_sesion": estado_sesion
             }
-
-        curso = sesion[2]
 
         cursor.execute(
             """
@@ -2379,6 +2335,75 @@ def registrar_asistencia_clase_profesor(
         conexion.close()
 
 
+def consultar_sesion_docente_autorizada(cursor, profesor_id, sesion_id):
+    cursor.execute(
+        """
+        SELECT
+            sc.estado,
+            UPPER(TRIM(pc.curso))
+        FROM sesiones_clase sc
+        INNER JOIN profesores_cursos pc
+            ON pc.id = sc.asignacion_id
+        INNER JOIN usuarios u
+            ON u.id = pc.profesor_id
+        INNER JOIN asignaturas a
+            ON a.id = pc.asignatura_id
+        WHERE sc.id = ?
+          AND pc.profesor_id = ?
+          AND pc.estado = 'activo'
+          AND u.rol = 'profesor'
+          AND u.estado = 'activo'
+          AND a.estado = 'activo'
+        LIMIT 1
+        """,
+        (sesion_id, profesor_id)
+    )
+
+    return cursor.fetchone()
+
+
+def completar_pendientes_clase_profesor(profesor_id, sesion_id, alumnos_confirmados):
+    """Completa únicamente la nómina pendiente que el docente confirmó."""
+    conexion = obtener_conexion()
+    try:
+        with conexion:
+            cursor = conexion.execute("BEGIN IMMEDIATE")
+            sesion = consultar_sesion_docente_autorizada(cursor, profesor_id, sesion_id)
+            if sesion is None:
+                return {"resultado": "sesion_no_autorizada"}
+
+            estado, curso = sesion
+            if estado != "borrador":
+                return {"resultado": "sesion_no_editable"}
+
+            pendientes = {alumno_id for (alumno_id,) in cursor.execute(
+                """
+                SELECT al.id FROM alumnos al
+                WHERE UPPER(TRIM(al.curso)) = ? AND al.estado = 'activo'
+                  AND NOT EXISTS (
+                      SELECT 1 FROM asistencias_clase ac
+                      WHERE ac.sesion_clase_id = ? AND ac.alumno_id = al.id
+                  )
+                """,
+                (curso, sesion_id),
+            )}
+            if pendientes and pendientes != alumnos_confirmados:
+                return {"resultado": "pendientes_cambiaron", "pendientes": len(pendientes)}
+
+            cursor.executemany(
+                """
+                INSERT INTO asistencias_clase (sesion_clase_id, alumno_id, estado)
+                VALUES (?, ?, 'no_presente')
+                """,
+                ((sesion_id, alumno_id) for alumno_id in sorted(pendientes)),
+            )
+            return {"resultado": "pendientes_completados", "marcados": len(pendientes)}
+    except sqlite3.IntegrityError:
+        return {"resultado": "error_integridad"}
+    finally:
+        conexion.close()
+
+
 def confirmar_sesion_clase_profesor(profesor_id, sesion_id):
     """
     Confirma una sesión docente cuando todos los estudiantes
@@ -2405,30 +2430,7 @@ def confirmar_sesion_clase_profesor(profesor_id, sesion_id):
         # Evita modificaciones concurrentes durante la confirmación.
         cursor.execute("BEGIN IMMEDIATE")
 
-        cursor.execute(
-            """
-            SELECT
-                sc.estado,
-                UPPER(TRIM(pc.curso))
-            FROM sesiones_clase sc
-            INNER JOIN profesores_cursos pc
-                ON pc.id = sc.asignacion_id
-            INNER JOIN usuarios u
-                ON u.id = pc.profesor_id
-            INNER JOIN asignaturas a
-                ON a.id = pc.asignatura_id
-            WHERE sc.id = ?
-              AND pc.profesor_id = ?
-              AND pc.estado = 'activo'
-              AND u.rol = 'profesor'
-              AND u.estado = 'activo'
-              AND a.estado = 'activo'
-            LIMIT 1
-            """,
-            (sesion_id, profesor_id)
-        )
-
-        sesion = cursor.fetchone()
+        sesion = consultar_sesion_docente_autorizada(cursor, profesor_id, sesion_id)
 
         if sesion is None:
             return {"resultado": "sesion_no_autorizada"}

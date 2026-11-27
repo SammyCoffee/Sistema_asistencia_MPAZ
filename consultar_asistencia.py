@@ -2,7 +2,7 @@ from reloj_escolar import hoy_chile
 from datetime import date, datetime, timedelta
 import math
 
-from base_datos import obtener_conexion
+from base_datos import CURSO_RFID_PRUEBAS, obtener_conexion
 
 
 HORA_LIMITE_ATRASO = "08:20:00"
@@ -124,9 +124,11 @@ def obtener_inasistencias(
         cursor.execute(
             """
             WITH fechas_registradas AS (
-                SELECT DISTINCT fecha
-                FROM asistencias
-                WHERE fecha BETWEEN ? AND ?
+                SELECT DISTINCT a.fecha
+                FROM asistencias a
+                JOIN alumnos al ON al.id = a.alumno_id
+                WHERE a.fecha BETWEEN ? AND ?
+                  AND UPPER(TRIM(al.curso)) <> ?
             ),
             total_jornadas AS (
                 SELECT COUNT(*) AS cantidad
@@ -160,6 +162,8 @@ def obtener_inasistencias(
                     FROM fechas_registradas
                 )
 
+            WHERE UPPER(TRIM(alumnos.curso)) <> ?
+
             GROUP BY
                 alumnos.id,
                 alumnos.nombre_completo,
@@ -172,7 +176,9 @@ def obtener_inasistencias(
             """,
             (
                 fecha_inicio,
-                fecha_fin
+                fecha_fin,
+                CURSO_RFID_PRUEBAS,
+                CURSO_RFID_PRUEBAS,
             )
         )
 
@@ -213,6 +219,8 @@ def obtener_atrasos(
             WHERE asistencias.fecha
                 BETWEEN ? AND ?
 
+              AND UPPER(TRIM(alumnos.curso)) <> ?
+
               AND asistencias.hora_entrada
                 IS NOT NULL
 
@@ -225,6 +233,7 @@ def obtener_atrasos(
             (
                 fecha_inicio,
                 fecha_fin,
+                CURSO_RFID_PRUEBAS,
                 HORA_LIMITE_ATRASO
             )
         )

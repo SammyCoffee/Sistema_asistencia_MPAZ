@@ -28,7 +28,7 @@
             const cifra = elemento("p", porcentaje + "%");
             cifra.className = "porcentaje-asistencia";
             contenedor.appendChild(cifra);
-            contenedor.appendChild(elemento("p", presentes + " de " + total + " estudiantes presentes"));
+            contenedor.appendChild(elemento("p", presentes + " de " + total + " estudiantes con ingreso RFID"));
             contenedor.appendChild(elemento("strong", estado));
         }
     };

@@ -203,6 +203,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const mensajes = {
             fecha_invalida: "Revise la fecha de la clase.",
             hora_invalida: "Ingrese una hora de inicio válida.",
+            pendientes_cambiaron: "Cambió la lista de pendientes. Revise el detalle y vuelva a confirmar la acción.",
             asistencia_incompleta: "Quedan " + datos.pendientes + " estudiantes pendientes.",
             sesion_no_editable: "La sesión ya no permite cambios. Revise su estado.",
             curso_sin_alumnos: "Este curso no tiene estudiantes activos.",
@@ -594,6 +595,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let sesionClaseAbiertaId = null;
     let confirmacionClaseEnCurso = false;
+    const botonCompletarPendientes = document.getElementById("boton-completar-pendientes");
 
     document.getElementById(
         "boton-confirmar-sesion-clase"
@@ -649,7 +651,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         confirmacionClaseEnCurso = true;
-        boton.disabled = true;
+        desactivarControlesAsistenciaClase();
 
         mostrarMensajeGestionClase(
             "Confirmando asistencia de la clase..."
@@ -1068,6 +1070,14 @@ document.addEventListener("DOMContentLoaded", async () => {
                 };
             }
 
+            const pendientes = alumnos
+                .filter(alumno => alumno.estado === "sin_verificar")
+                .map(alumno => alumno.alumno_id);
+
+            botonCompletarPendientes.disabled =
+                sesion.estado !== "borrador" || !pendientes.length || hayOperacionAsistenciaEnCurso();
+            botonCompletarPendientes.onclick = () => completarPendientes(sesion.sesion_id, pendientes);
+
             const botonConfirmar = document.getElementById(
                 "boton-confirmar-sesion-clase"
             );
@@ -1176,6 +1186,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             detalle.dataset.pendientes
         );
 
+        botonCompletarPendientes.disabled = !(pendientes > 0);
+
         const puedeConfirmar =
             Number.isInteger(totalAlumnos)
             && totalAlumnos > 0
@@ -1186,6 +1198,82 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (botonConfirmar) {
             botonConfirmar.disabled = !puedeConfirmar;
+        }
+    }
+
+    function desactivarControlesAsistenciaClase() {
+        const controles = [
+            "seleccionar-todos-asistencia",
+            "boton-masivo-presentes",
+            "boton-masivo-atrasados",
+            "boton-masivo-no-presentes",
+            "boton-completar-pendientes",
+            "boton-confirmar-sesion-clase"
+        ];
+
+        for (const id of controles) {
+            document.getElementById(id).disabled = true;
+        }
+
+        document.querySelectorAll(
+            "#lista-asistencia-clase button, "
+            + "#lista-asistencia-clase input"
+        ).forEach(elemento => {
+            elemento.disabled = true;
+        });
+    }
+
+    async function completarPendientes(sesionId, pendientes) {
+        if (botonCompletarPendientes.disabled || hayOperacionAsistenciaEnCurso()
+            || !tokenCSRFProfesor || sesionClaseAbiertaId !== sesionId) {
+            return;
+        }
+        if (!window.confirm("¿Marcar como no presentes a los " + pendientes.length
+            + " estudiantes pendientes? Se conservarán las marcas existentes.")) {
+            return;
+        }
+
+        asistenciaMasivaEnCurso = true;
+        desactivarControlesAsistenciaClase();
+        mostrarMensajeGestionClase("Marcando estudiantes pendientes…");
+        try {
+            let mensaje;
+            let guardado = false;
+            try {
+                const { respuesta, datos } = await solicitarJSON(
+                    "/profesor/sesiones/" + encodeURIComponent(sesionId) + "/completar-pendientes",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-Token": tokenCSRFProfesor
+                        },
+                        body: JSON.stringify({ alumnos_pendientes: pendientes })
+                    }
+                );
+                if (respuesta.status === 401) {
+                    redirigirLogin();
+                    return;
+                }
+                guardado = respuesta.ok && datos.resultado === "pendientes_completados";
+                mensaje = guardado
+                    ? (datos.marcados ? "Estudiantes marcados como no presentes: " + datos.marcados + "."
+                        : "La sesión ya no tiene estudiantes pendientes.")
+                    : mensajeErrorEscritura(respuesta, datos, "marcar a los estudiantes pendientes");
+            } catch {
+                mensaje = "No se recibió respuesta del servidor. Revise las marcas actualizadas.";
+            }
+
+            const detalleActualizado = await abrirDetalleSesionClase(sesionId);
+            const historialActualizado = await consultarSesionesClase();
+            if (!detalleActualizado || !historialActualizado) {
+                mensaje += " No se pudo actualizar toda la información de la sesión.";
+            }
+            mostrarMensajeGestionClase(mensaje,
+                guardado && detalleActualizado && historialActualizado ? "" : "error");
+        } finally {
+            asistenciaMasivaEnCurso = false;
+            recuperarControlesAsistenciaClase();
         }
     }
 
@@ -1215,24 +1303,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         asistenciaMasivaEnCurso = true;
 
-        const controles = [
-            "seleccionar-todos-asistencia",
-            "boton-masivo-presentes",
-            "boton-masivo-atrasados",
-            "boton-masivo-no-presentes",
-            "boton-confirmar-sesion-clase"
-        ];
-
-        for (const id of controles) {
-            document.getElementById(id).disabled = true;
-        }
-
-        document.querySelectorAll(
-            "#lista-asistencia-clase button, "
-            + "#lista-asistencia-clase input"
-        ).forEach(elemento => {
-            elemento.disabled = true;
-        });
+        desactivarControlesAsistenciaClase();
 
         let guardados = 0;
         let errorAcceso = "";
